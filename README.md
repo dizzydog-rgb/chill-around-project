@@ -47,7 +47,7 @@
 
 3. **提交修改 (Commit changes)**
 
-   - 編輯完代碼後，執行以下命令將更改提交到 gitHub 上：
+   - 編輯完代碼後，編輯完代碼後，在終端機使用 ctrl + c 關閉開發模式，並執行以下命令將更改提交到 gitHub 上：
 
    ```
    git init // 初始化網站空間，若已經初始化過就可以不用輸入
@@ -84,18 +84,18 @@
 
 - **拉取最新的變更 (Fetch updates)，開始開發前一定要 pull，才能和 github 上的檔案同步**
   -- 若專案有更新，請確保在開始開發之前先拉取最新的變更：
-  `    git pull origin main
-   `
+  `   git pull origin main
+`
 
 - **檢查分支 (Check branch)**
   -- 隨時可以查看目前所在的分支：
-  `    git branch
-   `
+  `   git branch
+`
 
 - **切換分支 (Switch branch)**
   -- 若要切換回主分支或其他分支：
-  `    git checkout branch-name
-   `
+  `   git checkout branch-name
+`
 
 ### 7\. 註釋與文件格式 (Code comments and formatting)
 
