@@ -1,0 +1,10 @@
+@import './reset.css';
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import './utils/variables';
+
+@import './layout/header.scss';
+@import './layout/footer.scss';
+
+@import './pages/index.scss';
+
