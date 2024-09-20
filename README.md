@@ -1,4 +1,4 @@
-## vite專案 README
+## Git及Vite操作說明
 
 ### 1\. 克隆專案 (Clone the repository)
 
@@ -6,94 +6,94 @@
     1. 打開終端或命令提示字元
     2. 使用`cd`進入到你想要存放專案的資料夾
     3. 使用以下命令進行克隆：
-- ```
-git clone https://github.com/dizzydog-rgb/chill-around-project.git
-```
+    ```
+    git clone https://github.com/dizzydog-rgb/chill-around-project.git
+    ```
 - 進入專案資料夾：
 
-```
-cd chill-around-project
-```
+    ```
+    cd chill-around-project
+    ```
 
 ### 2\. 安裝專案依賴 (Install dependencies)
 
 - 在專案資料夾內，執行以下命令安裝專案的依賴：
-- ```
-npm install
-```
+    ```
+    npm install
+    ```
 - 這將會根據 `package.json` 安裝專案所需的所有套件。
 
 ### 3\. 開發模式 (Development Mode)
 
 - 使用 Vite 開發專案，可以執行以下命令啟動開發伺服器：
-- ```
-npm run dev
-```
+    ```
+    npm run dev
+    ```
 - 這個命令將會啟動開發模式。你可以在瀏覽器中打開顯示的本地網址來查看專案。
 
 ### 4\. 編輯代碼與提交更改 (Edit and commit code)
 
 #### 
 
-- 1\. **創建新分支 (Create a new branch)**
+1. **創建新分支 (Create a new branch)**
     - 為了避免直接在主分支上進行修改，請在本地創建一個新的分支：
     - `git checkout -b your-branch-name`
     - **your-branch-name** 可以用來描述這個分支的用途，例如 `feature/homepage` 或 `bugfix/login`.
 
-- 2\. **編輯代碼 (Edit code)**
+2. **編輯代碼 (Edit code)**
     - 現在你可以進行代碼修改與開發，例如新增html檔案。
 
-- 3\. **提交修改 (Commit changes)**
+3. **提交修改 (Commit changes)**
     - 編輯完代碼後，執行以下命令將更改提交到gitHub上：
-    - ```
-git init //若已經初始化過就可以不用輸入 初始化網站空間
-git add . //把左邊那些檔案都準備加到網站空間
-git commit -m "first comment" //將本次更新打包，並加上註解
-git remote add origin https://github.com/dizzydog-rgb/viteWebsite1.git //選定遠端的網站空間名稱
-git branch -M main //建立main分支 // 沒有要建立main分支就不用
-git push -u origin main //上傳到網站空間的main branch // 僅限第一次輸入，往後只需要輸入 git push
-```
+    ```
+    git init //若已經初始化過就可以不用輸入 初始化網站空間
+    git add . //把左邊那些檔案都準備加到網站空間
+    git commit -m "first comment" //將本次更新打包，並加上註解
+    git remote add origin https://github.com/dizzydog-rgb/chill-around-project.git //選定遠端的網站空間名稱
+    git branch -M main //建立main分支 // 沒有要建立main分支就不用
+    git push -u origin main //上傳到網站空間的main branch // 僅限第一次輸入，往後只需要輸入 git push
+    ```
     - 再次提交開發環境
-    - ```
-git add .
-git commit -m 'update'
-git push //第二次之後用這個指令直接推就可以了
-```
+    ```
+    git add .
+    git commit -m 'update'
+    git push //第二次之後用這個指令直接推就可以了
+    ```
 
-- 4\. 提交到部署環境(gh-pages)
+4. 提交到部署環境(gh-pages)
     - `git push`完後，可以提交到部署環境(gh-pages)，用於在gitHub Pages 展示頁面
-    - ```
-npm run deploy
-```
+    ```
+    npm run deploy
+    ```
 
 ### 5\. 提交 Pull Request (Create a Pull Request)
 
-    - 登入 GitHub 並進入專案頁面。
-    - 點擊 **Pull Requests**，然後點擊 **New Pull Request**。
-    - 選擇你剛剛推送的分支，並發起 Pull Request 以合併你的修改。
-    - 專案管理者會審核你的 Pull Request 並將其合併到主分支。
+- 登入 GitHub 並進入專案頁面。
+- 點擊 **Pull Requests**，然後點擊 **New Pull Request**。
+- 選擇你剛剛推送的分支，並發起 Pull Request 以合併你的修改。
+- 專案管理者會審核你的 Pull Request 並將其合併到主分支。
 
 ### 6\. 常用指令 (Other Commands)
 
-- 1\. **拉取最新的變更 (Fetch updates)，開始開發前一定要pull，才能和github上的檔案同步**
+- 1. **拉取最新的變更 (Fetch updates)，開始開發前一定要pull，才能和github上的檔案同步**
     - 若專案有更新，請確保在開始開發之前先拉取最新的變更：
-    - ```
-git pull origin main
-```
+    ```
+    git pull origin main
+    ```
 
-- 2\. **檢查分支 (Check branch)**
+- 2. **檢查分支 (Check branch)**
     - 隨時可以查看目前所在的分支：
-    - ```
-git branch
-```
+    ```
+    git branch
+    ```
 
-- 3\. **切換分支 (Switch branch)**
+- 3. **切換分支 (Switch branch)**
     - 若要切換回主分支或其他分支：
-    - ```
-git checkout branch-name
-```
+    ```
+    git checkout branch-name
+    ```
 
-- ## 7\. 註釋與文件格式 (Code comments and formatting)
-    - 請確保程式碼有適當的註釋，便於其他組員理解。
-    - 使用小駝峰法命名
-    - 代碼風格請遵守項目中的 ESLint 或 Prettier 規範。
+ ### 7\. 註釋與文件格式 (Code comments and formatting)
+- 請確保程式碼有適當的註釋，便於其他組員理解。
+- 使用小駝峰法命名
+- 代碼風格請遵守項目中的 ESLint 或 Prettier 規範。
