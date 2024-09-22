@@ -13,108 +13,513 @@
     <title>Document</title>
 
     <style>
-        .card{
+        .card {
             border-width: 0px;
+            border-radius: 0px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .img {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            position: relative;
+            height: 80vh;
+
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+            -webkit-transition: 0.3s all ease;
+            -o-transition: 0.3s all ease;
+            transition: 0.3s all ease;
+        }
+
+        /* .h-entry {
+            position: relative;
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+
+        } */
+
+        .img:hover {
+            /* background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)); */
+            /* filter: opacity(0.5); */
+            transition: all 0.5s;
+            -webkit-transform: scale(0.95);
+            -ms-transform: scale(0.95);
+            transform: scale(0.95);
+
+ 
+        }
+
+
+        .text h2 {
+            font-size: 14px;
+            line-height: 1.2;
+            /* margin-bottom: 1.5rem; */
+            margin: 0;
+            left: 0;
+
+            color: #fff;
+
+        }
+
+        .text p {
+            font-size: 10px;
+            color: #fff;
+            margin: 0;
+            right: 0;
+        }
+
+        .item {
+            position: absolute;
+            font-size: 16px;
+            color: #fff;
+            margin: 0;
+            right: 1.5rem;
+            bottom: 20px;
+        }
+
+
+
+        .text h2,
+        .text p {
+            position: absolute;
+            top: 0;
+            padding: 20px;
         }
     </style>
 </head>
 
 <body>
-    <div class="container text-center "></div>
-    <div class="row mx-5">
-        <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
-            <div class="card">
-                <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="rounded-4" alt="..." class="">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                        Some quick example text to build 
+    <div class="d-md-flex w-100 flex-wrap">
+
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class=" img">
+
+                <div class="card img" style="background-image: url('./images/img_1_vertical.jpg');">
+
+                    <div class="text">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022
+                        </p>
+                    </div>
+
+                    <div class="item">
+                        <a href="" class="bi bi-heart px-2 text-light"></a>
+
+                        <a href="" class="bi bi-plus-circle text-light"></a>
+                    </div>
+
+                </div>
+            </a>
+
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
                     </p>
-                    <span class="d-flex justify-content-between">
-                        <a href="" class="bi bi-heart text-dark"></a>
-                        <a href="" class=" bi bi-cart text-dark "></a>
-                    </span>
                 </div>
-            </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
-            <div class="card ">
-                <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
                 </div>
-            </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
-            <div class="card ">
-                <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
                 </div>
-            </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
-            <div class="card ">
-                <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
                 </div>
-            </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
-            <div class="card ">
-                <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
                 </div>
-            </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
-            <div class="card ">
-                <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
                 </div>
-            </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
-            <div class="card ">
-                <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="col-sm-12 col-md-3 col-lg-3  " style="position: relative; ">
+            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
-            <div class="card ">
-                <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
         </div>
     </div>
+
+    <div class="container  ">
+
+        <div class="row align-items-stretch">
+
+            <div class="col-sm-12 col-md-3 col-lg-3 mt-4 ">
+                <a href="#" class="h-entry img">
+
+                    <div class="card img" style="background-image: url('./images/img_1_vertical.jpg');">
+
+                        <div class="text p-5 ">
+                            <h2>台北三日遊</h2>
+                            <p class="">Apr. 14th, 2022
+                            </p>
+                        </div>
+
+                        <div class="item">
+                            <a href="" class="bi bi-heart px-2 text-light"></a>
+
+                            <a href="" class="bi bi-plus-circle text-light"></a>
+
+                        </div>
+
+                    </div>
+                </a>
+
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
+                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                    <!-- <div class="img" ></div> -->
+
+                    <div class="text p-5 ">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022
+                        </p>
+                    </div>
+                    <a href="" class="item bi bi-heart text-dark"></a>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
+                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                    <!-- <div class="img" ></div> -->
+
+                    <div class="text p-5 ">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022
+                        </p>
+                    </div>
+                    <a href="" class="item bi bi-heart text-dark"></a>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
+                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                    <!-- <div class="img" ></div> -->
+
+                    <div class="text p-5 ">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022
+                        </p>
+                    </div>
+                    <a href="" class="item bi bi-heart text-dark"></a>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
+                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                    <!-- <div class="img" ></div> -->
+
+                    <div class="text p-5 ">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022
+                        </p>
+                    </div>
+                    <a href="" class="item bi bi-heart text-dark"></a>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
+                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                    <!-- <div class="img" ></div> -->
+
+                    <div class="text p-5 ">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022
+                        </p>
+                    </div>
+                    <a href="" class="item bi bi-heart text-dark"></a>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
+                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                    <!-- <div class="img" ></div> -->
+
+                    <div class="text p-5 ">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022
+                        </p>
+                    </div>
+                    <a href="" class="item bi bi-heart text-dark"></a>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
+                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+
+                    <!-- <div class="img" ></div> -->
+
+                    <div class="text p-5 ">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022
+                        </p>
+                    </div>
+                    <a href="" class="item bi bi-heart text-dark"></a>
+                </a>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="container-fluid  ">
+        <div class="row mx-5">
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="card">
+                    <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="rounded-4" alt="..." class="">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">
+                            Some quick example text to build
+                        </p>
+                        <span class="d-flex justify-content-between">
+                            <a href="" class="bi bi-heart text-dark"></a>
+                            <a href="" class=" bi bi-cart text-dark "></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="card ">
+                    <img src="https://dummyimage.com/148x210/000/fff&text=148x210" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="card ">
+                    <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="card ">
+                    <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="card ">
+                    <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="card ">
+                    <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="card ">
+                    <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="card ">
+                    <img src="https://dummyimage.com/148x210/000/fff&text=148x210" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+                <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                    <div class="my-3 py-3">
+                        <h2 class="display-5">Another headline</h2>
+                        <p class="lead">And an even wittier subheading.</p>
+                    </div>
+
+                </div>
+                <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                    <div class="my-3 p-3">
+                        <h2 class="display-5">Another headline</h2>
+                        <p class="lead">And an even wittier subheading.</p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="d-md-flex flex-md-equal w-100 ">
+
+                <div class="me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden ">
+                    <div class="my-3 py-3">
+                        <h2 class="display-5">Another headline</h2>
+                        <p class="lead">And an even wittier subheading.</p>
+                    </div>
+
+                </div>
+                <div class="me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                    <div class="my-3 p-3">
+                        <h2 class="display-5">Another headline</h2>
+                        <p class="lead">And an even wittier subheading.</p>
+                    </div>
+
+                </div>
+            </div> -->
+
+
+
+
+
+
+
+
+        </div>
+        <!-- <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="h-100 p-5 bg-light border ">
+                    <h2>Add borders</h2>
+                    <p>Or, keep it light and add a border for some added definition to the boundaries of your
+                        content. Be sure to look under the hood at the source HTML here as we've adjusted the
+                        alignment and sizing of both column's content for equal-height.</p>
+                    <button class="btn btn-outline-secondary" type="button">Example button</button>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="h-100 p-5 bg-light border ">
+                    <h2>Add borders</h2>
+                    <p>Or, keep it light and add a border for some added definition to the boundaries of your
+                        content. Be sure to look under the hood at the source HTML here as we've adjusted the
+                        alignment and sizing of both column's content for equal-height.</p>
+                    <button class="btn btn-outline-secondary" type="button">Example button</button>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
+                <div class="h-100 p-5 bg-light border ">
+                    <h2>Add borders</h2>
+                    <p>Or, keep it light and add a border for some added definition to the boundaries of your
+                        content. Be sure to look under the hood at the source HTML here as we've adjusted the
+                        alignment and sizing of both column's content for equal-height.</p>
+                    <button class="btn btn-outline-secondary" type="button">Example button</button>
+                </div>
+            </div> -->
+    </div>
+
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
         crossorigin="anonymous"></script>
