@@ -10,10 +10,10 @@
   git clone https://github.com/dizzydog-rgb/chill-around-project.git
   ```
 - 進入專案資料夾：
-
   ```
   cd chill-around-project
   ```
+- 注意事項: `git clone` 指令只會下載主分支的檔案，若要和自己的分支同步，請參考 第6點 的常用指令 (Other Commands)，透過切換分支以及`git pull`來與目標分支的檔案同步
 
 ### 2\. 使用 npm 安裝專案依賴 (Install dependencies)
 
@@ -83,18 +83,28 @@
 ### 6\. 常用指令 (Other Commands)
 
 - **拉取最新的變更 (Fetch updates)，開始開發前一定要 pull，才能和 github 上的檔案同步**
-  -- 若專案有更新，請確保在開始開發之前先拉取最新的變更：
-  `   git pull origin main
+- 若專案有更新，或是在不同的電腦開發，請確保在開始開發之前先拉取最新的變更：
+  - 拉取當前所在分支的變更前，記得先確認當前所在分支
+  `git branch
+`
+  - 拉取當前所在分支的變更 (確認完所在分支後，可以使用git pull拉就好)
+  ` git pull
+`
+  - 拉取主分支的變更
+  ` git pull origin main
+`
+  - 拉取選定的分支的變更
+  ` git pull origin <branch-name>
 `
 
 - **檢查分支 (Check branch)**
   -- 隨時可以查看目前所在的分支：
-  `   git branch
+  `git branch
 `
 
 - **切換分支 (Switch branch)**
   -- 若要切換回主分支或其他分支：
-  `   git checkout branch-name
+  `git checkout branch-name
 `
 
 ### 7\. 註釋與文件格式 (Code comments and formatting)
