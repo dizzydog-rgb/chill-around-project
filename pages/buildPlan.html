@@ -7,10 +7,13 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
     />
+    <!-- The callback parameter is required, so we use console.debug as a noop -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=console.debug&libraries=maps,marker&v=beta">
+    </script>
     <title>Build Your Travel Plan !</title>
   </head>
   <body>
-    <div class="container buildPlan">
+    <div class="container-fluid buildPlan">
       <div class="row">
         <div class="col-12 col-md-7 buildArea">
           <div class="closeBtn">
@@ -55,9 +58,12 @@
           
         </div>
           
-        <div class="d-none d-md-block col-md-5 mapArea">
-          地圖
+        <div  class="d-none d-md-block col-md-5 mapArea">
+          <gmp-map center="24.148906997428295, 120.66005767852741" zoom="16" map-id="DEMO_MAP_ID">
+            <gmp-advanced-marker position="24.148906997428295, 120.66005767852741" title="My location"></gmp-advanced-marker>
+          </gmp-map>
         </div>
+        
         
       </div>
     </div>
