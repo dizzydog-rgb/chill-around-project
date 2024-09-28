@@ -8,6 +8,8 @@
 
 //3. 引入所有的Bootstrap的CSS
 @import "../node_modules/bootstrap/scss/bootstrap";
+// 引入Bootsrtap icon (有用 npm 安裝)
+@import "bootstrap-icons/font/bootstrap-icons.css";
 
 @import "./layout/header.scss";
 @import "./layout/footer.scss";

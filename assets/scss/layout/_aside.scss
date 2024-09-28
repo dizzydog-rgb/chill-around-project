@@ -1,3 +1,30 @@
 .planAside {
   width: 15%;
+  border: 1px solid $primary;
+
+  .logo{
+    border-bottom: 1px solid $primary;
+  }
+
+  .navbar{
+    margin-top: 68px;
+    padding: auto;
+    gap: 72px;
+    text-align: center;
+    color: $primary;
+    display: flex;
+    justify-content: center;
+    
+    .bi{
+      font-size: 45px;
+    }
+    h4{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+  
+
+  
 }
