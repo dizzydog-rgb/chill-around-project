@@ -1,14 +1,19 @@
 .planAside {
-  width: 15%;
+  min-width: 10%;
+  max-width: 10%;
   border: 1px solid $primary;
 
   .logo{
     border-bottom: 1px solid $primary;
+    display: block;
+    img{
+      max-width: 100%;
+    }
   }
 
   .navbar{
     margin-top: 68px;
-    padding: auto;
+    // padding: 12px;
     gap: 72px;
     text-align: center;
     color: $primary;
