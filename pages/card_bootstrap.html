@@ -18,6 +18,11 @@
             border-radius: 0px;
             margin: 0;
             padding: 0;
+            /* width: 360px;  */
+            /* height: 650px; */
+            z-index: 1;
+            position: relative;
+            /* 確保這是可定位的 */
         }
 
         .img {
@@ -25,7 +30,7 @@
             background-repeat: no-repeat;
             background-position: center center;
             position: relative;
-            height: 80vh;
+            height: 100vh;
 
             -webkit-transform: scale(1);
             -ms-transform: scale(1);
@@ -33,6 +38,7 @@
             -webkit-transition: 0.3s all ease;
             -o-transition: 0.3s all ease;
             transition: 0.3s all ease;
+
         }
 
         /* .h-entry {
@@ -51,12 +57,12 @@
             -ms-transform: scale(0.95);
             transform: scale(0.95);
 
- 
+
         }
 
 
         .text h2 {
-            font-size: 14px;
+            font-size: 1rem;
             line-height: 1.2;
             /* margin-bottom: 1.5rem; */
             margin: 0;
@@ -67,10 +73,11 @@
         }
 
         .text p {
-            font-size: 10px;
+            font-size: 0.5rem;
             color: #fff;
             margin: 0;
             right: 0;
+            display: none;
         }
 
         .item {
@@ -90,134 +97,199 @@
             top: 0;
             padding: 20px;
         }
+
+
+
+        .parent-element {
+            position: static;
+            /* 或者不設置 */
+        }
+
+        .parent-element {
+            overflow: visible;
+        }
     </style>
 </head>
 
 <body>
-    <div class="d-md-flex w-100 flex-wrap">
 
-        <div class="col-sm-12 col-md-3 col-lg-3  ">
-            <a href="#" class=" img">
+    <div class="d-md-flex w-100 flex-wrap " style="z-index: 1;">
 
-                <div class="card img" style="background-image: url('./images/img_1_vertical.jpg');">
-
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <a href="#" class="img">
+                <div class="card img"
+                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
                     <div class="text">
                         <h2>台北三日遊</h2>
-                        <p class="">Apr. 14th, 2022
-                        </p>
+                        <p class="">Apr. 14th, 2022</p>
                     </div>
 
-                    <div class="item">
-                        <a href="" class="bi bi-heart px-2 text-light"></a>
+                    <!-- Bottom Positioned Items -->
+                    <div class="item d-flex justify-content-between align-items-end">
+                        <a href="#" class="bi bi-heart px-3 text-light fs-3"></a>
 
-                        <a href="" class="bi bi-plus-circle text-light"></a>
+                        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px;">
+                            加入行程
+                        </button>
                     </div>
 
-                </div>
-            </a>
 
-        </div>
-        <div class="col-sm-12 col-md-3 col-lg-3  ">
-            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
 
-                <!-- <div class="img" ></div> -->
-
-                <div class="text p-5 ">
-                    <h2>台北三日遊</h2>
-                    <p class="">Apr. 14th, 2022
-                    </p>
-                </div>
-                <a href="" class="item bi bi-heart text-dark"></a>
             </a>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-3  ">
-            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
-
-                <!-- <div class="img" ></div> -->
-
-                <div class="text p-5 ">
-                    <h2>台北三日遊</h2>
-                    <p class="">Apr. 14th, 2022
-                    </p>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="itinerarySelect" class="form-label">選擇行程</label>
+                            <select class="form-select" id="itinerarySelect">
+                                <option value="" selected>請選擇行程</option>
+                                <option value="itinerary1">行程 1</option>
+                                <option value="itinerary2">行程 2</option>
+                                <option value="itinerary3">行程 3</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="daySelectContainer" style="display: none;">
+                            <label for="daySelect" class="form-label">選擇天數</label>
+                            <select class="form-select" id="daySelect">
+                                <option value="" selected>請選擇天數</option>
+                                <option value="day1">第 1 天</option>
+                                <option value="day2">第 2 天</option>
+                                <option value="day3">第 3 天</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                        <button type="button" class="btn btn-primary">保存選擇</button>
+                    </div>
                 </div>
-                <a href="" class="item bi bi-heart text-dark"></a>
-            </a>
+            </div>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-3  ">
-            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
 
-                <!-- <div class="img" ></div> -->
 
-                <div class="text p-5 ">
-                    <h2>台北三日遊</h2>
-                    <p class="">Apr. 14th, 2022
-                    </p>
-                </div>
-                <a href="" class="item bi bi-heart text-dark"></a>
-            </a>
-        </div>
-        <div class="col-sm-12 col-md-3 col-lg-3  ">
-            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
-
-                <!-- <div class="img" ></div> -->
-
-                <div class="text p-5 ">
-                    <h2>台北三日遊</h2>
-                    <p class="">Apr. 14th, 2022
-                    </p>
-                </div>
-                <a href="" class="item bi bi-heart text-dark"></a>
-            </a>
-        </div>
-        <div class="col-sm-12 col-md-3 col-lg-3  ">
-            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
-
-                <!-- <div class="img" ></div> -->
-
-                <div class="text p-5 ">
-                    <h2>台北三日遊</h2>
-                    <p class="">Apr. 14th, 2022
-                    </p>
-                </div>
-                <a href="" class="item bi bi-heart text-dark"></a>
-            </a>
-        </div>
-        <div class="col-sm-12 col-md-3 col-lg-3  ">
-            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
-
-                <!-- <div class="img" ></div> -->
-
-                <div class="text p-5 ">
-                    <h2>台北三日遊</h2>
-                    <p class="">Apr. 14th, 2022
-                    </p>
-                </div>
-                <a href="" class="item bi bi-heart text-dark"></a>
-            </a>
-        </div>
-        <div class="col-sm-12 col-md-3 col-lg-3  " style="position: relative; ">
-            <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
-
-                <!-- <div class="img" ></div> -->
-
-                <div class="text p-5 ">
-                    <h2>台北三日遊</h2>
-                    <p class="">Apr. 14th, 2022
-                    </p>
-                </div>
-                <a href="" class="item bi bi-heart text-dark"></a>
-            </a>
-        </div>
     </div>
 
-    <div class="container  ">
+
+    <div class="col-sm-12 col-md-3 col-lg-3  ">
+        <a href="#" class="card img "
+            style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+            <!-- <div class="img" ></div> -->
+
+            <div class="text p-5 ">
+                <h2>台北三日遊</h2>
+                <p class="">Apr. 14th, 2022
+                </p>
+            </div>
+            <a href="" class="item bi bi-heart text-dark"></a>
+        </a>
+    </div>
+
+
+    
+    <div class="col-sm-12 col-md-3 col-lg-3  ">
+        <a href="#" class="card img "
+            style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+            <!-- <div class="img" ></div> -->
+
+            <div class="text p-5 ">
+                <h2>台北三日遊</h2>
+                <p class="">Apr. 14th, 2022
+                </p>
+            </div>
+            <a href="" class="item bi bi-heart text-dark"></a>
+        </a>
+    </div>
+    <div class="col-sm-12 col-md-3 col-lg-3  ">
+        <a href="#" class="card img "
+            style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+            <!-- <div class="img" ></div> -->
+
+            <div class="text p-5 ">
+                <h2>台北三日遊</h2>
+                <p class="">Apr. 14th, 2022
+                </p>
+            </div>
+            <a href="" class="item bi bi-heart text-dark"></a>
+        </a>
+    </div>
+    <div class="col-sm-12 col-md-3 col-lg-3  ">
+        <a href="#" class="card img "
+            style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+            <!-- <div class="img" ></div> -->
+
+            <div class="text p-5 ">
+                <h2>台北三日遊</h2>
+                <p class="">Apr. 14th, 2022
+                </p>
+            </div>
+            <a href="" class="item bi bi-heart text-dark"></a>
+        </a>
+    </div>
+    <div class="col-sm-12 col-md-3 col-lg-3  ">
+        <a href="#" class="card img "
+            style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+            <!-- <div class="img" ></div> -->
+
+            <div class="text p-5 ">
+                <h2>台北三日遊</h2>
+                <p class="">Apr. 14th, 2022
+                </p>
+            </div>
+            <a href="" class="item bi bi-heart text-dark"></a>
+        </a>
+    </div>
+    <div class="col-sm-12 col-md-3 col-lg-3  ">
+        <a href="#" class="card img "
+            style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+            <!-- <div class="img" ></div> -->
+
+            <div class="text p-5 ">
+                <h2>台北三日遊</h2>
+                <p class="">Apr. 14th, 2022
+                </p>
+            </div>
+            <a href="" class="item bi bi-heart text-dark"></a>
+        </a>
+    </div>
+    <div class="col-sm-12 col-md-3 col-lg-3  " style="position: relative; ">
+        <a href="#" class="card img "
+            style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+            <!-- <div class="img" ></div> -->
+
+            <div class="text p-5 ">
+                <h2>台北三日遊</h2>
+                <p class="">Apr. 14th, 2022
+                </p>
+            </div>
+            <a href="" class="item bi bi-heart text-dark"></a>
+        </a>
+    </div>
+
+
+    <div class="container ">
 
         <div class="row align-items-stretch">
 
             <div class="col-sm-12 col-md-3 col-lg-3 mt-4 ">
                 <a href="#" class="h-entry img">
 
-                    <div class="card img" style="background-image: url('./images/img_1_vertical.jpg');">
+                    <div class="card img"
+                        style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650');">
 
                         <div class="text p-5 ">
                             <h2>台北三日遊</h2>
@@ -226,9 +298,11 @@
                         </div>
 
                         <div class="item">
+
                             <a href="" class="bi bi-heart px-2 text-light"></a>
 
-                            <a href="" class="bi bi-plus-circle text-light"></a>
+                            <!-- <a href="" class="bi bi-plus-circle text-light"></a> -->
+
 
                         </div>
 
@@ -237,7 +311,8 @@
 
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
-                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+                <a href="#" class="card img "
+                    style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
 
                     <!-- <div class="img" ></div> -->
 
@@ -250,7 +325,8 @@
                 </a>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
-                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+                <a href="#" class="card img "
+                    style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
 
                     <!-- <div class="img" ></div> -->
 
@@ -263,7 +339,8 @@
                 </a>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
-                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+                <a href="#" class="card img "
+                    style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
 
                     <!-- <div class="img" ></div> -->
 
@@ -276,7 +353,8 @@
                 </a>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
-                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+                <a href="#" class="card img "
+                    style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
 
                     <!-- <div class="img" ></div> -->
 
@@ -289,7 +367,8 @@
                 </a>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
-                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+                <a href="#" class="card img "
+                    style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
 
                     <!-- <div class="img" ></div> -->
 
@@ -302,7 +381,8 @@
                 </a>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
-                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+                <a href="#" class="card img "
+                    style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
 
                     <!-- <div class="img" ></div> -->
 
@@ -315,7 +395,8 @@
                 </a>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3 mt-4 " style="position: relative; ">
-                <a href="#" class="card img " style="background-image: url('./images/img_1_vertical.jpg'); ">
+                <a href="#" class="card img "
+                    style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
 
                     <!-- <div class="img" ></div> -->
 
@@ -327,10 +408,8 @@
                     <a href="" class="item bi bi-heart text-dark"></a>
                 </a>
             </div>
-
-
-
         </div>
+
     </div>
 
 
@@ -338,6 +417,7 @@
 
 
     <div class="container-fluid  ">
+
         <div class="row mx-5">
             <div class="col-sm-12 col-md-6 col-lg-3 mt-4">
                 <div class="card">
@@ -444,6 +524,9 @@
 
 
 
+
+
+
             <!-- <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
                 <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
                     <div class="my-3 py-3">
@@ -526,6 +609,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
         crossorigin="anonymous"></script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // 當選擇行程時，顯示天數選擇
+            $('#itinerarySelect').change(function () {
+                if ($(this).val()) {
+                    $('#daySelectContainer').show(); // 顯示天數選擇
+                } else {
+                    $('#daySelectContainer').hide(); // 隱藏天數選擇
+                }
+            });
+
+            // 確保關閉模態框時，隱藏天數選擇
+            $('#exampleModal').on('hide.bs.modal', function () {
+                $('#daySelectContainer').hide(); // 隱藏天數選擇
+                $('#itinerarySelect').val(''); // 重置行程選擇
+                $('#daySelect').val(''); // 重置天數選擇
+            });
+        });
+    </script>
+
+
+
+
+
+
 
 </body>
 
