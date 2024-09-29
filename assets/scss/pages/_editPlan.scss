@@ -73,11 +73,11 @@
       .dayList{
         font-size: 20px;
         font-weight: bold;
-        color: #78AEC6;
         align-items: flex-end;
 
         li{
             margin-right: 26px;
+            color: #78AEC6;
         }
 
         .currentDay{
@@ -190,6 +190,83 @@
         height: 100%;
         width: 100%;
       }
+    }
+
+    .modal{
+      .modal-header{
+        justify-content: end;
+        border: none;
+        .btn{
+          border: none;
+          padding: 0;
+          width: 60px;
+          height: 60px;
+          line-height: 60px;
+        }
+        .bi{
+          font-size: 60px;
+          border: none;
+          color: $danger;
+        }
+        .bi:hover{
+          color: #FFFFFF;
+      }
+      }
+      .modal-body{
+        padding-left: 64px;
+        padding-right: 64px;
+
+        .inputBox{
+          h3{
+            font-size: 35px;
+            font-weight: bold;
+            color: $primary;
+            margin-bottom: 16px;
+          }
+          input{
+            width: 100%;
+            border: 1px solid $primary;
+            font-size: 30px;
+            font-weight: bold;
+            box-shadow: 1px 1px 1px 1px #909090;
+            border-radius: 5px;
+            margin-bottom: 36px;
+          }
+          .description {
+            height: 252px;
+          }
+          // .description::placeholder{
+          //   color: transparent;
+          // }
+        }
+
+        .taglist{
+          padding: 0;
+          .btn{
+            border-radius: 25px;
+            font-size: 16px;
+            margin-right: 24px;
+            margin-bottom: 32px;
+          }
+          .btnSelected{
+            color: #FFFFFF;
+            background-color: $primary;
+          }
+        }
+      }
+      .modal-footer{
+        padding-left: 64px;
+        padding-right: 64px;
+        padding-bottom: 32px;
+        border: none;
+        .btn{
+          color: #FFFFFF;
+          font-size: 20px;
+          padding: 8px 16px;
+        }
+      }
+      
+      
     }
 
 }
