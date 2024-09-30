@@ -1,0 +1,17 @@
+@import './reset.css';
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../node_modules/bootstrap/scss/functions";
+
+// 2. 自定義的變數，用來覆蓋原本的Bootstrap
+@import './utils/variables.scss'; 
+
+//3. 引入所有的Bootstrap的CSS
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+@import './layout/header.scss';
+@import './layout/footer.scss';
+
+@import './pages/index.scss';
+
+
