@@ -8,12 +8,24 @@
 
 //3. 引入所有的Bootstrap的CSS
 @import "../node_modules/bootstrap/scss/bootstrap";
-// 引入Bootsrtap icon (有用 npm 安裝)
+
+// 引入Bootstrap icon (有用npm安裝)
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
-@import "./layout/header.scss";
-@import "./layout/footer.scss";
+@import './layout/header.scss';
+@import './layout/footer.scss';
 @import "./layout/aside.scss";
+// 資訊搜尋頁header
+@import './layout/searchHeader.scss';
+
+
+@import './pages/index.scss';
+// 資訊搜尋相關頁面
+@import './pages/searchSite.scss';
+@import './pages/allSite.scss';
+@import './pages/foodmap.scss';
+@import './pages/siteInfo.scss';
+
 
 @import "./pages/index.scss";
 @import "./pages/buildPlan.scss";

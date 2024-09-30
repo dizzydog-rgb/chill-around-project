@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景點總覽</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+    </style>
+    <script type="module" src="/main.js"></script>
+</head>
+<body>
+    <%- include('./layout/searchHeader'); -%>
+    <!-- 上方大圖 -->
+    <div class="topImage container-fluid p-0 bg-primary">
+        <img src="../assets/images/searchSite/chimeiMuseum.jpeg" class="img-fluid" alt="大圖">
+        <div class="topText">
+            <h1>景點總覽</h1>
+        </div>
+    </div>
+    <!-- 下方內容 -->
+     <div class="bottomInfo row pt-2 me-0">
+        <aside class="col-md-3 ps-5">
+            <div class="p-3 selectBlock">
+                <h6 class="ps-2 align-items-center">透過下列選項搜尋</h6>
+                <hr>
+                <!-- 下拉選單 -->
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="m-o accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          地區
+                        </button>
+                      </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="checkBody accordion-body row">
+                            <!-- 地區核取方塊 -->
+                                <div class="form-check col-md-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="taipei">
+                                <label class="form-check-label" for="taipei">台北</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="nature" id="nature">
+                                <label class="form-check-label" for="nature">新北</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                                <div class="form-check col-6 pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="nature">自然</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <hr>
+                <!-- 類型 -->
+                <div class="siteType">
+                    <p>類型</p>
+                    <div class="form-check pb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="nature">
+                        <label class="form-check-label" for="">歷史建築</label>
+                    </div>
+                    <div class="form-check pb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="nature">
+                        <label class="form-check-label" for="">歷史建築</label>
+                    </div>
+                    <div class="form-check pb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="nature">
+                        <label class="form-check-label" for="">歷史建築</label>
+                    </div>
+                    <div class="form-check pb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="nature">
+                        <label class="form-check-label" for="">歷史建築</label>
+                    </div>
+                    <div class="form-check pb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="nature">
+                        <label class="form-check-label" for="">歷史建築</label>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- 右側卡片們 -->
+        <main class="rightCards col-md-9 me-0">
+            <div id="sitecardBox" class="row m-0 justify-content-center">
+                <!-- 迴圈生成卡片 -->
+            </div>   
+        </main>
+     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> 
+    <script>
+        $(document).ready(function(){
+            const sitecardData = [
+                { title: "景點名稱1", location: "地點1", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱3", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱4", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱5", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱6", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱7", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱8", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                // 添加更多卡片資料
+            ];
+             $.each(sitecardData, function(index, data){
+                //  console.log(data.image);
+                let siteCard = `<div class="col-md-4 p-0 m-0">
+                        <div id="siteCard" class="allCard card bg-primary m-0">
+                            <div class="cardImage">
+                                <!-- <img src="../assets/images/searchSite/siteRecommend/fff.png" alt=""> -->
+                                <img src="${data.image}" alt="">
+                            </div>
+                            <div class="cardOverlay">
+                                <h5 class="card-title ">${data.title}</h5>
+                                <p class="card-subtitle">${data.location}</p>
+                            </div>
+                            <div class="btnOverlay">
+                                <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    加入行程
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">行程1</a>
+                                    <a class="dropdown-item" href="#">行程2</a>
+                                    <a class="dropdown-item" href="#">行程3</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                $("#sitecardBox").append(siteCard);
+             })
+        })
+    </script>
+</body>
+</html>
