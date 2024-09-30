@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七淘 - 物品清單</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .container-fluid {
+            background-color: aqua;
+        }
+
+        .row {
+            background-color: antiquewhite;
+        }
+
+        .allcolume {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .col-12 {
+            background-color: brown;
+        }
+
+        .mtopDiv {
+            background-color: darkslategray;
+            position: relative;
+        }
+
+        .leftbarDiv {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        #budgetTitle {
+            background-color: darkgoldenrod;
+            writing-mode: vertical-lr;
+            letter-spacing: 0.8em;
+            font-size: 2vw;
+            padding: 5% 0 0 10%;
+            position: relative;
+        }
+
+        #leftBtn {
+            background-color: white;
+            border-radius: 50px;
+            border: 2px solid #4A859F;
+            font-size: medium;
+            color: #4A859F;
+            position: absolute;
+            bottom: 20%;
+            left: 75%;
+            padding: 0.7% 2.5%;
+        }
+
+        .circle-background {
+            z-index: 0;
+            position: absolute;
+            top: -75%;
+            left: -25%;
+            width: 40vw;
+            height: 40vw;
+            background-color: darksalmon;
+            border-radius: 50%;
+        }
+
+        .categoryDiv {
+            background-color: blueviolet;
+            height: 74vh;
+            overflow-y: auto;
+            /* text-align: center; */
+            position: relative;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .historyDate {
+            background-color: red;
+            position: absolute;
+            top: -5%;
+            left: 18%;
+            color: white;
+            padding: 1%;
+            font-size: 0.8rem;
+            border-radius: 0.3rem;
+        }
+
+        .categoryDiv2 {
+            background-color: aqua;
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-top: 2%;
+        }
+
+        .categoryContent {
+            background-color: lightgray;
+            display: flex;
+            justify-content: space-between;
+            padding: 3%;
+            margin: 1% 0;
+            width: 60%;
+            font-size: 1rem;
+        }
+
+        .rightbarDiv {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid ">
+        <div class="row d-flex">
+            <div class="col-md-1 col-2 p-0 allcolume">
+                <div class="bg-primary text-white leftbarDiv">
+                    <span>準備放側邊攔</span>
+                </div>
+            </div>
+            <div class="col-md-8 col-6 p-0 allcolume">
+                <div class="bg-success text-white mtopDiv">
+                    <div class="circle-background"></div>
+                    <span id="budgetTitle">物品清單</span>
+                    <button id="leftBtn">增加+</button>
+                </div>
+                <div class="categoryDiv">
+                    <div class="categoryDiv2">
+                        <div class="categoryContent">
+                            <span>logo 住宿 飯店</span>
+                            <span>$5000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-4 p-0 allcolume">
+                <div class="bg-danger text-white rightbarDiv">
+                    <span>總種類區</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
