@@ -12,22 +12,22 @@
 // 引入Bootstrap icon (有用npm安裝)
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
-@import './layout/header.scss';
-@import './layout/footer.scss';
+// 通用版面
+@import "./layout/header.scss";
+@import "./layout/footer.scss";
 @import "./layout/aside.scss";
+
 // 資訊搜尋頁header
-@import './layout/searchHeader.scss';
-
-
-@import './pages/index.scss';
-// 資訊搜尋相關頁面
-@import './pages/searchSite.scss';
-@import './pages/allSite.scss';
-@import './pages/foodmap.scss';
-@import './pages/siteInfo.scss';
-
+@import "./layout/searchHeader.scss";
 
 @import "./pages/index.scss";
+// 資訊搜尋相關頁面
+@import "./pages/searchSite.scss";
+@import "./pages/allSite.scss";
+@import "./pages/foodmap.scss";
+@import "./pages/siteInfo.scss";
+
+// 建立旅行計畫相關頁面
 @import "./pages/buildPlan.scss";
 @import "./pages/editPlan.scss";
 @import "./pages/planList.scss";
