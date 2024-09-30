@@ -1,10 +1,10 @@
 .buildPlan {
-  .buildArea{
+  .buildArea {
     border: 1px solid $primary;
     box-shadow: 1px 1px 1px 1px #909090;
     padding-bottom: 120px;
   }
-  .mapArea{
+  .mapArea {
     border: 1px solid $primary;
     box-shadow: 1px 1px 1px 1px #909090;
     padding: 0;
@@ -13,31 +13,30 @@
       width: 100%;
     }
   }
-  
 
-  .closeBtn{
+  .closeBtn {
     display: flex;
     justify-content: end;
-    .btn{
+    .btn {
       border: none;
       padding: 0;
       width: 60px;
       height: 60px;
       line-height: 60px;
     }
-    .bi{
+    .bi {
       font-size: 60px;
       border: none;
     }
   }
-  .inputBox{
-    h3{
+  .inputBox {
+    h3 {
       font-size: 35px;
       font-weight: bold;
       color: $primary;
       margin-bottom: 28px;
     }
-    input{
+    input {
       border: 1px solid $primary;
       font-size: 30px;
       font-weight: bold;
@@ -46,22 +45,22 @@
       margin-bottom: 72px;
     }
   }
-  .arrow-right{
+  .arrow-right {
     margin: auto 0 72px 0;
-    .bi{
+    .bi {
       font-size: 50px;
       color: $primary;
     }
   }
-  .selectBox{
-    label{
+  .selectBox {
+    label {
       font-size: 35px;
       font-weight: bold;
       color: $primary;
       margin-bottom: 28px;
     }
 
-    .form-select{
+    .form-select {
       width: 58%;
       font-size: 30px;
       font-weight: bold;
@@ -69,23 +68,20 @@
       border: 1px solid $primary;
       box-shadow: 1px 1px 1px 1px #909090;
     }
-    option{
+    option {
       font-size: 30px;
       font-weight: bold;
       color: $primary;
     }
-    .btn{
-      color: #FFFFFF;
+    .btn {
+      color: #ffffff;
       font-size: 26px;
     }
   }
-  .btn-complete{
-    color: #FFFFFF;
+  .btn-complete {
+    color: #ffffff;
     font-size: 30px;
     margin: auto 0 0 auto;
     padding: 12px 24px;
   }
-
 }
-
-
