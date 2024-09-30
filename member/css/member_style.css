@@ -1,8 +1,49 @@
 .loginbtn {
   width: 110px;
-  height: 45px;
+  height: 40px;
   font-size: 20px;
-  border: none !important;
   border-radius: 50px !important;
   background-color: #E7BA48 !important;
+}
+
+.login .modal-header {
+  border: none;
+}
+.login .modal-body .signinbtn {
+  padding: 6px 20px;
+  font-size: 20px;
+  border-radius: 50px;
+  background-color: #4A84A0;
+}
+.login .modal-body .registerbtn {
+  font-size: 20px;
+  border-radius: 50px;
+  background-color: #E7BA48;
+}
+.login .fastlogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #929292;
+}
+.login .fastlogin .line {
+  width: 40%;
+  border: 1px solid;
+}
+.login .modal-footer {
+  border: none;
+  flex-direction: column;
+  justify-content: center;
+}
+.login .modal-footer .lineloginbtn {
+  width: 110px;
+  height: 32px;
+  background-image: url(/member/images/btn_login_base.png);
+  background-repeat: no-repeat;
+}
+.login .modal-footer .lineloginbtn:hover {
+  background-image: url(/member/images/btn_login_hover.png);
+}
+.login .modal-footer .lineloginbtn:active {
+  background-image: url(/member/images/btn_login_press.png);
 }/*# sourceMappingURL=member_style.css.map */

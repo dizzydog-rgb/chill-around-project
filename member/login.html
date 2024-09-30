@@ -14,34 +14,51 @@
 </head>
 
 <body>
-    <button type="button" class="btn btn-primary loginbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">登入</button>
+    <button type="button" class="btn text-white loginbtn" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">登入</button>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade login" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
+                        <h3 class="mb-3 text-center">會員登入</h3>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="inputAccount" class="col-form-label">帳號:</label>
+                            <input type="text" class="form-control" id="inputAccount" name="inputAccount">
                         </div>
                         <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <label for="inputPassword" class="col-form-label">密碼:</label>
+                            <input type="text" class="form-control" id="inputPassword" name="inputPassword">
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button type="submit" class="btn signinbtn text-white me-3">登入</button>
+                            <a href="register.html" class="btn registerbtn text-white">會員註冊</a>
                         </div>
                     </form>
                 </div>
+                <div class="mx-3 text-center fastlogin">
+                    <div class="line"></div>
+                    <div class="mx-1">快速登入</div>
+                    <div class="line"></div>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
+                    <button class="btn lineloginbtn"></button>
+                    <div id="g_id_onload" data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com"
+                        data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_blue"
+                        data-text="signin" data-shape="rectangular" data-logo_alignment="left" data-width=110>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://accounts.google.com/gsi/client" async></script>
 </body>
 
 </html>
