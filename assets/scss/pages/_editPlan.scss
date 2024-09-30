@@ -165,19 +165,26 @@
             line-height: 50px;
             border-radius:50%;
           }
+        .btn:hover{
+            background-color: #ffffff;
+            border: 1px solid $success;
+          }
           .bi{
             font-size: 50px;
             border: none;
-            color: #ffffff;
           }
           .bi:hover{
-              color: $success;
+            color: $success;
           }
 
-          .btn-outline-secondary{
-            font-size: 26px;
-          }
+          
     
+    }
+    .btn-outline-secondary{
+      font-size: 26px;
+    }
+    .btn-outline-secondary:hover{
+      color: #FFFFFF;
     }
 
       
