@@ -1,0 +1,272 @@
+.editPlan {
+    .border-bottom-primary{
+        border-bottom: 1px solid $primary;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    .editArea{
+      border: 1px solid $primary;
+      box-shadow: 1px 1px 1px 1px #909090;
+      padding-bottom: 400px;
+
+      .planInfo{
+        padding: 20px 20px;
+
+        .planName, .budget{
+            margin-right: 80px;
+            h2{
+                color: $primary;
+                font-size: 26px;
+                font-weight: bold;
+            }
+            p{
+                color: #78AEC6;
+                font-size: 20px;
+                font-weight: bold;
+                margin: 0;
+            }
+        }
+
+        .planedDay{
+            .circle {
+                border:4px solid $secondary;
+                height:80px;
+                border-radius:50%;
+                -moz-border-radius:50%;
+                -webkit-border-radius:50%;
+                width:80px;
+                text-align: center;
+                font-size: 26px;
+                line-height: 3;
+                color: $secondary;
+                font-weight: bold;
+                margin-right: 20px;
+            }
+            p{
+                font-size: 20px;
+                color: $secondary;
+                font-weight: bold;
+                padding-top: 12px;
+            }
+          }
+      }
+
+      .editBtn{
+        display: flex;
+        justify-content: end;
+        margin-right: 20px;
+        .btn{
+          border: none;
+          padding: 0;
+          width: 60px;
+          height: 60px;
+          line-height: 60px;
+        }
+        .bi{
+          font-size: 60px;
+          border: none;
+        }
+      }
+      .dayList{
+        font-size: 20px;
+        font-weight: bold;
+        align-items: flex-end;
+
+        li{
+            margin-right: 26px;
+            color: #78AEC6;
+        }
+
+        .currentDay{
+            font-size: 26px;
+            color: $primary;
+        }
+
+        .addDayBtn{
+            display: flex;
+            justify-content: end;
+            margin-right: 20px;
+            border:1px solid $success;
+            border-radius:50%;
+            -moz-border-radius:50%;
+            -webkit-border-radius:50%;
+        .btn{
+          border: none;
+          padding: 0;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          border-radius:50%;
+        }
+        .bi{
+          font-size: 50px;
+          border: none;
+          color: $success;
+        }
+        .bi:hover{
+            color: #FFFFFF;
+        }
+        }
+        
+      }
+      .todayInfo{
+        text-align: right;
+        font-size: 20px;
+        color: $secondary;
+        margin-right: 20px;
+        h3{
+            font-weight: bold;
+        }
+      }
+      .cardList{
+        display: flex;
+        flex-direction: column;
+        gap: 64px;
+        .card{
+            border: 1px solid $danger;       
+            .card-body{
+                .card-title{
+                    font-size: 26px;
+                    font-weight: bold;
+                    border-left: 10px solid $danger;
+                    padding-left: 10px;
+                    -webkit-line-clamp: 1;
+                }
+                .card-text{
+                    font-size: 18px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 5;
+                    -webkit-box-orient: vertical;        overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+      }
+      
+      .addJourneyBtn{
+        display: flex;
+        justify-content: center;
+        border-radius:50%;
+        -moz-border-radius:50%;
+        -webkit-border-radius:50%;
+        .btn{
+            border: none;
+            padding: 0;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius:50%;
+          }
+          .bi{
+            font-size: 50px;
+            border: none;
+            color: #ffffff;
+          }
+          .bi:hover{
+              color: $success;
+          }
+
+          .btn-outline-secondary{
+            font-size: 26px;
+          }
+    
+    }
+
+      
+    }
+    .mapArea{
+      border: 1px solid $primary;
+      box-shadow: 1px 1px 1px 1px #909090;
+      padding: 0;
+      gmp-map {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .modal{
+      .modal-header{
+        justify-content: end;
+        border: none;
+        .btn{
+          border: none;
+          padding: 0;
+          width: 60px;
+          height: 60px;
+          line-height: 60px;
+        }
+        .bi{
+          font-size: 60px;
+          border: none;
+          color: $danger;
+        }
+        .bi:hover{
+          color: #FFFFFF;
+      }
+      }
+      .modal-body{
+        padding-left: 64px;
+        padding-right: 64px;
+
+        .inputBox{
+          h3{
+            font-size: 35px;
+            font-weight: bold;
+            color: $primary;
+            margin-bottom: 16px;
+          }
+          input{
+            width: 100%;
+            border: 1px solid $primary;
+            font-size: 30px;
+            font-weight: bold;
+            box-shadow: 1px 1px 1px 1px #909090;
+            border-radius: 5px;
+            margin-bottom: 36px;
+          }
+          .description {
+            height: 252px;
+          }
+          // .description::placeholder{
+          //   color: transparent;
+          // }
+        }
+
+        .taglist{
+          padding: 0;
+          .btn{
+            border-radius: 25px;
+            font-size: 16px;
+            margin-right: 24px;
+            margin-bottom: 32px;
+          }
+          .btnSelected{
+            color: #FFFFFF;
+            background-color: $primary;
+          }
+        }
+      }
+      .modal-footer{
+        padding-left: 64px;
+        padding-right: 64px;
+        padding-bottom: 32px;
+        border: none;
+        .btn{
+          color: #FFFFFF;
+          font-size: 20px;
+          padding: 8px 16px;
+        }
+      }
+      
+      
+    }
+
+}
