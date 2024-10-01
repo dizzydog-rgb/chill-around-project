@@ -1,3 +1,8 @@
+@charset "UTF-8";
+* {
+  font-family: Arial, "Noto Serif TC", serif;
+}
+
 .loginbtn {
   width: 110px;
   height: 40px;
@@ -38,12 +43,69 @@
 .login .modal-footer .lineloginbtn {
   width: 110px;
   height: 32px;
-  background-image: url(/images/btn_login_base.png);
+  background-image: url(../images/btn_login_base.png);
   background-repeat: no-repeat;
 }
 .login .modal-footer .lineloginbtn:hover {
-  background-image: url(/images/btn_login_hover.png);
+  background-image: url(../images/btn_login_hover.png);
 }
 .login .modal-footer .lineloginbtn:active {
-  background-image: url(/images/btn_login_press.png);
+  background-image: url(../images/btn_login_press.png);
+}
+
+.register {
+  background-image: url(../images/註冊背景圖.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+.register .mycard {
+  max-width: 540px;
+  background-color: rgba(238, 238, 238, 0.8);
+  padding: 50px 30px;
+  margin: 100px auto 25px;
+  border-radius: 30px;
+}
+.register .mycard .title {
+  font-size: 36px;
+  font-weight: bold;
+}
+.register .mycard .col-form-label {
+  font-size: 24px;
+}
+.register .mycard .subbtn {
+  padding: 6px 20px;
+  font-size: 20px;
+  border-radius: 50px;
+  background-color: #E7BA48;
+}
+.register .mycard .fastregister {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #929292;
+}
+.register .mycard .fastregister .line {
+  width: 40%;
+  border: 1px solid;
+}
+.register .mycard .fastregisterbtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.register .mycard .fastregisterbtn .lineloginbtn {
+  width: 110px;
+  height: 32px;
+  background-image: url(../images/btn_login_base.png);
+  background-repeat: no-repeat;
+}
+.register .mycard .fastregisterbtn .lineloginbtn:hover {
+  background-image: url(../images/btn_login_hover.png);
+}
+.register .mycard .fastregisterbtn .lineloginbtn:active {
+  background-image: url(../images/btn_login_press.png);
 }/*# sourceMappingURL=member_style.css.map */
