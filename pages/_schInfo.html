@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,400;0,700;1,100;1,300;1,400&family=Noto+Sans+TC:wght@100..900&display=swap"
+        rel="stylesheet">
+    <!-- for bootstrap -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+
+    <!-- for bootstrap-icons -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> -->
+
+    <!-- <link href="../assets/scss/all.scss" rel="stylesheet"> -->
+    <!-- <script type="module" src="/main.js"></script> -->
+
+
+
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <title>Document</title>
+
+
+
+    <style>
+        body,
+        html {
+            box-sizing: border-box;
+            font-family: "Lato", "Noto Sans TC", sans-serif;
+            margin: 0 auto;
+            padding: 0px;
+
+        }
+
+        .card {
+            border-width: 0px;
+            border-radius: 0px;
+            margin: 0;
+            padding: 0;
+            /* width: 360px;  */
+            /* height: 650px; */
+            z-index: 1;
+            position: relative;
+            /* 確保這是可定位的 */
+        }
+
+        .img {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            position: relative;
+            height: 100vh;
+
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+            -webkit-transition: 0.3s all ease;
+            -o-transition: 0.3s all ease;
+            transition: 0.3s all ease;
+
+        }
+
+
+        .img:hover {
+            transition: all 0.5s;
+            -webkit-transform: scale(0.95);
+            -ms-transform: scale(0.95);
+            transform: scale(0.95);
+
+
+        }
+
+
+        .text h2 {
+            font-size: 1rem;
+            line-height: 1.2;
+            /* margin-bottom: 1.5rem; */
+            margin: 0;
+            left: 0;
+
+            color: #fff;
+
+        }
+
+        .text p {
+            font-size: 0.5rem;
+            color: #fff;
+            margin: 0;
+            right: 0;
+            display: none;
+        }
+
+        .item {
+            position: absolute;
+            font-size: 16px;
+            color: #fff;
+            margin: 0;
+            right: 1.5rem;
+            bottom: 20px;
+        }
+
+
+
+        .text h2,
+        .text p {
+            position: absolute;
+            top: 0;
+            padding: 20px;
+        }
+
+
+        .divider {
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 5px 20px;
+            ;
+        }
+
+
+        .divider::after {
+            flex: 1;
+            content: '';
+            padding: 1.5px;
+            background-color: #B8B8B8;
+            /* margin: 5px 20px; */
+            margin: auto;
+
+
+        }
+
+
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card_YT {
+            width: 750px;
+            /* 固定寬度 */
+            height: 420px;
+            /* 固定高度 */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .youtube-iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .custom-card {
+            max-width: 1200px;
+            /* 最大寬度限制 */
+            height: 200px;
+        }
+
+        .custom-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .custom-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .custom-card {
+                height: auto;
+                /* 手機或平板自動調整高度 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- header -->
+    <%- include('./layout/searchHeader'); -%>
+    <!-- 這是slider -->
+    <div class="d-md-flex w-100 flex-wrap ">
+
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class="card img "
+                style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
+                </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class="card img "
+                style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
+                </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3  ">
+            <a href="#" class="card img "
+                style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
+                </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3  " style="position: relative; ">
+            <a href="#" class="card img "
+                style="background-image: url('https://dummyimage.com/360x650/000/fff&text=360x650'); ">
+
+                <!-- <div class="img" ></div> -->
+
+                <div class="text p-5 ">
+                    <h2>台北三日遊</h2>
+                    <p class="">Apr. 14th, 2022
+                    </p>
+                </div>
+                <a href="" class="item bi bi-heart text-dark"></a>
+            </a>
+        </div>
+    </div>
+
+    <!-- 搜尋bar -->
+    
+
+    <!-- <button class="btn btn-primary "
+        style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px; height: 37px; width: 90px;">
+        搜尋
+    </button> -->
+
+    <!-- schedule title -->
+    <div class="container d-flex  justify-content-between my-5">
+
+        <h4 class="text-dark text-nowrap fs-2 fw-bolder">最新行程</h4>
+        <div class="divider">
+        </div>
+    </div>
+
+    <!-- 行程card -->
+    <div class="d-md-flex w-100 flex-wrap ">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="itinerarySelect" class="form-label">選擇行程</label>
+                            <select class="form-select" id="itinerarySelect">
+                                <option value="" selected>請選擇行程</option>
+                                <option value="itinerary1">行程 1</option>
+                                <option value="itinerary2">行程 2</option>
+                                <option value="itinerary3">行程 3</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="daySelectContainer" style="display: none;">
+                            <label for="daySelect" class="form-label">選擇天數</label>
+                            <select class="form-select" id="daySelect">
+                                <option value="" selected>請選擇天數</option>
+                                <option value="day1">第 1 天</option>
+                                <option value="day2">第 2 天</option>
+                                <option value="day3">第 3 天</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                        <button type="button" class="btn btn-primary">保存選擇</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <a href="#" class="img">
+                <div class="card img"
+                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
+                    <div class="text">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022</p>
+                    </div>
+
+                    <!-- Bottom Positioned Items -->
+                    <div class="item d-flex justify-content-between align-items-end">
+                        <a href="#" class="bi bi-heart px-3 text-light fs-3"></a>
+
+                        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px;">
+                            加入行程
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <a href="#" class="img">
+                <div class="card img"
+                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
+                    <div class="text">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022</p>
+                    </div>
+
+                    <!-- Bottom Positioned Items -->
+                    <div class="item d-flex justify-content-between align-items-end">
+                        <a href="#" class="bi bi-heart px-3 text-light fs-3"></a>
+
+                        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px;">
+                            加入行程
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <a href="#" class="img">
+                <div class="card img"
+                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
+                    <div class="text">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022</p>
+                    </div>
+
+                    <!-- Bottom Positioned Items -->
+                    <div class="item d-flex justify-content-between align-items-end">
+                        <a href="#" class="bi bi-heart px-3 text-light fs-3"></a>
+
+                        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px;">
+                            加入行程
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <a href="#" class="img">
+                <div class="card img"
+                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
+                    <div class="text">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022</p>
+                    </div>
+
+                    <!-- Bottom Positioned Items -->
+                    <div class="item d-flex justify-content-between align-items-end">
+                        <a href="#" class="bi bi-heart px-3 text-light fs-3"></a>
+
+                        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px;">
+                            加入行程
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <a href="#" class="img">
+                <div class="card img"
+                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
+                    <div class="text">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022</p>
+                    </div>
+
+                    <!-- Bottom Positioned Items -->
+                    <div class="item d-flex justify-content-between align-items-end">
+                        <a href="#" class="bi bi-heart px-3 text-light fs-3"></a>
+
+                        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px;">
+                            加入行程
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <a href="#" class="img">
+                <div class="card img"
+                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
+                    <div class="text">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022</p>
+                    </div>
+
+                    <!-- Bottom Positioned Items -->
+                    <div class="item d-flex justify-content-between align-items-end">
+                        <a href="#" class="bi bi-heart px-3 text-light fs-3"></a>
+
+                        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px;">
+                            加入行程
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <a href="#" class="img">
+                <div class="card img"
+                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
+                    <div class="text">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022</p>
+                    </div>
+
+                    <!-- Bottom Positioned Items -->
+                    <div class="item d-flex justify-content-between align-items-end">
+                        <a href="#" class="bi bi-heart px-3 text-light fs-3"></a>
+
+                        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px;">
+                            加入行程
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <a href="#" class="img">
+                <div class="card img"
+                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
+                    <div class="text">
+                        <h2>台北三日遊</h2>
+                        <p class="">Apr. 14th, 2022</p>
+                    </div>
+
+                    <!-- Bottom Positioned Items -->
+                    <div class="item d-flex justify-content-between align-items-end">
+                        <a href="#" class="bi bi-heart px-3 text-light fs-3"></a>
+
+                        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px;">
+                            加入行程
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+
+    </div>
+
+    <nav class="container d-flex justify-content-center align-items-center my-5">
+
+        <button class="btn btn-primary "
+            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px; height: 37px; width:auto;">
+            更多熱門行程
+        </button>
+
+    </nav>
+
+
+
+
+
+    <!-- youtube title -->
+
+    <div class="container d-flex  justify-content-between" style="margin-top: 120px;">
+
+        <h4 class="text-dark text-nowrap fs-2 fw-bolder">Youtube 最新推薦</h4>
+        <div class="divider">
+        </div>
+    </div>
+    <!-- youtube video -->
+    <div class="container-fluid  my-5">
+        <!-- Swiper Container -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <div class="card_YT">
+                        <iframe class="youtube-iframe" src="https://www.youtube.com/embed/VIDEO_ID_1" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <div class="card_YT">
+                        <iframe class="youtube-iframe" src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <div class="card_YT">
+                        <iframe class="youtube-iframe" src="https://www.youtube.com/embed/VIDEO_ID_3" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="swiper-slide">
+                    <div class="card_YT">
+                        <iframe class="youtube-iframe" src="https://www.youtube.com/embed/VIDEO_ID_4" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+
+    </div>
+
+    <nav class="container d-flex justify-content-center align-items-center my-5">
+
+        <button class="btn btn-primary "
+            style="background-color: #4A859F; border-radius: 50px; color: #FCFBFA;  border-width: 0px; height: 37px; width:auto;">
+            更多熱門影片
+        </button>
+
+    </nav>
+
+
+
+    <!-- blog title -->
+
+
+    <div class="container d-flex  justify-content-between" style="margin-top: 120px;">
+
+        <h4 class="text-dark text-nowrap fs-2 fw-bolder">部落客最新推薦</h4>
+        <div class="divider">
+        </div>
+    </div>
+    <!-- blog card -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-12 col-sm-12 my-3">
+                <div class="card custom-card flex-row flex-wrap">
+                    <!-- 左邊的圖片 -->
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
+                    </div>
+
+                    <!-- 右邊的文字內容 -->
+                    <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                        <h4 class="card-title">卡片標題</h4>
+                        <hr>
+                        <p class="card-text">這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 my-3">
+                <div class="card custom-card flex-row flex-wrap">
+                    <!-- 左邊的圖片 -->
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
+                    </div>
+
+                    <!-- 右邊的文字內容 -->
+                    <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                        <h4 class="card-title">卡片標題</h4>
+                        <hr>
+                        <p class="card-text">這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 my-3">
+                <div class="card custom-card flex-row flex-wrap">
+                    <!-- 左邊的圖片 -->
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
+                    </div>
+
+                    <!-- 右邊的文字內容 -->
+                    <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                        <h4 class="card-title">卡片標題</h4>
+                        <hr>
+                        <p class="card-text">這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 my-3">
+                <div class="card custom-card flex-row flex-wrap">
+                    <!-- 左邊的圖片 -->
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
+                    </div>
+
+                    <!-- 右邊的文字內容 -->
+                    <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                        <h4 class="card-title">卡片標題</h4>
+                        <hr>
+                        <p class="card-text">這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <%- include('./layout/footer'); -%>
+
+
+
+
+
+
+
+
+
+        <script type="module" src="/main.js"></script>
+
+        <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+        crossorigin="anonymous"></script> -->
+
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+
+        <script>
+            $(document).ready(function () {
+                // 當選擇行程時，顯示天數選擇
+                $('#itinerarySelect').change(function () {
+                    if ($(this).val()) {
+                        $('#daySelectContainer').show(); // 顯示天數選擇
+                    } else {
+                        $('#daySelectContainer').hide(); // 隱藏天數選擇
+                    }
+                });
+
+                // 確保關閉模態框時，隱藏天數選擇
+                $('#exampleModal').on('hide.bs.modal', function () {
+                    $('#daySelectContainer').hide(); // 隱藏天數選擇
+                    $('#itinerarySelect').val(''); // 重置行程選擇
+                    $('#daySelect').val(''); // 重置天數選擇
+                });
+            });
+        </script>
+
+
+
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                spaceBetween: 10, // 卡片之間的間距
+                slidesPerView: 1.5, // 同時顯示3張卡片
+                centeredSlides: false, // 卡片不居中顯示
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                autoplay: {
+                    delay: 5000, // 自動播放延遲
+                    disableOnInteraction: false, // 使用者互動後繼續播放
+                },
+            });
+        </script>
+
+
+</body>
+
+</html>
