@@ -13,171 +13,177 @@
 </head>
 <body>
     <%- include('./layout/searchHeader'); -%>
-
-    <!-- 搜尋區域 -->
-    <div class="search-overlay">
-        <div class="input-group d-flex align-items-center">
-            <div class="d-flex me-5">
-                <label for="regionSelect" class="me-3" id="regionLabel">地區</label>
-                <select id="city" class="custom-select">
-                    <option selected>請選擇</option>
-                    <option value="台北市">台北市</option>
-                    <option value="新北市">新北市</option>
-                    <option value="基隆市">基隆市</option>
-                </select>
-            </div>
-            <div class="d-flex me-5">
-                <label for="categorySelect" class="me-3" id="categoryLabel">類別</label>
-                <select id="category" class="custom-select">
-                    <option selected>請選擇</option>
-                    <option value="商店">商店</option>
-                    <option value="餐廳">餐廳</option>
-                    <option value="3">選項C</option>
-                </select>
-            </div>
-            <div class="input-group-append">
-                <button id="searchButton" class="btn btn-outline-light" type="button">搜尋</button>
+    <div class="foodMap">
+        <div class=" d-flex vh-100 m-0">
+            <div id="map"></div>
+        </div>
+        <!-- 搜尋區域 -->
+        <div class="search-overlay">
+            <div class="input-group d-flex align-items-center">
+                <div class="d-flex me-5">
+                    <label for="regionSelect" class="me-3" id="regionLabel">地區</label>
+                    <select id="city" class="custom-select">
+                        <option selected>請選擇</option>
+                        <option value="台北市">台北市</option>
+                        <option value="新北市">新北市</option>
+                        <option value="基隆市">基隆市</option>
+                    </select>
+                </div>
+                <div class="d-flex me-5">
+                    <label for="categorySelect" class="me-3" id="categoryLabel">類別</label>
+                    <select id="category" class="custom-select">
+                        <option selected>請選擇</option>
+                        <option value="商店">商店</option>
+                        <option value="餐廳">餐廳</option>
+                        <option value="3">選項C</option>
+                    </select>
+                </div>
+                <div class="input-group-append">
+                    <button id="searchButton" class="btn btn-outline-light" type="button">搜尋</button>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- 美食卡片 -->
-    <div class="foodcardBox">
-            <div class="foodCard card" data-bs-toggle="modal" data-bs-target="#myModal">
-                <div class="d-flex">
-                    <div class="foodImage">
-                        <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">店家名稱</h5>
-                        <div class="btnOverlay">
-                            <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                加入行程
-                            </button >
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">行程1</a>
-                                <a class="dropdown-item" href="#">行程2</a>
-                                <a class="dropdown-item" href="#">行程3</a>
-                            </div>
-                        </div>                           
-                     </div>
-                </div>
-            </div>
-            <div class="foodCard card">
-                <div class="d-flex">
-                    <div class="foodImage">
-                        <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">店家名稱</h5>
-                        <div class="btnOverlay">
-                            <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                加入行程
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">行程1</a>
-                                <a class="dropdown-item" href="#">行程2</a>
-                                <a class="dropdown-item" href="#">行程3</a>
-                            </div>
-                        </div>                           
-                     </div>
-                </div>
-            </div>
-            <div class="foodCard card">
-                <div class="d-flex">
-                    <div class="foodImage">
-                        <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">店家名稱</h5>
-                        <div class="btnOverlay">
-                            <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                加入行程
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">行程1</a>
-                                <a class="dropdown-item" href="#">行程2</a>
-                                <a class="dropdown-item" href="#">行程3</a>
-                            </div>
-                        </div>                           
-                     </div>
-                </div>
-            </div>
-            <div class="foodCard card">
-                <div class="d-flex">
-                    <div class="foodImage">
-                        <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">店家名稱</h5>
-                        <div class="btnOverlay">
-                            <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                加入行程
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">行程1</a>
-                                <a class="dropdown-item" href="#">行程2</a>
-                                <a class="dropdown-item" href="#">行程3</a>
-                            </div>
-                        </div>                           
-                     </div>
-                </div>
-            </div>
-    </div>
-    <!-- 跳出視窗 -->
-    <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog  modal-lg">
-            <div class="modal-content">
-                <div class="modal-body modalBody">
-                    <div class="carousel">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="../assets/images/searchSite/chimeiMuseum.jpeg" alt="圖片1">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="image2.jpg" alt="圖片2">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="image3.jpg" alt="圖片3">
-                                </div>
-                            </div>
+        <!-- 美食卡片 -->
+        <div class="foodcardBox">
+                <div class="foodCard card" data-bs-toggle="modal" data-bs-target="#myModal">
+                    <div class="d-flex">
+                        <div class="foodImage">
+                            <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
                         </div>
-                        <a class="carousel-control-prev leftBtn" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only"></span>
-                        </a>
-                        <a class="carousel-control-next rightBtn" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only"></span>
-                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">店家名稱</h5>
+                            <div class="btnOverlay">
+                                <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    加入行程
+                                </button >
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">行程1</a>
+                                    <a class="dropdown-item" href="#">行程2</a>
+                                    <a class="dropdown-item" href="#">行程3</a>
+                                </div>
+                            </div>                           
+                         </div>
                     </div>
-                    <div class="info">
-                        <h2>北門肉圓</h2>
-                        <i class="bi bi-geo-alt"></i>
-                        <span>500彰化縣彰化市三民路242號</span>
-                        <hr>
-                        <i class="bi bi-telephone"></i>
-                        <span>047240095</span>
-                        <hr>
-                        <i class="bi bi-clock"></i>
-                        <p>星期一 休息</p>
-                        <p>星期一 休息</p>
-                        <p>星期一 休息</p>
-                        <p>星期一 休息</p>
-                        <p>星期一 休息</p>
-                        
-                       
+                </div>
+                <div class="foodCard card">
+                    <div class="d-flex">
+                        <div class="foodImage">
+                            <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">店家名稱</h5>
+                            <div class="btnOverlay">
+                                <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    加入行程
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">行程1</a>
+                                    <a class="dropdown-item" href="#">行程2</a>
+                                    <a class="dropdown-item" href="#">行程3</a>
+                                </div>
+                            </div>                           
+                         </div>
                     </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span>&times;</span>
-                    </button>
+                </div>
+                <div class="foodCard card">
+                    <div class="d-flex">
+                        <div class="foodImage">
+                            <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">店家名稱</h5>
+                            <div class="btnOverlay">
+                                <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    加入行程
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">行程1</a>
+                                    <a class="dropdown-item" href="#">行程2</a>
+                                    <a class="dropdown-item" href="#">行程3</a>
+                                </div>
+                            </div>                           
+                         </div>
+                    </div>
+                </div>
+                <div class="foodCard card">
+                    <div class="d-flex">
+                        <div class="foodImage">
+                            <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">店家名稱</h5>
+                            <div class="btnOverlay">
+                                <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    加入行程
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">行程1</a>
+                                    <a class="dropdown-item" href="#">行程2</a>
+                                    <a class="dropdown-item" href="#">行程3</a>
+                                </div>
+                            </div>                           
+                         </div>
+                    </div>
+                </div>
+        </div>
+        <!-- 跳出視窗 -->
+        <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body modalBody">
+                        <div class="carousel">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="../assets/images/searchSite/chimeiMuseum.jpeg" alt="圖片1">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="image2.jpg" alt="圖片2">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="image3.jpg" alt="圖片3">
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev leftBtn" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only"></span>
+                            </a>
+                            <a class="carousel-control-next rightBtn" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only"></span>
+                            </a>
+                        </div>
+                        <div class="info">
+                            <h2>北門肉圓</h2>
+                            <i class="bi bi-geo-alt"></i>
+                            <span>500彰化縣彰化市三民路242號</span>
+                            <hr>
+                            <i class="bi bi-telephone"></i>
+                            <span>047240095</span>
+                            <hr>
+                            <i class="bi bi-clock"></i>
+                            <p>星期一 休息</p>
+                            <p>星期一 休息</p>
+                            <p>星期一 休息</p>
+                            <p>星期一 休息</p>
+                            <p>星期一 休息</p>
+                            
+                           
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span>&times;</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+    
+
+        <!-- <div id="map"></div> -->
+       
+
     </div>
-
-
-    <div id="map"></div>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
