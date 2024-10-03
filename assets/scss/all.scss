@@ -19,6 +19,8 @@
 
 // 資訊搜尋頁header
 @import "./layout/searchHeader.scss";
+// 資訊搜尋頁header透明
+@import "./layout/searchHeader_trans.scss";
 
 @import "./pages/index.scss";
 // 資訊搜尋相關頁面
@@ -26,6 +28,7 @@
 @import "./pages/allSite.scss";
 @import "./pages/foodmap.scss";
 @import "./pages/siteInfo.scss";
+@import "./pages/schInfo.scss";
 
 // 建立旅行計畫相關頁面
 @import "./pages/buildPlan.scss";
