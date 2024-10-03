@@ -3,7 +3,7 @@ header {
     top: 0;
     left: 0;
     width: 100vw;
-    z-index: 1000;
+    z-index: 999;
     background-color: transparent;
 }
 
@@ -11,5 +11,16 @@ header {
     img{
         height: 65px;
     }
+    #loginBtn{
+        z-index: 1000;
+        background-color: $warning;
+        color: white;
+    
+        &:hover {
+            background-color: $secondary;
+            color: white;
+        }
+    }
 }
+
 

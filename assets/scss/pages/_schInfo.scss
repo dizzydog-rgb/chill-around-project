@@ -17,6 +17,23 @@ html {
     height: auto;
 }
 
+.HeroBox {
+    position: relative;
+
+    .TopHero {
+        position: relative;
+
+        h1 {
+            position: absolute;
+            z-index: 999;
+            top: 90px;
+            left: 1.5rem;
+            font-size: 2rem;
+        }
+
+    }
+}
+
 .TopCard {
     // cursor: pointer;
     position: relative;
@@ -77,83 +94,55 @@ html {
 
 
 // 搜尋欄
-// .searchOverlay2 {
+.searchOverlay2 {
 
-//     // top: 90%;
-//     // left: 50%;
-//     // transform: translate(-50%, -50%);
-//     width: 100%;
-//     background-color: red;
-//     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-//     border: 2px solid $primary;
-//     padding: 10px;
-//     border-radius: 5px;
+    // top: 90%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+    // width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    border: 2px solid $primary;
+    padding: 10px;
+    border-radius: 5px;
 
-//     .input-group2 {
-//         justify-content: center;
-//     }
+    .input-group2 {
+        justify-content: center;
+    }
 
-//     #regionLabel,
-//     #categoryLabel2 {
-//         font-size: 18px;
-//         color: $primary;
-//     }
+    #regionLabel,
+    #categoryLabel2 {
+        font-size: 18px;
+        color: $primary;
+    }
 
-//     .custom-select2 {
-//         // background-color: #4a2e2e;
-//         width: 150px;
-//         color: #909090;
-//         border: 1px solid $primary;
-//     }
+    .custom-select2 {
+        // background-color: #4a2e2e;
+        width: 150px;
+        color: #909090;
+        border: 1px solid $primary;
+    }
 
-//     .input-group-append2 {
-//         button {
-//             background-color: #E7BA48;
-//             color: white;
-//             width: 80px;
-//             border-radius: 22px;
+    .input-group-append2 {
+        button {
+            background-color: $warning;
+            color: white;
+            width: 80px;
+            border-radius: 22px;
 
-//             &:hover {
-//                 background-color: $secondary;
-//                 color: white;
-//             }
-//         }
-//     }
-// }
-
-#loginBtn,
-#moreBtn {
-    background-color: #E7BA48;
-    color: white;
-    width: 114px;
-    border-radius: 25px;
-
-    &:hover {
-        background-color: #e2ad25;
-        color: white;
+            &:hover {
+                background-color: $secondary;
+                color: white;
+            }
+        }
     }
 }
 
 
 
+
+
 #SchRecommendCards {
-
-    //景點文字
-    // .siteText,
-    // .foodText {
-    //     background-color: #E7E7E7;
-    //     width: 100%;
-    //     height: 160px;
-
-    //     h1 {
-    //         font-family: "Noto Sans TC", sans-serif;
-    //         font-optical-sizing: auto;
-    //         font-weight: 500;
-    //         font-style: normal;
-    //         font-size: 35px;
-    //     }
-    // }
-
 
 
     //景點卡片
@@ -182,6 +171,7 @@ html {
 
         &:hover img {
             transform: scale(1.1);
+            
         }
 
         .cardOverlay {
@@ -211,6 +201,13 @@ html {
                 font-size: 1.5rem;
             }
 
+            .bi-heart-fill {
+                color: $danger;
+                margin: 0;
+                padding: 0 1rem;
+                font-size: 1.5rem;
+            }
+
             &:hover .bi-heart {
                 color: $danger;
 
@@ -233,7 +230,7 @@ html {
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 5px 20px;
+    padding: 5px 0px 5px 20px;
     ;
 }
 
@@ -252,7 +249,7 @@ html {
     content: '';
     padding: 1.5px;
     background-color: $light;
-    /* margin: 5px 20px; */
+    // margin: 5px 20px; 
     margin: auto;
 }
 
@@ -271,7 +268,7 @@ html {
 }
 
 .Yt_video {
-    width:100%;
+    width: 100%;
     /* 固定寬度 */
     height: 360px;
     /* 固定高度 */
@@ -284,29 +281,50 @@ html {
     height: 100%;
 }
 
-
+.BlogBox{
+    background-color: #F9F7EA;
+}
 
 
 
 
 
 .custom-card {
+    border-radius: 10px;
+    border-color: $danger ;
+    color: $danger;
     max-width: 1200px;
     /* 最大寬度限制 */
     height: 200px;
-}
 
-.custom-img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
+    .custom-img {
+        border-radius: 10px 0px 0px 10px;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
 
-.custom-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 15px;
+    .custom-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: top;
+        padding: 1.5rem;
+
+        .card-title {
+            margin: 0;
+            padding: 0;
+        }
+
+        .card-text {
+            color: black;
+            font-size: 18px;
+        }
+
+    }
+    &:hover{
+        transform: scale(1.05);
+        transition: opacity 0.6s fade;
+    }
 }
 
 @media (max-width: 768px) {
