@@ -183,66 +183,69 @@
 .member .container-fluid .row .col-md-2 .sidebar .item a:active::before {
   background-color: #6799AE;
 }
-.member .container-fluid .row .col-md-10.personaldata {
+.member .container-fluid .row .personaldata {
   padding: 90px 80px;
 }
-.member .container-fluid .row .col-md-10.personaldata .editbtn {
+.member .container-fluid .row .personaldata .editbtn {
   background-color: #4A859F;
   border-radius: 50px;
 }
-.member .container-fluid .row .col-md-10.personaldata .card {
+.member .container-fluid .row .personaldata .editbtn:hover {
+  background-color: #6799AE;
+}
+.member .container-fluid .row .personaldata .card {
   border: none;
 }
-.member .container-fluid .row .col-md-10.personaldata .card .row .col-md-4 img {
+.member .container-fluid .row .personaldata .card .row .col-md-4 img {
   border-radius: 50%;
   background-color: #eeeeee;
 }
-.member .container-fluid .row .col-md-10.personaldata .card .row .col-md-8 .card-body .card-text {
+.member .container-fluid .row .personaldata .card .row .col-md-8 .card-body .card-text {
   font-size: 35px;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList {
+.member .container-fluid .row .personaldata .formList {
   padding: 0 30px;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList form .item {
+.member .container-fluid .row .personaldata .formList form .item {
   display: flex;
   font-size: 20px;
   border-bottom: 1px solid #DEDEDE;
   margin-bottom: 10px;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList form .item .inpwrite {
+.member .container-fluid .row .personaldata .formList form .item .inpwrite {
   background: none;
   outline: none;
   border: none;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList form .item #address {
+.member .container-fluid .row .personaldata .formList form .item #address {
   width: 350px;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList form .item:nth-child(2) {
+.member .container-fluid .row .personaldata .formList form .item:nth-child(2) {
   display: flex;
   gap: 20px;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList form .item:nth-child(2) div {
+.member .container-fluid .row .personaldata .formList form .item:nth-child(2) div {
   display: flex;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList form .item:nth-child(3) {
+.member .container-fluid .row .personaldata .formList form .item:nth-child(3) {
   display: flex;
   gap: 20px;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList form .item:nth-child(3) div {
+.member .container-fluid .row .personaldata .formList form .item:nth-child(3) div {
   display: flex;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList .bindaccount {
+.member .container-fluid .row .personaldata .formList .bindaccount {
   display: flex;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList .bindaccount .title {
+.member .container-fluid .row .personaldata .formList .bindaccount .title {
   padding: 7px 0;
   min-width: 100px;
   font-size: 20px;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList .bindaccount .googleline {
+.member .container-fluid .row .personaldata .formList .bindaccount .googleline {
   width: 100%;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList .bindaccount .googleline .item {
+.member .container-fluid .row .personaldata .formList .bindaccount .googleline .item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -251,6 +254,230 @@
   margin-bottom: 10px;
   padding: 7px 0;
 }
-.member .container-fluid .row .col-md-10.personaldata .formList .bindaccount .googleline .item #googleimg {
+.member .container-fluid .row .personaldata .formList .bindaccount .googleline .item #googleimg {
   height: 40px;
+}
+.member .container-fluid .row .mytrip {
+  padding: 90px 80px;
+}
+.member .container-fluid .row .mytrip .editbtn {
+  padding: 6px 15px;
+  background-color: #4A859F;
+  border-radius: 50px;
+}
+.member .container-fluid .row .mytrip .editbtn:hover {
+  background-color: #6799AE;
+}
+.member .container-fluid .row .mytrip a {
+  text-decoration: none;
+}
+.member .container-fluid .row .mytrip .card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 5px 10px 30px 0px rgba(0, 0, 0, 0.25);
+}
+.member .container-fluid .row .mytrip .card img {
+  border-radius: 20px 0 0 20px;
+}
+.member .container-fluid .row .mytrip .card .title {
+  font-size: 26px;
+}
+.member .container-fluid .row .mytrip .checkcard {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox] {
+  display: none;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox] + span {
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+  line-height: 20px;
+  background-color: #eee;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox] + span:after {
+  display: none;
+  margin-top: 5px;
+  margin-left: 10px;
+  width: 6px;
+  height: 10px;
+  border: 1px solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox]:checked + span:after {
+  content: "";
+  display: block;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox] + span:hover {
+  background-color: #ccc;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox]:checked + span {
+  background-color: #4A859F;
+}
+.member .container-fluid .row .mytrip .jumpbox {
+  text-align: center;
+}
+.member .container-fluid .row .mytrip .jumpbox ul,
+.member .container-fluid .row .mytrip .jumpbox li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+.member .container-fluid .row .mytrip .jumpbox li a {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  margin-right: 2px;
+  border: 1px #282828 solid;
+  line-height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #282828;
+  padding-top: 1px;
+}
+.member .container-fluid .row .mytrip .jumpbox li:hover a {
+  color: #fff;
+  background-color: #282828;
+}
+.member .container-fluid .row .mytrip .jumpbox li.active a {
+  color: #fff;
+  background-color: #282828;
+}
+.member .container-fluid .row .mytrip .footerbtn {
+  padding: 6px 15px;
+  background-color: #E2AD25;
+  border-radius: 50px;
+}
+.member .container-fluid .row .mytrip .footerbtn:hover {
+  background-color: #E7BA48;
+}
+.member .container-fluid .row .mycollection {
+  padding: 90px 80px;
+}
+.member .container-fluid .row .mycollection .editbtn {
+  padding: 6px 15px;
+  background-color: #4A859F;
+  border-radius: 50px;
+}
+.member .container-fluid .row .mycollection .editbtn:hover {
+  background-color: #6799AE;
+}
+.member .container-fluid .row .mycollection a {
+  text-decoration: none;
+}
+.member .container-fluid .row .mycollection .card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 5px 10px 30px 0px rgba(0, 0, 0, 0.25);
+}
+.member .container-fluid .row .mycollection .card img {
+  border-radius: 20px 0 0 20px;
+}
+.member .container-fluid .row .mycollection .card .title {
+  font-size: 26px;
+}
+.member .container-fluid .row .mycollection .checkcard {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox] {
+  display: none;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox] + span {
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+  line-height: 20px;
+  background-color: #eee;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox] + span:after {
+  display: none;
+  margin-top: 5px;
+  margin-left: 10px;
+  width: 6px;
+  height: 10px;
+  border: 1px solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox]:checked + span:after {
+  content: "";
+  display: block;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox] + span:hover {
+  background-color: #ccc;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox]:checked + span {
+  background-color: #4A859F;
+}
+.member .container-fluid .row .mycollection .jumpbox {
+  text-align: center;
+}
+.member .container-fluid .row .mycollection .jumpbox ul,
+.member .container-fluid .row .mycollection .jumpbox li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+.member .container-fluid .row .mycollection .jumpbox li a {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  margin-right: 2px;
+  border: 1px #282828 solid;
+  line-height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #282828;
+  padding-top: 1px;
+}
+.member .container-fluid .row .mycollection .jumpbox li:hover a {
+  color: #fff;
+  background-color: #282828;
+}
+.member .container-fluid .row .mycollection .jumpbox li.active a {
+  color: #fff;
+  background-color: #282828;
+}
+.member .container-fluid .row .mycollection .footerbtn {
+  padding: 6px 15px;
+  background-color: #E2AD25;
+  border-radius: 50px;
+}
+.member .container-fluid .row .mycollection .footerbtn:hover {
+  background-color: #E7BA48;
+}
+.member .container-fluid .row .TaiwanEx {
+  padding: 90px 80px;
+}
+.member .container-fluid .row .TaiwanEx .editbtn {
+  padding: 6px 15px;
+  background-color: #4A859F;
+  border-radius: 50px;
+}
+.member .container-fluid .row .TaiwanEx .editbtn:hover {
+  background-color: #6799AE;
+}
+.member .container-fluid .row .TaiwanEx .sharedownld span {
+  border: 1px solid;
+  color: #929292;
+}
+.member .container-fluid .row .TaiwanEx .sharedownld a {
+  color: #929292;
+  text-decoration: none;
+}
+.member .container-fluid .row .TaiwanEx .sharedownld a:hover {
+  text-decoration: underline;
 }/*# sourceMappingURL=member_style.css.map */

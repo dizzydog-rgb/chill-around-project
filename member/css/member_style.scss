@@ -10,7 +10,7 @@
     background-color: #E2AD25 !important;
 }
 
-.loginbtn:hover{
+.loginbtn:hover {
     background-color: #E7BA48 !important;
 }
 
@@ -26,7 +26,7 @@
             background-color: #4A859F;
         }
 
-        .signinbtn:hover{
+        .signinbtn:hover {
             background-color: #6799AE;
         }
 
@@ -36,7 +36,7 @@
             background-color: #E2AD25;
         }
 
-        .registerbtn:hover{
+        .registerbtn:hover {
             background-color: #E7BA48;
         }
     }
@@ -107,7 +107,7 @@
             background-color: #E2AD25;
         }
 
-        .subbtn:hover{
+        .subbtn:hover {
             background-color: #E7BA48;
         }
 
@@ -222,12 +222,16 @@
                 }
             }
 
-            .col-md-10.personaldata {
+            .personaldata {
                 padding: 90px 80px;
 
                 .editbtn {
                     background-color: #4A859F;
                     border-radius: 50px;
+                }
+
+                .editbtn:hover {
+                    background-color: #6799AE;
                 }
 
                 .card {
@@ -317,6 +321,289 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+
+            .mytrip {
+                padding: 90px 80px;
+
+                .editbtn {
+                    padding: 6px 15px;
+                    background-color: #4A859F;
+                    border-radius: 50px;
+                }
+
+                .editbtn:hover {
+                    background-color: #6799AE;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                .card {
+                    border: none;
+                    border-radius: 20px;
+                    box-shadow: 5px 10px 30px 0px rgba(0, 0, 0, 0.25);
+
+                    img {
+                        border-radius: 20px 0 0 20px;
+                    }
+
+                    .title {
+                        font-size: 26px;
+                    }
+                }
+
+                .checkcard {
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+
+                    input[type=checkbox] {
+                        display: none;
+                    }
+
+                    input[type=checkbox]+span {
+                        cursor: pointer;
+                        height: 25px;
+                        width: 25px;
+                        display: inline-block;
+                        line-height: 20px;
+                        background-color: #eee;
+                        user-select: none;
+                    }
+
+                    input[type=checkbox]+span:after {
+                        display: none;
+                        margin-top: 5px;
+                        margin-left: 10px;
+                        width: 6px;
+                        height: 10px;
+                        border: 1px solid #fff;
+                        border-width: 0 3px 3px 0;
+                        transform: rotate(45deg);
+                    }
+
+                    input[type=checkbox]:checked+span:after {
+                        content: "";
+                        display: block;
+                    }
+
+                    input[type=checkbox]+span:hover {
+                        background-color: #ccc;
+                    }
+
+                    input[type=checkbox]:checked+span {
+                        background-color: #4A859F;
+                    }
+                }
+
+                .jumpbox {
+                    text-align: center;
+
+                    ul,
+                    li {
+                        display: inline-block;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    li {
+                        a {
+                            width: 35px;
+                            height: 35px;
+                            display: inline-block;
+                            margin-right: 2px;
+                            border: 1px #282828 solid;
+                            line-height: 35px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            color: #282828;
+                            padding-top: 1px;
+                        }
+                    }
+
+                    li:hover {
+                        a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+                    }
+
+                    li.active {
+                        a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+                    }
+                }
+
+                .footerbtn {
+                    padding: 6px 15px;
+                    background-color: #E2AD25;
+                    border-radius: 50px;
+                }
+
+                .footerbtn:hover {
+                    background-color: #E7BA48;
+                }
+            }
+
+            .mycollection {
+                padding: 90px 80px;
+
+                .editbtn {
+                    padding: 6px 15px;
+                    background-color: #4A859F;
+                    border-radius: 50px;
+                }
+
+                .editbtn:hover {
+                    background-color: #6799AE;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                .card {
+                    border: none;
+                    border-radius: 20px;
+                    box-shadow: 5px 10px 30px 0px rgba(0, 0, 0, 0.25);
+
+                    img {
+                        border-radius: 20px 0 0 20px;
+                    }
+
+                    .title {
+                        font-size: 26px;
+                    }
+                }
+
+                .checkcard {
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+
+                    input[type=checkbox] {
+                        display: none;
+                    }
+
+                    input[type=checkbox]+span {
+                        cursor: pointer;
+                        height: 25px;
+                        width: 25px;
+                        display: inline-block;
+                        line-height: 20px;
+                        background-color: #eee;
+                        user-select: none;
+                    }
+
+                    input[type=checkbox]+span:after {
+                        display: none;
+                        margin-top: 5px;
+                        margin-left: 10px;
+                        width: 6px;
+                        height: 10px;
+                        border: 1px solid #fff;
+                        border-width: 0 3px 3px 0;
+                        transform: rotate(45deg);
+                    }
+
+                    input[type=checkbox]:checked+span:after {
+                        content: "";
+                        display: block;
+                    }
+
+                    input[type=checkbox]+span:hover {
+                        background-color: #ccc;
+                    }
+
+                    input[type=checkbox]:checked+span {
+                        background-color: #4A859F;
+                    }
+                }
+
+                .jumpbox {
+                    text-align: center;
+
+                    ul,
+                    li {
+                        display: inline-block;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    li {
+                        a {
+                            width: 35px;
+                            height: 35px;
+                            display: inline-block;
+                            margin-right: 2px;
+                            border: 1px #282828 solid;
+                            line-height: 35px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            color: #282828;
+                            padding-top: 1px;
+                        }
+                    }
+
+                    li:hover {
+                        a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+                    }
+
+                    li.active {
+                        a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+                    }
+                }
+
+                .footerbtn {
+                    padding: 6px 15px;
+                    background-color: #E2AD25;
+                    border-radius: 50px;
+                }
+
+                .footerbtn:hover {
+                    background-color: #E7BA48;
+                }
+            }
+
+            .TaiwanEx {
+                padding: 90px 80px;
+
+                .editbtn {
+                    padding: 6px 15px;
+                    background-color: #4A859F;
+                    border-radius: 50px;
+                }
+
+                .editbtn:hover {
+                    background-color: #6799AE;
+                }
+
+                .sharedownld {
+
+                    span {
+                        border: 1px solid;
+                        color: #929292;
+                    }
+
+                    a {
+                        color: #929292;
+                        text-decoration: none;
+                    }
+
+                    a:hover{
+                        text-decoration:underline
                     }
                 }
             }
