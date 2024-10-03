@@ -4,7 +4,11 @@ html {
     font-family: "Lato", "Noto Sans TC", sans-serif;
     margin: 0 ;
     padding: 0;
-    // background-color: #e2ad25;
+   
+   
+}
+._schMore{
+    background-color:#E7E7E7 ;
 }
 
 
@@ -24,9 +28,11 @@ h1 {
   }
   // 最上方大圖
 .SchtopImage{
+
     position: relative;
+    top: 90px;
     width: 100%;
-    height: 311px;
+    height: 300px;
     // overflow: hidden;
     img{
         width: 100%;
@@ -47,17 +53,29 @@ h1 {
         text-align: center;
     }
 }
+aside{
+    height: 100%;
+    
+}
 
 
 // 下方的大容器
-.bottomInfo{
+.SchBottomInfo{
+    position: relative;
+    top: 90px;
     width:100%;
+    margin: 0;
+    padding-bottom: 90px;
 }
 // 左側選取方塊們
+
+
 .selectBlock{
+    
     width: 85%;
     border: 1px solid $danger;
     border-radius: 25px;
+    background-color: white;
     
     .siteType{
         // background-color: antiquewhite;
@@ -78,13 +96,14 @@ h1 {
 .rightCards{
     // background-color: $secondary;
     padding: 0px;
+    position: relative;
 }
 .allCard{
     // cursor: pointer;
     position: relative;
     overflow: visible;
     width: 100%;
-    height: 650px;
+    height: 80vh;
     border:0px ; // 消除預設白框
     border-radius: 0px;
     // background-color: #f8f9fa;
@@ -118,9 +137,61 @@ h1 {
         bottom: 0;
         right: 0;
         margin: 30px;
-        button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .bi-heart {
+            color: $light;
+            margin: 0;
+            padding: 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        .bi-heart-fill {
+            color: $danger;
+            margin: 0;
+            padding: 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        &:hover .bi-heart {
+            color: $danger;
+
+        }
+
+
+
+        button {
             color: white;
             border-radius: 25px;
+        }
+    }
+}
+
+//modal
+.modal-footer{
+
+    .Close{
+
+        border-radius: 50px;
+        background-color: $warning;
+        color: white;
+    
+        &:hover {
+            background-color: $secondary;
+            color: white;
+        }
+
+    }
+    .Save{
+        border-radius: 50px;
+        background-color: primary;
+        color: white;
+    
+        &:hover {
+            background-color: $success;
+            color: white;
         }
     }
 }

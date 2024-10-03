@@ -203,8 +203,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                                <button type="button" class="btn btn-primary">保存選擇</button>
+                                <button type="button" class="btn btn-secondary Close" data-bs-dismiss="modal">關閉</button>
+                                <button type="button" class="btn btn-primary Save">保存選擇</button>
                             </div>
                         </div>
                     </div>
@@ -495,12 +495,13 @@
                 $("#SchcardBox").append(siteCard);
             })
 
+
+            //like click
             $(document).on('click', '#likeBtn', function () {
-                // 切換 class：如果是 bi-heart，則會變為 bi-heart-fill，反之亦然
                 $(this).toggleClass('bi-heart bi-heart-fill');
             });
-            //modal
 
+            //modal
             // 當選擇行程時，顯示天數選擇
             $('#itinerarySelect').change(function () {
                 if ($(this).val()) {

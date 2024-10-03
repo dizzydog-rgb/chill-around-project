@@ -12,6 +12,8 @@ header {
         height: 65px;
     }
     #loginBtn{
+        border-radius: 50px;
+        margin: auto;
         z-index: 1000;
         background-color: $warning;
         color: white;
@@ -23,4 +25,13 @@ header {
     }
 }
 
+.nav-item{
+  .nav-link{
+    color: $light;
+    &:hover {
+        color: $warning;
+        opacity: 0.8;
+    }
+  }
+}
 

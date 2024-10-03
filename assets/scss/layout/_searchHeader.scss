@@ -1,5 +1,22 @@
-.searchNav{
-    img{
-        height: 65px;
+.searchSiteHeader{
+    .searchNav{
+        img{
+            height: 65px;
+        }
+        // 登入按鈕
+      #loginBtn{
+        background-color: #e7ba48;
+        color: white;
+        width: 114px;
+        border-radius: 25px;
+        &:hover {
+          background-color: $secondary;
+          color: white;
+        }
+      }
+      #welcomeMessage{
+        font-size: 20px;
+        color: $primary;
+      }
     }
 }

@@ -333,3 +333,30 @@ html {
         /* 手機或平板自動調整高度 */
     }
 }
+
+//modal
+.modal-footer{
+
+    .Close{
+
+        border-radius: 50px;
+        background-color: $warning;
+        color: white;
+    
+        &:hover {
+            background-color: $secondary;
+            color: white;
+        }
+
+    }
+    .Save{
+        border-radius: 50px;
+        background-color: primary;
+        color: white;
+    
+        &:hover {
+            background-color: $success;
+            color: white;
+        }
+    }
+}
