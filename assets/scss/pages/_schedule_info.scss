@@ -1,0 +1,162 @@
+
+body,
+html {
+    box-sizing: border-box;
+    font-family: "Lato", "Noto Sans TC", sans-serif;
+    margin: 0 auto;
+    padding: 0px;
+
+}
+
+.card {
+    border-width: 0px;
+    border-radius: 0px;
+    margin: 0;
+    padding: 0;
+    /* width: 360px;  */
+    /* height: 650px; */
+    z-index: 1;
+    position: relative;
+    /* 確保這是可定位的 */
+}
+
+.img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+    height: 100vh;
+
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: 0.3s all ease;
+    -o-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+
+}
+
+
+.img:hover {
+    transition: all 0.5s;
+    -webkit-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+
+
+}
+
+
+.text h2 {
+    font-size: 1rem;
+    line-height: 1.2;
+    /* margin-bottom: 1.5rem; */
+    margin: 0;
+    left: 0;
+
+    color: #fff;
+
+}
+
+.text p {
+    font-size: 0.5rem;
+    color: #fff;
+    margin: 0;
+    right: 0;
+    display: none;
+}
+
+.item {
+    position: absolute;
+    font-size: 16px;
+    color: #fff;
+    margin: 0;
+    right: 1.5rem;
+    bottom: 20px;
+}
+
+
+
+.text h2,
+.text p {
+    position: absolute;
+    top: 0;
+    padding: 20px;
+}
+
+
+.divider {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px 20px;
+    ;
+}
+
+
+.divider::after {
+    flex: 1;
+    content: '';
+    padding: 1.5px;
+    background-color: #B8B8B8;
+    /* margin: 5px 20px; */
+    margin: auto;
+
+
+}
+
+
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_YT {
+    width: 750px;
+    /* 固定寬度 */
+    height: 420px;
+    /* 固定高度 */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.youtube-iframe {
+    width: 100%;
+    height: 100%;
+}
+
+
+.custom-card {
+    max-width: 1200px;
+    /* 最大寬度限制 */
+    height: 200px;
+}
+
+.custom-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.custom-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+}
+
+@media (max-width: 768px) {
+    .custom-card {
+        height: auto;
+        /* 手機或平板自動調整高度 */
+    }
+}

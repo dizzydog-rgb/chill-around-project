@@ -1,8 +1,17 @@
+@charset "UTF-8";
+* {
+  font-family: Arial, "Noto Serif TC", serif;
+}
+
 .loginbtn {
   width: 110px;
   height: 40px;
   font-size: 20px;
   border-radius: 50px !important;
+  background-color: #E2AD25 !important;
+}
+
+.loginbtn:hover {
   background-color: #E7BA48 !important;
 }
 
@@ -11,13 +20,18 @@
 }
 .login .modal-body .signinbtn {
   padding: 6px 20px;
-  font-size: 20px;
   border-radius: 50px;
-  background-color: #4A84A0;
+  background-color: #4A859F;
+}
+.login .modal-body .signinbtn:hover {
+  background-color: #6799AE;
 }
 .login .modal-body .registerbtn {
-  font-size: 20px;
+  padding: 6px 20px;
   border-radius: 50px;
+  background-color: #E2AD25;
+}
+.login .modal-body .registerbtn:hover {
   background-color: #E7BA48;
 }
 .login .fastlogin {
@@ -38,12 +52,432 @@
 .login .modal-footer .lineloginbtn {
   width: 110px;
   height: 32px;
-  background-image: url(/member/images/btn_login_base.png);
+  background-image: url(../images/btn_login_base.png);
   background-repeat: no-repeat;
 }
 .login .modal-footer .lineloginbtn:hover {
-  background-image: url(/member/images/btn_login_hover.png);
+  background-image: url(../images/btn_login_hover.png);
 }
 .login .modal-footer .lineloginbtn:active {
-  background-image: url(/member/images/btn_login_press.png);
+  background-image: url(../images/btn_login_press.png);
+}
+
+.register {
+  background-image: url(../images/註冊背景圖.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+.register .mycard {
+  max-width: 540px;
+  background-color: rgba(238, 238, 238, 0.8);
+  padding: 50px 30px;
+  margin: 100px auto 25px;
+  border-radius: 30px;
+}
+.register .mycard .title {
+  font-size: 36px;
+  font-weight: bold;
+}
+.register .mycard .col-form-label {
+  font-size: 24px;
+}
+.register .mycard .subbtn {
+  padding: 6px 20px;
+  font-size: 20px;
+  border-radius: 50px;
+  background-color: #E2AD25;
+}
+.register .mycard .subbtn:hover {
+  background-color: #E7BA48;
+}
+.register .mycard .fastregister {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #929292;
+}
+.register .mycard .fastregister .line {
+  width: 40%;
+  border: 1px solid;
+}
+.register .mycard .fastregisterbtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.register .mycard .fastregisterbtn .lineloginbtn {
+  width: 110px;
+  height: 32px;
+  background-image: url(../images/btn_login_base.png);
+  background-repeat: no-repeat;
+}
+.register .mycard .fastregisterbtn .lineloginbtn:hover {
+  background-image: url(../images/btn_login_hover.png);
+}
+.register .mycard .fastregisterbtn .lineloginbtn:active {
+  background-image: url(../images/btn_login_press.png);
+}
+
+.member {
+  height: 100vh;
+}
+.member .container-fluid {
+  height: 100%;
+}
+.member .container-fluid .row {
+  height: 100%;
+}
+.member .container-fluid .row .col-md-2 {
+  padding: 0;
+  border-right: 1px solid #4A859F;
+}
+.member .container-fluid .row .col-md-2 img {
+  width: 110px;
+  height: 60px;
+  margin: 20px 0;
+}
+.member .container-fluid .row .col-md-2 .sidebar {
+  border-top: 1px solid #4A859F;
+}
+.member .container-fluid .row .col-md-2 .sidebar .item a {
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: #4A859F;
+  font-size: 24px;
+  transition: all ease 1s;
+}
+.member .container-fluid .row .col-md-2 .sidebar .item a .fa-solid {
+  font-size: 35px;
+}
+.member .container-fluid .row .col-md-2 .sidebar .item a::before,
+.member .container-fluid .row .col-md-2 .sidebar .item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background-color: transparent;
+  z-index: -2;
+}
+.member .container-fluid .row .col-md-2 .sidebar .item a::before {
+  transition: all ease 1s;
+  background-color: #4A859F;
+  z-index: -1;
+}
+.member .container-fluid .row .col-md-2 .sidebar .item a:hover {
+  z-index: 1;
+  color: #fff;
+}
+.member .container-fluid .row .col-md-2 .sidebar .item a:hover::after,
+.member .container-fluid .row .col-md-2 .sidebar .item a:hover::before {
+  width: 100%;
+}
+.member .container-fluid .row .col-md-2 .sidebar .item a:active::before {
+  background-color: #6799AE;
+}
+.member .container-fluid .row .personaldata {
+  padding: 90px 80px;
+}
+.member .container-fluid .row .personaldata .editbtn {
+  background-color: #4A859F;
+  border-radius: 50px;
+}
+.member .container-fluid .row .personaldata .editbtn:hover {
+  background-color: #6799AE;
+}
+.member .container-fluid .row .personaldata .card {
+  border: none;
+}
+.member .container-fluid .row .personaldata .card .row .col-md-4 img {
+  border-radius: 50%;
+  background-color: #eeeeee;
+}
+.member .container-fluid .row .personaldata .card .row .col-md-8 .card-body .card-text {
+  font-size: 35px;
+}
+.member .container-fluid .row .personaldata .formList {
+  padding: 0 30px;
+}
+.member .container-fluid .row .personaldata .formList form .item {
+  display: flex;
+  font-size: 20px;
+  border-bottom: 1px solid #DEDEDE;
+  margin-bottom: 10px;
+}
+.member .container-fluid .row .personaldata .formList form .item .inpwrite {
+  background: none;
+  outline: none;
+  border: none;
+}
+.member .container-fluid .row .personaldata .formList form .item #address {
+  width: 350px;
+}
+.member .container-fluid .row .personaldata .formList form .item:nth-child(2) {
+  display: flex;
+  gap: 20px;
+}
+.member .container-fluid .row .personaldata .formList form .item:nth-child(2) div {
+  display: flex;
+}
+.member .container-fluid .row .personaldata .formList form .item:nth-child(3) {
+  display: flex;
+  gap: 20px;
+}
+.member .container-fluid .row .personaldata .formList form .item:nth-child(3) div {
+  display: flex;
+}
+.member .container-fluid .row .personaldata .formList .bindaccount {
+  display: flex;
+}
+.member .container-fluid .row .personaldata .formList .bindaccount .title {
+  padding: 7px 0;
+  min-width: 100px;
+  font-size: 20px;
+}
+.member .container-fluid .row .personaldata .formList .bindaccount .googleline {
+  width: 100%;
+}
+.member .container-fluid .row .personaldata .formList .bindaccount .googleline .item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  border-bottom: 1px solid #DEDEDE;
+  margin-bottom: 10px;
+  padding: 7px 0;
+}
+.member .container-fluid .row .personaldata .formList .bindaccount .googleline .item #googleimg {
+  height: 40px;
+}
+.member .container-fluid .row .mytrip {
+  padding: 90px 80px;
+}
+.member .container-fluid .row .mytrip .editbtn {
+  padding: 6px 15px;
+  background-color: #4A859F;
+  border-radius: 50px;
+}
+.member .container-fluid .row .mytrip .editbtn:hover {
+  background-color: #6799AE;
+}
+.member .container-fluid .row .mytrip a {
+  text-decoration: none;
+}
+.member .container-fluid .row .mytrip .card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 5px 10px 30px 0px rgba(0, 0, 0, 0.25);
+}
+.member .container-fluid .row .mytrip .card img {
+  border-radius: 20px 0 0 20px;
+}
+.member .container-fluid .row .mytrip .card .title {
+  font-size: 26px;
+}
+.member .container-fluid .row .mytrip .checkcard {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox] {
+  display: none;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox] + span {
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+  line-height: 20px;
+  background-color: #eee;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox] + span:after {
+  display: none;
+  margin-top: 5px;
+  margin-left: 10px;
+  width: 6px;
+  height: 10px;
+  border: 1px solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox]:checked + span:after {
+  content: "";
+  display: block;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox] + span:hover {
+  background-color: #ccc;
+}
+.member .container-fluid .row .mytrip .checkcard input[type=checkbox]:checked + span {
+  background-color: #4A859F;
+}
+.member .container-fluid .row .mytrip .jumpbox {
+  text-align: center;
+}
+.member .container-fluid .row .mytrip .jumpbox ul,
+.member .container-fluid .row .mytrip .jumpbox li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+.member .container-fluid .row .mytrip .jumpbox li a {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  margin-right: 2px;
+  border: 1px #282828 solid;
+  line-height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #282828;
+  padding-top: 1px;
+}
+.member .container-fluid .row .mytrip .jumpbox li:hover a {
+  color: #fff;
+  background-color: #282828;
+}
+.member .container-fluid .row .mytrip .jumpbox li.active a {
+  color: #fff;
+  background-color: #282828;
+}
+.member .container-fluid .row .mytrip .footerbtn {
+  padding: 6px 15px;
+  background-color: #E2AD25;
+  border-radius: 50px;
+}
+.member .container-fluid .row .mytrip .footerbtn:hover {
+  background-color: #E7BA48;
+}
+.member .container-fluid .row .mycollection {
+  padding: 90px 80px;
+}
+.member .container-fluid .row .mycollection .editbtn {
+  padding: 6px 15px;
+  background-color: #4A859F;
+  border-radius: 50px;
+}
+.member .container-fluid .row .mycollection .editbtn:hover {
+  background-color: #6799AE;
+}
+.member .container-fluid .row .mycollection a {
+  text-decoration: none;
+}
+.member .container-fluid .row .mycollection .card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 5px 10px 30px 0px rgba(0, 0, 0, 0.25);
+}
+.member .container-fluid .row .mycollection .card img {
+  border-radius: 20px 0 0 20px;
+}
+.member .container-fluid .row .mycollection .card .title {
+  font-size: 26px;
+}
+.member .container-fluid .row .mycollection .checkcard {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox] {
+  display: none;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox] + span {
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+  line-height: 20px;
+  background-color: #eee;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox] + span:after {
+  display: none;
+  margin-top: 5px;
+  margin-left: 10px;
+  width: 6px;
+  height: 10px;
+  border: 1px solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox]:checked + span:after {
+  content: "";
+  display: block;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox] + span:hover {
+  background-color: #ccc;
+}
+.member .container-fluid .row .mycollection .checkcard input[type=checkbox]:checked + span {
+  background-color: #4A859F;
+}
+.member .container-fluid .row .mycollection .jumpbox {
+  text-align: center;
+}
+.member .container-fluid .row .mycollection .jumpbox ul,
+.member .container-fluid .row .mycollection .jumpbox li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+.member .container-fluid .row .mycollection .jumpbox li a {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  margin-right: 2px;
+  border: 1px #282828 solid;
+  line-height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #282828;
+  padding-top: 1px;
+}
+.member .container-fluid .row .mycollection .jumpbox li:hover a {
+  color: #fff;
+  background-color: #282828;
+}
+.member .container-fluid .row .mycollection .jumpbox li.active a {
+  color: #fff;
+  background-color: #282828;
+}
+.member .container-fluid .row .mycollection .footerbtn {
+  padding: 6px 15px;
+  background-color: #E2AD25;
+  border-radius: 50px;
+}
+.member .container-fluid .row .mycollection .footerbtn:hover {
+  background-color: #E7BA48;
+}
+.member .container-fluid .row .TaiwanEx {
+  padding: 90px 80px;
+}
+.member .container-fluid .row .TaiwanEx .editbtn {
+  padding: 6px 15px;
+  background-color: #4A859F;
+  border-radius: 50px;
+}
+.member .container-fluid .row .TaiwanEx .editbtn:hover {
+  background-color: #6799AE;
+}
+.member .container-fluid .row .TaiwanEx .sharedownld span {
+  border: 1px solid;
+  color: #929292;
+}
+.member .container-fluid .row .TaiwanEx .sharedownld a {
+  color: #929292;
+  text-decoration: none;
+}
+.member .container-fluid .row .TaiwanEx .sharedownld a:hover {
+  text-decoration: underline;
 }/*# sourceMappingURL=member_style.css.map */
