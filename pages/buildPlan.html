@@ -3,14 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
-    />
+    <!-- The callback parameter is required, so we use console.debug as a noop -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=console.debug&libraries=maps,marker&v=beta">
+    </script>
     <title>Build Your Travel Plan !</title>
   </head>
   <body>
-    <div class="container buildPlan">
+    <div class="container-fluid buildPlan">
       <div class="row">
         <div class="col-12 col-md-7 buildArea">
           <div class="closeBtn">
@@ -21,9 +20,14 @@
               <h3>旅行計畫名稱</h3>
               <input class="p-2" type="text" placeholder="為你的計畫取個名字">
             </div>
-            <div class="inputBox">
-              <h3>想去哪玩?</h3>
-              <input class="p-2" type="text" placeholder="為你的計畫取個名字">
+            <div class="selectBox">
+              <label for="shareLink-select">和你的旅伴分享此計畫</label>
+              <select class="form-select form-select-lg me-3 mb-72" name="select-city" id="select-city">
+                <option value="taipei">台北市</option>
+                <option value="taichung">台中市</option>
+                <option value="tainan">台南市</option>
+                <option value="kaohsiung">高雄市</option>
+              </select>
             </div>
             <div class="planDate d-flex justify-content-between">
               <div class="inputBox">
@@ -55,9 +59,12 @@
           
         </div>
           
-        <div class="d-none d-md-block col-md-5 mapArea">
-          地圖
+        <div  class="d-none d-md-block col-md-5 mapArea">
+          <gmp-map center="24.148906997428295, 120.66005767852741" zoom="16" map-id="DEMO_MAP_ID">
+            <gmp-advanced-marker position="24.148906997428295, 120.66005767852741" title="My location"></gmp-advanced-marker>
+          </gmp-map>
         </div>
+        
         
       </div>
     </div>

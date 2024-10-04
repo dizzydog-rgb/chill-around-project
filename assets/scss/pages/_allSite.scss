@@ -1,0 +1,114 @@
+h1 {
+    font-family: "Noto Sans TC", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 64px;
+  }
+  h6 {
+    font-family: "Noto Sans TC", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+  }
+// 最上方大圖
+.topImage{
+    position: relative;
+    width: 100%;
+    height: 311px;
+    // overflow: hidden;
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    };
+    .topText{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.25);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+}
+// 下方的大容器
+.bottomInfo{
+    width:100%;
+}
+// 左側選取方塊們
+.selectBlock{
+    width: 85%;
+    border: 1px solid $danger;
+    border-radius: 25px;
+    
+    .siteType{
+        // background-color: antiquewhite;
+        padding: 20px;
+    }
+    .checkBody{
+        padding-left: 30px;
+    }
+    input{
+        &:checked{
+            background-color: $secondary;
+            border-color: $secondary;
+        }
+    }
+}
+
+// 右側卡片樣式
+.rightCards{
+    // background-color: $secondary;
+    padding: 0px;
+}
+.allCard{
+    // cursor: pointer;
+    position: relative;
+    overflow: visible;
+    width: 100%;
+    height: 650px;
+    border:0px ; // 消除預設白框
+    border-radius: 0px;
+    // background-color: #f8f9fa;
+
+    .cardImage{
+        width: 100%;
+        height: 650px;
+        overflow: hidden;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+    }
+    &:hover img{
+        transform: scale(1.1);
+    }
+    .cardOverlay{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); //半透明背景
+        color: white;
+        padding: 30px;
+    }
+    .btnOverlay{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 30px;
+        button{
+            color: white;
+            border-radius: 25px;
+        }
+    }
+}
