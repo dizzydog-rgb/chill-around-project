@@ -1,0 +1,181 @@
+// .foodMapPage{
+//     body,html{
+//         height: 100%;
+//         margin: 0;
+//         padding: 0;
+//         display: flex;
+//         flex-direction: column;
+//     }
+
+// }
+.foodMap{
+  
+    
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+    
+    // 卡片背景
+    .foodcardBox {
+        position: absolute;
+        top: 20%;
+        left: 20px;
+        z-index: 1000; /* 使側邊欄位於地圖之上 */
+        margin-bottom: 15px; /* 卡片與底部元素間的間距 */
+        background-color: rgba(255, 255, 255, 0.6); /* 設置透明背景 */
+        border-radius: 10px;  /* 圓角 */
+        padding: 15px; /* 增加內邊距 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
+        transition: all 0.3s ease;
+        width: 330px;
+         // 卡片本體
+         .foodCard{
+            position: relative;
+            overflow: hidden;
+            border: 1px solid $danger;
+            margin-bottom: 15px;
+            // 卡片照片
+            .foodImage{
+                width: 150px;
+                height: 150px;
+                overflow: hidden;
+                // background-color: #E7BA48;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .btnOverlay{
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                margin: 30px;
+                button{
+                    color: white;
+                    border-radius: 25px;
+                }
+            }
+        }
+    }
+    
+    // 搜尋欄
+    .search-overlay {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        z-index: 1000;
+        transform: translate(-50%, -50%);
+        width: 630px;
+        background-color: white;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+        border: 2px solid $primary;
+        padding: 10px;
+        border-radius: 5px;
+        
+        .input-group{
+            justify-content: center;
+        }
+        #regionLabel, #categoryLabel{
+            font-size: 18px;
+            color: $primary;
+        }
+        .custom-select{
+            // background-color: #4a2e2e;
+            width: 150px;
+            color: #909090;
+            border: 1px solid $primary;
+        }
+        .input-group-append{
+            button{
+                background-color:#E7BA48;
+                color: white;
+                width: 80px;
+                border-radius: 22px;
+                &:hover{
+                background-color: $secondary;
+                    color: white;
+                }
+            }
+        }
+    }
+    
+    // 跳出視窗
+    .modal-dialog {
+        max-width: 800px; /* 調整模態框大小 */
+        width: 100%;
+        height: auto;
+    }
+    
+    .carousel-item img {
+        width: 100%; /* 設定圖片寬度 */
+        height: 100%; /* 設定圖片高度 */
+        object-fit: cover; /* 確保圖片比例合適 */
+    }
+    .modal-content {
+        height: 500px; /* 自定義內容的高度 */
+    }
+    .modal-body {
+        display: flex; /* 使用 Flexbox 對齊內容 */
+        position: relative;
+    }
+    
+    .carousel {
+        width: 80%; /* 輪播佔容器的60% */
+        background-color: rgb(112, 142, 142);
+    }
+    
+    .info {
+        width: 40%; /* 右側資訊佔容器的40% */
+        padding-left: 20px; /* 左側留出一些距離 */
+    }
+    
+    /* 調整關閉按鈕的位置 */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 24px;
+        border: none;
+        cursor: pointer;
+        background-color: transparent; /* 透明背景 */
+        color: rgb(0, 0, 0); /* 關閉按鈕顏色 */
+    }
+    
+    .leftBtn,
+    .rightBtnt {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%); 
+        /* background-color: rgba(255, 255, 255, 0.7); */
+        border: none;
+        border-radius: 50%;
+        z-index: 10; /* 確保按鈕在最上層 */
+    }
+    .leftBtn {
+        left: -30px; /* 調整左側按鈕位置 */
+    }
+    .rightBtnt {
+        right: -30px; /* 調整右側按鈕位置 */
+    }
+    
+    
+    @media (max-width: 992px) {
+        .search-overlay{
+            width: 90%;
+        }
+    }
+
+
+}
+// @media (max-width: 768px) {
+//     .search-overlay{
+
+//     }
+// }
+// @media (max-width: 576px) {
+//     .search-overlay{
+
+//     }
+// }

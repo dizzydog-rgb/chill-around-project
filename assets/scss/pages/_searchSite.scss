@@ -1,0 +1,141 @@
+// @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300&family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap');
+
+.searchSitePage {
+  // 首頁圖片
+  #hero-image {
+    position: relative;
+    text-align: center;
+    
+    img {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      margin: 0;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+  // 搜尋欄
+.searchOverlay {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // width: 40%;
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    border: 2px solid $primary;
+    padding: 10px;
+    border-radius: 5px;
+  
+    
+    #regionLabel,
+    #categoryLabel {
+      font-size: 18px;
+      color: $primary;
+    }
+    .custom-select {
+      // background-color: #4a2e2e;
+      width: 150px;
+      color: #909090;
+      border: 1px solid $primary;
+    }
+    .input-group-append {
+      button {
+        background-color: #e7ba48;
+        color: white;
+        width: 80px;
+        border-radius: 22px;
+        &:hover {
+          background-color: $secondary;
+          color: white;
+        }
+      }
+    }
+  }
+  // 更多按鈕
+  #moreBtn {
+    background-color: #e7ba48;
+    color: white;
+    width: 114px;
+    border-radius: 25px;
+    &:hover {
+      background-color: #e2ad25;
+      color: white;
+    }
+  }
+  // 推薦區塊 景點美食
+#recommendCards {
+    //景點文字
+    .siteText,
+    .foodText {
+      background-color: #e7e7e7;
+      width: 100%;
+      height: 160px;
+      h1 {
+        font-family: "Noto Sans TC", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal;
+        font-size: 35px;
+      }
+    }
+    #sitecardBox,
+    #foodcardBox {
+      width: 100%;
+    }
+    //景點卡片 美食卡片統一設定
+    .allCard {
+      // cursor: pointer;
+      position: relative;
+      overflow: visible;
+      width: 100%;
+      height: 650px;
+      border: 0px; // 消除預設白框
+      border-radius: 0px;
+      // background-color: #f8f9fa;
+  
+      .cardImage {
+        width: 100%;
+        height: 650px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+        }
+      }
+      &:hover img {
+        transform: scale(1.1);
+      }
+      .cardOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); //半透明背景
+        color: white;
+        padding: 30px;
+      }
+      .btnOverlay {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 30px;
+        button {
+          color: white;
+          border-radius: 25px;
+        }
+      }
+    }
+  }
+  
+  
+}
+
+
+
+

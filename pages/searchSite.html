@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊搜尋頁</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+    </style>
+    
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <%- include('./layout/searchHeader'); -%>
+ <div class="searchSitePage container-fluid p-0">
+
+    
+  <!-- 首頁圖片 -->
+    <div id="hero-image" class="container-fluid p-0" >
+    <div class="row no-gutters ms-0 me-0">
+        <div id="image1" class="col-md-4 ps-0 pe-0">
+            <img src="../assets/images/searchSite/chimeiMuseum.jpeg" alt="Image 1">
+        </div>
+        <div id="image2" class="col-md-4 ps-0 pe-0">
+            <img src="../assets/images/searchSite/tainan.jpeg" alt="Image 2">
+        </div>
+        <div id="image3" class="col-md-4 ps-0 pe-0">
+            <img src="../assets/images/searchSite/Taipei_101.jpg" alt="Image 3">
+        </div>
+    </div>
+</div>
+    <!-- 搜尋區域 -->
+    <div class="searchOverlay container-fluid w-50">
+        <div class="container input-group d-flex justify-content-center align-items-center">
+            <div class="d-flex me-5">
+                <label for="regionSelect" class="me-3" id="regionLabel">地區</label>
+                <select class="custom-select">
+                    <option selected>請選擇</option>
+                    <option value="1">選項1</option>
+                    <option value="2">選項2</option>
+                    <option value="3">選項3</option>
+                </select>
+            </div>
+            <div class="d-flex me-5">
+                <label for="categorySelect" class="me-3" id="categoryLabel">類別</label>
+                <select class="custom-select">
+                    <option selected>請選擇</option>
+                    <option value="1">選項A</option>
+                    <option value="2">選項B</option>
+                    <option value="3">選項C</option>
+                </select>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-light" type="button">搜尋</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 景點推薦 -->
+    <div id="recommendCards">
+        <div class="siteText p-5">
+            <h1>景點推薦</h1>
+        </div>
+        <div id="sitecardBox" class="row m-0">
+            <!-- 迴圈生成卡片 -->
+        </div>
+        <div class="p-5 d-flex justify-content-center  ">
+            <a href="#" id="moreBtn" class="btn btn-secondary">更多</a>
+        </div>
+    </div>
+
+    <!-- 精選美食 -->
+    <div id="recommendCards">
+        <div class="foodText p-5">
+            <h1>美食推薦</h1>
+        </div>
+        <div id="foodcardBox" class="row m-0">
+            <!-- 迴圈生成卡片 -->
+        </div>
+        <div class="p-5 d-flex justify-content-center  ">
+            <a href="#" id="moreBtn" class="btn btn-secondary">更多</a>
+        </div>
+    </div>
+</div>
+
+    <!-- footer -->
+   <%- include('./layout/footer') -%>
+    <script type="module" src="/main.js"></script>
+    <script type="module" src="../js/searchSite.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <script>
+        
+        
+            
+    </script>
+</body>
+</html>

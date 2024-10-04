@@ -9,9 +9,32 @@
 //3. 引入所有的Bootstrap的CSS
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-@import './layout/header.scss';
-@import './layout/footer.scss';
+// 引入Bootstrap icon (有用npm安裝)
+@import "bootstrap-icons/font/bootstrap-icons.css";
 
-@import './pages/index.scss';
+// 通用版面
+@import "./layout/header.scss";
+@import "./layout/footer.scss";
+@import "./layout/aside.scss";
 
+// 資訊搜尋頁header
+@import "./layout/searchHeader.scss";
+// 資訊搜尋頁header透明
+@import "./layout/searchHeader_trans.scss";
+
+@import "./pages/index.scss";
+// 資訊搜尋相關頁面
+@import "./pages/searchSite.scss";
+@import "./pages/allSite.scss";
+@import "./pages/foodmap.scss";
+@import "./pages/siteInfo.scss";
+@import "./pages/schInfo.scss";
+
+// 建立旅行計畫相關頁面
+@import "./pages/buildPlan.scss";
+@import "./pages/editPlan.scss";
+@import "./pages/planList.scss";
+
+// 小測驗頁面
+@import "./pages/test";
 

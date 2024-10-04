@@ -1,42 +1,145 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index Page</title>
-  </head>
-  <body>
-    <%- include('./layout/header'); -%>
 
-    <h2>我是首頁</h1>
-    <img src="../assets/images/messageImage_1726147510337_0.jpg" alt="hippo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,400;0,700;1,100;1,300;1,400&family=Noto+Sans+TC:wght@100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- for bootstrap -->
 
 
-    <!-- BS5 modal test-->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
+    <!-- <link href="../assets/scss/all.scss" rel="stylesheet"> -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+    <title>Document</title>
 
-    <%- include('./layout/footer'); -%>
-    <script type="module" src="/main.js"></script>
-  </body>
+
+</head>
+
+<body>
+    <!-- header -->
+    <%- include('./layout/searchHeader_trans'); -%>
+
+        <!-- tag -->
+        <nav class="tag text-center m-0">
+            <button type="button" class="btn btn-outline-primary btn-sm mx-2"
+                style="color: #fff; border-radius: 50px;  height:32px; width: 85px; border-color: #fff ;font-size: 0.8rem;">
+                家庭旅行
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm mx-2"
+            style="color: #fff; border-radius: 50px;  height:32px; width: 85px; border-color: #fff ;font-size: 0.8rem;">
+            家庭旅行
+        </button>
+            <button type="button" class="btn btn-outline-primary btn-sm mx-2"
+                style="color: #fff; border-radius: 50px;  height:32px; width: 85px; border-color: #fff ;font-size: 0.8rem;">
+                家庭旅行
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm mx-2"
+                style="color: #fff; border-radius: 50px;  height:32px; width: 85px; border-color: #fff;font-size: 0.8rem;">
+                家庭旅行
+            </button>
+        </nav>
+
+        <!-- Swiper -->
+        <div class="swiper mySwiper swiper-h">
+
+
+
+
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <div class="hero-image"
+                        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/images/hippo.jpg');">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 hero-text">
+                                    <h1>驚恐河馬陪你打code</h1>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <div class="hero-image"
+                        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.ey.gov.tw/File/D91ADD259466470C?S=L');">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 hero-text">
+                                    <h1>輕鬆規劃每一段旅程</h1>
+                                    <p>Plan Every Trip Easily</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="hero-image"
+                        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.taiwan.net.tw/pic.ashx?qp=1/big_scenic_spots/pic_290_8.jpg&sizetype=3');">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 hero-text">
+                                    <h1>探索世界的每個角落</h1>
+                                    <p>Explore Every Corner of the World</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="hero-image"
+                        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.matsu-nsa.gov.tw/UserFiles/image/festival/blue_p03.jpg');">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 hero-text">
+                                    <h1>享受難忘的旅程</h1>
+                                    <p>Enjoy Unforgettable Journeys</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+
+            <div class="swiper-pagination"></div>
+
+        </div>
+
+        <!-- main JS -->
+        <script type="module" src="/main.js"></script>
+
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                spaceBetween: 50,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                autoplay: {
+                    delay: 10000, // 每3秒切換一次
+                    disableOnInteraction: false, // 當使用者與幻燈片互動時，保持自動播放
+                },
+            });
+
+        </script>
+
+</body>
+
+
+
+
 </html>
