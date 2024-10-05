@@ -12,6 +12,9 @@
 // 引入Bootstrap icon (有用npm安裝)
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
+// 引入 Swiper
+@import "../../node_modules/swiper/swiper-bundle.css";
+
 // 通用版面
 @import "./layout/header.scss";
 @import "./layout/footer.scss";
@@ -23,6 +26,8 @@
 @import "./layout/searchHeader_trans.scss";
 
 @import "./pages/index.scss";
+@import "./pages/about.scss";
+
 // 資訊搜尋相關頁面
 @import "./pages/searchSite.scss";
 @import "./pages/allSite.scss";
@@ -35,4 +40,12 @@
 @import "./pages/buildPlan.scss";
 @import "./pages/editPlan.scss";
 @import "./pages/planList.scss";
+
+// 首頁相關頁面
 @import "./pages/schCom.scss";
+
+
+// 小測驗頁面
+@import "./pages/test";
+
+
