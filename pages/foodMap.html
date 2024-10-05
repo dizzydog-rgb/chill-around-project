@@ -14,37 +14,56 @@
 <body>
     <%- include('./layout/searchHeader'); -%>
     <div class="foodMap container-fluid p-0">
-        <div class=" d-flex vh-100 m-0">
-            <div id="map"></div>
-        </div>
-        <!-- 搜尋區域 -->
-        <div class="search-overlay">
-            <div class="input-group d-flex align-items-center">
-                <div class="d-flex me-5">
-                    <label for="regionSelect" class="me-3" id="regionLabel">地區</label>
-                    <select id="city" class="custom-select">
+         <!-- 搜尋區域 -->
+    <div class="searchOverlay container  d-flex flex-column flex-sm-row align-items-center">
+        <div class="input-group justify-content-center align-items-center">
+            <div class="seletGroup d-flex justify-content-between">
+                <div class="selectItem">
+                    <label for="regionSelect d-flex" class="" id="regionLabel">地區</label>
+                    <select class="custom-select">
                         <option selected>請選擇</option>
-                        <option value="台北市">台北市</option>
-                        <option value="新北市">新北市</option>
-                        <option value="基隆市">基隆市</option>
+                        <option value="Taipei">台北市</option>
+                        <option value="NewTaipei">新北市</option>
+                        <option value="Keelung">基隆市</option>
+                        <option value="Yilan">宜蘭縣</option>
+                        <option value="Taoyuan">桃園市</option>
+                        <option value="Hsinchu">新竹縣</option>
+                        <option value="Miaoli">苗栗縣</option>
+                        <option value="Taichung">台中市</option>
+                        <option value="Changhua">彰化縣</option>
+                        <option value="Nantou">南投縣</option>
+                        <option value="Yunlin">雲林縣</option>
+                        <option value="Chiayi">嘉義縣</option>
+                        <option value="Tainan">台南市</option>
+                        <option value="Kaohsiung">高雄市</option>
+                        <option value="Pingtung">屏東縣</option>
+                        <option value="Hualien">花蓮縣</option>
+                        <option value="Taitung">台東縣</option>
                     </select>
                 </div>
-                <div class="d-flex me-5">
-                    <label for="categorySelect" class="me-3" id="categoryLabel">類別</label>
-                    <select id="category" class="custom-select">
+                <div class="selectItem">
+                    <label for="categorySelect" class="" id="categoryLabel">類別</label>
+                    <select class="custom-select">
                         <option selected>請選擇</option>
-                        <option value="商店">商店</option>
-                        <option value="餐廳">餐廳</option>
+                        <option value="1">小吃店</option>
+                        <option value="2">咖啡廳</option>
                         <option value="3">選項C</option>
                     </select>
                 </div>
-                <div class="input-group-append">
-                    <button id="searchButton" class="btn btn-outline-light" type="button">搜尋</button>
-                </div>
+
+            </div>
+           
+            <div class="input-group-append">
+                <button class="btn btn-outline-light" type="button">搜尋</button>
             </div>
         </div>
+    </div>
+        <div class="mapBox">
+            <div id="map"></div>
+        </div>
+       
         <!-- 美食卡片 -->
-        <div class="foodcardBox">
+        <div class="foodcardBox container d-none d-md-block">
                 <div class="foodCard card" data-bs-toggle="modal" data-bs-target="#myModal">
                     <div class="d-flex">
                         <div class="foodImage">
@@ -53,19 +72,15 @@
                         <div class="card-body">
                             <h5 class="card-title">店家名稱</h5>
                             <div class="btnOverlay">
-                                <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     加入行程
                                 </button >
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">行程1</a>
-                                    <a class="dropdown-item" href="#">行程2</a>
-                                    <a class="dropdown-item" href="#">行程3</a>
-                                </div>
                             </div>                           
                          </div>
                     </div>
                 </div>
-                <div class="foodCard card">
+
+                <!-- <div class="foodCard card">
                     <div class="d-flex">
                         <div class="foodImage">
                             <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
@@ -124,11 +139,11 @@
                             </div>                           
                          </div>
                     </div>
-                </div>
+                </div> -->
         </div>
-        <!-- 跳出視窗 -->
+        <!-- 跳出商店視窗 -->
         <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog  modal-lg">
+            <div class="modal-dialog modal-fullscreen-md-down modalFullscreen">
                 <div class="foodModalContent modal-content">
                     <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
                     <div class="modal-body row">
@@ -180,15 +195,10 @@
                                         <p>星期一 休息</p>
                                     </div>
                                 </div> 
-                                <div class="btnOverlay dropdown">
-                                    <button type="button" class="addBtn btn dropdown-toggle dropdown-toggle-split" aria-haspopup="true" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="btnOverlay">
+                                    <button type="button" class="addBtn btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         加入行程
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">選項 1</a></li>
-                                        <li><a class="dropdown-item" href="#">選項 2</a></li>
-                                        <li><a class="dropdown-item" href="#">選項 3</a></li>
-                                    </ul>
                                 </div>  
                             </div>
                         
@@ -197,11 +207,51 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 w-100">
+                    <label for="itinerarySelect" class="form-label">選擇行程</label>
+                    <select class="form-select" id="itinerarySelect">
+                        <option value="" selected>請選擇行程</option>
+                        <option value="itinerary1">行程 1</option>
+                        <option value="itinerary2">行程 2</option>
+                        <option value="itinerary3">行程 3</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                    <label for="daySelect" class="form-label">選擇天數</label>
+                    <select class="form-select" id="daySelect">
+                        <option value="" selected>請選擇天數</option>
+                        <option value="day1">第 1 天</option>
+                        <option value="day2">第 2 天</option>
+                        <option value="day3">第 3 天</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary">保存選擇</button>
+            </div>
+        </div>
     </div>
+   </div>
+   
     
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=MYKEY&libraries=places"></script>
     <script>
@@ -235,6 +285,25 @@
                     }
                 });
             });
+
+            //modal
+
+            // 當選擇行程時，顯示天數選擇
+            $('#itinerarySelect').change(function () {
+                if ($(this).val()) {
+                    $('#daySelectContainer').show(); // 顯示天數選擇
+                } else {
+                    $('#daySelectContainer').hide(); // 隱藏天數選擇
+                }
+            });
+
+            // 確保關閉模態框時，隱藏天數選擇
+            $('#exampleModal').on('hide.bs.modal', function () {
+                $('#daySelectContainer').hide(); // 隱藏天數選擇
+                $('#itinerarySelect').val(''); // 重置行程選擇
+                $('#daySelect').val(''); // 重置天數選擇
+            });
+
         });
         function displayResults(places) {
         const resultsList = $('#results');

@@ -14,7 +14,8 @@
 
     <!-- 導覽列 -->
     <%- include('./layout/searchHeader'); -%>
-<div class="searchSitePage container-fluid p-0">
+    <div class="searchSitePage container-fluid p-0">
+    <!-- 手機版首頁熱門推薦轉為輪播圖 -->
     <div id="carouselExample" class="carousel slide d-md-none col-md-6 order-md-1" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="siteCarouselItem carousel-item active">
@@ -40,7 +41,7 @@
         </div>
 
     
-  <!-- 首頁圖片 -->
+  <!-- 首頁熱門推薦大圖 -->
 <div id="hero-image" class="container-fluid p-0 d-none d-md-block" >
     <div class="row no-gutters ms-0 me-0">
         <div id="image1" class="col-md-4 ps-0 pe-0">
@@ -55,83 +56,135 @@
     </div>
 </div>
     <!-- 搜尋區域 -->
-    <div class="searchOverlay container-fluid">
-        <div class="input-group d-flex flex-column flex-sm-row justify-content-center align-items-center">
-            <div class="selectItem d-flex me-5">
-                <label for="regionSelect" class="mt-1 me-3" id="regionLabel">地區</label>
-                <select class="mt-2 custom-select">
-                    <option selected>請選擇</option>
-                    <option value="Taipei">台北市</option>
-                    <option value="NewTaipei">新北市</option>
-                    <option value="Keelung">基隆市</option>
-                    <option value="Yilan">宜蘭縣</option>
-                    <option value="Taoyuan">桃園市</option>
-                    <option value="Hsinchu">新竹縣</option>
-                    <option value="Miaoli">苗栗縣</option>
-                    <option value="Taichung">台中市</option>
-                    <option value="Changhua">彰化縣</option>
-                    <option value="Nantou">南投縣</option>
-                    <option value="Yunlin">雲林縣</option>
-                    <option value="Chiayi">嘉義縣</option>
-                    <option value="Tainan">台南市</option>
-                    <option value="Kaohsiung">高雄市</option>
-                    <option value="Pingtung">屏東縣</option>
-                    <option value="Hualien">花蓮縣</option>
-                    <option value="Taitung">台東縣</option>
-                </select>
+    <div class="searchOverlay container  d-flex flex-column flex-sm-row align-items-center">
+        <div class="input-group justify-content-center align-items-center">
+            <div class="seletGroup d-flex justify-content-between">
+                <div class="selectItem">
+                    <label for="regionSelect d-flex" class="" id="regionLabel">地區</label>
+                    <select class="custom-select">
+                        <option selected>請選擇</option>
+                        <option value="Taipei">台北市</option>
+                        <option value="NewTaipei">新北市</option>
+                        <option value="Keelung">基隆市</option>
+                        <option value="Yilan">宜蘭縣</option>
+                        <option value="Taoyuan">桃園市</option>
+                        <option value="Hsinchu">新竹縣</option>
+                        <option value="Miaoli">苗栗縣</option>
+                        <option value="Taichung">台中市</option>
+                        <option value="Changhua">彰化縣</option>
+                        <option value="Nantou">南投縣</option>
+                        <option value="Yunlin">雲林縣</option>
+                        <option value="Chiayi">嘉義縣</option>
+                        <option value="Tainan">台南市</option>
+                        <option value="Kaohsiung">高雄市</option>
+                        <option value="Pingtung">屏東縣</option>
+                        <option value="Hualien">花蓮縣</option>
+                        <option value="Taitung">台東縣</option>
+                    </select>
+                </div>
+                <div class="selectItem">
+                    <label for="categorySelect" class="" id="categoryLabel">類別</label>
+                    <select class="custom-select">
+                        <option selected>請選擇</option>
+                        <option value="1">小吃店</option>
+                        <option value="2">咖啡廳</option>
+                        <option value="3">選項C</option>
+                    </select>
+                </div>
+
             </div>
-            <div class="selectItem d-flex me-5">
-                <label for="categorySelect" class="mt-1 me-3" id="categoryLabel">店家類別</label>
-                <select class="mt-2 custom-select">
-                    <option selected>請選擇</option>
-                    <option value="1">小吃店</option>
-                    <option value="2">咖啡廳</option>
-                    <option value="3">選項C</option>
-                </select>
-            </div>
+           
             <div class="input-group-append">
                 <button class="btn btn-outline-light" type="button">搜尋</button>
             </div>
         </div>
     </div>
 
-    <!-- 景點推薦 -->
-    <div id="recommendCards">
-        <div class="siteText p-5">
-            <h1>景點推薦</h1>
+     <!--  景點推薦title -->
+     <div class="container d-flex justify-content-between my-5">
+        <h4 class="text-dark text-nowrap fs-2 fw-bolder">景點推薦</h4>
+        <div class="textDivider">
         </div>
+    </div>
+    <!-- 景點推薦卡片 -->
+    <div id="recommendCards">
         <div id="sitecardBox" class="row m-0">
             <!-- 迴圈生成卡片 -->
         </div>
-        <div class="p-5 d-flex justify-content-center  ">
-            <a href="#" id="moreBtn" class="btn btn-secondary">更多</a>
+    </div>
+    <div class="p-5 d-flex justify-content-center  ">
+        <a href="#" id="moreBtn" class="btn btn-secondary">更多景點推薦</a>
+    </div>
+    <!--  美食推薦title -->
+    <div class="bg-primary py-5">
+        <div class="container d-flex justify-content-between">
+            <h4 class="text-light text-nowrap fs-2 fw-bolder">美食推薦</h4>
+            <div class="textDivider2">
+            </div>
         </div>
     </div>
-
-    <!-- 精選美食 -->
+   
+    <!-- 美食推薦卡片 -->
     <div id="recommendCards">
-        <div class="foodText p-5">
-            <h1>美食推薦</h1>
-        </div>
         <div id="foodcardBox" class="row m-0">
             <!-- 迴圈生成卡片 -->
         </div>
         <div class="p-5 d-flex justify-content-center  ">
-            <a href="#" id="moreBtn" class="btn btn-secondary">更多</a>
+            <a href="#" id="moreBtn" class="btn btn-secondary">更多美食推薦</a>
         </div>
     </div>
+     <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal"
+                     aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <div class="mb-3 w-100">
+                     <label for="itinerarySelect" class="form-label">選擇行程</label>
+                     <select class="form-select" id="itinerarySelect">
+                         <option value="" selected>請選擇行程</option>
+                         <option value="itinerary1">行程 1</option>
+                         <option value="itinerary2">行程 2</option>
+                         <option value="itinerary3">行程 3</option>
+                     </select>
+                 </div>
+
+             </div>
+             <div class="modal-body">
+                 <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                     <label for="daySelect" class="form-label">選擇天數</label>
+                     <select class="form-select" id="daySelect">
+                         <option value="" selected>請選擇天數</option>
+                         <option value="day1">第 1 天</option>
+                         <option value="day2">第 2 天</option>
+                         <option value="day3">第 3 天</option>
+                     </select>
+
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                 <button type="button" class="btn btn-primary">保存選擇</button>
+             </div>
+     </div>
+    </div>
+
+
 </div>
 
     <!-- footer -->
-   <%- include('./layout/footer') -%>
+    <%- include('./layout/footer') -%>
+
     <script type="module" src="/main.js"></script>
     <script type="module" src="../js/searchSite.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    
-    <script>
-        
-        
-            
-    </script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 </body>
 </html>

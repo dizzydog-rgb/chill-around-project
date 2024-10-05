@@ -11,8 +11,9 @@
 </head>
 <body>
     <%- include('./layout/searchHeader'); -%>
-    <!-- 上方大圖 -->
-    <div class="topImage container-fluid p-0 bg-primary">
+    <div class="allSitePage container-fluid p-0">
+          <!-- 上方大圖 -->
+    <div class="topImage bg-primary">
         <img src="../assets/images/searchSite/chimeiMuseum.jpeg" class="img-fluid" alt="大圖">
         <div class="topText">
             <h1>景點總覽</h1>
@@ -20,7 +21,10 @@
     </div>
     <!-- 下方內容 -->
      <div class="bottomInfo row pt-2 me-0">
-        <aside class="col-md-3 ps-5">
+        <!-- <button class="btn btn-primary filter-button" data-bs-toggle="collapse" data-bs-target="#filterOptions" aria-expanded="false" aria-controls="filterOptions">
+            Filter
+        </button> -->
+        <aside class="col-md-3 order-1 order-md-1 m-2 sidebar">
             <div class="p-3 selectBlock">
                 <h6 class="ps-2 align-items-center">透過下列選項搜尋</h6>
                 <hr>
@@ -36,43 +40,43 @@
                             <div class="checkBody accordion-body row">
                             <!-- 地區核取方塊 -->
                                 <div class="form-check col-md-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="taipei">
+                                <input class="form-check-input" type="checkbox" value="" id="Taipei">
                                 <label class="form-check-label" for="Taipei">台北市</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="nature" id="nature">
+                                <input class="form-check-input" type="checkbox" value="nature" id="NewTaipei">
                                 <label class="form-check-label" for="NewTaipei">新北市</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Keelung">
                                 <label class="form-check-label" for="Keelung">基隆市</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Yilan">
                                 <label class="form-check-label" for="Yilan">宜蘭縣</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Taoyuan">
                                 <label class="form-check-label" for="Taoyuan">桃園市</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Hsinchu">
                                 <label class="form-check-label" for="Hsinchu">新竹縣</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Miaoli">
                                 <label class="form-check-label" for="Miaoli">苗栗縣</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Taichung">
                                 <label class="form-check-label" for="Taichung">台中市</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Changhua">
                                 <label class="form-check-label" for="Changhua">彰化縣</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Nantou">
                                 <label class="form-check-label" for="Nantou">南投縣</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
@@ -80,7 +84,7 @@
                                 <label class="form-check-label" for="nature">雲林縣</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Chiayi">
                                 <label class="form-check-label" for="Chiayi">嘉義縣</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
@@ -88,19 +92,19 @@
                                 <label class="form-check-label" for="Tainan">台南市</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Kaohsiung">
                                 <label class="form-check-label" for="Kaohsiung">高雄市</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Pingtung">
                                 <label class="form-check-label" for="Pingtung">屏東縣</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Hualien">
                                 <label class="form-check-label" for="Hualien">花蓮縣</label>
                                 </div>
                                 <div class="form-check col-6 pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <input class="form-check-input" type="checkbox" value="" id="Taitung">
                                 <label class="form-check-label" for="Taitung">台東縣</label>
                                 </div>
                             </div>
@@ -139,14 +143,56 @@
             </div>
         </aside>
         <!-- 右側卡片們 -->
-        <main class="rightCards col-md-9 me-0">
+        <main class="rightCards col-md-9 order-2 order-md-2 me-0">
             <div id="sitecardBox" class="row m-0 justify-content-center">
                 <!-- 迴圈生成卡片 -->
             </div>   
         </main>
      </div>
+      <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 w-100">
+                    <label for="itinerarySelect" class="form-label">選擇行程</label>
+                    <select class="form-select" id="itinerarySelect">
+                        <option value="" selected>請選擇行程</option>
+                        <option value="itinerary1">行程 1</option>
+                        <option value="itinerary2">行程 2</option>
+                        <option value="itinerary3">行程 3</option>
+                    </select>
+                </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                    <label for="daySelect" class="form-label">選擇天數</label>
+                    <select class="form-select" id="daySelect">
+                        <option value="" selected>請選擇天數</option>
+                        <option value="day1">第 1 天</option>
+                        <option value="day2">第 2 天</option>
+                        <option value="day3">第 3 天</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary">保存選擇</button>
+            </div>
+    </div>
+   </div>
+
+    </div>
+  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> 
     <script>
         $(document).ready(function(){
@@ -174,14 +220,9 @@
                                 <p class="card-subtitle">${data.location}</p>
                             </div>
                             <div class="btnOverlay">
-                                <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     加入行程
                                 </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">行程1</a>
-                                    <a class="dropdown-item" href="#">行程2</a>
-                                    <a class="dropdown-item" href="#">行程3</a>
-                                </div>
                             </div>
                         </div>
                     </div>`;

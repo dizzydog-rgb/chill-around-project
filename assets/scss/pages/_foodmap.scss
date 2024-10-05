@@ -10,14 +10,14 @@
 // }
 .foodMap{
     #map {
-        height: 100%;
-        width: 100%;
+        height: 100vh;
+        width: 100vw;
     }
     
     // 卡片背景
     .foodcardBox {
         position: absolute;
-        top: 20%;
+        top: 200px;
         left: 20px;
         z-index: 1000; /* 使側邊欄位於地圖之上 */
         margin-bottom: 15px; /* 卡片與底部元素間的間距 */
@@ -26,13 +26,13 @@
         padding: 15px; /* 增加內邊距 */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
         transition: all 0.3s ease;
-        width: 330px;
-        height: 600px;
+        width: 350px;
+        height: 70vh;
         overflow-y: auto;
         flex-direction: column;
          // 卡片本體
          .foodCard{
-            position: relative;
+            // position: relative;
             overflow: hidden;
             border: 1px solid $danger;
             margin-bottom: 15px;
@@ -61,49 +61,50 @@
         }
     }
     
-    // 搜尋欄
-    .search-overlay {
-        position: absolute;
-        top: 20%;
-        left: 50%;
-        z-index: 1000;
-        transform: translate(-50%, -50%);
-        width: 630px;
-        background-color: white;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-        border: 2px solid $primary;
-        padding: 10px;
-        border-radius: 5px;
-        
-        .input-group{
-            justify-content: center;
+   // 搜尋欄
+.searchOverlay {
+    margin: 10px auto;  /* 在手機版上增加上下邊距 */
+    padding: 10px;    /* 增加內邊距 */
+    border-radius: 5px; /* 添加圓角 */
+   .selectItem{
+    margin: 10px;
+   }
+      #regionLabel,
+      #categoryLabel {
+        margin-right: 10px;
+        font-size: 18px;
+        color: $primary;
+      }
+      // 下拉選擇框
+      .custom-select {
+        // background-color: #4a2e2e;
+        width: 10vw;
+        color: #909090;
+        border: 1px solid $primary;
+        // margin-bottom: 10px;
+      }
+      // 搜尋欄搜尋按鈕
+      .input-group-append {
+        margin: 5px;
+        button {
+          background-color: #e7ba48;
+          color: white;
+          border-radius: 25px;
+          &:hover {
+            background-color: $secondary;
+            color: white;
+          }
         }
-        #regionLabel, #categoryLabel{
-            font-size: 18px;
-            color: $primary;
-        }
-        .custom-select{
-            // background-color: #4a2e2e;
-            width: 150px;
-            color: #909090;
-            border: 1px solid $primary;
-        }
-        .input-group-append{
-            button{
-                background-color:#E7BA48;
-                color: white;
-                width: 80px;
-                border-radius: 22px;
-                &:hover{
-                background-color: $secondary;
-                    color: white;
-                }
-            }
-        }
+      }
     }
-    
+    .mapBox {
+        position: relative;
+        // top: 90px;
+        overflow: hidden;
+    }
+
     // 跳出視窗
-    .modal-dialog {
+    .modalFullscreen {
         max-width: 800px; /* 調整模態框大小 */
         width: 100%;
         height: auto;
@@ -121,7 +122,7 @@
             position: relative;
         }
         .foodModalContent{
-            height: 500px; /* 自定義內容的高度 */
+            // height: 60vh;; /* 自定義內容的高度 */
             /* 調整關閉按鈕的位置 */
             .closeBtn {
                 position: absolute;
@@ -146,10 +147,8 @@
             color: $secondary;
         }
         .btnOverlay {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            margin: 30px;
+           margin-top: 30px;
+            text-align: end;
             button {
               border: 1px solid $secondary;  
               color: $secondary;
@@ -160,10 +159,43 @@
               }
             }
         }
+
+        
     }
     
     
-    
+    @media (max-width: 768px) {
+        /* 手機版樣式 */
+        .searchOverlay{
+            position: relative;
+            top: 90px;
+          .custom-select{
+            width: 20vw;
+          }
+          .modalFullscreen{
+            max-width: 100%;
+            height: 100%;
+            border-radius: 0; /* 去除邊角的圓角 */
+          }
+        }
+      }
+      @media (min-width: 769px){
+        // 大於手機版樣式
+        .searchOverlay {
+          position: absolute;
+          z-index: 10;
+          top: 150px;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 45%;
+          background-color: white;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+          border: 2px solid $primary;
+          padding: 10px;
+          
+          // border-radius: 5px;
+        }
+    }
     
     
     
