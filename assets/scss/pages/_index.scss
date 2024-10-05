@@ -16,7 +16,7 @@ body {
 
 .tag {
     position: fixed;
-    top: 85px;
+    top: 70px;
     /* 根據header的高度來設定 */
     left: 0;
     width: 100%;
@@ -25,6 +25,15 @@ body {
     background-color: transparent;
     /* 背景色 */
     margin: 0px;
+    .IndexBtn{
+        color: #fff;
+        border-radius: 50px;
+        height:auto;
+        width: auto;
+        border-color: #fff;
+        font-size: 0.7rem;
+    }
+
 }
 
 /* Swiper Container */
