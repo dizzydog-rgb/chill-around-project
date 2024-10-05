@@ -1,0 +1,122 @@
+.test{
+    background-color: rgba(190, 211, 220, 1);
+    .content{
+        // background-image: url("../../images/test/background.jpg");
+        background-repeat: no-repeat;
+        background-size:cover;
+        text-align: center;
+        padding: 40px;
+    }
+}
+.testHomePage{
+    padding: 200px 0px;
+    .logo{
+        width: 100px;
+        rotate: -20deg;
+        position: absolute;
+        top: 80px;
+        left: 280px;
+    }
+    .enter{
+        color: white;
+        border-radius: 20px;
+        border: none;
+        padding: 8px 24px;
+        margin: 88px 0px 88px 0px;
+    }
+}
+.que{
+    h2{
+        margin: 40px;
+    }
+    .btn{
+        border-radius: 20px;
+        visibility: hidden;
+    }
+    .answer{
+        background-color: white;
+        border: solid 1px;
+        border-radius: 20px;
+        p{
+            color: $secondary;
+            margin-top: 1rem;
+        }
+        &:hover{
+            cursor: pointer;
+            background-color: $secondary;
+            p{
+                color: white;
+            }
+        }
+    }
+}  
+.testQuestion1{
+    .twoCard{
+        margin-bottom: 40px;
+    }
+    .aCard{
+        margin: 0px auto;
+    }
+    .answer{
+        img{
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+    }
+}
+.testQuestion2{
+    .aCard{
+        padding: 3rem 0 20rem 0;
+    }
+    .answer{
+        width: 25rem;
+        margin: 8px;
+    }
+}
+.testResult{
+    padding-top: 40px;
+    .resultStyle{
+        margin: auto;
+        .characterDes{
+            margin-right: 32px;
+            word-break: break-all;
+        }
+    }
+    .resultCountry{
+        margin: 32px auto;
+        .countryDes{
+            margin-left: 32px;
+            word-break: break-all;
+        }
+    }.relativeInfo{
+        margin: 0px auto 32px;
+        .tag{
+            margin-right: 40px;
+        }
+    }.otherOption{
+        margin: auto;
+        padding-bottom: 40px;
+        justify-content: center;
+        .aboutTest{
+            margin-right: 40px;
+            text-align: center;
+        }
+        .btn{
+            margin: 8px;
+        }.linkTo{
+            text-align: center;
+            margin-top: 40px;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+            margin: 16px;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}
