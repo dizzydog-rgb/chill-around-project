@@ -6,11 +6,7 @@ $(document).ready(function(){
         { title: "景點名稱1", location: "地點1", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
         { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
         { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" }
         // 添加更多卡片資料
     ];
      $.each(sitecardData, function(index, data){
@@ -44,11 +40,7 @@ $(document).ready(function(){
         { title: "景點名稱1", location: "地點1", image: "../assets/images/searchSite/tainan.jpeg" },
         { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/tainan.jpeg" },
         { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/tainan.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/tainan.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/tainan.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/tainan.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/tainan.jpeg" },
-        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/tainan.jpeg" },
+        { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/tainan.jpeg" }
         // 添加更多卡片資料
     ];
      $.each(foodcardData, function(index, data){

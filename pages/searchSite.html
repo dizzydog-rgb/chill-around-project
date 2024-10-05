@@ -14,11 +14,34 @@
 
     <!-- 導覽列 -->
     <%- include('./layout/searchHeader'); -%>
- <div class="searchSitePage container-fluid p-0">
+<div class="searchSitePage container-fluid p-0">
+    <div id="carouselExample" class="carousel slide d-md-none col-md-6 order-md-1" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="siteCarouselItem carousel-item active">
+              <img src="../assets/images/searchSite/chimeiMuseum.jpeg" class="d-block w-100" alt="圖片 1"/>
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="../assets/images/searchSite/tainan.jpeg" class="d-block w-100" alt="圖片 2" />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img src="../assets/images/searchSite/Taipei_101.jpg" class="d-block w-100" alt="圖片 3"/>
+            </div>
+            
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
 
     
   <!-- 首頁圖片 -->
-    <div id="hero-image" class="container-fluid p-0" >
+<div id="hero-image" class="container-fluid p-0 d-none d-md-block" >
     <div class="row no-gutters ms-0 me-0">
         <div id="image1" class="col-md-4 ps-0 pe-0">
             <img src="../assets/images/searchSite/chimeiMuseum.jpeg" alt="Image 1">
@@ -32,23 +55,37 @@
     </div>
 </div>
     <!-- 搜尋區域 -->
-    <div class="searchOverlay container-fluid w-50">
-        <div class="container input-group d-flex justify-content-center align-items-center">
-            <div class="d-flex me-5">
-                <label for="regionSelect" class="me-3" id="regionLabel">地區</label>
-                <select class="custom-select">
+    <div class="searchOverlay container-fluid">
+        <div class="input-group d-flex flex-column flex-sm-row justify-content-center align-items-center">
+            <div class="selectItem d-flex me-5">
+                <label for="regionSelect" class="mt-1 me-3" id="regionLabel">地區</label>
+                <select class="mt-2 custom-select">
                     <option selected>請選擇</option>
-                    <option value="1">選項1</option>
-                    <option value="2">選項2</option>
-                    <option value="3">選項3</option>
+                    <option value="Taipei">台北市</option>
+                    <option value="NewTaipei">新北市</option>
+                    <option value="Keelung">基隆市</option>
+                    <option value="Yilan">宜蘭縣</option>
+                    <option value="Taoyuan">桃園市</option>
+                    <option value="Hsinchu">新竹縣</option>
+                    <option value="Miaoli">苗栗縣</option>
+                    <option value="Taichung">台中市</option>
+                    <option value="Changhua">彰化縣</option>
+                    <option value="Nantou">南投縣</option>
+                    <option value="Yunlin">雲林縣</option>
+                    <option value="Chiayi">嘉義縣</option>
+                    <option value="Tainan">台南市</option>
+                    <option value="Kaohsiung">高雄市</option>
+                    <option value="Pingtung">屏東縣</option>
+                    <option value="Hualien">花蓮縣</option>
+                    <option value="Taitung">台東縣</option>
                 </select>
             </div>
-            <div class="d-flex me-5">
-                <label for="categorySelect" class="me-3" id="categoryLabel">類別</label>
-                <select class="custom-select">
+            <div class="selectItem d-flex me-5">
+                <label for="categorySelect" class="mt-1 me-3" id="categoryLabel">店家類別</label>
+                <select class="mt-2 custom-select">
                     <option selected>請選擇</option>
-                    <option value="1">選項A</option>
-                    <option value="2">選項B</option>
+                    <option value="1">小吃店</option>
+                    <option value="2">咖啡廳</option>
                     <option value="3">選項C</option>
                 </select>
             </div>

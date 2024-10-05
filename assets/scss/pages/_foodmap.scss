@@ -9,8 +9,6 @@
 
 // }
 .foodMap{
-  
-    
     #map {
         height: 100%;
         width: 100%;
@@ -29,6 +27,9 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
         transition: all 0.3s ease;
         width: 330px;
+        height: 600px;
+        overflow-y: auto;
+        flex-direction: column;
          // 卡片本體
          .foodCard{
             position: relative;
@@ -106,59 +107,65 @@
         max-width: 800px; /* 調整模態框大小 */
         width: 100%;
         height: auto;
+        // 輪播圖
+        .foodStoreItem{
+            width: 100%;
+            height: 60vh;
+            img{
+            height: 100%; /* 使圖片的高度適應父容器 */
+            width: 100%; /* 使圖片的寬度適應父容器 */
+            object-fit: cover; /* 保持圖片比例並填滿容器 */
+            }
+        }
+        .modal-content{
+            position: relative;
+        }
+        .foodModalContent{
+            height: 500px; /* 自定義內容的高度 */
+            /* 調整關閉按鈕的位置 */
+            .closeBtn {
+                position: absolute;
+                z-index: 1000;
+                top: 10px;
+                right: 10px;
+                font-size: 18px;
+                border: none;
+                cursor: pointer;
+                // background-color: transparent; /* 透明背景 */
+                color: rgb(0, 0, 0); /* 關閉按鈕顏色 */
+            }   
+        }
+        .infoTitle{
+            padding-top: 20px;
+            padding-bottom: 20px;
+            h2{
+                font-size: 26px;
+            }
+        }
+        .customIcon{
+            color: $secondary;
+        }
+        .btnOverlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 30px;
+            button {
+              border: 1px solid $secondary;  
+              color: $secondary;
+              border-radius: 25px;
+              &:hover{
+                background-color: $secondary;
+                color: white;
+              }
+            }
+        }
     }
     
-    .carousel-item img {
-        width: 100%; /* 設定圖片寬度 */
-        height: 100%; /* 設定圖片高度 */
-        object-fit: cover; /* 確保圖片比例合適 */
-    }
-    .modal-content {
-        height: 500px; /* 自定義內容的高度 */
-    }
-    .modal-body {
-        display: flex; /* 使用 Flexbox 對齊內容 */
-        position: relative;
-    }
     
-    .carousel {
-        width: 80%; /* 輪播佔容器的60% */
-        background-color: rgb(112, 142, 142);
-    }
     
-    .info {
-        width: 40%; /* 右側資訊佔容器的40% */
-        padding-left: 20px; /* 左側留出一些距離 */
-    }
     
-    /* 調整關閉按鈕的位置 */
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        font-size: 24px;
-        border: none;
-        cursor: pointer;
-        background-color: transparent; /* 透明背景 */
-        color: rgb(0, 0, 0); /* 關閉按鈕顏色 */
-    }
     
-    .leftBtn,
-    .rightBtnt {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%); 
-        /* background-color: rgba(255, 255, 255, 0.7); */
-        border: none;
-        border-radius: 50%;
-        z-index: 10; /* 確保按鈕在最上層 */
-    }
-    .leftBtn {
-        left: -30px; /* 調整左側按鈕位置 */
-    }
-    .rightBtnt {
-        right: -30px; /* 調整右側按鈕位置 */
-    }
     
     
     @media (max-width: 992px) {
