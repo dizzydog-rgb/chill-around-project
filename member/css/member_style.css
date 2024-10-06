@@ -454,7 +454,6 @@
   background-color: #E7BA48;
 }
 .member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu {
-  width: 180px;
   background: #fff;
   border: 1px solid #777;
   border-radius: 5px;
@@ -470,9 +469,6 @@
 }
 .member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .row p {
   margin: 0;
-}
-.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .row p:first-of-type {
-  width: 160px;
 }
 .member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .row:last-child {
   margin: 0;

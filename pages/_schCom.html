@@ -1,11 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant-TW">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The callback parameter is required, so we use console.debug as a noop -->
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=console.debug&libraries=maps,marker&v=beta">
+        </script>
+    <title></title>
 </head>
+
 <body>
-    
+    <div class=" _schCom">
+        <%- include('./layout/aside'); -%>
+        <div class="row">
+            <div class="col-12 col-md-7 d-flex m-0 p-0">
+                    <div class="SchComArea">
+                        <div class="SchComImage">
+
+                            <img src="../assets/images/searchSite/chimeiMuseum.jpeg" class="img-fluid" alt="大圖">
+
+                            <div class="d-flex justify-content-between DateBox">
+                                <ul class="d-flex  dayList">
+                                    <a href="">
+                                        <li class="currentDay align-bottom">DAY1</li>
+                                    </a>
+                                    <a href="">
+                                        <li>DAY2</li>
+                                    </a>
+                                    <a href="">
+                                        <li>DAY3</li>
+                                    </a>
+                                    <div class="todayInfo">
+                                        <h3>台中市</h3>
+                                        <h3>Fri 09/13</h3>
+                                    </div>
+
+                                </ul>
+                       
+                            </div>
+
+                        </div>
+
+                        <ul class="p-0 cardList m-3">
+                            <a href="">
+                                <li>
+                                    <div class="card">
+                                        <div class="row g-0">
+
+                                            <div class="col-12 col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">行程名稱</h5>
+                                                    <p class="card-text">
+                                                        從世界最高樓（2004~2010年）到國際級的中華藝術典藏，我們誠摯的邀請您來到這個充滿著對比的城市。
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <img
+                                                    src="https://plus.unsplash.com/premium_photo-1661951189203-12decb9d7f8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                            <a href="">
+                                <li>
+                                    <div class="card">
+                                        <div class="row g-0">
+
+                                            <div class="col-12 col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">行程名稱</h5>
+                                                    <p class="card-text">
+                                                        從世界最高樓（2004~2010年）到國際級的中華藝術典藏，我們誠摯的邀請您來到這個充滿著對比的城市。
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <img
+                                                    src="https://plus.unsplash.com/premium_photo-1661951189203-12decb9d7f8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                            <a href="">
+                                <li>
+                                    <div class="card">
+                                        <div class="row g-0">
+
+                                            <div class="col-12 col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">行程名稱</h5>
+                                                    <p class="card-text">
+                                                        從世界最高樓（2004~2010年）到國際級的中華藝術典藏，我們誠摯的邀請您來到這個充滿著對比的城市。
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <img
+                                                    src="https://plus.unsplash.com/premium_photo-1661951189203-12decb9d7f8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                        </ul>
+
+                    </div>
+
+            </div>
+            <div class="d-none d-md-block col-md-5 mapArea">
+                <gmp-map center="24.148906997428295, 120.66005767852741" zoom="16" map-id="DEMO_MAP_ID">
+                    <gmp-advanced-marker position="24.148906997428295, 120.66005767852741"
+                        title="My location"></gmp-advanced-marker>
+                </gmp-map>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+
 </body>
+
 </html>
