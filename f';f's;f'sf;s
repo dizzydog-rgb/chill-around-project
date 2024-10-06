@@ -1,0 +1,72 @@
+[33m618ac83[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mliao/member[m[33m, [m[1;31morigin/liao/member[m[33m)[m 'update'
+[33m122c7d6[m update
+[33m79109f6[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #15 from dizzydog-rgb/hsuan/test
+[33m3845541[m Merge branch 'main' into hsuan/test
+[33m4666b66[m Merge pull request #14 from dizzydog-rgb/yisheng/buildPlan
+[33mec6d57c[m Merge branch 'main' into yisheng/buildPlan
+[33md4e9a8e[m 測試swiper
+[33m2607109[m Merge pull request #13 from dizzydog-rgb/yeejun/test
+[33m3f7782e[m Merge branch 'main' into yeejun/test
+[33mf1d8ef4[m 'update'
+[33m63382df[m 調整aside
+[33m8fc49e6[m update 會員頁面和css
+[33m054aa21[m 小測驗靜態頁面更新
+[33m07738f8[m schMore set
+[33m612c613[m 測試 swiper
+[33md5f54b2[m install swiper
+[33mdb1f433[m Merge pull request #12 from dizzydog-rgb/Hsinya/test
+[33m8fbf81e[m 合併遠端的main和我自己的分支
+[33md2bf899[m 加入登入登出，詳細資訊頁
+[33m64108b9[m 更新header樣式
+[33m5e6cb43[m Merge pull request #11 from dizzydog-rgb/hsuan/test
+[33mbc1ac53[m swiper bug無法修正
+[33m1b851b9[m 'update'
+[33m7ece9e5[m 新增登入、會員資料
+[33mc684625[m 更新資料
+[33m099fc72[m[33m ([m[1;32mmain[m[33m)[m Merge pull request #8 from dizzydog-rgb/hsuan/card_test
+[33m67f3db8[m[33m ([m[1;31morigin/hsuan/card_test[m[33m)[m change name
+[33mdfb78da[m bootstrap v5.3
+[33mdca736f[m 新增login.html
+[33mee07e87[m icon erroe
+[33md0cad3d[m Merge pull request #7 from dizzydog-rgb/yisheng_buildPlan
+[33m3e38254[m[33m ([m[1;31morigin/yisheng_buildPlan[m[33m)[m 更新按鈕樣式
+[33m0a623f2[m image name update
+[33m108b3cd[m update img name
+[33m655eddf[m dist upadate
+[33mc5f16f4[m Merge pull request #6 from dizzydog-rgb/yisheng_buildPlan
+[33mb583f30[m Merge branch 'yisheng_buildPlan' of https://github.com/dizzydog-rgb/chill-around-project into yisheng_buildPlan
+[33m43c6232[m 修正buildPlan.html跑版問題
+[33mb62a992[m Merge pull request #5 from dizzydog-rgb/Hsinya/test
+[33m839165b[m[33m ([m[1;31morigin/Hsinya/test[m[33m)[m Merge branch 'main' into Hsinya/test
+[33mfd6b227[m 地圖部分修改
+[33mfd1a487[m 資訊搜尋頁
+[33m0fe6526[m css有問題先不要並進去
+[33m97c1468[m update
+[33mc801dad[m budget and items pages
+[33mfb95162[m 檔案上傳
+[33mf06bea4[m 上傳圖片
+[33m0dc8e1f[m Merge pull request #4 from dizzydog-rgb/yisheng_buildPlan
+[33m84b36a3[m 建立旅行計畫 - 靜態頁面完成
+[33mc5179c7[m 完成編輯計畫頁面
+[33m7da127c[m 完成側邊欄及建立形成頁 - 靜態頁面
+[33m53c61d5[m 第一次上傳
+[33m6cb4908[m Update README.md
+[33m9e11728[m Merge pull request #3 from dizzydog-rgb/yisheng_buildPlan
+[33mf956184[m yisheng first commit
+[33m68e1565[m 顯示地圖測試
+[33m978afda[m bootstrap滿版卡test
+[33m5c07ea7[m Merge pull request #1 from dizzydog-rgb/Hsinya/test
+[33m5aa6d50[m Merge pull request #2 from dizzydog-rgb/yeejun/test
+[33m732c7b2[m[33m ([m[1;31morigin/yeejun/test[m[33m)[m new project
+[33md6468ca[m 測試推分支
+[33m0e179f5[m 測試推分支
+[33m596e63d[m bootstrap_card_test
+[33m2e77c48[m Merge branch 'main' of https://github.com/dizzydog-rgb/chill-around-project
+[33m9efd653[m README updated
+[33m0285885[m Update README.md
+[33ma00f0bb[m Merge branch 'main' of https://github.com/dizzydog-rgb/chill-around-project
+[33m7ecf8e7[m environment construction completed
+[33ma7bdc37[m Update README.md
+[33m9a7b976[m Update README.md
+[33mb4fd715[m Create README.md
+[33mf7af770[m environment construction
