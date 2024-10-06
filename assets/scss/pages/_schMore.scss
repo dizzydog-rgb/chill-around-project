@@ -30,7 +30,7 @@ h1 {
 .SchtopImage{
 
     position: relative;
-    top: 90px;
+    // top: 90px;
     width: 100%;
     height: 300px;
     // overflow: hidden;
@@ -62,10 +62,10 @@ aside{
 // 下方的大容器
 .SchBottomInfo{
     position: relative;
-    top: 90px;
+    // top: 90px;
     width:100%;
     margin: 0;
-    padding-bottom: 90px;
+    // padding-bottom: 90px;
 }
 // 左側選取方塊們
 
@@ -98,7 +98,7 @@ aside{
     padding: 0px;
     position: relative;
 }
-.allCard{
+._schMore .allCard{
     // cursor: pointer;
     position: relative;
     overflow: visible;
@@ -110,7 +110,7 @@ aside{
 
     .cardImage{
         width: 100%;
-        height: 650px;
+        height: 100%;
         overflow: hidden;
         img{
             width: 100%;
@@ -127,7 +127,7 @@ aside{
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: 80vh;
         background-color: rgba(0, 0, 0, 0.5); //半透明背景
         color: white;
         padding: 30px;
