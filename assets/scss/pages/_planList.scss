@@ -89,5 +89,34 @@
       }
     }
     
-    
+    @media (max-width: 768px) {
+        .planListArea{
+          padding-bottom: 80px;
+          .cardList{
+            margin-top: 36px;
+            
+            .card{
+                margin-bottom: 36px;
+                .card-header{
+                    padding: 8px 16px;
+                    .card-title{
+                        font-size: 22px;
+                        margin: 0;
+                    }
+                    
+                }
+                .card-img-top{
+                    padding: 0 10px;
+                    object-fit: cover;
+                }
+                .card-body{
+                    padding: 12px 24px;
+                    .btn{
+                        padding: 8px 24px;
+                    }
+                }
+            }
+          }
+        }
+    }
 }
