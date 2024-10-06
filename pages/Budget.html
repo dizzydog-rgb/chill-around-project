@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七淘 - 預算清單</title>
+    <link rel="stylesheet" href="../assets/scss/all.scss">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body class="BudegetPage">
+    <div class="container-fluid">
+        <div class="row d-flex">
+            <div class="col-md-1 col-2 p-0 allcolume">
+                <div class="leftbarDiv">
+                    <%- include('./layout/aside'); -%>
+                        <!-- <span>準備放側邊攔</span> -->
+                </div>
+            </div>
+            <div class="col-md-8 col-6 p-0 allcolume">
+                <div class="text-white mtopDiv">
+                    <div class="circle-background"></div>
+                    <span id="budgetTitle">預算清單</span>
+                    <a href="./Popup_Budget_Final.html">
+                        <button class="increaseBtn" herf="./">增加 +</button>
+                    </a>
+                </div>
+                <div class="historyDiv">
+                    <div class="dayHistory">
+                        <span class="historyDate">2024/12/13</span>
+                        <div class="historyContent">
+                            <img src="../assets/images/Budget_Item/Items/clothes.png">
+                            <span class="leftCategory">住宿 飯店</span>
+                            <span class="unpaid">未付 </span>
+                            <span class="rightMoney">$5000</span>
+                        </div>
+                        <div class="historyContent">
+                            <img src="../assets/images/Budget_Item/Items/clothes.png">
+                            <span class="leftCategory">交通 高鐵</span>
+                            <span class="unpaid">未付 </span>
+                            <span class="rightMoney">$5000</span>
+                        </div>
+                    </div>
+                    <div class="dayHistory">
+                        <span class="historyDate">2024/12/12</span>
+                        <div class="historyContent">
+                            <img src="../assets/images/Budget_Item/Items/clothes.png">
+                            <span class="leftCategory">住宿 飯店</span>
+                            <span class="unpaid">未付 </span>
+                            <span class="rightMoney">$5000</span>
+                        </div>
+                        <div class="historyContent">
+                            <img src="../assets/images/Budget_Item/Items/clothes.png">
+                            <span class="leftCategory">住宿 飯店</span>
+                            <span class="unpaid">未付 </span>
+                            <span class="rightMoney">$5000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-4 p-0 allcolume">
+                <div class="text-white rightbarDiv">
+                    <div class="ringProtect">
+                        <div class="circle-ring">
+                            <span>NT $1500</span>
+                            <span>Total cost</span>
+                        </div>
+                        <div class="paid">
+                            <div>
+                                <span>未付金額</span>
+                                <br>
+                                <span>NT$1500</span>
+                            </div>
+                            <div>
+                                <span>已付金額</span>
+                                <br>
+                                <span>NT$1500</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="categoryDiv">
+                        <div class="categoryHistory">
+                            <img src="../assets/images/Budget_Item/Items/clothes.png">
+                            <span>住宿</span>
+                            <span class="Money">NT$ 5000</span>
+                        </div>
+                        <div class="categoryHistory">
+                            <img src="../assets/images/Budget_Item/Items/clothes.png">
+                            <span>交通</span>
+                            <span class="Money">NT$ 5000</span>
+                        </div>
+                        <div class="categoryHistory">
+                            <img src="../assets/images/Budget_Item/Items/clothes.png">
+                            <span>食物</span>
+                            <span class="Money">NT$ 5000</span>
+                        </div>
+                        <div class="categoryHistory">
+                            <img src="../assets/images/Budget_Item/Items/clothes.png">
+                            <span>娛樂</span>
+                            <span class="Money">NT$ 5000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+</body>
+
+</html>
