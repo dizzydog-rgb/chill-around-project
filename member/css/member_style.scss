@@ -222,8 +222,11 @@
                 }
             }
 
+            .col-md-10 {
+                padding: 50px 60px;
+            }
+
             .personaldata {
-                padding: 90px 80px;
 
                 .editbtn {
                     background-color: #4A859F;
@@ -326,7 +329,6 @@
             }
 
             .mytrip {
-                padding: 90px 80px;
 
                 .editbtn {
                     padding: 6px 15px;
@@ -452,7 +454,6 @@
             }
 
             .mycollection {
-                padding: 90px 80px;
 
                 .editbtn {
                     padding: 6px 15px;
@@ -578,16 +579,115 @@
             }
 
             .TaiwanEx {
-                padding: 90px 80px;
 
-                .editbtn {
-                    padding: 6px 15px;
-                    background-color: #4A859F;
-                    border-radius: 50px;
-                }
+                .Taiwanmap {
 
-                .editbtn:hover {
-                    background-color: #6799AE;
+                    .contextMenu {
+                        width: 180px;
+                        background: #fff;
+                        border: 1px solid #777;
+                        border-radius: 5px;
+                        display: none;
+                        position: absolute;
+
+                        .row {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: flex-start;
+                            margin: 0 0 10px 0;
+
+                            p {
+                                margin: 0;
+                            }
+
+                            p:first-of-type {
+                                width: 160px;
+                            }
+                        }
+
+                        .row:last-child {
+                            margin: 0;
+                        }
+
+                        .menuTitle {
+                            margin: 0;
+                            background: #eee;
+
+                            p {
+                                text-align: center;
+                                font-weight: bold;
+                            }
+                        }
+
+                        .menuItem {
+                            margin: 0;
+                            padding: 5px 10px;
+                            border-bottom: 1px solid #777;
+                        }
+
+                        .menuItem:first-of-type {
+                            border-top-left-radius: 5px;
+                            border-top-right-radius: 5px;
+                        }
+
+                        .menuItem:last-child {
+                            border-bottom: 1px solid transparent;
+                            border-bottom-right-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                        }
+
+                        .menuButton {
+                            cursor: pointer;
+                        }
+
+                        .menuButton:hover {
+                            background: #eee;
+                        }
+
+                        .red-border {
+                            border-right: 3px solid #FF7A7A;
+                        }
+
+                        .yellow-border {
+                            border-right: 3px solid #F5A623;
+                        }
+
+                        .green-border {
+                            border-right: 3px solid #88B14B;
+                        }
+
+                        .blue-border {
+                            border-right: 3px solid #27BBEE;
+                        }
+
+                        .white-border {
+                            border-right: 3px solid #fff;
+                        }
+                    }
+
+                    .default {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #B4DEF7;
+
+                        .map {
+                            width: 100%;
+                            max-width: 500px;
+                        }
+
+                        @media screen and (-ms-high-contrast: active),
+                        (-ms-high-contrast: none) {
+                            #map {
+                                width: 750px;
+                                height: 1124px;
+                                max-width: 450px;
+                                max-height: 674px;
+                            }
+                        }
+                    }
                 }
 
                 .sharedownld {
@@ -602,8 +702,20 @@
                         text-decoration: none;
                     }
 
-                    a:hover{
-                        text-decoration:underline
+                    a:hover {
+                        text-decoration: underline
+                    }
+
+                    button {
+                        padding: 0;
+                        background: none;
+                        outline: none;
+                        border: none;
+                        color: #929292;
+                    }
+
+                    button:hover {
+                        text-decoration: underline;
                     }
                 }
             }

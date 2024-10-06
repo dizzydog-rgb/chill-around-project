@@ -183,8 +183,8 @@
 .member .container-fluid .row .col-md-2 .sidebar .item a:active::before {
   background-color: #6799AE;
 }
-.member .container-fluid .row .personaldata {
-  padding: 90px 80px;
+.member .container-fluid .row .col-md-10 {
+  padding: 50px 60px;
 }
 .member .container-fluid .row .personaldata .editbtn {
   background-color: #4A859F;
@@ -256,9 +256,6 @@
 }
 .member .container-fluid .row .personaldata .formList .bindaccount .googleline .item #googleimg {
   height: 40px;
-}
-.member .container-fluid .row .mytrip {
-  padding: 90px 80px;
 }
 .member .container-fluid .row .mytrip .editbtn {
   padding: 6px 15px;
@@ -358,9 +355,6 @@
 .member .container-fluid .row .mytrip .footerbtn:hover {
   background-color: #E7BA48;
 }
-.member .container-fluid .row .mycollection {
-  padding: 90px 80px;
-}
 .member .container-fluid .row .mycollection .editbtn {
   padding: 6px 15px;
   background-color: #4A859F;
@@ -459,16 +453,91 @@
 .member .container-fluid .row .mycollection .footerbtn:hover {
   background-color: #E7BA48;
 }
-.member .container-fluid .row .TaiwanEx {
-  padding: 90px 80px;
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu {
+  width: 180px;
+  background: #fff;
+  border: 1px solid #777;
+  border-radius: 5px;
+  display: none;
+  position: absolute;
 }
-.member .container-fluid .row .TaiwanEx .editbtn {
-  padding: 6px 15px;
-  background-color: #4A859F;
-  border-radius: 50px;
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 0 10px 0;
 }
-.member .container-fluid .row .TaiwanEx .editbtn:hover {
-  background-color: #6799AE;
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .row p {
+  margin: 0;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .row p:first-of-type {
+  width: 160px;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .row:last-child {
+  margin: 0;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .menuTitle {
+  margin: 0;
+  background: #eee;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .menuTitle p {
+  text-align: center;
+  font-weight: bold;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .menuItem {
+  margin: 0;
+  padding: 5px 10px;
+  border-bottom: 1px solid #777;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .menuItem:first-of-type {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .menuItem:last-child {
+  border-bottom: 1px solid transparent;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .menuButton {
+  cursor: pointer;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .menuButton:hover {
+  background: #eee;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .red-border {
+  border-right: 3px solid #FF7A7A;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .yellow-border {
+  border-right: 3px solid #F5A623;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .green-border {
+  border-right: 3px solid #88B14B;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .blue-border {
+  border-right: 3px solid #27BBEE;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .contextMenu .white-border {
+  border-right: 3px solid #fff;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .default {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #B4DEF7;
+}
+.member .container-fluid .row .TaiwanEx .Taiwanmap .default .map {
+  width: 100%;
+  max-width: 500px;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .member .container-fluid .row .TaiwanEx .Taiwanmap .default #map {
+    width: 750px;
+    height: 1124px;
+    max-width: 450px;
+    max-height: 674px;
+  }
 }
 .member .container-fluid .row .TaiwanEx .sharedownld span {
   border: 1px solid;
@@ -479,5 +548,15 @@
   text-decoration: none;
 }
 .member .container-fluid .row .TaiwanEx .sharedownld a:hover {
+  text-decoration: underline;
+}
+.member .container-fluid .row .TaiwanEx .sharedownld button {
+  padding: 0;
+  background: none;
+  outline: none;
+  border: none;
+  color: #929292;
+}
+.member .container-fluid .row .TaiwanEx .sharedownld button:hover {
   text-decoration: underline;
 }/*# sourceMappingURL=member_style.css.map */
