@@ -1,3 +1,5 @@
+.allSitePage{
+
 h1 {
     font-family: "Noto Sans TC", sans-serif;
     font-optical-sizing: auto;
@@ -15,8 +17,9 @@ h1 {
 // 最上方大圖
 .topImage{
     position: relative;
-    width: 100%;
-    height: 311px;
+    top: 90px;
+    width: 100vw;
+    height: 300px;
     // overflow: hidden;
     img{
         width: 100%;
@@ -39,7 +42,10 @@ h1 {
 }
 // 下方的大容器
 .bottomInfo{
+    position: relative;
     width:100%;
+    top: 90px;
+    margin: 0;
 }
 // 左側選取方塊們
 .selectBlock{
@@ -72,14 +78,14 @@ h1 {
     position: relative;
     overflow: visible;
     width: 100%;
-    height: 650px;
+    height: 80vh;
     border:0px ; // 消除預設白框
     border-radius: 0px;
     // background-color: #f8f9fa;
 
     .cardImage{
         width: 100%;
-        height: 650px;
+        height: 80vh;
         overflow: hidden;
         img{
             width: 100%;
@@ -96,7 +102,7 @@ h1 {
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: 80vh;
         background-color: rgba(0, 0, 0, 0.5); //半透明背景
         color: white;
         padding: 30px;
@@ -111,4 +117,15 @@ h1 {
             border-radius: 25px;
         }
     }
+}
+
+@media (max-width: 768px) {
+    /* 在手機版樣式下添加更多的調整 */
+    .selectBlock {
+        border-radius: 0;
+        width: 100%;
+        padding: 0;
+    }
+}
+
 }

@@ -4,8 +4,7 @@
   // 首頁圖片
   #hero-image {
     position: relative;
-    text-align: center;
-    
+    text-align: center; 
     img {
       width: 100%;
       height: 100vh;
@@ -16,37 +15,45 @@
       }
     }
   }
+  // 縮小後的輪播圖
+   .siteCarouselItem{
+    width: 100%;
+    height: 600px;
+    img{
+        height: 100%; /* 使圖片的高度適應父容器 */
+        width: 100%; /* 使圖片的寬度適應父容器 */
+        object-fit: cover; /* 保持圖片比例並填滿容器 */
+    }
+}
   // 搜尋欄
 .searchOverlay {
-    position: absolute;
-    top: 90%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    // width: 40%;
-    background-color: white;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-    border: 2px solid $primary;
-    padding: 10px;
-    border-radius: 5px;
-  
-    
+  margin: 10px auto;  /* 在手機版上增加上下邊距 */
+  padding: 10px;    /* 增加內邊距 */
+  border-radius: 5px; /* 添加圓角 */
+ .selectItem{
+  margin: 10px;
+ }
     #regionLabel,
     #categoryLabel {
+      margin-right: 10px;
       font-size: 18px;
       color: $primary;
     }
+    // 下拉選擇框
     .custom-select {
       // background-color: #4a2e2e;
-      width: 150px;
+      width: 10vw;
       color: #909090;
       border: 1px solid $primary;
+      // margin-bottom: 10px;
     }
+    // 搜尋欄搜尋按鈕
     .input-group-append {
+      margin: 5px;
       button {
         background-color: #e7ba48;
         color: white;
-        width: 80px;
-        border-radius: 22px;
+        border-radius: 25px;
         &:hover {
           background-color: $secondary;
           color: white;
@@ -58,29 +65,56 @@
   #moreBtn {
     background-color: #e7ba48;
     color: white;
-    width: 114px;
+    width: auto;
     border-radius: 25px;
     &:hover {
-      background-color: #e2ad25;
+      background-color:$secondary;
       color: white;
     }
   }
-  // 推薦區塊 景點美食
+  //  標題分隔線 
+  .textDivider,
+  .textDivider2 {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px 20px;
+}
+.textDivider::after {
+  flex: 1;
+  content: '';
+  padding: 1.5px;
+  background-color: $success;
+  /* margin: 5px 20px; */
+  margin: auto;
+}
+.textDivider2::after {
+  flex: 1;
+  content: '';
+  padding: 1.5px;
+  background-color: $light;
+  /* margin: 5px 20px; */
+  margin: auto;
+}
+  // 推薦區塊 景點和美食
+
+
 #recommendCards {
     //景點文字
-    .siteText,
-    .foodText {
-      background-color: #e7e7e7;
-      width: 100%;
-      height: 160px;
-      h1 {
-        font-family: "Noto Sans TC", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 500;
-        font-style: normal;
-        font-size: 35px;
-      }
-    }
+    // .siteText,
+    // .foodText {
+    //   // background-color: #e7e7e7;
+    //   // width: 100%;
+    //   // height: 160px;
+    //   h4 {
+    //     font-family: "Noto Sans TC", sans-serif;
+    //     font-optical-sizing: auto;
+    //     font-weight: 500;
+    //     font-style: normal;
+    //     font-size: 35px;
+    //   }
+    // }
     #sitecardBox,
     #foodcardBox {
       width: 100%;
@@ -91,14 +125,14 @@
       position: relative;
       overflow: visible;
       width: 100%;
-      height: 650px;
+      height: 90vh;
       border: 0px; // 消除預設白框
       border-radius: 0px;
       // background-color: #f8f9fa;
   
       .cardImage {
         width: 100%;
-        height: 650px;
+        height: 90vh;
         overflow: hidden;
         img {
           width: 100%;
@@ -125,6 +159,9 @@
         bottom: 0;
         right: 0;
         margin: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         button {
           color: white;
           border-radius: 25px;
@@ -132,7 +169,32 @@
       }
     }
   }
-  
+  @media (max-width: 768px) {
+    /* 手機版樣式 */
+    .searchOverlay{
+      .custom-select{
+        width: 20vw;
+      }
+      
+    }
+  }
+  @media (min-width: 769px){
+    .searchOverlay {
+      position: absolute;
+      z-index: 10;
+      top: 90%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 45%;
+      background-color: white;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+      border: 2px solid $primary;
+      padding: 10px;
+      
+      // border-radius: 5px;
+    }
+  }
+ 
   
 }
 

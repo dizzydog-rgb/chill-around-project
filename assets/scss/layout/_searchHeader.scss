@@ -1,4 +1,6 @@
 .searchSiteHeader{
+  width: 100vw;
+  z-index: 1000;
     .searchNav{
         img{
             height: 65px;
@@ -7,7 +9,7 @@
       #loginBtn{
         background-color: #e7ba48;
         color: white;
-        width: 114px;
+        width: auto;
         border-radius: 25px;
         &:hover {
           background-color: $secondary;
