@@ -29,6 +29,12 @@
                 margin: 0;
             }
         }
+        .budget{
+          p{
+            text-align: end;
+          }
+          
+        }
 
         .planedDay{
             .circle {
@@ -114,11 +120,11 @@
       }
       .todayInfo{
         text-align: right;
-        font-size: 20px;
         color: $secondary;
         margin-right: 20px;
         h3{
-            font-weight: bold;
+          font-size: 20px;
+          font-weight: bold;
         }
       }
       .cardList{
@@ -136,7 +142,7 @@
                     -webkit-line-clamp: 1;
                 }
                 .card-text{
-                    font-size: 18px;
+                    font-size: 20px;
                     display: -webkit-box;
                     -webkit-line-clamp: 5;
                     -webkit-box-orient: vertical;        overflow: hidden;
@@ -273,7 +279,160 @@
         }
       }
       
+    }
+
+    @media (max-width:768px) {
+    .editArea{
+      padding-bottom: 200px;
+
+      .planInfo{
+        padding: 12px 12px;
+
+        .planName, .budget{
+            margin-right: 24px;
+            h2{
+                font-size: 22px;
+            }
+            p{
+                font-size: 20px;
+            }
+        }
+        .budget{
+          p{
+            text-align: start;
+          }
+          
+        }
+
+        .planedDay{
+            .circle {
+                border:4px solid $secondary;
+                height:60px;
+                width:60px;
+                font-size: 22px;
+                line-height: 2.5;
+                margin-right: 12px;
+            }
+            p{
+                font-size: 20px;
+                padding-top: 0px;
+            }
+          }
+      }
+
+      .editBtn{
+        margin-right: 16px;
+        .btn{
+          width: 40px;
+          height: 40px;
+          line-height: 40px;
+        }
+        .bi{
+          font-size: 40px;
+        }
+      }
+      .dayList{
+        font-size: 20px;
+
+
+        li{
+            margin-right: 12px;
+            color: #78AEC6;
+        }
+
+        .currentDay{
+            font-size: 22px;
+        }
+
+        .addDayBtn{
+            margin-right: 23px;
+        .btn{
+          border: none;
+          padding: 0;
+          width:40px;
+          height:40px;
+          line-height:40px;
+        }
+        .bi{
+          font-size: 40px;
+        }
+        }
+        
+      }
+      .todayInfo{
+        margin-right: 12px;
+      }
+      .cardList{
+        gap: 48px;
+        .card{
+            border: 1px solid $danger;       
+            .card-body{
+                .card-title{
+                    font-size: 22px;
+                }
+                .card-text{
+                    font-size: 20px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                }
+            }
+            img{
+                width: 100%;
+                height: 100%;
+                aspect-ratio: 2 / 1;
+                object-fit: cover;
+            }
+        }
+      }
       
+    .btn-outline-secondary{
+      font-size: 22px;
+    }
+      
+    }
+
+    .modal{
+      .modal-header{
+        padding: 0;
+      }
+      .modal-body{
+        padding-left: 36px;
+        padding-right: 36px;
+
+        .inputBox{
+          h3{
+            font-size: 28px;
+            margin-bottom: 12px;
+          }
+          input{
+            font-size: 24px;
+            margin-bottom: 24px;
+          }
+          .description {
+            height: 180px;
+          }
+        }
+
+        .taglist{
+          .btn{
+            border-radius: 25px;
+            font-size: 16px;
+            margin-right: 12px;
+            margin-bottom: 16px;
+          }
+        }
+      }
+      .modal-footer{
+        padding-left: 36px;
+        padding-right: 36px;
+        .btn{
+          color: #FFFFFF;
+          font-size: 20px;
+          padding: 8px 16px;
+        }
+      }
+      
+    }
     }
 
 }
