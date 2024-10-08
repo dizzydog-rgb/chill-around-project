@@ -1,0 +1,719 @@
+* {
+    font-family: Arial, 'Noto Serif TC', serif;
+}
+
+.loginbtn {
+    width: 110px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 50px !important;
+    background-color: #E2AD25 !important;
+}
+
+.loginbtn:hover {
+    background-color: #E7BA48 !important;
+}
+
+.login {
+    .modal-header {
+        border: none;
+    }
+
+    .modal-body {
+        .signinbtn {
+            padding: 6px 20px;
+            border-radius: 50px;
+            background-color: #4A859F;
+        }
+
+        .signinbtn:hover {
+            background-color: #6799AE;
+        }
+
+        .registerbtn {
+            padding: 6px 20px;
+            border-radius: 50px;
+            background-color: #E2AD25;
+        }
+
+        .registerbtn:hover {
+            background-color: #E7BA48;
+        }
+    }
+
+    .fastlogin {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #929292;
+
+        .line {
+            width: 40%;
+            border: 1px solid;
+        }
+    }
+
+    .modal-footer {
+        border: none;
+        flex-direction: column;
+        justify-content: center;
+
+        .lineloginbtn {
+            width: 110px;
+            height: 32px;
+            background-image: url(../images/memberimg/btn_login_base.png);
+            background-repeat: no-repeat;
+        }
+
+        .lineloginbtn:hover {
+            background-image: url(../images/memberimg/btn_login_hover.png);
+        }
+
+        .lineloginbtn:active {
+            background-image: url(../images/memberimg/btn_login_press.png);
+        }
+    }
+}
+
+.register {
+    background-image: url(../images/memberimg/註冊背景圖.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+
+    .mycard {
+        max-width: 540px;
+        background-color: #eeeeeecc;
+        padding: 50px 30px;
+        margin: 100px auto 25px;
+        -moz-border-radius: 30px;
+        -webkit-border-radius: 30px;
+        border-radius: 30px;
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .col-form-label {
+            font-size: 24px;
+        }
+
+        .subbtn {
+            padding: 6px 20px;
+            font-size: 20px;
+            border-radius: 50px;
+            background-color: #E2AD25;
+        }
+
+        .subbtn:hover {
+            background-color: #E7BA48;
+        }
+
+        .fastregister {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #929292;
+
+            .line {
+                width: 40%;
+                border: 1px solid;
+            }
+        }
+
+        .fastregisterbtn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+
+            .lineloginbtn {
+                width: 110px;
+                height: 32px;
+                background-image: url(../images/memberimg/btn_login_base.png);
+                background-repeat: no-repeat;
+            }
+
+            .lineloginbtn:hover {
+                background-image: url(../images/memberimg/btn_login_hover.png);
+            }
+
+            .lineloginbtn:active {
+                background-image: url(../images/memberimg/btn_login_press.png);
+            }
+        }
+    }
+}
+
+.member {
+    height: 100vh;
+
+    .container-fluid {
+        height: 100%;
+
+        .row {
+            height: 100%;
+
+            .col-md-2 {
+                padding: 0;
+                border-right: 1px solid #4A859F;
+
+                img {
+                    width: 110px;
+                    height: 60px;
+                    margin: 20px 0;
+                }
+
+                .sidebar {
+                    border-top: 1px solid #4A859F;
+
+                    .item {
+
+                        a {
+                            position: relative;
+                            text-decoration: none;
+                            display: flex;
+                            align-items: center;
+                            padding: 20px;
+                            color: #4A859F;
+                            font-size: 24px;
+                            transition: all ease 1s;
+
+                            .fa-solid {
+                                font-size: 35px;
+                            }
+                        }
+
+                        a::before,
+                        a::after {
+                            content: '';
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 0;
+                            height: 100%;
+                            background-color: transparent;
+                            z-index: -2;
+                        }
+
+                        a::before {
+                            transition: all ease 1s;
+                            background-color: #4A859F;
+                            z-index: -1;
+                        }
+
+                        a:hover {
+                            z-index: 1;
+                            color: #fff;
+                        }
+
+                        a:hover::after,
+                        a:hover::before {
+                            width: 100%;
+                        }
+
+                        a:active::before {
+                            background-color: #6799AE;
+                        }
+                    }
+                }
+            }
+
+            .col-md-10 {
+                padding: 50px 60px;
+            }
+
+            .personaldata {
+
+                .editbtn {
+                    background-color: #4A859F;
+                    border-radius: 50px;
+                }
+
+                .editbtn:hover {
+                    background-color: #6799AE;
+                }
+
+                .card {
+                    border: none;
+
+                    .row {
+                        .col-md-4 {
+                            img {
+                                border-radius: 50%;
+                                background-color: #eeeeee;
+                            }
+                        }
+
+                        .col-md-8 {
+                            .card-body {
+                                .card-text {
+                                    font-size: 35px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .formList {
+                    padding: 0 30px;
+
+                    form {
+                        .item {
+                            display: flex;
+                            font-size: 20px;
+                            border-bottom: 1px solid #DEDEDE;
+                            margin-bottom: 10px;
+
+                            .inpwrite {
+                                background: none;
+                                outline: none;
+                                border: none;
+                            }
+
+                            #address {
+                                width: 350px;
+                            }
+                        }
+
+                        .item:nth-child(2) {
+                            display: flex;
+                            gap: 20px;
+
+                            div {
+                                display: flex;
+                            }
+                        }
+
+                        .item:nth-child(3) {
+                            display: flex;
+                            gap: 20px;
+
+                            div {
+                                display: flex;
+                            }
+                        }
+                    }
+
+                    .bindaccount {
+                        display: flex;
+
+                        .title {
+                            padding: 7px 0;
+                            min-width: 100px;
+                            font-size: 20px;
+                        }
+
+                        .googleline {
+                            width: 100%;
+
+                            .item {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                font-size: 20px;
+                                border-bottom: 1px solid #DEDEDE;
+                                margin-bottom: 10px;
+                                padding: 7px 0;
+
+                                #googleimg {
+                                    height: 40px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .mytrip {
+
+                .editbtn {
+                    padding: 6px 15px;
+                    background-color: #4A859F;
+                    border-radius: 50px;
+                }
+
+                .editbtn:hover {
+                    background-color: #6799AE;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                .card {
+                    border: none;
+                    border-radius: 20px;
+                    box-shadow: 5px 10px 30px 0px rgba(0, 0, 0, 0.25);
+
+                    img {
+                        border-radius: 20px 0 0 20px;
+                    }
+
+                    .title {
+                        font-size: 26px;
+                    }
+                }
+
+                .checkcard {
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+
+                    input[type=checkbox] {
+                        display: none;
+                    }
+
+                    input[type=checkbox]+span {
+                        cursor: pointer;
+                        height: 25px;
+                        width: 25px;
+                        display: inline-block;
+                        line-height: 20px;
+                        background-color: #eee;
+                        user-select: none;
+                    }
+
+                    input[type=checkbox]+span:after {
+                        display: none;
+                        margin-top: 5px;
+                        margin-left: 10px;
+                        width: 6px;
+                        height: 10px;
+                        border: 1px solid #fff;
+                        border-width: 0 3px 3px 0;
+                        transform: rotate(45deg);
+                    }
+
+                    input[type=checkbox]:checked+span:after {
+                        content: "";
+                        display: block;
+                    }
+
+                    input[type=checkbox]+span:hover {
+                        background-color: #ccc;
+                    }
+
+                    input[type=checkbox]:checked+span {
+                        background-color: #4A859F;
+                    }
+                }
+
+                .jumpbox {
+                    text-align: center;
+
+                    ul,
+                    li {
+                        display: inline-block;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    li {
+                        a {
+                            width: 35px;
+                            height: 35px;
+                            display: inline-block;
+                            margin-right: 2px;
+                            border: 1px #282828 solid;
+                            line-height: 35px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            color: #282828;
+                            padding-top: 1px;
+                        }
+                    }
+
+                    li:hover {
+                        a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+                    }
+
+                    li.active {
+                        a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+                    }
+                }
+
+                .footerbtn {
+                    padding: 6px 15px;
+                    background-color: #E2AD25;
+                    border-radius: 50px;
+                }
+
+                .footerbtn:hover {
+                    background-color: #E7BA48;
+                }
+            }
+
+            .mycollection {
+
+                .editbtn {
+                    padding: 6px 15px;
+                    background-color: #4A859F;
+                    border-radius: 50px;
+                }
+
+                .editbtn:hover {
+                    background-color: #6799AE;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                .card {
+                    border: none;
+                    border-radius: 20px;
+                    box-shadow: 5px 10px 30px 0px rgba(0, 0, 0, 0.25);
+
+                    img {
+                        border-radius: 20px 0 0 20px;
+                    }
+
+                    .title {
+                        font-size: 26px;
+                    }
+                }
+
+                .checkcard {
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+
+                    input[type=checkbox] {
+                        display: none;
+                    }
+
+                    input[type=checkbox]+span {
+                        cursor: pointer;
+                        height: 25px;
+                        width: 25px;
+                        display: inline-block;
+                        line-height: 20px;
+                        background-color: #eee;
+                        user-select: none;
+                    }
+
+                    input[type=checkbox]+span:after {
+                        display: none;
+                        margin-top: 5px;
+                        margin-left: 10px;
+                        width: 6px;
+                        height: 10px;
+                        border: 1px solid #fff;
+                        border-width: 0 3px 3px 0;
+                        transform: rotate(45deg);
+                    }
+
+                    input[type=checkbox]:checked+span:after {
+                        content: "";
+                        display: block;
+                    }
+
+                    input[type=checkbox]+span:hover {
+                        background-color: #ccc;
+                    }
+
+                    input[type=checkbox]:checked+span {
+                        background-color: #4A859F;
+                    }
+                }
+
+                .jumpbox {
+                    text-align: center;
+
+                    ul,
+                    li {
+                        display: inline-block;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    li {
+                        a {
+                            width: 35px;
+                            height: 35px;
+                            display: inline-block;
+                            margin-right: 2px;
+                            border: 1px #282828 solid;
+                            line-height: 35px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            color: #282828;
+                            padding-top: 1px;
+                        }
+                    }
+
+                    li:hover {
+                        a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+                    }
+
+                    li.active {
+                        a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+                    }
+                }
+
+                .footerbtn {
+                    padding: 6px 15px;
+                    background-color: #E2AD25;
+                    border-radius: 50px;
+                }
+
+                .footerbtn:hover {
+                    background-color: #E7BA48;
+                }
+            }
+
+            .TaiwanEx {
+
+                .Taiwanmap {
+
+                    .contextMenu {
+                        background: #fff;
+                        border: 1px solid #777;
+                        border-radius: 5px;
+                        display: none;
+                        position: absolute;
+
+                        .row {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: flex-start;
+                            margin: 0 0 10px 0;
+
+                            p {
+                                margin: 0;
+                            }
+                        }
+
+                        .row:last-child {
+                            margin: 0;
+                        }
+
+                        .menuTitle {
+                            margin: 0;
+                            background: #eee;
+
+                            p {
+                                text-align: center;
+                                font-weight: bold;
+                            }
+                        }
+
+                        .menuItem {
+                            margin: 0;
+                            padding: 5px 10px;
+                            border-bottom: 1px solid #777;
+                        }
+
+                        .menuItem:first-of-type {
+                            border-top-left-radius: 5px;
+                            border-top-right-radius: 5px;
+                        }
+
+                        .menuItem:last-child {
+                            border-bottom: 1px solid transparent;
+                            border-bottom-right-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                        }
+
+                        .menuButton {
+                            cursor: pointer;
+                        }
+
+                        .menuButton:hover {
+                            background: #eee;
+                        }
+
+                        .red-border {
+                            border-right: 3px solid #FF7A7A;
+                        }
+
+                        .yellow-border {
+                            border-right: 3px solid #F5A623;
+                        }
+
+                        .green-border {
+                            border-right: 3px solid #88B14B;
+                        }
+
+                        .blue-border {
+                            border-right: 3px solid #27BBEE;
+                        }
+
+                        .white-border {
+                            border-right: 3px solid #fff;
+                        }
+                    }
+
+                    .default {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #B4DEF7;
+
+                        .map {
+                            width: 100%;
+                            max-width: 500px;
+                        }
+
+                        @media screen and (-ms-high-contrast: active),
+                        (-ms-high-contrast: none) {
+                            #map {
+                                width: 750px;
+                                height: 1124px;
+                                max-width: 450px;
+                                max-height: 674px;
+                            }
+                        }
+                    }
+                }
+
+                .sharedownld {
+
+                    span {
+                        border: 1px solid;
+                        color: #929292;
+                    }
+
+                    a {
+                        color: #929292;
+                        text-decoration: none;
+                    }
+
+                    a:hover {
+                        text-decoration: underline
+                    }
+
+                    button {
+                        padding: 0;
+                        background: none;
+                        outline: none;
+                        border: none;
+                        color: #929292;
+                    }
+
+                    button:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}

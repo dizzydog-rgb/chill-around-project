@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../assets/scss/all.scss">
+    <title>旅行清單</title>
+    <style>
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 500;
+        }
+
+        .modal {
+            overflow: hidden;
+            background: #BED3DC;
+            border-radius: 15px;
+            font-size: medium;
+            width: 500px;
+            height: 420px;
+            /* display: none; */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+
+            .modalContent {
+                overflow-y: scroll;
+                height: 100%;
+
+                .closeDiv {
+                    display: flex;
+                    justify-content: right;
+
+                    .close {
+                        cursor: pointer;
+                        text-decoration: none;
+                    }
+                }
+
+                .categoryDiv {
+                    /* background-color: #007bff; */
+                    display: flex;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    padding: 0 20px;
+
+                    .category {
+                        /* display: inline-block; */
+                        font-weight: 600;
+                        background-color: white;
+                        color: #2A5A70;
+                        /* width: calc(33.33% - 10px); */
+                        width: 120px;
+                        margin: 10px 0;
+                        cursor: pointer;
+                        padding: 8px 0;
+                        text-align: center;
+                        border-radius: 10px;
+                        /* transition: background 0.3s; */
+                    }
+
+                    .category.selected {
+                        background: #3b5672;
+                        color: white;
+                    }
+                }
+
+                .button-container {
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+
+                    >a >button {
+                        background-color: #4A859F;
+                        color: white;
+                        padding: 5px 20px;
+                        border: none;
+                        border-radius: 20px;
+                    }
+                }
+            }
+        }
+
+        .modal.active,
+        .overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <button id="open-modal">選擇旅行清單</button> -->
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="modal" id="modal">
+        <div class="modalContent">
+            <div class="closeDiv">
+                <a href="./ItemList.html" class="close" onclick="closeModal()">X</a>
+            </div>
+
+            <div class="categoryDiv">
+                <div class="category" onclick="toggleSelection(this)">服飾類</div>
+                <div class="category" onclick="toggleSelection(this)">服飾類</div>
+                <div class="category" onclick="toggleSelection(this)">藥品類</div>
+                <div class="category" onclick="toggleSelection(this)">衛生類</div>
+                <div class="category" onclick="toggleSelection(this)">電子產品</div>
+                <div class="category" onclick="toggleSelection(this)">護照類</div>
+                <div class="category" onclick="toggleSelection(this)">食品類</div>
+                <div class="category" onclick="toggleSelection(this)">飲水器具</div>
+                <div class="category" onclick="toggleSelection(this)">睡袋類</div>
+                <div class="category" onclick="toggleSelection(this)">登山裝備</div>
+                <div class="category" onclick="toggleSelection(this)">旅行書籍</div>
+                <div class="category" onclick="toggleSelection(this)">相機類</div>
+                <div class="category" onclick="toggleSelection(this)">野餐用品</div>
+                <div class="category" onclick="toggleSelection(this)">保險文件</div>
+                <div class="category" onclick="toggleSelection(this)">清潔用品</div>
+                <div class="category" onclick="toggleSelection(this)">個人護理</div>
+
+            </div>
+
+            <div class="button-container">
+                <a href="./ItemList.html">
+                    <button onclick="confirmSelection()">確認</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // document.getElementById('open-modal').addEventListener('click', () => {
+        //     document.getElementById('overlay').classList.add('active');
+        //     document.getElementById('modal').classList.add('active');
+        // });
+
+        function closeModal() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function toggleSelection(element) {
+            element.classList.toggle('selected');
+        }
+
+        function confirmSelection() {
+            const selectedCategories = Array.from(document.querySelectorAll('.category.selected'))
+                .map(cat => cat.textContent)
+                .join(', ');
+
+            alert('已選擇類別: ' + selectedCategories);
+        }
+
+        // 點擊遮罩也可以關閉視窗
+        // document.getElementById('overlay').addEventListener('click', closeModal);
+
+        // 測試時讓modal保持開啟
+        function openModal() {
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById('modal').classList.add('active');
+        }
+        document.addEventListener('DOMContentLoaded', openModal);
+
+    </script>
+
+</body>
+
+</html>
