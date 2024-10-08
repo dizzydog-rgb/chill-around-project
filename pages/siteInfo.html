@@ -12,7 +12,7 @@
   <body>
     <!-- header -->
     <%- include('./layout/searchHeader'); -%>
-    <div class="siteInfoPage container-fluid p-0">
+<div class="siteInfoPage container-fluid p-0">
       <!-- 上方大圖 -->
       <div class="topImage container-fluid p-0 bg-primary">
         <img
@@ -22,11 +22,14 @@
         />
       </div>
 
-      <section class="siteInfo row p-5">
+      <section class="siteInfo container row">
+        <!-- 景點標題-->
+        <div class="m-3 container d-flex justify-content-between">
+          <h1 class="text-nowrap text-nowrap fs-2">文化部文化資產園區1</h1>
+          <div class="divider1">
+          </div>
+        </div>
         <!-- 輪播圖 -->
-         <div class="mb-4">
-            <h1>文化部文化資產園區</h1>
-         </div>
         <div
           id="carouselExample"
           class="carousel slide d-md-none col-md-6 order-md-1"
@@ -131,8 +134,8 @@
           </div>
         </div>
         <!-- 右側資訊 -->
-        <div class="col-md-6 order-md-2 rightInfo mt-3 p-0">
-          <div class="info-text ms-3 pt-4 pb-4 ps-5 pe-5">
+        <div class="rightInfo container col-md-6 order-md-2 p-0">
+          <div class="info-text">
             <p>電話：04-87654321</p>
             <p>地址：臺中市南區復興路三段362號</p>
             <div class="d-flex">
@@ -151,36 +154,92 @@
             </div>
             <p>官方網址：https://www.boch.gov.tw/home/zh-tw</p>
           </div>
-          <div class="addBtn text-end mt-5" >
-              <button type="button" class="addBtn btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="addBtn text-end" >
+              <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   加入行程
               </button>
-              <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">行程1</a>
-                  <a class="dropdown-item" href="#">行程2</a>
-                  <a class="dropdown-item" href="#">行程3</a>
               </div>
+        </div>
+          <!-- 下方解說 -->
+          <div class="container col-md-12 order-md-3">
+            <h2 class="detailsTitle">景點介紹</h2>
+            <p>台中文化創意產業園區，佔地5.6公頃，前身為創立於1916年日治時期的民營「大正製酒株式會社」，在1922年日本政府實施酒類專賣制度後被收歸官有，1928年成為當時全台最大的釀酒工場。</p>
+            <p>1945年台灣光復之後，酒廠兩度更名為「台中酒工場」、「第五酒廠」。1947年政府改菸酒專賣為公賣，由台灣菸酒公賣局接管，1957年再度更名為「台灣省菸酒公賣局台中酒廠」。</p>
+            <p>隨著時代變遷，及因應台中市都市計劃規劃發展之需，台中酒廠於1998年搬遷到台中工業區新廠，留下大片工業遺址與歷史建築。2002年7月台中市政府將全區主要建物登錄為歷史建築，舊酒廠得以完整保留。現發展成為文化部五大文化創意產業園區之。舊台中酒廠從此由製酒工業遺址活化新生，蛻變成文化創意產業的推展基地。</p>
           </div>
+        </section>
+         <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 w-100">
+                    <label for="itinerarySelect" class="form-label">選擇行程</label>
+                    <select class="form-select" id="itinerarySelect">
+                        <option value="" selected>請選擇行程</option>
+                        <option value="itinerary1">行程 1</option>
+                        <option value="itinerary2">行程 2</option>
+                        <option value="itinerary3">行程 3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                    <label for="daySelect" class="form-label">選擇天數</label>
+                    <select class="form-select" id="daySelect">
+                        <option value="" selected>請選擇天數</option>
+                        <option value="day1">第 1 天</option>
+                        <option value="day2">第 2 天</option>
+                        <option value="day3">第 3 天</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary">保存選擇</button>
+            </div>
         </div>
-        <!-- 下方解說 -->
-        <div class="col-md-12 order-md-3 mt-4">
-          <h2 class="infoTitle">景點介紹</h2>
-          <p>台中文化創意產業園區，佔地5.6公頃，前身為創立於1916年日治時期的民營「大正製酒株式會社」，在1922年日本政府實施酒類專賣制度後被收歸官有，1928年成為當時全台最大的釀酒工場。</p>
-          <p>1945年台灣光復之後，酒廠兩度更名為「台中酒工場」、「第五酒廠」。1947年政府改菸酒專賣為公賣，由台灣菸酒公賣局接管，1957年再度更名為「台灣省菸酒公賣局台中酒廠」。</p>
-          <p>隨著時代變遷，及因應台中市都市計劃規劃發展之需，台中酒廠於1998年搬遷到台中工業區新廠，留下大片工業遺址與歷史建築。2002年7月台中市政府將全區主要建物登錄為歷史建築，舊酒廠得以完整保留。現發展成為文化部五大文化創意產業園區之。舊台中酒廠從此由製酒工業遺址活化新生，蛻變成文化創意產業的推展基地。</p>
-        </div>
-      </section>
-      
-    </div>
+   </div>
+  </div>
+
     <!-- footer -->
     <%- include('./layout/footer'); -%>
-
+  </div>
     <script>
-      function changeImage(image) {
+       function changeImage(image) {
         document.getElementById("mainImage").src = image;
       }
-    </script>
+      $(document).ready(function() {
+        //modal
+            // 當選擇行程時，顯示天數選擇
+            $('#itinerarySelect').change(function () {
+                if ($(this).val()) {
+                    $('#daySelectContainer').show(); // 顯示天數選擇
+                } else {
+                    $('#daySelectContainer').hide(); // 隱藏天數選擇
+                }
+            });
 
+            // 確保關閉模態框時，隱藏天數選擇
+            $('#exampleModal').on('hide.bs.modal', function () {
+                $('#daySelectContainer').hide(); // 隱藏天數選擇
+                $('#itinerarySelect').val(''); // 重置行程選擇
+                $('#daySelect').val(''); // 重置天數選擇
+            });
+
+      
+
+
+
+      });
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </body>
 </html>
