@@ -25,7 +25,7 @@ html {
 
         h1 {
             position: absolute;
-            z-index: 999;
+            z-index: 500;
             top: 90px;
             left: 1.5rem;
             font-size: 2rem;
@@ -66,7 +66,7 @@ html {
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         background-color: rgba(0, 0, 0, 0.5); //半透明背景
         color: white;
         padding: 30px;
@@ -99,7 +99,7 @@ html {
     // top: 90%;
     // left: 50%;
     // transform: translate(-50%, -50%);
-    // width: 100%;
+    width: 100%;
     background-color: white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     border: 2px solid $primary;
@@ -107,6 +107,7 @@ html {
     border-radius: 5px;
 
     .input-group2 {
+        width: 100%;
         justify-content: center;
     }
 
@@ -147,11 +148,11 @@ html {
 
     //景點卡片
     .SchCard {
-        // cursor: pointer;
+        cursor: pointer;
         position: relative;
         overflow: visible;
         width: 100%;
-        height: 90vh;
+        height: 80vh;
         border: 0px; // 消除預設白框
         border-radius: 0px;
         // background-color: #f8f9fa;
@@ -253,8 +254,10 @@ html {
     margin: auto;
 }
 
-.swiper {
-    max-width: 100vw;
+//swiper
+
+.shcInfo  .swiper {
+    width: 100%;
     height: 100%;
     box-sizing: border-box;
 }
@@ -267,6 +270,7 @@ html {
 
 }
 
+// YT崁入大小
 .Yt_video {
     width: 100%;
     /* 固定寬度 */
@@ -281,6 +285,8 @@ html {
     height: 100%;
 }
 
+
+//Blog Card
 .BlogBox{
     background-color: #F9F7EA;
 }
@@ -295,7 +301,7 @@ html {
     color: $danger;
     max-width: 1200px;
     /* 最大寬度限制 */
-    height: 200px;
+    // height: 200px;
 
     .custom-img {
         border-radius: 10px 0px 0px 10px;
@@ -319,19 +325,65 @@ html {
             color: black;
             font-size: 18px;
         }
+        
 
     }
-    &:hover{
-        transform: scale(1.05);
-        transition: opacity 0.6s fade;
+    // 這裡讓卡片 hover 時緩慢放大
+    transition: transform 0.6s ease;
+
+    &:hover {
+        transform: scale(1.05); // 放大
     }
+
 }
 
 @media (max-width: 768px) {
     .custom-card {
+        object-fit: cover;
         height: auto;
+       
         /* 手機或平板自動調整高度 */
+        .custom-img {
+            border-radius: 10px 10px 0px 0px;
+    
+        }
     }
+    .searchOverlay2 {
+        padding: 15px;
+        text-align: center; /* 確保內容居中 */
+
+    }
+    .input-group2 {
+        display: flex;
+        flex-direction: column; /* 讓元素垂直排列 */
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
+        width: 100%;
+        gap: 20px; /* 增加元素之間的間距 */
+    }
+    .inputRWD {
+        margin: 0;
+        display: flex;
+        flex-direction: row; /* 讓 label 和 select 水平排列 */
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直對齊 */
+        width: 80%; /* 撐滿容器 */
+        gap: 10px; /* 調整 label 和 select 之間的距離 */
+    }
+    #regionLabel, #categoryLabel2 {
+        text-align: right; /* 讓 label 文字靠右，與選單對齊 */
+        width: auto; /* 適應內容寬度 */
+    }
+    .custom-select, .custom-select2 {
+        flex-grow: 1; /* 讓 select 撐滿剩餘空間 */
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+
+
+
 }
 
 //modal
