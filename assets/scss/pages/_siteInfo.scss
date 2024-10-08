@@ -1,8 +1,9 @@
 .siteInfoPage{
-    .topImage{
         position: relative;
-        width: 100%;
-        height: 311px;
+        top: 90px;
+    .topImage{
+        width: 100vw;
+        height: 300px;
         // overflow: hidden;
         img{
             width: 100%;
@@ -15,25 +16,12 @@
     
     .bottomInfo{
         width:100%;
+        margin-bottom: 30px;
     }
     
-    // .siteImage{
-    //     padding: 20px;
-    //     width: 100px;
-    //     overflow: hidden;
-    //     img{
-    //         width: 100%;
-    //         height: 100%;
-    //         object-fit: contain;
-    //     };
-    // }
-    // .siteInfo{
-    //     width: 100px;
-    //     height: 100px;
-    //     border: 1px solid $danger;
-    // }
     
     .siteInfo{
+        
         width: 100%;
         margin: 0 auto;
         display: flex;
@@ -46,6 +34,7 @@
             font-style: normal;
             font-size: 35px;
         }
+        
         // 輪播圖
         .siteCarouselItem{
             width: 100%;
@@ -87,27 +76,59 @@
             }
         }
     }
+    .divider1{
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 5px 0px 5px 20px; // 調整線長度
+    }
+    .divider1::after {
+        flex: 1;
+        content: '';
+        padding: 1.5px; //調整線條粗細
+        background-color: $danger;
+        /* margin: 5px 20px; */
+        margin: auto;
+      }
     .rightInfo{
+        // margin-top: 20px;
         .info-text{
-            
+            padding: 30px;
             border-radius: 25px;
             border: 1px solid $danger;
         }
         .addBtn {
-    
+            margin-top: 20px;
             button {
               color: white;
               border-radius: 25px;
             }
           }
+          
     }
-    .infoTitle{
+    .detailsTitle{
+            
+        // background-color: aqua;
         font-size: 26px;
         font-weight: bold;
         border-left: 10px solid $danger;
         padding-left: 10px;
         margin-bottom: 29px;
-    }
     
+    
+    }
+    @media (max-width: 768px) {
+        /* 在手機版樣式下添加更多的調整 */
+        .siteInfo{
+            
+            h1{
+                font-size: 28px ;
+            }
+        }
+        .rightInfo{
+            margin-top: 20px;
+        }
+    }
    
 }
