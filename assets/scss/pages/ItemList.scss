@@ -17,42 +17,52 @@
          .leftbarDiv {
              background-color: white;
              display: flex;
+             justify-content: center;
              flex: 1;
              position: relative;
              z-index: 1;
+             border-right: 1px solid $primary;
 
              //////////// Aside ////////////
              .planAside {
-                 min-width: 100%;
-                 max-width: 100%;
-                 border: 1px solid $primary;
+                 // min-width:10%;
+                 // max-width:10%;
+                 text-align: center;
+                 width: 100px;
+                 height: 100vh;
+                 // border: 1px solid $primary;
+                 display: flex;
+                 flex-direction: column;
+                 padding: 0;
+                 margin: 0;
 
                  .logo {
-                     border-bottom: 1px solid $primary;
+                     // border-bottom: 1px solid $primary;
                      display: block;
+                     display: flex;
+                     justify-content: center;
 
                      img {
-                         max-width: 100%;
+                         height: 65px;
                      }
                  }
 
                  .navbar {
-                     margin-top: 2vw;
-                     padding: 12px;
-                     gap: 3.5vw;
+                     padding: 0;
+                     margin-top: 25px;
+                     // padding: 12px;
+                     gap: 25px;
                      text-align: center;
                      color: $primary;
                      display: flex;
                      justify-content: center;
 
                      .bi {
-                         // font-size: 45px;
-                         font-size: 3vw;
+                         font-size: 30px;
                      }
 
                      h4 {
-                         // font-size: 20px;
-                         font-size: 1.3vw;
+                         font-size: 15px;
                          font-weight: bold;
                          text-align: center;
                      }
@@ -85,8 +95,8 @@
              }
 
              #leftBtn {
-                 height: 3vw;
-                 width: 7vw;
+                 height: 2.5vw;
+                 width: 6.5vw;
                  background-color: #E7BA48;
                  border-radius: 50px;
                  border: none;
@@ -181,12 +191,12 @@
              }
 
              .checkBOX {
-                 height: 2vw;
+                 height: 1.5vw;
                  width: 3vw;
              }
 
              .itemQuantity {
-                 height: 2.5vw;
+                 height: 2vw;
                  width: 10%;
                  font-size: 1.2vw;
                  border: 1px solid grey;
@@ -218,8 +228,8 @@
 
              .rightBtn {
                  margin: 3vw 0 2vw;
-                 height: 3vw;
-                 width: 7vw;
+                 height: 2.5vw;
+                 width: 6.5vw;
                  background-color: #E7BA48;
                  border-radius: 50px;
                  border: none;
