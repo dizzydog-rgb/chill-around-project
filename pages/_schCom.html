@@ -14,15 +14,20 @@
 <body>
     <div class=" _schCom">
         <%- include('./layout/aside'); -%>
-        <div class="row">
-            <div class="col-12 col-md-7 d-flex m-0 p-0">
+            <div class="row" style="height: 100vh;">
+                <div class="col-12 col-md-7 d-flex m-0 p-0">
                     <div class="SchComArea">
-                        <div class="SchComImage">
+                        <div class="SchComImage ">
 
-                            <img src="../assets/images/searchSite/chimeiMuseum.jpeg" class="img-fluid" alt="大圖">
-
-                            <div class="d-flex justify-content-between DateBox">
-                                <ul class="d-flex  dayList">
+                            <!-- <img src="../assets/images/searchSite/chimeiMuseum.jpeg" class="img-fluid" alt="大圖"> -->
+                            <div class="planName">
+                                
+                                <h2>我的第一個旅行計畫</h2>
+                                <p>Fri 09/13 -<br class="d-block d-md-none"> Thu 09/17</p>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between DateBox  border-top border-primary pt-3">
+                                <ul class="d-flex  dayList  m-0 p-0">
                                     <a href="">
                                         <li class="currentDay align-bottom">DAY1</li>
                                     </a>
@@ -32,13 +37,14 @@
                                     <a href="">
                                         <li>DAY3</li>
                                     </a>
-                                    <div class="todayInfo">
-                                        <h3>台中市</h3>
-                                        <h3>Fri 09/13</h3>
-                                    </div>
+
 
                                 </ul>
-                       
+                                <div class="todayInfo ">
+                                    <h3>台中市</h3>
+                                    <h3>Fri 09/13</h3>
+                                </div>
+
                             </div>
 
                         </div>
@@ -114,18 +120,18 @@
 
                     </div>
 
+                </div>
+                <div class="d-none d-md-block col-md-5 mapArea">
+                    <gmp-map center="24.148906997428295, 120.66005767852741" zoom="16" map-id="DEMO_MAP_ID">
+                        <gmp-advanced-marker position="24.148906997428295, 120.66005767852741"
+                            title="My location"></gmp-advanced-marker>
+                    </gmp-map>
+                </div>
+
+
+
+
             </div>
-            <div class="d-none d-md-block col-md-5 mapArea">
-                <gmp-map center="24.148906997428295, 120.66005767852741" zoom="16" map-id="DEMO_MAP_ID">
-                    <gmp-advanced-marker position="24.148906997428295, 120.66005767852741"
-                        title="My location"></gmp-advanced-marker>
-                </gmp-map>
-            </div>
-
-
-
-
-        </div>
     </div>
 
     <script type="module" src="/main.js"></script>
