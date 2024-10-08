@@ -1,410 +1,440 @@
 .editPlan {
-    .border-bottom-primary{
-        border-bottom: 1px solid $primary;
-    }
+  overflow: hidden;
+  .border-bottom-primary {
+    border-bottom: 1px solid $primary;
+  }
 
-    a{
-        text-decoration: none;
-    }
+  a {
+    text-decoration: none;
+  }
 
-    .editArea{
-      border: 1px solid $primary;
-      box-shadow: 1px 1px 1px 1px #909090;
-      padding-bottom: 400px;
+  .editArea {
+    overflow-y: scroll;
+    height: 100vh;
 
-      .planInfo{
-        padding: 20px 20px;
+    border: 1px solid $primary;
+    box-shadow: 1px 1px 1px 1px #909090;
+    padding-bottom: 400px;
 
-        .planName, .budget{
-            margin-right: 80px;
-            h2{
-                color: $primary;
-                font-size: 26px;
-                font-weight: bold;
-            }
-            p{
-                color: #78AEC6;
-                font-size: 20px;
-                font-weight: bold;
-                margin: 0;
-            }
+    .planInfo {
+      padding: 20px 20px;
+
+      .planName,
+      .budget {
+        margin-right: 80px;
+        h2 {
+          color: $primary;
+          font-size: 26px;
+          font-weight: bold;
         }
-        .budget{
-          p{
-            text-align: end;
-          }
-          
+        p {
+          color: #78aec6;
+          font-size: 20px;
+          font-weight: bold;
+          margin: 0;
         }
-
-        .planedDay{
-            .circle {
-                border:4px solid $secondary;
-                height:80px;
-                border-radius:50%;
-                -moz-border-radius:50%;
-                -webkit-border-radius:50%;
-                width:80px;
-                text-align: center;
-                font-size: 26px;
-                line-height: 3;
-                color: $secondary;
-                font-weight: bold;
-                margin-right: 20px;
-            }
-            p{
-                font-size: 20px;
-                color: $secondary;
-                font-weight: bold;
-                padding-top: 12px;
-            }
-          }
+      }
+      .budget {
+        p {
+          text-align: end;
+        }
       }
 
-      .editBtn{
+      .planedDay {
+        .circle {
+          border: 4px solid $secondary;
+          height: 80px;
+          border-radius: 50%;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
+          width: 80px;
+          text-align: center;
+          font-size: 26px;
+          line-height: 3;
+          color: $secondary;
+          font-weight: bold;
+          margin-right: 20px;
+        }
+        p {
+          font-size: 20px;
+          color: $secondary;
+          font-weight: bold;
+          padding-top: 12px;
+        }
+      }
+    }
+
+    .co-editor {
+      .editor {
+        position: relative;
+        margin-right: 8px;
+        img {
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
+        }
+        .userName {
+          visibility: hidden;
+          width: 120px;
+          background-color: $primary;
+          color: #ffffff;
+          text-align: center;
+          border-radius: 8px;
+          padding: 5px;
+          position: absolute;
+          z-index: 10;
+          bottom: 42%;
+          left: 250%;
+          margin-left: -60px;
+          opacity: 0;
+          transition: opacity 0.3s;
+        }
+      }
+      .editor:hover .userName {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+
+    .editBtn {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px;
+      .btn {
+        border: none;
+        padding: 0;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+      }
+      .bi {
+        font-size: 60px;
+        border: none;
+      }
+    }
+    .dayList {
+      font-size: 20px;
+      font-weight: bold;
+      align-items: flex-end;
+
+      li {
+        margin-right: 26px;
+        color: #78aec6;
+      }
+
+      .currentDay {
+        font-size: 26px;
+        color: $primary;
+      }
+
+      .addDayBtn {
         display: flex;
         justify-content: end;
         margin-right: 20px;
-        .btn{
-          border: none;
-          padding: 0;
-          width: 60px;
-          height: 60px;
-          line-height: 60px;
-        }
-        .bi{
-          font-size: 60px;
-          border: none;
-        }
-      }
-      .dayList{
-        font-size: 20px;
-        font-weight: bold;
-        align-items: flex-end;
-
-        li{
-            margin-right: 26px;
-            color: #78AEC6;
-        }
-
-        .currentDay{
-            font-size: 26px;
-            color: $primary;
-        }
-
-        .addDayBtn{
-            display: flex;
-            justify-content: end;
-            margin-right: 20px;
-            border:1px solid $success;
-            border-radius:50%;
-            -moz-border-radius:50%;
-            -webkit-border-radius:50%;
-        .btn{
+        border: 1px solid $success;
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        .btn {
           border: none;
           padding: 0;
           width: 50px;
           height: 50px;
           line-height: 50px;
-          border-radius:50%;
+          border-radius: 50%;
         }
-        .bi{
+        .bi {
           font-size: 50px;
           border: none;
           color: $success;
         }
-        .bi:hover{
-            color: #FFFFFF;
-        }
-        }
-        
-      }
-      .todayInfo{
-        text-align: right;
-        color: $secondary;
-        margin-right: 20px;
-        h3{
-          font-size: 20px;
-          font-weight: bold;
+        .bi:hover {
+          color: #ffffff;
         }
       }
-      .cardList{
-        display: flex;
-        flex-direction: column;
-        gap: 64px;
-        .card{
-            border: 1px solid $danger;       
-            .card-body{
-                .card-title{
-                    font-size: 26px;
-                    font-weight: bold;
-                    border-left: 10px solid $danger;
-                    padding-left: 10px;
-                    -webkit-line-clamp: 1;
-                }
-                .card-text{
-                    font-size: 20px;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 5;
-                    -webkit-box-orient: vertical;        overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-            }
-            img{
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-      }
-      
-      .addJourneyBtn{
-        display: flex;
-        justify-content: center;
-        border-radius:50%;
-        -moz-border-radius:50%;
-        -webkit-border-radius:50%;
-        .btn{
-            border: none;
-            padding: 0;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            border-radius:50%;
-          }
-        .btn:hover{
-            background-color: #ffffff;
-            border: 1px solid $success;
-          }
-          .bi{
-            font-size: 50px;
-            border: none;
-          }
-          .bi:hover{
-            color: $success;
-          }
-
-          
-    
     }
-    .btn-outline-secondary{
+    .todayInfo {
+      text-align: right;
+      color: $secondary;
+      margin-right: 20px;
+      h3 {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+    .cardList {
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+      .card {
+        border: 1px solid $danger;
+        .card-body {
+          .card-title {
+            font-size: 26px;
+            font-weight: bold;
+            border-left: 10px solid $danger;
+            padding-left: 10px;
+            -webkit-line-clamp: 1;
+          }
+          .card-text {
+            font-size: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .addJourneyBtn {
+      display: flex;
+      justify-content: center;
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      .btn {
+        border: none;
+        padding: 0;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 50%;
+      }
+      .btn:hover {
+        background-color: #ffffff;
+        border: 1px solid $success;
+      }
+      .bi {
+        font-size: 50px;
+        border: none;
+      }
+      .bi:hover {
+        color: $success;
+      }
+    }
+    .btn-outline-secondary {
       font-size: 26px;
     }
-    .btn-outline-secondary:hover{
-      color: #FFFFFF;
+    .btn-outline-secondary:hover {
+      color: #ffffff;
     }
+  }
 
-      
-    }
-    .mapArea{
-      border: 1px solid $primary;
-      box-shadow: 1px 1px 1px 1px #909090;
-      padding: 0;
-      gmp-map {
-        height: 100%;
-        width: 100%;
-      }
-    }
-
-    .modal{
-      .modal-header{
-        justify-content: end;
+  .modal {
+    .modal-header {
+      justify-content: end;
+      border: none;
+      .btn {
         border: none;
-        .btn{
-          border: none;
-          padding: 0;
-          width: 60px;
-          height: 60px;
-          line-height: 60px;
-        }
-        .bi{
-          font-size: 60px;
-          border: none;
-          color: $danger;
-        }
-        .bi:hover{
-          color: #FFFFFF;
+        padding: 0;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
       }
-      }
-      .modal-body{
-        padding-left: 64px;
-        padding-right: 64px;
-
-        .inputBox{
-          h3{
-            font-size: 35px;
-            font-weight: bold;
-            color: $primary;
-            margin-bottom: 16px;
-          }
-          input{
-            width: 100%;
-            border: 1px solid $primary;
-            font-size: 30px;
-            font-weight: bold;
-            box-shadow: 1px 1px 1px 1px #909090;
-            border-radius: 5px;
-            margin-bottom: 36px;
-          }
-          .description {
-            height: 252px;
-          }
-          // .description::placeholder{
-          //   color: transparent;
-          // }
-        }
-
-        .taglist{
-          padding: 0;
-          .btn{
-            border-radius: 25px;
-            font-size: 16px;
-            margin-right: 24px;
-            margin-bottom: 32px;
-          }
-          .btnSelected{
-            color: #FFFFFF;
-            background-color: $primary;
-          }
-        }
-      }
-      .modal-footer{
-        padding-left: 64px;
-        padding-right: 64px;
-        padding-bottom: 32px;
+      .bi {
+        font-size: 60px;
         border: none;
-        .btn{
-          color: #FFFFFF;
-          font-size: 20px;
-          padding: 8px 16px;
+        color: $danger;
+      }
+      .bi:hover {
+        color: #ffffff;
+      }
+    }
+    .modal-body {
+      padding-left: 64px;
+      padding-right: 64px;
+
+      .inputBox {
+        h3 {
+          font-size: 35px;
+          font-weight: bold;
+          color: $primary;
+          margin-bottom: 16px;
+        }
+        input {
+          width: 100%;
+          border: 1px solid $primary;
+          font-size: 30px;
+          font-weight: bold;
+          box-shadow: 1px 1px 1px 1px #909090;
+          border-radius: 5px;
+          margin-bottom: 36px;
+        }
+        .description {
+          height: 252px;
+        }
+        // .description::placeholder{
+        //   color: transparent;
+        // }
+      }
+
+      .taglist {
+        padding: 0;
+        .btn {
+          border-radius: 25px;
+          font-size: 16px;
+          margin-right: 24px;
+          margin-bottom: 32px;
+        }
+        .btnSelected {
+          color: #ffffff;
+          background-color: $primary;
         }
       }
-      
     }
+    .modal-footer {
+      padding-left: 64px;
+      padding-right: 64px;
+      padding-bottom: 32px;
+      border: none;
+      .btn {
+        color: #ffffff;
+        font-size: 20px;
+        padding: 8px 16px;
+      }
+    }
+  }
 
-    @media (max-width:768px) {
-    .editArea{
+  .mapArea {
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    gmp-map {
+      height: 100vh;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .editArea {
       padding-bottom: 200px;
 
-      .planInfo{
+      .planInfo {
         padding: 12px 12px;
 
-        .planName, .budget{
-            margin-right: 24px;
-            h2{
-                font-size: 22px;
-            }
-            p{
-                font-size: 20px;
-            }
+        .planName,
+        .budget {
+          margin-right: 24px;
+          h2 {
+            font-size: 22px;
+          }
+          p {
+            font-size: 20px;
+          }
         }
-        .budget{
-          p{
+        .budget {
+          p {
             text-align: start;
           }
-          
         }
 
-        .planedDay{
-            .circle {
-                border:4px solid $secondary;
-                height:60px;
-                width:60px;
-                font-size: 22px;
-                line-height: 2.5;
-                margin-right: 12px;
-            }
-            p{
-                font-size: 20px;
-                padding-top: 0px;
-            }
+        .planedDay {
+          .circle {
+            border: 4px solid $secondary;
+            height: 60px;
+            width: 60px;
+            font-size: 22px;
+            line-height: 2.5;
+            margin-right: 12px;
           }
+          p {
+            font-size: 20px;
+            padding-top: 0px;
+          }
+        }
       }
 
-      .editBtn{
+      .editBtn {
         margin-right: 16px;
-        .btn{
+        .btn {
           width: 40px;
           height: 40px;
           line-height: 40px;
         }
-        .bi{
+        .bi {
           font-size: 40px;
         }
       }
-      .dayList{
+      .dayList {
         font-size: 20px;
 
-
-        li{
-            margin-right: 12px;
-            color: #78AEC6;
+        li {
+          margin-right: 12px;
+          color: #78aec6;
         }
 
-        .currentDay{
-            font-size: 22px;
+        .currentDay {
+          font-size: 22px;
         }
 
-        .addDayBtn{
-            margin-right: 23px;
-        .btn{
-          border: none;
-          padding: 0;
-          width:40px;
-          height:40px;
-          line-height:40px;
+        .addDayBtn {
+          margin-right: 23px;
+          .btn {
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+          }
+          .bi {
+            font-size: 40px;
+          }
         }
-        .bi{
-          font-size: 40px;
-        }
-        }
-        
       }
-      .todayInfo{
+      .todayInfo {
         margin-right: 12px;
       }
-      .cardList{
+      .cardList {
         gap: 48px;
-        .card{
-            border: 1px solid $danger;       
-            .card-body{
-                .card-title{
-                    font-size: 22px;
-                }
-                .card-text{
-                    font-size: 20px;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                }
+        .card {
+          border: 1px solid $danger;
+          .card-body {
+            .card-title {
+              font-size: 22px;
             }
-            img{
-                width: 100%;
-                height: 100%;
-                aspect-ratio: 2 / 1;
-                object-fit: cover;
+            .card-text {
+              font-size: 20px;
+              display: -webkit-box;
+              -webkit-line-clamp: 3;
             }
+          }
+          img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 2 / 1;
+            object-fit: cover;
+          }
         }
       }
-      
-    .btn-outline-secondary{
-      font-size: 22px;
-    }
-      
+
+      .btn-outline-secondary {
+        font-size: 22px;
+      }
     }
 
-    .modal{
-      .modal-header{
+    .modal {
+      .modal-header {
         padding: 0;
       }
-      .modal-body{
+      .modal-body {
         padding-left: 36px;
         padding-right: 36px;
 
-        .inputBox{
-          h3{
+        .inputBox {
+          h3 {
             font-size: 28px;
             margin-bottom: 12px;
           }
-          input{
+          input {
             font-size: 24px;
             margin-bottom: 24px;
           }
@@ -413,8 +443,8 @@
           }
         }
 
-        .taglist{
-          .btn{
+        .taglist {
+          .btn {
             border-radius: 25px;
             font-size: 16px;
             margin-right: 12px;
@@ -422,17 +452,15 @@
           }
         }
       }
-      .modal-footer{
+      .modal-footer {
         padding-left: 36px;
         padding-right: 36px;
-        .btn{
-          color: #FFFFFF;
+        .btn {
+          color: #ffffff;
           font-size: 20px;
           padding: 8px 16px;
         }
       }
-      
     }
-    }
-
+  }
 }
