@@ -1,15 +1,13 @@
 ._schCom {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
+
     display: flex;
 
     .row {
         margin: 0;
         padding: 0;
         width: 100%;
-
 
     }
 
@@ -31,15 +29,6 @@
 
         .SchComImage {
             padding: 20px 20px 0px 20px;
-            // height: 40vh;
-            // position: relative;
-            // background-color: red;
-
-            // img {
-            //     width: 100%;
-            //     height: 100%;
-            //     object-fit: cover;
-            // }
             .planName{
                 margin-right: 80px;
                 h2{
@@ -147,15 +136,12 @@
 }
 
 .mapArea {
-    border: 1px solid $primary;
-    box-shadow: 1px 1px 1px 1px #909090;
+    overflow: hidden;
     padding: 0;
-    // width: 100%;
-    // height: 100vh;
-
+    border: none;
     gmp-map {
-        height: 100%;
-        width: 100%;
+      height: 100vh;
+      width: 100%;
     }
 }
 
