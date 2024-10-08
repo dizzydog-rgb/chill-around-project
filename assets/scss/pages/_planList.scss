@@ -1,9 +1,13 @@
 .planList{
+    overflow: hidden;
     a{
         text-decoration: none;
     }
 
     .planListArea{
+    overflow-y: scroll;
+    height: 100vh;
+
       border: 1px solid $primary;
       box-shadow: 1px 1px 1px 1px #909090;
       padding-bottom: 200px;
@@ -88,7 +92,10 @@
         }
       }
     }
-    
+      .mapArea{
+        border: none;
+      }
+
     @media (max-width: 768px) {
         .planListArea{
           padding-bottom: 80px;
