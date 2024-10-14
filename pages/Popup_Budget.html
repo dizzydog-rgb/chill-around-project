@@ -59,8 +59,8 @@
                     <button onclick="closeModal2()">確認</button>
                 </div>
 
-                <div class="category2" onclick="toggleOptions('options1')">
-                    <div class="tiTle">
+                <div class="category2">
+                    <div class="tiTle" id="toggle-options" onclick="toggleOptions('options1')">
                         <span>交通</span>
                         <a>V</a>
                     </div>
@@ -69,13 +69,11 @@
                         <div class="option" onclick="selectOption('船舶', event)">船舶</div>
                         <div class="option" onclick="selectOption('租車', event)">租車</div>
                         <div class="option" onclick="selectOption('火車', event)">火車</div>
-                        <div class="option" onclick="selectOption('高鐵', event)">高鐵</div>
-                        <div class="option" onclick="selectOption('客運', event)">客運</div>
                     </div>
                 </div>
 
-                <div class="category2" onclick="toggleOptions('options2')">
-                    <div class="tiTle">
+                <div class="category2">
+                    <div class="tiTle" onclick="toggleOptions('options2')">
                         <span>交通</span>
                         <a>V</a>
                     </div>
@@ -83,20 +81,13 @@
                         <div class="option" onclick="selectOption('飛機', event)">飛機</div>
                         <div class="option" onclick="selectOption('船舶', event)">船舶</div>
                         <div class="option" onclick="selectOption('租車', event)">租車</div>
-                        <div class="option" onclick="selectOption('火車', event)">火車</div>
-                        <div class="option" onclick="selectOption('高鐵', event)">高鐵</div>
-                        <div class="option" onclick="selectOption('客運', event)">客運</div>
-                        <div class="option" onclick="selectOption('客運', event)">客運</div>
-                        <div class="option" onclick="selectOption('客運', event)">客運</div>
-                        <div class="option" onclick="selectOption('客運', event)">客運</div>
-                        <div class="option" onclick="selectOption('客運', event)">客運</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!---------------------- Modal 1 ---------------------->
+    <!-- -------------------- Modal 1 -------------------- -->
     <script>
         function openModal() {
             document.getElementById('overlay').style.display = 'block';
@@ -130,6 +121,7 @@
         function toggleOptions(id) {
             const options = document.getElementById(id);
             options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
+            alert("ABCC");
         }
 
         // 點擊單個選項綁定
@@ -163,6 +155,8 @@
         // 點擊遮罩也可以關閉視窗
         // document.getElementById('overlay2').addEventListener('click', closeModal2);
     </script>
+
+    <!-- <script type="module" src="../js/Popup_Budget.js"></script> -->
 
 </body>
 

@@ -107,6 +107,10 @@
                     width: 40vw;
                     height: 40vw;
                     border-radius: 50%;
+
+                    @media (max-width: 375px) {
+                        background-color: #FFDC81;
+                    }
                 }
             }
 
@@ -238,4 +242,15 @@
             }
         }
     }
+
+    // @media (max-width: 700px) {
+    //     .circle-background{
+    //         background-color: #FFDC81;
+    //     }
+    //     .planAside {
+    //         img {
+    //             height: 20px;
+    //         }
+    //     }
+    // }
 }
