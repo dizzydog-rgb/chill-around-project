@@ -162,8 +162,7 @@
                 border-right: 1px solid #4A859F;
 
                 img {
-                    width: 110px;
-                    height: 60px;
+                    height: 65px;
                     margin: 20px 0;
                 }
 
@@ -179,7 +178,7 @@
                             align-items: center;
                             padding: 20px;
                             color: #4A859F;
-                            font-size: 24px;
+                            font-size: 20px;
                             transition: all ease 1s;
 
                             .fa-solid {
@@ -227,6 +226,8 @@
             }
 
             .personaldata {
+                overflow-y: scroll;
+                height: 100%;
 
                 .editbtn {
                     background-color: #4A859F;
@@ -329,6 +330,8 @@
             }
 
             .mytrip {
+                overflow-y: scroll;
+                height: 100%;
 
                 .editbtn {
                     padding: 6px 15px;
@@ -454,6 +457,8 @@
             }
 
             .mycollection {
+                overflow-y: scroll;
+                height: 100%;
 
                 .editbtn {
                     padding: 6px 15px;
@@ -579,6 +584,8 @@
             }
 
             .TaiwanEx {
+                overflow-y: scroll;
+                height: 100%;
 
                 .Taiwanmap {
 
