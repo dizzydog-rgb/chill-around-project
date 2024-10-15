@@ -3,72 +3,103 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- The callback parameter is required, so we use console.debug as a noop -->
-    <script async src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=console.debug&libraries=maps,marker&v=beta">
-    </script>
     <title>Build Your Travel Plan !</title>
+    <script
+      type="module"
+      src="https://unpkg.com/@googlemaps/extended-component-library@0.6"
+    ></script>
   </head>
   <body>
     <div class="container-fluid buildPlan">
       <div class="row">
         <div class="col-12 col-md-7 buildArea">
           <div class="closeBtn">
-            <button type="button" class="btn btn-outline-danger"><i class="bi bi-x"></i></button>
+            <button type="button" class="btn btn-outline-danger">
+              <i class="bi bi-x"></i>
+            </button>
           </div>
           <div class="ps-3 pe-3">
             <div class="inputBox">
               <h3>旅行計畫名稱</h3>
-              <input class="p-2" type="text" placeholder="為你的計畫取個名字">
+              <input class="p-2" type="text" placeholder="為你的計畫取個名字" />
             </div>
             <div class="selectBox mb-selectbox">
-              <label for="shareLink-select">和你的旅伴分享此計畫</label>
-              <select class="form-select form-select-lg me-3" name="select-city" id="select-city">
-                <option value="taipei">台北市</option>
-                <option value="taichung">台中市</option>
-                <option value="tainan">台南市</option>
-                <option value="kaohsiung">高雄市</option>
+              <label for="shareLink-select">想去哪玩?</label>
+              <select
+                class="form-select form-select-lg me-3"
+                name="select-city"
+                id="select-city"
+              >
+                <option value="Taipei, Taiwan">台北市</option>
+                <option value="Taichung, Taiwan">台中市</option>
+                <option value="Tainan, Taiwan">台南市</option>
+                <option value="Kaohsiung, Taiwan">高雄市</option>
               </select>
             </div>
             <div class="planDate d-flex justify-content-between">
               <div class="inputBox">
                 <h3>開始日期</h3>
-              <input class="p-2" type="date">
+                <input class="p-2" type="date" />
               </div>
               <div class="arrow-right">
                 <i class="bi bi-arrow-right"></i>
               </div>
               <div class="inputBox">
                 <h3>結束日期</h3>
-              <input class="p-2" type="date">
+                <input class="p-2" type="date" />
               </div>
             </div>
             <div class="d-flex justify-content-between mb-selectbox">
               <div class="selectBox">
                 <label for="shareLink-select">和你的旅伴分享此計畫</label>
                 <div class="d-flex justify-content-between">
-                  <select class="form-select form-select-lg me-3" name="share-link" id="shareLink-select">
+                  <select
+                    class="form-select form-select-lg me-3"
+                    name="share-link"
+                    id="shareLink-select"
+                  >
                     <option value="canView">可查看</option>
                     <option value="canEdit">可編輯</option>
                   </select>
-                  <button type="button" class="btn btn-primary btn-share">分享連結</button>
+                  <button type="button" class="btn btn-primary btn-share">
+                    複製連結
+                  </button>
                 </div>
               </div>
-              <button type="button" class="btn btn-primary btn-complete">開始規劃</button>
+              <button type="button" class="btn btn-primary btn-complete">
+                開始規劃
+              </button>
             </div>
           </div>
-          
         </div>
-          
-        <div  class="d-none d-md-block col-md-5 mapArea">
-          <gmp-map center="24.148906997428295, 120.66005767852741" zoom="16" map-id="DEMO_MAP_ID">
-            <gmp-advanced-marker position="24.148906997428295, 120.66005767852741" title="My location"></gmp-advanced-marker>
+
+        <div class="d-none d-md-block col-md-5 mapArea">
+          <gmpx-api-loader
+            key="AIzaSyCgVtNCe6n8nTdXm-zFidK0uF8kVnzvO2Q"
+            solution-channel="GMP_GE_mapsandplacesautocomplete_v1"
+          >
+          </gmpx-api-loader>
+          <gmp-map
+            center="23.75163737835299, 120.95520524708053"
+            zoom="8"
+            map-id="DEMO_MAP_ID"
+          >
+            <div
+              slot="control-block-start-inline-start"
+              class="place-picker-container"
+            >
+              <gmpx-place-picker
+                placeholder="Enter an address"
+                class="d-none"
+              ></gmpx-place-picker>
+            </div>
+            <gmp-advanced-marker></gmp-advanced-marker>
           </gmp-map>
         </div>
-        
-        
       </div>
     </div>
 
     <script type="module" src="/main.js"></script>
+    <script async type="module" src="/js/planMap.js"></script>
   </body>
 </html>
