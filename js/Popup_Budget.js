@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', openModal);
 function closeModal() {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('modal').style.display = 'none';
+
+    // title.addEventListener('click', () => {
+    //     toggleOptions(`options${index}`); // 使用 index 來獲取對應的 options
+    // });
 }
 
 
@@ -19,30 +23,44 @@ document.getElementById('open-modal2').addEventListener('click', () => {
     document.getElementById('modal2').classList.add('active');
 });
 
-function closeModal2() {
+export function closeModal2() {
     document.getElementById('overlay2').classList.remove('active');
     document.getElementById('modal2').classList.remove('active');
 }
 
+document.querySelector('.close2').addEventListener('click', closeModal2);
+document.querySelector('.okBtn').addEventListener('click', closeModal2);
+
 // document.addEventListener('DOMContentLoaded', openModal2);
 
+// 展開種類選項
 function toggleOptions(id) {
     const options = document.getElementById(id);
-    options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
-    alert("ABC");
+    if (options) {
+        options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
+        alert("ABC");
+    } else {
+        console.error(`ID '${id}' not found`)
+    }
 }
 
 function init() {
-    document.querySelector('.tiTle').addEventListener('click', () => {
-        toggleOptions('option1');
-    });
+    const titles = document.querySelectorAll('.tiTle');
 
-    const optionElements = document.querySelectorAll('.option');
-    optionElements.forEach(option => {
-        option.addEventListener('click', (event) => {
-            selectOption(option.getAttribute('data-option'), event);
-        })
-    })
+    titles.forEach((title, index) => {
+        // 為每個 .tiTle 綁定 click 事件
+        title.addEventListener('click', () => {
+            toggleOptions(`options${index}`); // 使用 index 來獲取對應的 options
+        });
+
+        // 獲取對應的 options 和 option 元素
+        const optionElements = title.nextElementSibling.querySelectorAll('.option');
+        optionElements.forEach(option => {
+            option.addEventListener('click', (event) => {
+                selectOption(option.getAttribute('data-option'), event);
+            });
+        });
+    });
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -66,6 +84,8 @@ function selectOption(option, event) {
     selectedOption.classList.add('active');
 }
 
+
+// 放置區
 // function toggleOptions(id) {
 //     const options = document.getElementById(id);
 //     options.classList.toggle('active'); // 切換 active 類
@@ -79,4 +99,6 @@ function selectOption(option, event) {
 // document.getElementById('overlay2').addEventListener('click', closeModal2);
 
 // <---------------------- 使用者選取資料帶入畫面 ---------------------->
+
+
 

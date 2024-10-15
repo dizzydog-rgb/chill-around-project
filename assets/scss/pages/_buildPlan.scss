@@ -3,6 +3,7 @@
     border: 1px solid $primary;
     box-shadow: 1px 1px 1px 1px #909090;
     padding-bottom: 120px;
+    height: 100vh;
   }
   .mapArea {
     border: 1px solid $primary;
@@ -11,6 +12,9 @@
     gmp-map {
       height: 100%;
       width: 100%;
+    }
+    .place-picker-container {
+      padding: 20px;
     }
   }
 
@@ -45,9 +49,9 @@
       margin-bottom: 72px;
     }
   }
-  .planDate{
-    input{
-      width: 80%;
+  .planDate {
+    input {
+      width: 85%;
       max-width: 100%;
     }
   }
@@ -72,7 +76,7 @@
       font-weight: bold;
       color: $primary;
       border: 1px solid $primary;
-      box-shadow: 1px 1px 1px 1px #909090;      
+      box-shadow: 1px 1px 1px 1px #909090;
     }
     option {
       font-size: 30px;
@@ -91,16 +95,15 @@
     padding: 12px 24px;
   }
 
-  .mb-selectbox{
+  .mb-selectbox {
     margin-bottom: 72px;
   }
-
 
   @media (max-width: 768px) {
     .buildArea {
       padding-bottom: 80px;
     }
-  
+
     .inputBox {
       h3 {
         font-size: 28px;
@@ -124,7 +127,7 @@
         font-size: 28px;
         margin-bottom: 24px;
       }
-  
+
       .form-select {
         width: 48%;
         font-size: 24px;
@@ -143,9 +146,12 @@
       font-size: 24px;
       padding: 6px 12px;
     }
-  
-    .mb-selectbox{
+
+    .mb-selectbox {
       margin-bottom: 48px;
     }
   }
+}
+div.gm-style-iw-chr {
+  display: none;
 }

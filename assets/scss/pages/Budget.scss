@@ -46,6 +46,10 @@
 
                         img {
                             height: 65px;
+                            
+                            @media (max-width: 375px) {
+                                background-color: #FFDC81;
+                            }
                         }
                     }
 
@@ -107,10 +111,6 @@
                     width: 40vw;
                     height: 40vw;
                     border-radius: 50%;
-
-                    @media (max-width: 375px) {
-                        background-color: #FFDC81;
-                    }
                 }
             }
 
