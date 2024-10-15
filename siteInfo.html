@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>景點詳細資訊</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap");
+    </style>
+    <script type="module" crossorigin src="/chill-around-project/assets/main-CkJUWnmA.js"></script>
+    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-gPcD0Ju4.css">
+  </head>
+  <body>
+    <!-- header -->
+    <header class="searchSiteHeader">
+    <nav class="searchNav navbar navbar-expand-md navbar-light bg-white ps-4 pe-4">
+        <a class="navbar-brand" href="#">
+            <img src="/chill-around-project/assets/chillAround_logo_01-DR13PjDD.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
+                <li class="nav-item d-flex p-2">
+                    <span id="welcomeMessage" class="me-3"></span>
+                </li>
+                <li class="nav-item d-flex p-2">
+                    <button id="loginBtn" class="btn">登入</button>
+                </li>
+                <li class="nav-item d-flex p-2">
+                   <a href=""><i class="bi bi-plus-circle"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<script>
+    // 假設用戶已登入的狀態
+let isLoggedIn = false;
+
+// 取得按鈕和歡迎訊息元素
+const loginButton = document.getElementById('loginBtn');
+const welcomeMessage = document.getElementById('welcomeMessage');
+
+// 點擊按鈕的事件處理
+loginButton.addEventListener('click', function() {
+    if (isLoggedIn) {
+        // 如果已登入，執行登出操作
+        isLoggedIn = false;
+        loginButton.innerText = '登入';
+        welcomeMessage.innerText = '';
+    } else {
+        // 如果未登入，執行登入操作
+        isLoggedIn = true;
+        loginButton.innerText = '登出';
+        welcomeMessage.innerText = 'Hi，使用者名稱';  // 可以加入用戶名的邏輯
+    }
+});
+</script>
+
+</script><div class="siteInfoPage container-fluid p-0">
+      <!-- 上方大圖 -->
+      <div class="topImage container-fluid p-0 bg-primary">
+        <img
+          src="/chill-around-project/assets/chimeiMuseum-DJm8o5hA.jpeg"
+          class="img-fluid"
+          alt="大圖"
+        />
+      </div>
+
+      <section class="siteInfo container row">
+        <!-- 景點標題-->
+        <div class="m-3 container d-flex justify-content-between">
+          <h1 class="text-nowrap text-nowrap fs-2">文化部文化資產園區1</h1>
+          <div class="divider1">
+          </div>
+        </div>
+        <!-- 輪播圖 -->
+        <div
+          id="carouselExample"
+          class="carousel slide d-md-none col-md-6 order-md-1"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="siteCarouselItem carousel-item active">
+              <img
+                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%80-DKkF7tdz.jpg"
+                class="d-block w-100"
+                alt="圖片 1"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8002-b3kvjulo.jpg"
+                class="d-block w-100"
+                alt="圖片 2"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8003-ChrNFbta.jpeg"
+                class="d-block w-100"
+                alt="圖片 3"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8004-B1Dy3kur.jpeg"
+                class="d-block w-100"
+                alt="圖片 4"
+              />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <!-- 主圖縮圖 -->
+        <div class="leftImage col-md-6 order-md-1 d-none d-md-block">
+          <div class="container p-0">
+            <div class="row">
+              <div class="mainImage col-md-12 text-center d-none d-md-block">
+                <img
+                  id="mainImage"
+                  src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%80-DKkF7tdz.jpg"
+                  class="img-fluid"
+                  alt="主圖"
+                />
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="smallImage col-md-3 text-center">
+                <img
+                  src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8001-CZzdClCv.jpeg"
+                  class="p-0 thumbnail img-thumbnail"
+                  alt="縮圖1"
+                  onclick="changeImage('../assets/images/searchSite/文創園區01.jpeg')"
+                />
+              </div>
+              <div class="smallImage col-md-3 text-center">
+                <img
+                  src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8002-b3kvjulo.jpg"
+                  class=" p-0 thumbnail img-thumbnail"
+                  alt="縮圖2"
+                  onclick="changeImage('../assets/images/searchSite/文創園區02.jpg')"
+                />
+              </div>
+              <div class="smallImage col-md-3 text-center">
+                <img
+                  src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8003-ChrNFbta.jpeg"
+                  class="p-0 thumbnail img-thumbnail"
+                  alt="縮圖3"
+                  onclick="changeImage('../assets/images/searchSite/文創園區03.jpeg')"
+                />
+              </div>
+              <div class="smallImage col-md-3 text-center">
+                <img
+                  src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8004-B1Dy3kur.jpeg"
+                  class="p-0 thumbnail img-thumbnail"
+                  alt="縮圖4"
+                  onclick="changeImage('../assets/images/searchSite/文創園區04.jpeg')"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 右側資訊 -->
+        <div class="rightInfo container col-md-6 order-md-2 p-0">
+          <div class="info-text">
+            <p>電話：04-87654321</p>
+            <p>地址：臺中市南區復興路三段362號</p>
+            <div class="d-flex">
+                <div>
+                    <p>開放時間：</p>
+                </div>
+                <div>
+                    <p>星期日：06:00 – 17:00</p>
+                    <p>星期一：休息</p>
+                    <p>星期二：06:00 – 17:00</p>
+                    <p>星期三：06:00 – 17:00</p>
+                    <p>星期四：06:00 – 17:00</p>
+                    <p>星期五：06:00 – 17:00</p>
+                    <p>星期六：06:00 – 17:00</p>
+                </div>
+            </div>
+            <p>官方網址：https://www.boch.gov.tw/home/zh-tw</p>
+          </div>
+          <div class="addBtn text-end" >
+              <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  加入行程
+              </button>
+              </div>
+        </div>
+          <!-- 下方解說 -->
+          <div class="container col-md-12 order-md-3">
+            <h2 class="detailsTitle">景點介紹</h2>
+            <p>台中文化創意產業園區，佔地5.6公頃，前身為創立於1916年日治時期的民營「大正製酒株式會社」，在1922年日本政府實施酒類專賣制度後被收歸官有，1928年成為當時全台最大的釀酒工場。</p>
+            <p>1945年台灣光復之後，酒廠兩度更名為「台中酒工場」、「第五酒廠」。1947年政府改菸酒專賣為公賣，由台灣菸酒公賣局接管，1957年再度更名為「台灣省菸酒公賣局台中酒廠」。</p>
+            <p>隨著時代變遷，及因應台中市都市計劃規劃發展之需，台中酒廠於1998年搬遷到台中工業區新廠，留下大片工業遺址與歷史建築。2002年7月台中市政府將全區主要建物登錄為歷史建築，舊酒廠得以完整保留。現發展成為文化部五大文化創意產業園區之。舊台中酒廠從此由製酒工業遺址活化新生，蛻變成文化創意產業的推展基地。</p>
+          </div>
+        </section>
+         <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 w-100">
+                    <label for="itinerarySelect" class="form-label">選擇行程</label>
+                    <select class="form-select" id="itinerarySelect">
+                        <option value="" selected>請選擇行程</option>
+                        <option value="itinerary1">行程 1</option>
+                        <option value="itinerary2">行程 2</option>
+                        <option value="itinerary3">行程 3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                    <label for="daySelect" class="form-label">選擇天數</label>
+                    <select class="form-select" id="daySelect">
+                        <option value="" selected>請選擇天數</option>
+                        <option value="day1">第 1 天</option>
+                        <option value="day2">第 2 天</option>
+                        <option value="day3">第 3 天</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary">保存選擇</button>
+            </div>
+        </div>
+   </div>
+  </div>
+
+    <!-- footer -->
+    <div class="container-fluid  text-light bg-primary position-relative">
+    <footer class="p-5 ">
+        <div class="row w-100 ">
+
+            <div class="col-6 col-md-4 mb-3 text-right">
+                <h5 class="fs-6 fw-bold">七淘 chill around</h5>
+
+                <ul class="nav flex-column" style="font-size: 0.8rem;">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">首頁</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">會員資訊</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">關於我們</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">常見問題</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">使用條款</a></li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-4 mb-3 text-center">
+                <a href="#">
+                    <img src="/chill-around-project/assets/chillAround_logo_02-CmeAcKKm.png" alt="" style="width: 180px;">
+                </a>
+            </div>
+
+            <div class="col-md-4 offset-md-1 m-0">
+                <form>
+                    <h5 class="fs-6 fw-bold">訂閱我們獲得更多旅遊資訊</h5>
+                    <p style="font-size: 0.8rem;">Subscribe to us for more travel information.</p>
+                    <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                        <label for="newsletter1" class="visually-hidden">Email address</label>
+                        <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+
+                        <button type="button" class="btn btn-warning btn-sm mx-2 text-light"
+                            style="  height: 37px; width: 90px; border-radius: 50px; ">
+                            訂閱
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div class="container-fluid  text-bg-primary">
+            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top fs-6 text-light">
+                <p>&copy; 2024 Company, Inc. All rights reserved.</p>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3">
+                        <a class="link-dark text-light" href="#">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-dark text-light" href="#">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </li>
+                    <li class="ms-3"><a class="link-dark text-light" href="#">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>  </div>
+    <script>
+       function changeImage(image) {
+        document.getElementById("mainImage").src = image;
+      }
+      $(document).ready(function() {
+        //modal
+            // 當選擇行程時，顯示天數選擇
+            $('#itinerarySelect').change(function () {
+                if ($(this).val()) {
+                    $('#daySelectContainer').show(); // 顯示天數選擇
+                } else {
+                    $('#daySelectContainer').hide(); // 隱藏天數選擇
+                }
+            });
+
+            // 確保關閉模態框時，隱藏天數選擇
+            $('#exampleModal').on('hide.bs.modal', function () {
+                $('#daySelectContainer').hide(); // 隱藏天數選擇
+                $('#itinerarySelect').val(''); // 重置行程選擇
+                $('#daySelect').val(''); // 重置天數選擇
+            });
+
+      
+
+
+
+      });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </body>
+</html>

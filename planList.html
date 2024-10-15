@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Travel Olan !</title>
+    <script
+      type="module"
+      src="https://unpkg.com/@googlemaps/extended-component-library@0.6"
+    ></script>
+    <script type="module" crossorigin src="/chill-around-project/assets/main-CkJUWnmA.js"></script>
+    <script type="module" crossorigin src="/chill-around-project/assets/planMap-DOHjZShS.js"></script>
+    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-gPcD0Ju4.css">
+  </head>
+  <body>
+    <div class="container-fluid planList">
+      <div class="row">
+        <div class="col-12 col-md-7 d-flex p-0">
+          <aside class="planAside">
+  <a  href="" class="logo">
+    <img class="p-2" src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png" alt="logo"/>
+  </a>
+  
+  <ul class="navbar">
+    <a href=""><li>
+      <i class="bi bi-journal-bookmark"></i>
+      <h4>我的計畫</h4>
+    </li></a>
+    <a href=""><li>
+      <i class="bi bi-coin"></i>
+      <h4>預算清單</h4>
+    </li></a>
+    <a href=""><li>
+      <i class="bi bi-backpack2"></i>
+      <h4>物品清單</h4>
+    </li></a>
+    <a href=""><li>
+      <i class="bi bi-person-circle"></i>
+      <h4>會員中心</h4>
+    </li></a>
+  </ul>
+</aside>
+          <div class="planListArea">
+            <ul class="cardList p-0">
+              <li class="d-flex justify-content-center">
+                <div class="card" style="width: 90%">
+                  <div class="card-header d-flex justify-content-between">
+                    <h5 class="card-title">使用者名稱</h5>
+                    <div class="editBtn">
+                      <button type="button" class="btn btn-outline-danger">
+                        <i class="bi bi-three-dots"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <img
+                    src="https://plus.unsplash.com/premium_photo-1661951189203-12decb9d7f8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    class="card-img-top"
+                  />
+                  <div class="card-body d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title">我的第一個旅遊計畫</h5>
+                      <p class="card-text">Fri 09/13 - Thu 09/17</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <button type="button" class="btn btn-outline-primary">
+                        分享
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="d-flex justify-content-center">
+                <div class="card" style="width: 90%">
+                  <div class="card-header d-flex justify-content-between">
+                    <h5 class="card-title">使用者名稱</h5>
+                    <div class="editBtn">
+                      <button type="button" class="btn btn-outline-danger">
+                        <i class="bi bi-three-dots"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <img
+                    src="https://plus.unsplash.com/premium_photo-1661951189203-12decb9d7f8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    class="card-img-top"
+                  />
+                  <div class="card-body d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title">我的第一個旅遊計畫</h5>
+                      <p class="card-text">Fri 09/13 - Thu 09/17</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <button type="button" class="btn btn-outline-primary">
+                        分享
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="addPlanBtn d-flex justify-content-center">
+              <button type="button" class="btn btn-outline-secondary">
+                新增計畫<i class="bi bi-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-none d-md-block col-md-5 p-0 mapArea">
+          <gmpx-api-loader
+            key="API_KEY"
+            solution-channel="GMP_GE_mapsandplacesautocomplete_v1"
+          >
+          </gmpx-api-loader>
+          <gmp-map
+            center="23.75163737835299, 120.95520524708053"
+            zoom="8"
+            map-id="DEMO_MAP_ID"
+          >
+            <div
+              slot="control-block-start-inline-start"
+              class="place-picker-container"
+            >
+              <gmpx-place-picker
+                placeholder="Enter an address"
+                class="d-none"
+              ></gmpx-place-picker>
+            </div>
+            <gmp-advanced-marker></gmp-advanced-marker>
+          </gmp-map>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

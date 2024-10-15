@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊搜尋頁</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+    </style>
+    
+  <script type="module" crossorigin src="/chill-around-project/assets/searchSite-BahSQ7Av.js"></script>
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-CkJUWnmA.js">
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-gPcD0Ju4.css">
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <header class="searchSiteHeader">
+    <nav class="searchNav navbar navbar-expand-md navbar-light bg-white ps-4 pe-4">
+        <a class="navbar-brand" href="#">
+            <img src="/chill-around-project/assets/chillAround_logo_01-DR13PjDD.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
+                <li class="nav-item d-flex p-2">
+                    <span id="welcomeMessage" class="me-3"></span>
+                </li>
+                <li class="nav-item d-flex p-2">
+                    <button id="loginBtn" class="btn">登入</button>
+                </li>
+                <li class="nav-item d-flex p-2">
+                   <a href=""><i class="bi bi-plus-circle"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<script>
+    // 假設用戶已登入的狀態
+let isLoggedIn = false;
+
+// 取得按鈕和歡迎訊息元素
+const loginButton = document.getElementById('loginBtn');
+const welcomeMessage = document.getElementById('welcomeMessage');
+
+// 點擊按鈕的事件處理
+loginButton.addEventListener('click', function() {
+    if (isLoggedIn) {
+        // 如果已登入，執行登出操作
+        isLoggedIn = false;
+        loginButton.innerText = '登入';
+        welcomeMessage.innerText = '';
+    } else {
+        // 如果未登入，執行登入操作
+        isLoggedIn = true;
+        loginButton.innerText = '登出';
+        welcomeMessage.innerText = 'Hi，使用者名稱';  // 可以加入用戶名的邏輯
+    }
+});
+</script>
+
+</script>    <div class="searchSitePage container-fluid p-0">
+    <!-- 手機版首頁熱門推薦轉為輪播圖 -->
+    <div id="carouselExample" class="carousel slide d-md-none col-md-6 order-md-1" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="siteCarouselItem carousel-item active">
+              <img src="/chill-around-project/assets/chimeiMuseum-DJm8o5hA.jpeg" class="d-block w-100" alt="圖片 1"/>
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="/chill-around-project/assets/tainan-Cz63pDbC.jpeg" class="d-block w-100" alt="圖片 2" />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img src="/chill-around-project/assets/Taipei_101-B3rzN8Y4.jpg" class="d-block w-100" alt="圖片 3"/>
+            </div>
+            
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+    
+  <!-- 首頁熱門推薦大圖 -->
+<div id="hero-image" class="container-fluid p-0 d-none d-md-block" >
+    <div class="row no-gutters ms-0 me-0">
+        <div id="image1" class="col-md-4 ps-0 pe-0">
+            <img src="/chill-around-project/assets/chimeiMuseum-DJm8o5hA.jpeg" alt="Image 1">
+        </div>
+        <div id="image2" class="col-md-4 ps-0 pe-0">
+            <img src="/chill-around-project/assets/tainan-Cz63pDbC.jpeg" alt="Image 2">
+        </div>
+        <div id="image3" class="col-md-4 ps-0 pe-0">
+            <img src="/chill-around-project/assets/Taipei_101-B3rzN8Y4.jpg" alt="Image 3">
+        </div>
+    </div>
+</div>
+    <!-- 搜尋區域 -->
+    <div class="searchOverlay container  d-flex flex-column flex-sm-row align-items-center">
+        <div class="input-group justify-content-center align-items-center">
+            <div class="seletGroup d-flex justify-content-between">
+                <div class="selectItem">
+                    <label for="regionSelect d-flex" class="" id="regionLabel">地區</label>
+                    <select class="custom-select">
+                        <option selected>請選擇</option>
+                        <option value="Taipei">台北市</option>
+                        <option value="NewTaipei">新北市</option>
+                        <option value="Keelung">基隆市</option>
+                        <option value="Yilan">宜蘭縣</option>
+                        <option value="Taoyuan">桃園市</option>
+                        <option value="Hsinchu">新竹縣</option>
+                        <option value="Miaoli">苗栗縣</option>
+                        <option value="Taichung">台中市</option>
+                        <option value="Changhua">彰化縣</option>
+                        <option value="Nantou">南投縣</option>
+                        <option value="Yunlin">雲林縣</option>
+                        <option value="Chiayi">嘉義縣</option>
+                        <option value="Tainan">台南市</option>
+                        <option value="Kaohsiung">高雄市</option>
+                        <option value="Pingtung">屏東縣</option>
+                        <option value="Hualien">花蓮縣</option>
+                        <option value="Taitung">台東縣</option>
+                    </select>
+                </div>
+                <div class="selectItem">
+                    <label for="categorySelect" class="" id="categoryLabel">類別</label>
+                    <select class="custom-select">
+                        <option selected>請選擇</option>
+                        <option value="1">小吃店</option>
+                        <option value="2">咖啡廳</option>
+                        <option value="3">選項C</option>
+                    </select>
+                </div>
+
+            </div>
+           
+            <div class="input-group-append">
+                <button class="btn btn-outline-light" type="button">搜尋</button>
+            </div>
+        </div>
+    </div>
+
+     <!--  景點推薦title -->
+     <div class="container d-flex justify-content-between my-5">
+        <h4 class="text-dark text-nowrap fs-2 fw-bolder">景點推薦</h4>
+        <div class="textDivider">
+        </div>
+    </div>
+    <!-- 景點推薦卡片 -->
+    <div id="recommendCards">
+        <div id="sitecardBox" class="row m-0">
+            <!-- 迴圈生成卡片 -->
+        </div>
+    </div>
+    <div class="p-5 d-flex justify-content-center  ">
+        <a href="#" id="moreBtn" class="btn btn-secondary">更多景點推薦</a>
+    </div>
+    <!--  美食推薦title -->
+    <div class="bg-primary py-5">
+        <div class="container d-flex justify-content-between">
+            <h4 class="text-light text-nowrap fs-2 fw-bolder">美食推薦</h4>
+            <div class="textDivider2">
+            </div>
+        </div>
+    </div>
+   
+    <!-- 美食推薦卡片 -->
+    <div id="recommendCards">
+        <div id="foodcardBox" class="row m-0">
+            <!-- 迴圈生成卡片 -->
+        </div>
+        <div class="p-5 d-flex justify-content-center  ">
+            <a href="#" id="moreBtn" class="btn btn-secondary">更多美食推薦</a>
+        </div>
+    </div>
+     <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal"
+                     aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <div class="mb-3 w-100">
+                     <label for="itinerarySelect" class="form-label">選擇行程</label>
+                     <select class="form-select" id="itinerarySelect">
+                         <option value="" selected>請選擇行程</option>
+                         <option value="itinerary1">行程 1</option>
+                         <option value="itinerary2">行程 2</option>
+                         <option value="itinerary3">行程 3</option>
+                     </select>
+                 </div>
+
+             </div>
+             <div class="modal-body">
+                 <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                     <label for="daySelect" class="form-label">選擇天數</label>
+                     <select class="form-select" id="daySelect">
+                         <option value="" selected>請選擇天數</option>
+                         <option value="day1">第 1 天</option>
+                         <option value="day2">第 2 天</option>
+                         <option value="day3">第 3 天</option>
+                     </select>
+
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                 <button type="button" class="btn btn-primary">保存選擇</button>
+             </div>
+     </div>
+    </div>
+
+
+</div>
+
+    <!-- footer -->
+    <div class="container-fluid  text-light bg-primary position-relative">
+    <footer class="p-5 ">
+        <div class="row w-100 ">
+
+            <div class="col-6 col-md-4 mb-3 text-right">
+                <h5 class="fs-6 fw-bold">七淘 chill around</h5>
+
+                <ul class="nav flex-column" style="font-size: 0.8rem;">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">首頁</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">會員資訊</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">關於我們</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">常見問題</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">使用條款</a></li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-4 mb-3 text-center">
+                <a href="#">
+                    <img src="/chill-around-project/assets/chillAround_logo_02-CmeAcKKm.png" alt="" style="width: 180px;">
+                </a>
+            </div>
+
+            <div class="col-md-4 offset-md-1 m-0">
+                <form>
+                    <h5 class="fs-6 fw-bold">訂閱我們獲得更多旅遊資訊</h5>
+                    <p style="font-size: 0.8rem;">Subscribe to us for more travel information.</p>
+                    <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                        <label for="newsletter1" class="visually-hidden">Email address</label>
+                        <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+
+                        <button type="button" class="btn btn-warning btn-sm mx-2 text-light"
+                            style="  height: 37px; width: 90px; border-radius: 50px; ">
+                            訂閱
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div class="container-fluid  text-bg-primary">
+            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top fs-6 text-light">
+                <p>&copy; 2024 Company, Inc. All rights reserved.</p>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3">
+                        <a class="link-dark text-light" href="#">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-dark text-light" href="#">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </li>
+                    <li class="ms-3"><a class="link-dark text-light" href="#">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</body>
+</html>

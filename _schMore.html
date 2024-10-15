@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+
+    <!-- main JS -->
+    <title>Document</title>
+  <script type="module" crossorigin src="/chill-around-project/assets/main-CkJUWnmA.js"></script>
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-gPcD0Ju4.css">
+</head>
+
+<body>
+
+    <div class="_schMore">
+
+        <!-- header -->
+        <header class="searchSiteHeader">
+    <nav class="searchNav navbar navbar-expand-md navbar-light bg-white ps-4 pe-4">
+        <a class="navbar-brand" href="#">
+            <img src="/chill-around-project/assets/chillAround_logo_01-DR13PjDD.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
+                <li class="nav-item d-flex p-2">
+                    <span id="welcomeMessage" class="me-3"></span>
+                </li>
+                <li class="nav-item d-flex p-2">
+                    <button id="loginBtn" class="btn">登入</button>
+                </li>
+                <li class="nav-item d-flex p-2">
+                   <a href=""><i class="bi bi-plus-circle"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<script>
+    // 假設用戶已登入的狀態
+let isLoggedIn = false;
+
+// 取得按鈕和歡迎訊息元素
+const loginButton = document.getElementById('loginBtn');
+const welcomeMessage = document.getElementById('welcomeMessage');
+
+// 點擊按鈕的事件處理
+loginButton.addEventListener('click', function() {
+    if (isLoggedIn) {
+        // 如果已登入，執行登出操作
+        isLoggedIn = false;
+        loginButton.innerText = '登入';
+        welcomeMessage.innerText = '';
+    } else {
+        // 如果未登入，執行登入操作
+        isLoggedIn = true;
+        loginButton.innerText = '登出';
+        welcomeMessage.innerText = 'Hi，使用者名稱';  // 可以加入用戶名的邏輯
+    }
+});
+</script>
+
+</script>
+            <!-- 上方大圖 -->
+            <div class="SchtopImage container-fluid p-0 bg-primary">
+                <img src="/chill-around-project/assets/chimeiMuseum-DJm8o5hA.jpeg" class="img-fluid" alt="大圖">
+                <div class="SchTopText">
+                    <h1>更多精彩行程</h1>
+                </div>
+            </div>
+
+            <!-- 下方內容 -->
+            <div class="SchBottomInfo row ">
+                <aside class="d-flex justify-content-center col-md-3 ">
+                    <div class="p-3 selectBlock my-5 ">
+                        <h6 class="ps-2 align-items-center ">透過下列選項搜尋</h6>
+                        <hr>
+                        <!-- 下拉選單 -->
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="m-o accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                        aria-controls="flush-collapseOne">
+                                        地區
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionFlushExample">
+                                    <div class="checkBody accordion-body row">
+                                        <!-- 地區核取方塊 -->
+                                        <div class="form-check col-md-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="taipei">
+                                            <label class="form-check-label" for="taipei">台北</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="nature" id="nature">
+                                            <label class="form-check-label" for="nature">新北</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                        <div class="form-check col-6 pb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="nature">
+                                            <label class="form-check-label" for="nature">自然</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- 類型 -->
+                        <div class="siteType">
+                            <p>類型</p>
+                            <div class="form-check pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="">歷史建築</label>
+                            </div>
+                            <div class="form-check pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="">歷史建築</label>
+                            </div>
+                            <div class="form-check pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="">歷史建築</label>
+                            </div>
+                            <div class="form-check pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="">歷史建築</label>
+                            </div>
+                            <div class="form-check pb-2">
+                                <input class="form-check-input" type="checkbox" value="" id="nature">
+                                <label class="form-check-label" for="">歷史建築</label>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <!-- 右側卡片們 -->
+                <main class="rightCards col-md-9 me-0">
+                    <div id="sitecardBox" class="row m-0 justify-content-center">
+                        <!-- 迴圈生成卡片 -->
+                    </div>
+                </main>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3 w-100">
+                                <label for="itinerarySelect" class="form-label">選擇行程</label>
+                                <select class="form-select" id="itinerarySelect">
+                                    <option value="" selected>請選擇行程</option>
+                                    <option value="itinerary1">行程 1</option>
+                                    <option value="itinerary2">行程 2</option>
+                                    <option value="itinerary3">行程 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                                <label for="daySelect" class="form-label">選擇天數</label>
+                                <select class="form-select" id="daySelect">
+                                    <option value="" selected>請選擇天數</option>
+                                    <option value="day1">第 1 天</option>
+                                    <option value="day2">第 2 天</option>
+                                    <option value="day3">第 3 天</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary Close" data-bs-dismiss="modal">關閉</button>
+                            <button type="button" class="btn btn-primary Save">保存選擇</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- footer -->
+            <div class="container-fluid  text-light bg-primary position-relative">
+    <footer class="p-5 ">
+        <div class="row w-100 ">
+
+            <div class="col-6 col-md-4 mb-3 text-right">
+                <h5 class="fs-6 fw-bold">七淘 chill around</h5>
+
+                <ul class="nav flex-column" style="font-size: 0.8rem;">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">首頁</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">會員資訊</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">關於我們</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">常見問題</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">使用條款</a></li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-4 mb-3 text-center">
+                <a href="#">
+                    <img src="/chill-around-project/assets/chillAround_logo_02-CmeAcKKm.png" alt="" style="width: 180px;">
+                </a>
+            </div>
+
+            <div class="col-md-4 offset-md-1 m-0">
+                <form>
+                    <h5 class="fs-6 fw-bold">訂閱我們獲得更多旅遊資訊</h5>
+                    <p style="font-size: 0.8rem;">Subscribe to us for more travel information.</p>
+                    <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                        <label for="newsletter1" class="visually-hidden">Email address</label>
+                        <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+
+                        <button type="button" class="btn btn-warning btn-sm mx-2 text-light"
+                            style="  height: 37px; width: 90px; border-radius: 50px; ">
+                            訂閱
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div class="container-fluid  text-bg-primary">
+            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top fs-6 text-light">
+                <p>&copy; 2024 Company, Inc. All rights reserved.</p>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3">
+                        <a class="link-dark text-light" href="#">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-dark text-light" href="#">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </li>
+                    <li class="ms-3"><a class="link-dark text-light" href="#">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const sitecardData = [
+                { title: "景點名稱1", location: "地點1", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱3", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱4", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱5", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱6", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱7", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱8", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
+                { title: "景點名稱8", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" }
+                // 添加更多卡片資料
+            ];
+            $.each(sitecardData, function (index, data) {
+                //  console.log(data.image);
+                let siteCard = `<div class="col-md-4 p-0 m-0">
+                        <div id="siteCard" class="allCard card bg-primary m-0">
+                            <div class="cardImage">
+                                <!-- <img src="../assets/images/searchSite/siteRecommend/fff.png" alt=""> -->
+                                <img src="${data.image}" alt="">
+                            </div>
+                            <div class="cardOverlay">
+                                <h5 class="card-title ">${data.title}</h5>
+                                <p class="card-subtitle">${data.location}</p>
+                            </div>
+                            <div class="btnOverlay">
+                               <a id="likeBtn" class="bi bi-heart""></a>
+                        </a>
+                        <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            加入行程
+                        </button>
+                            </div>
+                        </div>
+                    </div>`;
+                $("#sitecardBox").append(siteCard);
+            })
+        })
+
+        //like click
+        $(document).on('click', '#likeBtn', function () {
+            $(this).toggleClass('bi-heart bi-heart-fill');
+        });
+
+        //modal
+        // 當選擇行程時，顯示天數選擇
+        $('#itinerarySelect').change(function () {
+            if ($(this).val()) {
+                $('#daySelectContainer').show(); // 顯示天數選擇
+            } else {
+                $('#daySelectContainer').hide(); // 隱藏天數選擇
+            }
+        });
+
+        // 確保關閉模態框時，隱藏天數選擇
+        $('#exampleModal').on('hide.bs.modal', function () {
+            $('#daySelectContainer').hide(); // 隱藏天數選擇
+            $('#itinerarySelect').val(''); // 重置行程選擇
+            $('#daySelect').val(''); // 重置天數選擇
+        });
+    </script>
+
+</body>
+
+</html>
