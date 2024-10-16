@@ -3,7 +3,7 @@ function openModal() {
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('modal').style.display = 'block';
 }
-// 加上這行讓modal保持開啟
+// 讓modal保持開啟
 document.addEventListener('DOMContentLoaded', openModal);
 
 function closeModal() {
@@ -38,7 +38,7 @@ function toggleOptions(id) {
     const options = document.getElementById(id);
     if (options) {
         options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
-        alert("ABC");
+        alert("展開成功");
     } else {
         console.error(`ID '${id}' not found`)
     }
@@ -84,6 +84,11 @@ function selectOption(option, event) {
     selectedOption.classList.add('active');
 }
 
+// <---------------------- 增加種類細項上去 ---------------------->
+
+
+
+
 
 // 放置區
 // function toggleOptions(id) {
@@ -99,6 +104,4 @@ function selectOption(option, event) {
 // document.getElementById('overlay2').addEventListener('click', closeModal2);
 
 // <---------------------- 使用者選取資料帶入畫面 ---------------------->
-
-
 
