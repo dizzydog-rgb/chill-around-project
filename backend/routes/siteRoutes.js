@@ -20,4 +20,48 @@ router.get("/siteinfo", function (req, res) {
     }
   });
 }); 
+router.get("/searchSite", function (req, res) {
+    // res.send("成功呼叫")
+  const options = {
+    root: path.join(__dirname, "../../", "dist"),
+  };
+  const fileName = "searchSite.html";
+  res.sendFile(fileName, options, function (err) {
+    if (err) {
+      console.error("Error sending file:", err);
+    } else {
+      console.log("Sent:", fileName);
+    }
+  });
+}); 
+
+router.get("/allsite", function (req, res) {
+    // res.send("成功呼叫")
+  const options = {
+    root: path.join(__dirname, "../../", "dist"),
+  };
+  const fileName = "allSite.html";
+  res.sendFile(fileName, options, function (err) {
+    if (err) {
+      console.error("Error sending file:", err);
+    } else {
+      console.log("Sent:", fileName);
+    }
+  });
+}); 
+
+router.get("/foodmap", function (req, res) {
+    // res.send("成功呼叫")
+  const options = {
+    root: path.join(__dirname, "../../", "dist"),
+  };
+  const fileName = "foodMap.html";
+  res.sendFile(fileName, options, function (err) {
+    if (err) {
+      console.error("Error sending file:", err);
+    } else {
+      console.log("Sent:", fileName);
+    }
+  });
+}); 
 module.exports = router;
