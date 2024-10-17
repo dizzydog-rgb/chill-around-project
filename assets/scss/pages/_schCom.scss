@@ -69,8 +69,9 @@
             .todayInfo {
                 width: 100%;
                 text-align: right;
+                text-align: end;
                 color: $secondary;
-                margin-right: 20px;
+                // margin-right: 20px;
 
                 h3 {
                     font-size: 20px;
@@ -80,6 +81,41 @@
         }
 
 
+    }
+
+
+        .co-editor {
+      .editor {
+        position: relative;
+        margin-right: 8px;
+        img {
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
+        }
+        .userName {
+          visibility: hidden;
+          width: 120px;
+          background-color: $primary;
+          color: #ffffff;
+          text-align: center;
+          border-radius: 8px;
+          padding: 5px;
+          position: absolute;
+          z-index: 10;
+          bottom: 42%;
+          left: 250%;
+          margin-left: -60px;
+          opacity: 0;
+          transition: opacity 0.3s;
+        }
+      }
+      .editor:hover .userName {
+        visibility: visible;
+        opacity: 1;
+      }
     }
 
 
