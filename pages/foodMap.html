@@ -18,7 +18,7 @@
     
 </head>
 <body>
-    <%- include('./layout/searchHeader'); -%>
+    <%- include('./layout/searchHeader_trans'); -%>
     <div class="foodMap container-fluid p-0">
          <!-- 搜尋區域 -->
     <div class="searchOverlay container  d-flex flex-column flex-sm-row align-items-center">
@@ -434,38 +434,6 @@
                 }
             }
              //  ---- end of callbacks ----
-    // // function openModalFromCard1(){
-    // //     service.getDetails({ placeId: placeId }, function (placeDetails, status) {
-
-    // //     })
-
-    // //     if (status === google.maps.places.PlacesServiceStatus.OK) {
-    // //         // 填充Modal標題
-    // //         const modalTitle = document.getElementById('infoTitle');
-    // //         modalTitle.innerHTML = `<h2>北門肉圓</h2>`;
-
-    // //     // 填充Modal內容
-    // //     const modalBody = document.getElementById('modalBody');
-    // //     modalBody.innerHTML = `
-    // //         <img src="${selectedPlace.photos ? selectedPlace.photos[0].getUrl({ maxWidth: 600 }) : '../assets/images/searchSite/tainan.jpeg'}" alt="${selectedPlace.name}" class="img-fluid">
-    // //         <p>這是一家非常受歡迎的店，提供美味的菜餚！</p>
-    // //         <p><strong>更多資訊：</strong></p>
-    // //         <ul>
-    // //             <li>地址：某某街道123號</li>
-    // //             <li>電話：123-456-7890</li>
-    // //             <li>營業時間：每天 10:00 - 22:00</li>
-    // //             <li>其他資訊內容...</li>
-    // //         </ul>
-    // //     `;
-
-    // //     // 顯示Modal
-    // //     const modal = new bootstrap.Modal(document.getElementById('myModal'));
-    // //     modal.show();
-    // // } else {
-    // //     console.error('未找到該店家資料！');
-    // // }
-
-    // // }         
     
     // 顯示 modal 的函數
     function showModal() {

@@ -10,7 +10,7 @@
     <script type="module" src="/main.js"></script>
 </head>
 <body>
-    <%- include('./layout/searchHeader'); -%>
+    <%- include('./layout/searchHeader_trans'); -%>
     <div class="allSitePage container-fluid p-0">
           <!-- 上方大圖 -->
     <div class="topImage bg-primary">
@@ -192,10 +192,10 @@
 
     </div>
   
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> 
     <script>
-        $(document).ready(function(){
+        document.addEventListener("DOMContentLoaded", function(){
             const sitecardData = [
                 { title: "景點名稱1", location: "地點1", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
                 { title: "景點名稱2", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
@@ -207,28 +207,52 @@
                 { title: "景點名稱8", location: "地點2", image: "../assets/images/searchSite/chimeiMuseum.jpeg" },
                 // 添加更多卡片資料
             ];
-             $.each(sitecardData, function(index, data){
-                //  console.log(data.image);
-                let siteCard = `<div class="col-md-4 p-0 m-0">
-                        <div id="siteCard" class="allCard card bg-primary m-0">
-                            <div class="cardImage">
-                                <!-- <img src="../assets/images/searchSite/siteRecommend/fff.png" alt=""> -->
-                                <img src="${data.image}" alt="">
-                            </div>
-                            <div class="cardOverlay">
-                                <h5 class="card-title ">${data.title}</h5>
-                                <p class="card-subtitle">${data.location}</p>
-                            </div>
-                            <div class="btnOverlay">
-                                <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    加入行程
-                                </button>
-                            </div>
-                        </div>
-                    </div>`;
-                $("#sitecardBox").append(siteCard);
-             })
-        })
+            const sitecardBox = document.getElementById("sitecardBox");
+            sitecardData.forEach(data => {
+                const siteCard = document.createElement("div");
+                siteCard.className = "col-md-4 p-0 m-0";
+                siteCard.innerHTML = `
+                <div id="siteCard" class="allCard card bg-primary m-0">
+                    <div class="cardImage">
+                        <img src="${data.image}" alt="">
+                    </div>
+                    <div class="cardOverlay">
+                        <h5 class="card-title">${data.title}</h5>
+                        <p class="card-subtitle">${data.location}</p>
+                    </div>
+                    <div class="btnOverlay">
+                        <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            加入行程
+                        </button>
+                    </div>
+                </div>`;
+                sitecardBox.appendChild(siteCard);
+            });
+        });
+        // $(document).ready(function(){
+            
+        //      $.each(sitecardData, function(index, data){
+        //         //  console.log(data.image);
+        //         let siteCard = `<div class="col-md-4 p-0 m-0">
+        //                 <div id="siteCard" class="allCard card bg-primary m-0">
+        //                     <div class="cardImage">
+        //                         <!-- <img src="../assets/images/searchSite/siteRecommend/fff.png" alt=""> -->
+        //                         <img src="${data.image}" alt="">
+        //                     </div>
+        //                     <div class="cardOverlay">
+        //                         <h5 class="card-title ">${data.title}</h5>
+        //                         <p class="card-subtitle">${data.location}</p>
+        //                     </div>
+        //                     <div class="btnOverlay">
+        //                         <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        //                             加入行程
+        //                         </button>
+        //                     </div>
+        //                 </div>
+        //             </div>`;
+        //         $("#sitecardBox").append(siteCard);
+        //      })
+        // })
     </script>
 </body>
 </html>
