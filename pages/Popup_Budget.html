@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/scss/all.scss">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>編輯小視窗</title>
+</head>
+
+<body class="Popup_Budget_Final">
+    <div class="EDITPOPUP">
+        <!-- <a href="#modal" class="open-modal" onclick="openModal()">編輯內容</a> -->
+        <div class="overlay" id="overlay"></div>
+        <div class="modal" id="modal">
+            <div class="topDiv">
+                <!-- <a href="./Popup_BudgetCategory.html" class="category">種類</a> -->
+                <a class="category" href="#modal2" id="open-modal2">種類</a>
+                <input class="date" type="date"></input>
+                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
+            </div>
+            <form>
+                <div>
+                    <span>金額</span>
+                    <input type="text" placeholder="輸入金額" required><br><br>
+                </div>
+                <div>
+                    <span>名稱</span>
+                    <input type="text" placeholder="輸入內容" required><br><br>
+                </div>
+                <div>
+                    <span>已付</span>
+                    <input type="checkbox" class="checkBox">
+                </div>
+                <div>
+                    <span>付款人</span>
+                    <input type="text" placeholder="輸入付款人" required><br><br>
+                </div>
+            </form>
+            <div class="buttons">
+                <a href="./Budget.html">
+                    <button type="submit">確認</button>
+                </a>
+                <button type="button" onclick="alert('已刪除')">刪除</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="CATEGORYPOPUP">
+        <!-- <a href="#modal2" id="open-modal2">打開種類小視窗</a> -->
+
+        <div class="overlay2" id="overlay2"></div>
+
+        <div class="modal2" id="modal2">
+            <div class="modalContent2">
+                <div class="topDiv2">
+                    <a class="close2" href="#">＜</a>
+                    <button class="okBtn">確認</button>
+                </div>
+
+                <div class="category2">
+                    <div class="tiTle" id="toggle-options">
+                        <span>交通</span>
+                        <a>V</a>
+                    </div>
+                    <div class="options" id="options0">
+                        <div class="option" data-option="飛機" >飛機</div>
+                        <div class="option" data-option="船舶" >船舶</div>
+                        <div class="option" data-option="租車" >租車</div>
+                        <div class="option" data-option="火車" >火車</div>
+                    </div>
+                </div>
+
+                <div class="category2">
+                    <div class="tiTle">
+                        <span>交通</span>
+                        <a>V</a>
+                    </div>
+                    <div class="options" id="options1">
+                        <div class="option" data-option="火車" >飛機</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- -------------------- Modal 1 -------------------- -->
+    <!-- <script>
+        function openModal() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal').style.display = 'block';
+        }
+        // 加上這行讓modal保持開啟
+        document.addEventListener('DOMContentLoaded', openModal);
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script> -->
+
+    <!---------------------- Modal 2 ---------------------->
+    <!-- <script>
+        // 綁定 modal 和 連結按鈕
+        document.getElementById('open-modal2').addEventListener('click', () => {
+            document.getElementById('overlay2').classList.add('active');
+            document.getElementById('modal2').classList.add('active');
+        });
+
+        function closeModal2() {
+            document.getElementById('overlay2').classList.remove('active');
+            document.getElementById('modal2').classList.remove('active');
+        }
+        // 測試時讓modal保持開啟
+        // document.addEventListener('DOMContentLoaded', openModal2);
+
+
+        function toggleOptions(id) {
+            const options = document.getElementById(id);
+            options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
+            alert("ABCC");
+        }
+
+        // 點擊單個選項綁定
+        function selectOption(option, event) {
+            event.stopPropagation();
+            // alert(`你選擇了: ${option}`);
+
+            // 下面製作單選限制 //
+            // 獲取所有選項
+            const options = document.querySelectorAll('.option');
+
+            // 移除所有選項的 active
+            options.forEach(opt => {
+                opt.classList.remove('active');
+            });
+
+            // 為當前選擇的選項添加 active
+            const selectedOption = event.currentTarget; // 獲取被點擊的選項
+            selectedOption.classList.add('active');
+        }
+
+        // function toggleOptions(id) {
+        //     const options = document.getElementById(id);
+        //     options.classList.toggle('active'); // 切換 active 類
+        // }
+
+        // function confirmSelection2() {
+        //     alert('確認選擇');
+        // }
+
+        // 點擊遮罩也可以關閉視窗
+        // document.getElementById('overlay2').addEventListener('click', closeModal2);
+    </script> -->
+
+    <!-- <script type="module" src="../js/Popup_Budget.js">
+        
+    </script> -->
+    <script type="module">
+        import { closeModal2 } from "../js/Popup_Budget.js";
+    </script>
+
+</body>
+
+</html>
