@@ -30,15 +30,24 @@
         height: 70vh;
         overflow-y: auto;
         flex-direction: column;
+        .card-title {
+          font-size: 18px;
+          display: -webkit-box; /* 使用 Flexbox */
+          -webkit-box-orient: vertical; /* 垂直方向排列 */
+          -webkit-line-clamp: 2; /* 限制顯示兩行 */
+          overflow: hidden; /* 隱藏超出部分 */
+          text-overflow: ellipsis; /* 在結尾處使用省略號 */
+      }
          // 卡片本體
          .foodCard{
             // position: relative;
+            width: 100%;
             overflow: hidden;
             border: 1px solid $danger;
             margin-bottom: 15px;
             // 卡片照片
             .foodImage{
-                width: 150px;
+                width: 150px; /* 設定圖片的固定寬度 */
                 height: 150px;
                 overflow: hidden;
                 // background-color: #E7BA48;
@@ -48,6 +57,10 @@
                     object-fit: cover;
                 }
             }
+            .card-body {
+              width: 200px; /* 設定卡片內容的固定寬度 */
+              overflow: hidden;
+          }
             .btnOverlay{
                 position: absolute;
                 bottom: 0;
@@ -60,6 +73,7 @@
             }
         }
     }
+  
     
    // 搜尋欄
 .searchOverlay {
