@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script type="module" crossorigin src="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-  <script type="module" crossorigin src="/chill-around-project/assets/main-BEh_2P2A.js"></script>
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BmzO802a.css">
+  <script type="module" crossorigin src="/chill-around-project/assets/main-BJ927NPW.js"></script>
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-D6QqmPCp.css">
 </head>
 
 <body class="member">
@@ -22,30 +23,38 @@
                 </a>
                 <div class="sidebar text-start">
                     <div class="item">
-                        <a href="member_personaldata.html"><i class="fa-solid fa-user me-3"></i>個人資訊</a>
+                        <a href="personaldata"><i class="fa-solid fa-user me-3"></i>個人資訊</a>
                     </div>
                     <div class="item">
-                        <a href="member_mytrip.html"><i class="fa-solid fa-calendar-days me-3"></i>我的行程</a>
+                        <a href="mytrip"><i class="fa-solid fa-calendar-days me-3"></i>我的行程</a>
                     </div>
                     <div class="item">
-                        <a href="member_mycollection.html"><i class="fa-solid fa-heart me-3"></i>我的收藏行程</a>
+                        <a href="mycollection"><i class="fa-solid fa-heart me-3"></i>我的收藏行程</a>
                     </div>
                     <div class="item">
-                        <a href="TaiwanEx.html"><i class="fa-solid fa-map-location-dot me-3"></i>台灣制縣地圖</a>
+                        <a href="TaiwanEx"><i class="fa-solid fa-map-location-dot me-3"></i>台灣制縣地圖</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-10 personaldata">
-                <div class="text-end mb-3">
+                <div id="edit" class="text-end mb-3">
                     <button type="button" class="btn editbtn text-white">
                         <i class="fa-solid fa-pencil me-1"></i>編輯
+                    </button>
+                </div>
+                <div id="write" class="text-end mb-3 hidden">
+                    <button type="button" class="btn storebtn text-white">
+                        儲存
+                    </button>
+                    <button type="button" class="btn cancelbtn text-white">
+                        取消
                     </button>
                 </div>
                 <div class="mb-5">
                     <div class="card" style="max-width: 600px;">
                         <div class="row align-items-center g-0">
                             <div class="col-md-4">
-                                <img src="/chill-around-project/assets/avatar-oh9H5yA4.svg">
+                                <img src="/chill-around-project/assets/avatar-Da6-6i89.svg">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -119,7 +128,43 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            function inputSize(input) {
+                input.attr('size', input.val().length + 1)
+            };
+
+            $('.inpwrite').each(function () {
+                inputSize($(this)); // 調整初始大小
+            });
+
+            $('.inpwrite').keyup(function () {
+                inputSize($(this));
+            });
+
+            $('.editbtn').click(function () {
+                // 切換 readonly 屬性
+                $('#edit').addClass('hidden');
+                $('#write').removeClass('hidden');
+                let input = $('.inpwrite');
+                input.css({'border':'1px solid #d2d2d2'},{'outline':'solid thin'});
+                if (input.prop('readonly')) {
+                    input.prop('readonly', false); // 取消 readonly
+                }
+            });
+
+            $('.cancelbtn').click(function () {
+                $('#write').addClass('hidden');
+                $('#edit').removeClass('hidden');
+                let input = $('.inpwrite');
+                input.css({'border':'none'},{'outline':'none'});
+                if (input.prop('readonly') == false) {
+                    input.prop('readonly', true); 
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
