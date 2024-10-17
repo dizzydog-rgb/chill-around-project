@@ -137,7 +137,7 @@
                 success: function (res) {
                     if (res.length > 0) {
                         const member = res[0]; // 假設只有一個會員
-                        $('#img').prop('src', '../assets/images/memberimg/' + member.uphoto)
+                        $('#img').prop('src', '../assets/' + member.uphoto)
                         $('#uname').html(member.uname);
                         $('#uname1').val(member.uname);
                         $('#email').val(member.email);
