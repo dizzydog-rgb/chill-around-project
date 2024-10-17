@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script type="module" src="/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div class="test">
+        <div class="container col-lg-6 col-sm-12 content" style="background-image: url(../assets/images/test/background.jpg);height: 120vh;">
+            <div class="testHomePage py-5">
+                <div class="d-flex my-5" style="justify-content: center;">
+                    <h1 class="text-success">一起來</h1>
+                    <img src="../assets/images/logo/chillAround_logo_01.png" class="logo animate__animated animate__rubberBand">
+                    <!-- logo-animate.css特效 -->
+                </div>
+                <br>
+                <h2 class="text-success">尋找你的旅行風格</h2>
+                <br>
+                <input class="bg-secondary enter my-5" type="button" value="點擊進入">
+            </div>
+            <!-- 問題1 -->
+            <div class="que testQuestion1 ansImg p-5">
+                <!-- 進度條(for迴圈ejs) -->
+                <img src="../assets/images/test/進度條1.png" style="height: 40px;">
+                <h2 class="text-primary">Q1:突然獲得了休假時間，你會偏好?</h2>
+                <div class="d-flex twoCard">
+                    <div class="aCard">
+                        <label for="que1AnsA">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsA">
+                            <div class="answer">
+                                <img src="../assets/images/test/taipei.jpg">
+                                <p>A.流行文化的西門町</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="aCard">
+                        <label for="que1AnsB">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsB">
+                            <div class="answer">
+                                <img src="../assets/images/test/temple.jpg">
+                                <p>B.歷史文化的鹿港</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex twoCard">
+                    <div class="aCard">
+                        <label for="que1AnsC">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsC">
+                            <div class="answer">
+                                <img src="../assets/images/test/hualain.jpg">
+                                <p>C.壯闊的太魯閣</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="aCard">
+                        <label for="que1AnsD">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsD">
+                            <div class="answer">
+                                <img src="../assets/images/test/sea.jpg">
+                                <p>D.一窺神秘大海的小琉球</p>
+                            </div>
+                        </label>
+                    </div>
+                </div> <!--twoCard-->
+            </div> <!--問題1end-->
+            
+             <!-- 問題2 -->
+             <div class="que testQuestion2 ansText p-5">
+                
+                <img src="../assets/images/test/進度條2.png" style="height: 40px;">
+                <h2 class="text-primary">Q2:你會如何規劃旅行?</h2>
+                    <div class="aCard">
+                        <label for="que2AnsA">
+                            <input type="radio" name="radio_1" class="btn btn2" id="que2AnsA">
+                            <div class="answer">
+                                <p>A.有明確的安排，充分的利用旅行時間</p>
+                            </div>
+                        </label>
+                        <label for="que2AnsB">
+                            <input type="radio" name="radio_1" class="btn btn2" id="que2AnsB">
+                            <div class="answer">
+                                <p>B.有大概的計畫，中間保有彈性調整</p>
+                            </div>
+                        </label>
+                        <label for="que2AnsC">
+                            <input type="radio" name="radio_1" class="btn btn2" id="que2AnsC">
+                            <div class="answer">
+                                <p>C.沒有規劃，自在地遊玩，不受時間限制</p>
+                            </div>
+                        </label>
+                    </div> 
+            </div>
+
+            <!-- 問題3 -->
+            <div class="que testQuestion3 ansImg p-5">
+                <!-- 進度條 -->
+                <img src="../assets/images/test/進度條3.png" style="height: 40px;">
+                <h2 class="text-primary">Q3:一早醒來準備出門，你會偏好哪種路線抵達目的?</h2>
+                <div class="d-flex twoCard">
+                    <div class="aCard">
+                        <label for="que3AnsA">
+                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsA">
+                            <div class="answer">
+                                <img src="../assets/images/test/mountain.jpg">
+                                <p>A.穿梭在山谷之間</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="aCard">
+                        <label for="que3AnsB">
+                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsB">
+                            <div class="answer">
+                                <img src="../assets/images/test/beach.jpg">
+                                <p>B.徜徉在海景間</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex twoCard">
+                    <div class="aCard">
+                        <label for="que3AnsC">
+                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsC">
+                            <div class="answer">
+                                <img src="../assets/images/test/pound.jpg">
+                                <p>C.沿著溪流與埤塘</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="aCard">
+                        <label for="que3AnsD">
+                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsD">
+                            <div class="answer">
+                                <img src="../assets/images/test/grass.jpg">
+                                <p>D.奔馳稻浪及林木間</p>
+                            </div>
+                        </label>
+                    </div>
+                </div> <!--twoCard-->
+            </div> <!--問題3end-->
+
+            <!-- 問題4 -->
+            <div class="que testQuestion4 ansText p-5">
+                
+                <img src="../assets/images/test/進度條4.png" style="height: 40px;">
+                <h2 class="text-primary">Q4:到達目的地時肚子開始餓了，你會選擇?</h2>
+                    <div class="aCard">
+                        <label for="que4AnsA">
+                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsA">
+                            <div class="answer">
+                                <p>A.可以眺望風景的景觀餐廳</p>
+                            </div>
+                        </label>
+                        <label for="que4AnsB">
+                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsB">
+                            <div class="answer">
+                                <p>B.充滿當地特色的小吃</p>
+                            </div>
+                        </label>
+                        <label for="que4AnsC">
+                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsC">
+                            <div class="answer">
+                                <p>C.感受海水鹹鮮的海鮮料理</p>
+                            </div>
+                        </label>
+                        <label for="que4AnsD">
+                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsD">
+                            <div class="answer">
+                                <p>D.展現原始風味的部落料理</p>
+                            </div>
+                        </label>
+                    </div> 
+            </div>
+
+            <!-- 問題5 -->
+            <div class="que testQuestion5 ansText p-5">
+                
+                <img src="../assets/images/test/進度條5.png" style="height: 40px;">
+                <h2 class="text-primary">Q5:旅行中甚麼讓你感觸最深?</h2>
+                    <div class="ac">
+                        <label for="que5AnsA">
+                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsA">
+                            <div class="answer">
+                                <p>A.壯闊的美景</p>
+                            </div>
+                        </label>
+                        <label for="que5AnsB">
+                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsB">
+                            <div class="answer">
+                                <p>B.小鎮上人們的純樸熱情</p>
+                            </div>
+                        </label>
+                        <label for="que5AnsC">
+                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsC">
+                            <div class="answer">
+                                <p>C.踩在細沙間的觸感</p>
+                            </div>
+                        </label>
+                        <label for="que5AnsD">
+                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsD">
+                            <div class="answer">
+                                <p>D.田野中清爽的微風</p>
+                            </div>
+                        </label>
+                    </div> 
+            </div>
+
+        </div>
+
+        <!-- 結果 -->
+        <!-- 轉場動畫 -->
+        <div class="container col-lg-6 col-sm-12 testResult" style="background-color: white;">
+            <div class="d-grid load">
+                <div class="loadingAnimation">
+                    <div><img src="../assets/images/test/網站logo_竹蜻艇.png"></div>
+                    <div class="d-inline-flex p-3">
+                        <div class="text">C</div>
+                        <div class="text">H</div>
+                        <div class="text">I</div>
+                        <div class="text">L</div>
+                        <div class="text">L</div>
+                        <div class="text">A</div>
+                        <div class="text">R</div>
+                        <div class="text">O</div>
+                        <div class="text">U</div>
+                        <div class="text">N</div>
+                        <div class="text">D</div>
+                        <div class="text">.</div>
+                        <div class="text">.</div>
+                        <div class="text">.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result">
+                <h2 class="text-primary m-3">你的旅行風格是...</h2>
+                <!-- 角色 -->
+                <div class="resultStyle col-10 d-flex m-auto">
+                    <div class="characterDes me-3">
+                        <h2 class="text-secondary">探險家</h2>
+                        <hr>
+                        <p>describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribede</p>
+                    </div>
+                        <img src="../assets/images/test/character1.jpg" style="width: 200px; height: 200px;">
+                    </div>
+                <!-- 旅遊地 -->
+                <div class="col-10 my-3 mx-auto">
+                    <div class="resultCountry card flex-row flex-wrap h-100">
+                        <!-- 左邊的圖片 -->
+                        <div class="col-4">
+                            <img src="../assets/images/test/temple2.jpg" class="countryImg">
+                        </div>
+                            
+                        <!-- 右邊的文字內容 -->
+                        <div class="col-8 p-3">
+                            <h4>最佳旅遊地</h4>
+                            <hr>
+                            <p>describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribede</p>  
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="d-flex justify-content-between col-8 relativeInfo">
+                    <!-- 適合標籤 -->
+                    <div class="suitTag">
+                        <h5>推薦旅遊標籤</h5>
+                        <button class="btn btn-success">#tag</button>
+                        <button class="btn btn-success">#tag</button>
+                        <button class="btn btn-success">#tag</button>
+                        <button class="btn btn-success">#tag</button>
+                    </div>
+                    <!-- 最佳旅伴 -->
+                    <div class="partner">
+                        <h5>最佳旅伴</h5>
+                        <img src="../assets/images/test/character2.jpg" style="width: 150px; height: 150px;object-fit: cover;">
+                    </div>
+                </div>
+    
+                <!-- 分享 -->
+                <div class="col-8 otherOption d-flex justify-content-between mx-auto my-3">
+                    <button class="btn btn-secondary testAgain m-2">再測一次!</button>
+                    <button class="btn btn-secondary m-2">分享測驗結果<i class="bi bi-box-arrow-up ms-1"></i></button>
+                </div>
+                <!-- 分隔線 -->
+                <div class="logoBar bg-primary p-2">
+                    <img src="../assets/images/logo/chillAround_logo_02.png">
+                </div>
+                <!-- 推薦行程 -->
+                <div class="col-lg-8 col-md-8 col-sm-8 mx-auto py-3">
+                    <div class="d-flex justify-content-between">
+                        <a href="">看看別人怎麼玩<i class="bi bi-caret-down-fill ms-1"></i></a>
+                        <a href="">點我安排行程<i class="bi bi-plus-circle ms-1"></i></a>
+                    </div>
+                    <div class="card custom-card flex-row flex-wrap h-75">
+                        <!-- 左邊的圖片 -->
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
+                        </div>
+        
+                        <!-- 右邊的文字內容 -->
+                        <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                            <h4>卡片標題</h4>
+                            <hr>
+                            <p>這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+            
+    <script src="../js/test.js"></script>
+</body>
+</html>
