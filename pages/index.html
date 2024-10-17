@@ -7,6 +7,9 @@
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <title>首頁</title>
 
 </head>
@@ -18,8 +21,9 @@
       <%- include('./layout/searchHeader_trans'); -%>
 
       <!-- tag -->
-      <nav class="tag text-center m-0">
-        <button
+       <!-- 按鈕將由 JavaScript 動態生成 -->
+      <nav class="tag text-center m-0" id="tag-container">
+        <!-- <button
           type="button"
           class="IndexBtn btn btn-outline-primary btn-sm mx-2"
         >
@@ -42,7 +46,7 @@
           class="IndexBtn btn btn-outline-primary btn-sm mx-2"
         >
           家庭旅行
-        </button>
+        </button> -->
       </nav>
 
       <!-- Swiper -->
@@ -157,6 +161,31 @@
           // 當使用者與幻燈片互動時，保持自動播放
         },
       });
+
+
+      // TAG資料庫
+      axios.get('http://localhost:8080/herotag')
+      
+        .then(response => {
+          const data = response.data; // 獲取資料
+          console.log(response.data);
+          
+          const tagContainer = document.getElementById('tag-container');
+          let buttonsHTML = ''; // 用來存放按鈕 HTML
+
+          // 生成按鈕 HTML
+          data.forEach(tag => {
+            buttonsHTML += `
+              <button type="button" class="IndexBtn btn btn-outline-primary btn-sm mx-2">
+                ${tag.tag_name}
+              </button>`;
+          });
+
+          tagContainer.innerHTML = buttonsHTML;
+        })
+        .catch(error => {
+          console.error('無法獲取標籤資料:', error);
+        });
     </script>
   </body>
 </html>
