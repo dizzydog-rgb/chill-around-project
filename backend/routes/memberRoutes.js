@@ -1,6 +1,11 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
+const bodyParser = require('body-parser');
+var db = require('../config/database');
+
+router.use(bodyParser.json());
+router.use('/images', express.static(__dirname + '../../assets/images/memberimg'));
 
 // GET 請求: 取得頁面
 // 註冊頁面
@@ -81,6 +86,13 @@ router.get("/TaiwanEx", function (req, res) {
             console.log("Sent:", fileName);
         }
     });
+});
+
+// 取得資料庫資料
+router.get('/members', function (req, res) {
+    db.exec('SELECT * FROM `member`',[],function (data,fields) {
+        res.json(data);
+    })
 });
 
 module.exports = router;
