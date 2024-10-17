@@ -5,6 +5,8 @@ const app = express();
 const indexRoutes = require("./routes/indexRoutes"); // 引入首頁相關路由
 const buildPlanRoutes = require("./routes/buildPlanRoutes"); // 引入建立計畫相關路由
 
+const memberRoutes = require("./routes/memberRoutes"); // 引入註冊、會員中心路由
+
 app.use(express.json());
 
 const path = require("path");
@@ -15,6 +17,7 @@ app.use("/chill-around-project", express.static(distPath));
 // 使用路由區
 app.use("/", indexRoutes);
 app.use("/buildPlan", buildPlanRoutes);
+app.use("/member", memberRoutes);
 
 // 注意，埠號是 8080
 const port = 8080;

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body class="member">
@@ -33,9 +34,17 @@
                 </div>
             </div>
             <div class="col-md-10 personaldata">
-                <div class="text-end mb-3">
+                <div id="edit" class="text-end mb-3">
                     <button type="button" class="btn editbtn text-white">
                         <i class="fa-solid fa-pencil me-1"></i>編輯
+                    </button>
+                </div>
+                <div id="write" class="text-end mb-3 hidden">
+                    <button type="button" class="btn storebtn text-white">
+                        儲存
+                    </button>
+                    <button type="button" class="btn cancelbtn text-white">
+                        取消
                     </button>
                 </div>
                 <div class="mb-5">
@@ -118,6 +127,42 @@
         </div>
     </div>
     <script type="module" src="/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            function inputSize(input) {
+                input.attr('size', input.val().length + 1)
+            }
+
+            $('.inpwrite').each(function () {
+                inputSize($(this)); // 調整初始大小
+            });
+
+            $('.inpwrite').keyup(function () {
+                inputSize($(this));
+            });
+
+            $('.editbtn').click(function () {
+                // 切換 readonly 屬性
+                $('#edit').addClass('hidden');
+                $('#write').removeClass('hidden');
+                let input = $('.inpwrite');
+                input.css({'border':'1px solid #d2d2d2'},{'outline':'solid thin'});
+                if (input.prop('readonly')) {
+                    input.prop('readonly', false); // 取消 readonly
+                }
+            });
+
+            $('.cancelbtn').click(function () {
+                $('#write').addClass('hidden');
+                $('#edit').removeClass('hidden');
+                let input = $('.inpwrite');
+                input.css({'border':'none'},{'outline':'none'});
+                if (input.prop('readonly') == false) {
+                    input.prop('readonly', true); 
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
