@@ -5,8 +5,8 @@ $(".testQuestion3").hide();
 $(".testQuestion4").hide();
 $(".testQuestion5").hide();
 $(".testResult").hide();
-// $(".load").hide();
-// $(".result").hide();
+// $(".loadingAnimation").hide();
+// $(".result").show();
 $(".enter").on("click",()=>{
     $(".testHomePage").hide();
     $(".testQuestion1").fadeIn();
