@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>行程資訊頁</title>
     <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script type="module" crossorigin src="/chill-around-project/assets/schInfo-BaZ86DiE.js"></script>
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BhTRDpJk.js">
+    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-CmRZwfmF.css">
+  </head>
 
-  <script type="module" crossorigin src="/chill-around-project/assets/schInfo-DKrgoMhx.js"></script>
-  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-Maamm-dT.js">
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-Cz7e47WU.css">
-</head>
-
-<body>
+  <body>
     <div class="shcInfo">
-        <!-- header -->
-        <header class="Trans container-fluid p-0">
+      <!-- header -->
+      <header class="Trans container-fluid p-0">
     <nav class="searchNav navbar navbar-expand-md navbar-light ps-4 pe-4">
         <!-- 左側 Logo -->
         <a class="navbar-brand" href="index.html">
@@ -127,9 +128,8 @@
     // });
 
 </script>
-
-            <!-- 這是top slider -->
-            <!-- <div class="d-md-flex w-100 flex-wrap ">
+      <!-- 這是top slider -->
+      <!-- <div class="d-md-flex w-100 flex-wrap ">
 
                 <div class="col-sm-12 col-md-3 col-lg-3 schInfo  ">
                     <a href="#" class="card img "
@@ -189,14 +189,14 @@
                 </div>
             </div> -->
 
-            <div class="container-fluid p-0 HeroBox">
-                <div class="TopHero text-light fw-bloder">
-                    <h1>熱門推薦行程</h1>
-                </div>
-                <div class="row m-0 swiper mySwiper_1 ">
-                    <div class="swiper-wrapper p-0 ">
-                        <!-- 迴圈生成卡片 -->
-                        <!-- <div class="swiper-slide col-md-3 p-0 m-0">
+      <div class="container-fluid p-0 HeroBox">
+        <div class="TopHero text-light fw-bloder">
+          <h1>熱門推薦行程</h1>
+        </div>
+        <div class="row m-0 swiper mySwiper_1">
+          <div class="swiper-wrapper p-0">
+            <!-- 迴圈生成卡片 -->
+            <!-- <div class="swiper-slide col-md-3 p-0 m-0">
                             <div id="siteCard" class="allCard card bg-primary">
                                 <div class="cardImage">
                                     <img src="${data.image}" alt="">
@@ -207,113 +207,130 @@
                                 </div>
                             </div>
                         </div> -->
+          </div>
 
-
-                    </div>
-
-                    <!-- Pagination -->
-                    <div class="swiper-pagination swiper-pagination_1"></div>
-                    <!-- Navigation buttons -->
-                    <!-- <div class="swiper-button-next swiper-button-next_1"></div>
+          <!-- Pagination -->
+          <div class="swiper-pagination swiper-pagination_1"></div>
+          <!-- Navigation buttons -->
+          <!-- <div class="swiper-button-next swiper-button-next_1"></div>
                     <div class="swiper-button-prev swiper-button-prev_1"></div> -->
+        </div>
+      </div>
 
-                </div>
+      <!-- 搜尋bar -->
+
+      <div class="container my-5">
+        <div class="searchOverlay2">
+          <div
+            class="input-group2 d-flex align-items-center justify-content-around"
+          >
+            <div class="d-flex inputRWD">
+              <label for="regionSelect" class="me-3" id="regionLabel"
+                >地區</label
+              >
+              <select class="custom-select">
+                <option selected>請選擇</option>
+                <option value="1">選項1</option>
+                <option value="2">選項2</option>
+                <option value="3">選項3</option>
+              </select>
             </div>
-
-
-            <!-- 搜尋bar -->
-
-            <div class="container my-5">
-                <div class="searchOverlay2">
-                    <div class="input-group2 d-flex align-items-center justify-content-around">
-                        <div class="d-flex  inputRWD ">
-                            <label for="regionSelect" class="me-3" id="regionLabel">地區</label>
-                            <select class="custom-select">
-                                <option selected>請選擇</option>
-                                <option value="1">選項1</option>
-                                <option value="2">選項2</option>
-                                <option value="3">選項3</option>
-                            </select>
-                        </div>
-                        <div class="d-flex  inputRWD ">
-                            <label for="categorySelect" class="me-3" id="categoryLabel2">類別</label>
-                            <select class="custom-select2">
-                                <option selected>請選擇</option>
-                                <option value="1">選項A</option>
-                                <option value="2">選項B</option>
-                                <option value="3">選項C</option>
-                            </select>
-                        </div>
-                        <div class="input-group-append2">
-                            <button class="btn btn-outline-light" type="button">搜尋</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="d-flex inputRWD">
+              <label for="categorySelect" class="me-3" id="categoryLabel2"
+                >類別</label
+              >
+              <select class="custom-select2">
+                <option selected>請選擇</option>
+                <option value="1">選項A</option>
+                <option value="2">選項B</option>
+                <option value="3">選項C</option>
+              </select>
             </div>
-
-            <!-- schedule title -->
-            <div class="container d-flex  justify-content-between my-5">
-                <h4 class="text-dark text-nowrap fs-2 fw-bolder">最新行程</h4>
-                <div class="divider">
-                </div>
-
+            <div class="input-group-append2">
+              <button class="btn btn-outline-light" type="button">搜尋</button>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <!-- 行程card -->
-            <div class="container-fluid d-md-flex flex-wrap p-0">
+      <!-- schedule title -->
+      <div class="container d-flex justify-content-between my-5">
+        <h4 class="text-dark text-nowrap fs-2 fw-bolder">最新行程</h4>
+        <div class="divider"></div>
+      </div>
 
-                <div id="SchRecommendCards">
-                    <div id="SchcardBox" class="row m-0">
-                        <!-- 迴圈生成卡片 -->
-                    </div>
+      <!-- 行程card -->
+      <div class="container-fluid d-md-flex flex-wrap p-0">
+        <div id="SchRecommendCards">
+          <div id="SchcardBox" class="row m-0">
+            <!-- 迴圈生成卡片 -->
+          </div>
+        </div>
 
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3 w-100">
+                  <label for="itinerarySelect" class="form-label"
+                    >選擇行程</label
+                  >
+                  <select class="form-select" id="itinerarySelect">
+                    <option value="" selected>請選擇行程</option>
+                    <option value="itinerary1">行程 1</option>
+                    <option value="itinerary2">行程 2</option>
+                    <option value="itinerary3">行程 3</option>
+                  </select>
                 </div>
-
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3 w-100">
-                                    <label for="itinerarySelect" class="form-label">選擇行程</label>
-                                    <select class="form-select" id="itinerarySelect">
-                                        <option value="" selected>請選擇行程</option>
-                                        <option value="itinerary1">行程 1</option>
-                                        <option value="itinerary2">行程 2</option>
-                                        <option value="itinerary3">行程 3</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
-                                    <label for="daySelect" class="form-label">選擇天數</label>
-                                    <select class="form-select" id="daySelect">
-                                        <option value="" selected>請選擇天數</option>
-                                        <option value="day1">第 1 天</option>
-                                        <option value="day2">第 2 天</option>
-                                        <option value="day3">第 3 天</option>
-                                    </select>
-
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary Close"
-                                    data-bs-dismiss="modal">關閉</button>
-                                <button type="button" class="btn btn-primary Save">保存選擇</button>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="modal-body">
+                <div
+                  class="mb-3 w-100"
+                  id="daySelectContainer"
+                  style="display: none"
+                >
+                  <label for="daySelect" class="form-label">選擇天數</label>
+                  <select class="form-select" id="daySelect">
+                    <option value="" selected>請選擇天數</option>
+                    <option value="day1">第 1 天</option>
+                    <option value="day2">第 2 天</option>
+                    <option value="day3">第 3 天</option>
+                  </select>
                 </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary Close"
+                  data-bs-dismiss="modal"
+                >
+                  關閉
+                </button>
+                <button type="button" class="btn btn-primary Save">
+                  保存選擇
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <!-- <div class="col-sm-12 col-md-3 col-lg-3">
+        <!-- <div class="col-sm-12 col-md-3 col-lg-3">
                     <a href="#" class="img">
                         <div class="card img"
                             style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://travelimg.yam.com/DATA/ARTICLE/20190320170605596.png');">
@@ -334,140 +351,176 @@
                         </div>
                     </a>
                 </div> -->
+      </div>
+      <!-- 行程more -->
+      <nav
+        class="container d-flex justify-content-center align-items-center my-5"
+      >
+        <a href="schMore.html"
+          ><button
+            class="btn btn-secondary"
+            style="
+              border-radius: 50px;
+              color: #fff;
+              border-width: 0px;
+              height: 37px;
+              width: auto;
+            "
+          >
+            更多熱門行程
+          </button>
+        </a>
+      </nav>
 
-            </div>
-            <!-- 行程more -->
-            <nav class="container d-flex justify-content-center align-items-center my-5">
+      <!-- youtube title -->
+      <div class="bg-primary py-5">
+        <div class="container d-flex justify-content-between">
+          <h4 class="text-light text-nowrap fs-2 fw-bolder">
+            Youtube 最新推薦
+          </h4>
+          <div class="divider2"></div>
+        </div>
+      </div>
+      <!-- youtube video -->
+      <div class="container-fluid p-0 bg-primary">
+        <div class="swiper mySwiper_2 bg-primary">
+          <div class="swiper-wrapper">
+            <!-- 迴圈生成 -->
+          </div>
+          <!-- Pagination -->
+          <div class="swiper-pagination"></div>
+          <!-- Navigation buttons -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+      <!-- youtube more -->
+      <nav
+        class="container-fluid d-flex justify-content-center align-items-center py-5 bg-primary"
+      >
+        <button
+          class="btn btn-secondary"
+          style="
+            border-radius: 50px;
+            color: #fff;
+            border-width: 0px;
+            height: 37px;
+            width: auto;
+          "
+        >
+          更多熱門影片
+        </button>
+      </nav>
 
-                <a href="schMore.html"><button class="btn btn-secondary "
-                        style="border-radius: 50px; color: #fff;  border-width: 0px; height: 37px; width:auto;">
-                        更多熱門行程
-                    </button>
-                </a>
+      <div class="BlogBox m-0 py-5">
+        <!-- blog title -->
+        <div class="container d-flex justify-content-between">
+          <h4 class="text-dark text-nowrap fs-2 fw-bolder">部落客最新推薦</h4>
+          <div class="divider"></div>
+        </div>
+        <!-- blog card -->
+        <div class="container my-5">
+          <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-12 col-sm-12 my-3">
+              <div class="card custom-card flex-row flex-wrap">
+                <!-- 左邊的圖片 -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <img
+                    src="https://via.placeholder.com/400x200"
+                    class="custom-img"
+                    alt="Card image"
+                  />
+                </div>
 
-            </nav>
-
-            <!-- youtube title -->
-            <div class="bg-primary py-5">
-                <div class="container d-flex  justify-content-between ">
-
-                    <h4 class="text-light text-nowrap fs-2 fw-bolder">Youtube 最新推薦</h4>
-                    <div class="divider2">
+                <!-- 右邊的文字內容 -->
+                <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                  <div class="d-flex justify-content-between align-items-end">
+                    <h4 class="card-title fw-bolder">苗栗一日遊</h4>
+                    <div class="d-flex align-items-end">
+                      <h6 class="my-0 p-0 mx-2">作者</h6>
+                      <p class="date p-0 m-0">2024.10.03</p>
                     </div>
+                  </div>
+
+                  <hr />
+                  <p class="card-text">
+                    慢魚海岸自行車！漁光饗宴、好望角海景、壯觀合歡石滬、夢幻過港隧道玩透透！
+                  </p>
                 </div>
-            </div>
-            <!-- youtube video -->
-            <div class="container-fluid  p-0 bg-primary">
-                <div class="swiper mySwiper_2 bg-primary">
-                    <div class="swiper-wrapper">
-                        <!-- 迴圈生成 -->
-                    </div>
-                    <!-- Pagination -->
-                    <div class="swiper-pagination"></div>
-                    <!-- Navigation buttons -->
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-            </div>
-            <!-- youtube more -->
-            <nav class="container-fluid d-flex justify-content-center align-items-center py-5 bg-primary">
-                <button class="btn btn-secondary "
-                    style=" border-radius: 50px; color: #fff;  border-width: 0px; height: 37px; width:auto;">
-                    更多熱門影片
-                </button>
-            </nav>
-
-
-            <div class="BlogBox m-0 py-5">
-                <!-- blog title -->
-                <div class="container d-flex  justify-content-between ">
-
-                    <h4 class="text-dark text-nowrap fs-2 fw-bolder">部落客最新推薦</h4>
-                    <div class="divider"></div>
-                </div>
-                <!-- blog card -->
-                <div class="container my-5 ">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12 col-md-12 col-sm-12 my-3">
-                            <div class="card custom-card flex-row flex-wrap">
-                                <!-- 左邊的圖片 -->
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
-                                </div>
-
-                                <!-- 右邊的文字內容 -->
-                                <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
-                                    <div class="d-flex justify-content-between align-items-end">
-                                        <h4 class="card-title fw-bolder">苗栗一日遊</h4>
-                                        <div class="d-flex align-items-end">
-                                            <h6 class="my-0 p-0 mx-2">作者</h6>
-                                            <p class="date p-0 m-0">2024.10.03</p>
-
-                                        </div>
-
-
-                                    </div>
-
-                                    <hr>
-                                    <p class="card-text">慢魚海岸自行車！漁光饗宴、好望角海景、壯觀合歡石滬、夢幻過港隧道玩透透！</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-md-12 col-sm-12 my-3">
-                            <div class="card custom-card flex-row flex-wrap">
-                                <!-- 左邊的圖片 -->
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
-                                </div>
-
-                                <!-- 右邊的文字內容 -->
-                                <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
-                                    <h4 class="card-title">卡片標題</h4>
-                                    <hr>
-                                    <p class="card-text">這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-md-12 col-sm-12 my-3">
-                            <div class="card custom-card flex-row flex-wrap">
-                                <!-- 左邊的圖片 -->
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
-                                </div>
-
-                                <!-- 右邊的文字內容 -->
-                                <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
-                                    <h4 class="card-title">卡片標題</h4>
-                                    <hr>
-                                    <p class="card-text">這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-md-12 col-sm-12 my-3">
-                            <div class="card custom-card flex-row flex-wrap">
-                                <!-- 左邊的圖片 -->
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
-                                </div>
-
-                                <!-- 右邊的文字內容 -->
-                                <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
-                                    <h4 class="card-title">卡片標題</h4>
-                                    <hr>
-                                    <p class="card-text">這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+              </div>
             </div>
 
-            <!-- footer -->
-            <div class="container-fluid  text-light bg-primary position-relative">
+            <div class="col-lg-12 col-md-12 col-sm-12 my-3">
+              <div class="card custom-card flex-row flex-wrap">
+                <!-- 左邊的圖片 -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <img
+                    src="https://via.placeholder.com/400x200"
+                    class="custom-img"
+                    alt="Card image"
+                  />
+                </div>
+
+                <!-- 右邊的文字內容 -->
+                <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                  <h4 class="card-title">卡片標題</h4>
+                  <hr />
+                  <p class="card-text">
+                    這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 my-3">
+              <div class="card custom-card flex-row flex-wrap">
+                <!-- 左邊的圖片 -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <img
+                    src="https://via.placeholder.com/400x200"
+                    class="custom-img"
+                    alt="Card image"
+                  />
+                </div>
+
+                <!-- 右邊的文字內容 -->
+                <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                  <h4 class="card-title">卡片標題</h4>
+                  <hr />
+                  <p class="card-text">
+                    這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 my-3">
+              <div class="card custom-card flex-row flex-wrap">
+                <!-- 左邊的圖片 -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <img
+                    src="https://via.placeholder.com/400x200"
+                    class="custom-img"
+                    alt="Card image"
+                  />
+                </div>
+
+                <!-- 右邊的文字內容 -->
+                <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                  <h4 class="card-title">卡片標題</h4>
+                  <hr />
+                  <p class="card-text">
+                    這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div class="container-fluid  text-light bg-primary position-relative">
     <footer class="p-5 ">
         <div class="row w-100 ">
 
@@ -530,27 +583,14 @@
             </div>
         </div>
     </footer>
-</div>
-    </div>
-
-
- 
-
-
+</div>    </div>
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <script>
-    
-
-    </script>
-
-
-
-
-</body>
-
+    <script></script>
+  </body>
 </html>
