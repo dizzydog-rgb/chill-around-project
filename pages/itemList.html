@@ -24,9 +24,9 @@
                 </div>
                 <div class="categoryDiv">
                     <div class="categoryDiv2">
-                        <span class="categoryText">衣服類</span>
+                        <span class="categoryText">{服飾類}</span>
                         <div class="progressDiv">
-                            <span class="progressNumber">100%</span>
+                            <span class="progressNumber">準備進度</span>
                             <div id="progress-container">
                                 <div id="progress-bar"></div>
                             </div>
@@ -34,7 +34,19 @@
                         <div class="categoryContainer">
                             <div class="categoryContent">
                                 <input type="checkbox" class="checkBOX left">
-                                <span class="itemContent left">上衣</span>
+                                <span class="itemContent left">{上衣}</span>
+                                <input type="number" class="itemQuantity right" min="1" value="1">
+                                <button class="leftDelete right">–</button>
+                            </div>
+                            <div class="categoryContent">
+                                <input type="checkbox" class="checkBOX left">
+                                <span class="itemContent left">{上衣}</span>
+                                <input type="number" class="itemQuantity right" min="1" value="1">
+                                <button class="leftDelete right">–</button>
+                            </div>
+                            <div class="categoryContent">
+                                <input type="checkbox" class="checkBOX left">
+                                <span class="itemContent left">{上衣}</span>
                                 <input type="number" class="itemQuantity right" min="1" value="1">
                                 <button class="leftDelete right">–</button>
                             </div>
@@ -52,40 +64,22 @@
                             <div class="col-md-4 col-4 mb-3 cardOut">
                                 <div class="card">
                                     <button class="rightDelete">–</button>
-                                    <img src="../assets/images/Budget_Item/Items/clothes.png" class="cardImg" alt="卡片圖片">
+                                    <img src="../assets/images/Budget_Item/Items/clothes.png" class="cardImg"
+                                        alt="卡片圖片">
                                     <div class="card-body">
-                                        <span>衣物類</span>
-                                        <span>5/10</span>
+                                        <span>{衣物類}</span>
+                                        <span>{5}/{10}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 col-4 mb-3 cardOut">
                                 <div class="card">
                                     <button class="rightDelete">–</button>
-                                    <img src="../assets/images/Budget_Item/Items/clothes.png" class="cardImg" alt="卡片圖片">
+                                    <img src="../assets/images/Budget_Item/Items/clothes.png" class="cardImg"
+                                        alt="卡片圖片">
                                     <div class="card-body">
-                                        <span>衣物類</span>
-                                        <span>5/10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-4 mb-3 cardOut">
-                                <div class="card">
-                                    <button class="rightDelete">–</button>
-                                    <img src="../assets/images/Budget_Item/Items/clothes.png" class="cardImg" alt="卡片圖片">
-                                    <div class="card-body">
-                                        <span>衣物類</span>
-                                        <span>5/10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-4 mb-3 cardOut">
-                                <div class="card">
-                                    <button class="rightDelete">–</button>
-                                    <img src="../assets/images/Budget_Item/Items/clothes.png" class="cardImg" alt="卡片圖片">
-                                    <div class="card-body">
-                                        <span>衣物類</span>
-                                        <span>5/10</span>
+                                        <span>{衣物類}</span>
+                                        <span>{5}/{10}</span>
                                     </div>
                                 </div>
                             </div>
@@ -98,8 +92,7 @@
     </div>
 
     <script type="module">
-        import { updateProgress } from '../js/itemList.js'
-        import { addItem } from '../js/itemList.js'
+        import { updateProgress, addItem } from '../js/itemList.js'
     </script>
 </body>
 
