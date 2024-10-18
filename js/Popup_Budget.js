@@ -103,5 +103,14 @@ function selectOption(option, event) {
 // 點擊遮罩也可以關閉視窗
 // document.getElementById('overlay2').addEventListener('click', closeModal2);
 
-// <---------------------- 使用者選取資料帶入畫面 ---------------------->
+// <---------------------- 嘗試連接後端抓資料QQ ---------------------->
 
+import axios from 'axios';
+axios.get('http://localhost:8080/Budget/popupbudget/1')
+    .then(response => {
+        console.log('種類ID:', response.data);
+        // 這裡可以進一步處理獲取的資料，例如更新 UI
+    })
+    .catch(error => {
+        console.error('無法取得種類:', error);
+    })
