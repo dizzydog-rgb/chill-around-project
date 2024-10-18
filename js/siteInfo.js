@@ -8,7 +8,10 @@ console.log( '讀取'+ params ); //讀取id=1
 const siteId = params.get('id'); // 假設 URL 包含 ?id=1
 console.log('siteId:'+ siteId); //siteId:1
 
-
+// 這段放在hesder.js中，因為要確保在引入 HTML 中的圖片之前加載
+// function changeImage(image) {
+//     document.getElementById("mainImage").src = image;
+//   }
 
 axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
   .then(response => {
@@ -16,69 +19,22 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
     // 這裡可以進一步處理獲取的資料，例如更新 UI
     // 假設 response.data 有 title, startDate 和 endDate 屬性
     const { site_name,site_phone,site_add , site_opentime, site_web,site_info,photo_one,photo_two,photo_three,photo_four } = response.data;
-
+    console.log(photo_one);
+    
     // 更新 UI，顯示資料
+    document.getElementById('topImage').innerHTML = `
+    <img
+          src="${photo_four}"
+          class="img-fluid"
+          alt="大圖"
+        />
+    `;
     document.getElementById('siteInfo').innerHTML = `
         <!-- 景點標題-->
         <div class="m-3 container d-flex justify-content-between">
           <h1 class="text-nowrap text-nowrap fs-2">${site_name}</h1>
           <div class="divider1">
           </div>
-        </div>
-        <!-- 輪播圖 -->
-        <div
-          id="carouselExample"
-          class="carousel slide d-md-none col-md-6 order-md-1"
-          data-bs-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div class="siteCarouselItem carousel-item active">
-              <img
-                src="../assets/images/searchSite/文創園區.jpg"
-                class="d-block w-100"
-                alt="圖片 1"
-              />
-            </div>
-            <div class="siteCarouselItem carousel-item">
-              <img
-                src="../assets/images/searchSite/文創園區02.jpg"
-                class="d-block w-100"
-                alt="圖片 2"
-              />
-            </div>
-            <div class="siteCarouselItem carousel-item">
-              <img
-                src="../assets/images/searchSite/文創園區03.jpeg"
-                class="d-block w-100"
-                alt="圖片 3"
-              />
-            </div>
-            <div class="siteCarouselItem carousel-item">
-              <img
-                src="../assets/images/searchSite/文創園區04.jpeg"
-                class="d-block w-100"
-                alt="圖片 4"
-              />
-            </div>
-          </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
         </div>
         <!-- 主圖縮圖 -->
         <div class="leftImage col-md-6 order-md-1 d-none d-md-block">
@@ -87,7 +43,7 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
               <div class="mainImage col-md-12 text-center d-none d-md-block">
                 <img
                   id="mainImage"
-                  src="../assets/images/searchSite/文創園區.jpg"
+                  src="${photo_one}"
                   class="img-fluid"
                   alt="主圖"
                 />
@@ -96,34 +52,34 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
             <div class="row mt-2">
               <div class="smallImage col-md-3 text-center">
                 <img
-                  src="../assets/images/searchSite/文創園區01.jpeg"
+                  src="${photo_one}"
                   class="p-0 thumbnail img-thumbnail"
                   alt="縮圖1"
-                  onclick="changeImage('../assets/images/searchSite/文創園區01.jpeg')"
+                  onclick="changeImage('${photo_one}')"
                 />
               </div>
               <div class="smallImage col-md-3 text-center">
                 <img
-                  src="../assets/images/searchSite/文創園區02.jpg"
+                  src="${photo_two}"
                   class=" p-0 thumbnail img-thumbnail"
                   alt="縮圖2"
-                  onclick="changeImage('../assets/images/searchSite/文創園區02.jpg')"
+                  onclick="changeImage('${photo_two}')"
                 />
               </div>
               <div class="smallImage col-md-3 text-center">
                 <img
-                  src="../assets/images/searchSite/文創園區03.jpeg"
+                  src="${photo_three}"
                   class="p-0 thumbnail img-thumbnail"
                   alt="縮圖3"
-                  onclick="changeImage('../assets/images/searchSite/文創園區03.jpeg')"
+                  onclick="changeImage('${photo_three}')"
                 />
               </div>
               <div class="smallImage col-md-3 text-center">
                 <img
-                  src="../assets/images/searchSite/文創園區04.jpeg"
+                  src="${photo_four}"
                   class="p-0 thumbnail img-thumbnail"
                   alt="縮圖4"
-                  onclick="changeImage('../assets/images/searchSite/文創園區04.jpeg')"
+                  onclick="changeImage('${photo_four}')"
                 />
               </div>
             </div>
@@ -156,7 +112,7 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
           <!-- 下方解說 -->
           <div class="container col-md-12 order-md-3">
             <h2 class="detailsTitle">景點介紹</h2>
-            <p>${site_info}</p>
+            <p class="detailsInfo">${site_info}</p>
           </div>
        
 
@@ -168,45 +124,43 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
 
 
 // 當頁面加載完成時，自動獲取資料
-window.onload = function() {
-    getFile(); // 這裡會在頁面加載時自動呼叫獲取資料的函數
-};
+// window.onload = function() {
+//     getFile(); // 這裡會在頁面加載時自動呼叫獲取資料的函數
+// };
 
-// 宣告 function getFile()
-function getFile() {
-    let xhr = new XMLHttpRequest(); // 創建一個新的 XMLHttpRequest 對象
-    xhr.open('GET', 'http://localhost:8080/site/siteinfo/1', true); // 設定請求方式和URL
-    xhr.addEventListener('load', function () {
-        if (this.status >= 200 && this.status < 300) { // 檢查請求是否成功
-            let data = JSON.parse(this.responseText); // 將回應的文本解析為 JSON 物件
-            console.log(data); // 在控制台檢查獲取的資料
+// // 宣告 function getFile()
+// function getFile() {
+//     let xhr = new XMLHttpRequest(); // 創建一個新的 XMLHttpRequest 對象
+//     xhr.open('GET', 'http://localhost:8080/site/siteinfo/1', true); // 設定請求方式和URL
+//     xhr.addEventListener('load', function () {
+//         if (this.status >= 200 && this.status < 300) { // 檢查請求是否成功
+//             let data = JSON.parse(this.responseText); // 將回應的文本解析為 JSON 物件
+//             console.log(data); // 在控制台檢查獲取的資料
 
-            // // 確保 data 是物件，並將相關資訊顯示在畫面上
-            // document.getElementById('divResult').innerHTML = `
-            //     活動期間: ${data.startDate} - ${data.endDate} <br>
-            //     活動名稱: ${data.title}
-            //     <hr>
-            // `;
-        } else {
-            console.error('無法取得資料:', this.statusText); // 請求沒有成功，處理錯誤
-            document.getElementById('divResult').innerHTML = `<p>Error: ${this.statusText}</p>`;
-        }
-    });
+//             // // 確保 data 是物件，並將相關資訊顯示在畫面上
+//             // document.getElementById('divResult').innerHTML = `
+//             //     活動期間: ${data.startDate} - ${data.endDate} <br>
+//             //     活動名稱: ${data.title}
+//             //     <hr>
+//             // `;
+//         } else {
+//             console.error('無法取得資料:', this.statusText); // 請求沒有成功，處理錯誤
+//             document.getElementById('divResult').innerHTML = `<p>Error: ${this.statusText}</p>`;
+//         }
+//     });
 
-    xhr.addEventListener('error', function () {
-        console.error('網絡錯誤'); // 如果發生網絡錯誤，處理錯誤
-        document.getElementById('divResult').innerHTML = `<p>Network Error</p>`;
-    });
+//     xhr.addEventListener('error', function () {
+//         console.error('網絡錯誤'); // 如果發生網絡錯誤，處理錯誤
+//         document.getElementById('divResult').innerHTML = `<p>Network Error</p>`;
+//     });
 
-    xhr.send(); // 發送請求
-}
-
-
+//     xhr.send(); // 發送請求
+// }
 
 
-function changeImage(image) {
-    document.getElementById("mainImage").src = image;
-  }
+
+
+
 
   $(document).ready(function() {
     //modal

@@ -116,9 +116,10 @@
         font-weight: bold;
         border-left: 10px solid $danger;
         padding-left: 10px;
-        margin-bottom: 29px;
-    
-    
+        margin-bottom: 29px;    
+    }
+    .detailsInfo{
+        line-height: 2; /* 調整行高以增加可讀性 */
     }
     @media (max-width: 768px) {
         /* 在手機版樣式下添加更多的調整 */
