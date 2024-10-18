@@ -5,8 +5,8 @@ $(".testQuestion3").hide();
 $(".testQuestion4").hide();
 $(".testQuestion5").hide();
 $(".testResult").hide();
-// $(".load").hide();
-// $(".result").hide();
+// $(".loadingAnimation").hide();
+// $(".result").show();
 $(".enter").on("click",()=>{
     $(".testHomePage").hide();
     $(".testQuestion1").fadeIn();
@@ -29,16 +29,17 @@ $(".btn4").on("click",()=>{
     $(".testQuestion5").fadeIn();
     })
 
+
 let setloadingout = ()=> {
     $(".loadingAnimation").hide();
-    $(".result").show();
+    $(".result").fadeIn();
 }
+
+
 $(".btn5").on("click",()=>{
     $(".content").hide();
     $(".testQuestion5").hide();
-    $(".loadingAnimation").fadeIn(
-        // setTimeout(()=>{setloadingout,3000})
-    );
+    $(".testResult").fadeIn(()=>{setTimeout(setloadingout,3000);});
     })
     
 // 再測一次

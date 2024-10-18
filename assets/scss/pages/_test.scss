@@ -34,7 +34,7 @@
     }
     .btn{
         border-radius: 20px;
-        visibility: hidden;
+        display: none;
     }
     .answer{
         background-color: white;
@@ -43,7 +43,7 @@
         p{
             color: $secondary;
             margin-top: 1rem;
-            font-size: 1rem;
+            font-size: 21px;
         }
         &:hover{
             cursor: pointer;
@@ -59,10 +59,11 @@
         margin-bottom: 40px;
     }
     .aCard{
+        
         margin: 0px auto;
     }
     .answer{
-        width: 250px;
+        width: 260px;
         img{
             width: 100%;
             height: 200px;
@@ -77,9 +78,9 @@
         // align-content: center;
         padding-top: 3rem;
     }
-    .answer{
-        width: 25rem;
-        margin: 8px;
+    .textAnswer{
+        width: 30rem;
+        margin: 1rem;
     }
 }
 /*竹蜻蜓旋轉*/
@@ -166,6 +167,9 @@
             animation-delay: 1.3s;
           }
     }
+    .result{
+        display: none;
+    }
     .resultStyle{
         // margin: auto;
         .characterDes{
@@ -175,8 +179,8 @@
     .resultCountry{
         // max-width: 1200px;
         /* 最大寬度限制 */
-        height: 120px;
-        height: 150px;
+        // height: 120px;
+        // height: 150px;
         .countryImg {
             border-radius: 10px 0px 0px 10px;
             height: 100%;
