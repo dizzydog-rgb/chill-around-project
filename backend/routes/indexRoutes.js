@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const router = express.Router();
 const indexContronller = require("../controller/indexController")
-// var db = require('./db'); // 引入 db.js 檔案
+// var db = require('../config/database');// db.js 檔案
 
 // 取得頁面
 router.get("/", function (req, res) {
