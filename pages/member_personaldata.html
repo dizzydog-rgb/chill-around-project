@@ -84,8 +84,8 @@
                         <div class="item">
                             <div>
                                 <label class="col-form-label">出生日期：</label>
-                                <input type="text" name="birthday" id="birthday" class="inpwrite" placeholder="請輸入出生日期" onfocus="(this.type='date')"
-                                    readonly>
+                                <input type="text" name="birthday" id="birthday" class="inpwrite" placeholder="請輸入出生日期"
+                                    onfocus="(this.type='date')" readonly>
                             </div>
                             <div>
                                 <label class="col-form-label">性別：</label>
@@ -113,11 +113,11 @@
                         <div class="googleline">
                             <div class="item">
                                 <img src="../assets/images/memberimg/logo_google_g_icon.png" id="googleimg">
-                                <div>已綁定</div>
+                                <div id="google"></div>
                             </div>
                             <div class="item">
                                 <img src="../assets/images/memberimg/btn_base.png" id="lineimg">
-                                <div>未綁定</div>
+                                <div id="line"></div>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                     if (res.length > 0) {
                         const member = res[0]; // 假設只有一個會員
                         $('#img').prop('src', '../assets/images/memberimg/' + member.uphoto);
-                        $('#uname').html(member.uname);
+                        $('#uname').text(member.uname);
                         $('#uname1').val(member.uname);
                         $('#email').val(member.email);
                         $('#pwd').val(member.password);
@@ -147,6 +147,19 @@
                         $('#address').val(member.address);
                         $('#cellphonenum').val(member.cellphone);
                         $('#telephonenum').val(member.telephone);
+                        let googleid = member.googleid;
+                        let lineid = member.lineid;
+                        if (googleid == undefined) {
+                            $('#google').text('未綁定');
+                        } else {
+                            $('#google').text('已綁定');
+                        }
+
+                        if (lineid == undefined) {
+                            $('#line').text('未綁定');
+                        } else {
+                            $('#line').text('已綁定');
+                        }
 
                         function inputSize(input) {
                             input.attr('size', input.val().length + 1)
