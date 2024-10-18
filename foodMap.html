@@ -16,56 +16,118 @@
     
     
   <script type="module" crossorigin src="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-  <script type="module" crossorigin src="/chill-around-project/assets/main-DXdbxj0w.js"></script>
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-I-6FXHh5.css">
+  <script type="module" crossorigin src="/chill-around-project/assets/main-BbcfAe2y.js"></script>
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-C1QXPo3y.css">
 </head>
 <body>
-    <header class="searchSiteHeader">
-    <nav class="searchNav navbar navbar-expand-md navbar-light bg-white ps-4 pe-4">
-        <a class="navbar-brand" href="#">
+    <header class="Trans container-fluid p-0">
+    <nav class="searchNav navbar navbar-expand-md navbar-light ps-4 pe-4">
+        <!-- 左側 Logo -->
+        <a class="navbar-brand" href="index.html">
             <img src="/chill-around-project/assets/chillAround_logo_01-DR13PjDD.png" alt="Logo">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
-                <li class="nav-item d-flex p-2">
-                    <span id="welcomeMessage" class="me-3"></span>
-                </li>
-                <li class="nav-item d-flex p-2">
-                    <button id="loginBtn" class="btn">登入</button>
-                </li>
-                <li class="nav-item d-flex p-2">
-                   <a href=""><i class="bi bi-plus-circle"></i></a>
-                </li>
-            </ul>
+
+        <!-- Offcanvas 結構 -->
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasNavbarLabel" class="offcanvas-title">選單</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav nav-underline me-auto" style="font-size: 0.8rem;">
+                    <li class="nav-item my-2"><a href="index.html" class="nav-link">首頁</a></li>
+                    <li class="nav-item my-2"><a href="schInfo.html" class="nav-link">行程推薦</a></li>
+                    <li class="nav-item my-2"><a href="searchSite.html" class="nav-link">景點推薦</a></li>
+                    <li class="nav-item my-2"><a href="testHomePage.html" class="nav-link">專屬旅程小測驗</a></li>
+                    <li class="nav-item my-2"><a href="foodMap.html" class="nav-link">美食地圖</a></li>
+                </ul>
+                <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
+                    <li class="nav-item d-flex p-2">
+                        <span id="welcomeMessage" class="me-3"></span>
+                    </li>
+                    <li class="nav-item d-flex p-2">
+                
+                        <button id="loginBtn" class="btn" type="button" class="btn text-white loginbtn" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">登入</button>
+                    </li>
+                    <li class="nav-item d-flex p-2">
+                        <a href="buildPlan.html"><i class="bi bi-plus-circle"></i></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 </header>
+<!--login modal -->
+<div class="modal fade login" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <h3 class="mb-3 text-center">會員登入</h3>
+                    <div class="mb-3">
+                        <label for="inputAccount" class="col-form-label">帳號:</label>
+                        <input type="text" class="form-control" id="inputAccount" name="inputAccount">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="col-form-label">密碼:</label>
+                        <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+                    </div>
+                    <div class="mb-3 text-center">
+                        <button type="submit" class="btn signinbtn text-white me-3">登入</button>
+                        <a href="register.html" class="btn registerbtn text-white">會員註冊</a>
+                    </div>
+                </form>
+            </div>
+            <div class="mx-2 text-center fastlogin">
+                <div class="line"></div>
+                <div class="mx-1">快速登入</div>
+                <div class="line"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn lineloginbtn"></button>
+                <div id="g_id_onload"
+                    data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com"
+                    data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_blue"
+                    data-text="signin" data-shape="rectangular" data-logo_alignment="left" data-width=110>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://accounts.google.com/gsi/client" async></script>
 <script>
-    // 假設用戶已登入的狀態
-let isLoggedIn = false;
+    // // 假設用戶已登入的狀態
+    // let isLoggedIn = false;
 
-// 取得按鈕和歡迎訊息元素
-const loginButton = document.getElementById('loginBtn');
-const welcomeMessage = document.getElementById('welcomeMessage');
+    // // 取得按鈕和歡迎訊息元素
+    // const loginButton = document.getElementById('loginBtn');
+    // const welcomeMessage = document.getElementById('welcomeMessage');
 
-// 點擊按鈕的事件處理
-loginButton.addEventListener('click', function() {
-    if (isLoggedIn) {
-        // 如果已登入，執行登出操作
-        isLoggedIn = false;
-        loginButton.innerText = '登入';
-        welcomeMessage.innerText = '';
-    } else {
-        // 如果未登入，執行登入操作
-        isLoggedIn = true;
-        loginButton.innerText = '登出';
-        welcomeMessage.innerText = 'Hi，使用者名稱';  // 可以加入用戶名的邏輯
-    }
-});
-</script>
+    // // 點擊按鈕的事件處理
+    // loginButton.addEventListener('click', function () {
+    //     if (isLoggedIn) {
+    //         // 如果已登入，執行登出操作
+    //         isLoggedIn = false;
+    //         loginButton.innerText = '登入';
+    //         welcomeMessage.innerText = '';
+    //     } else {
+    //         // 如果未登入，執行登入操作
+    //         isLoggedIn = true;
+    //         loginButton.innerText = '登出';
+    //         welcomeMessage.innerText = 'Hi，使用者名稱';  // 可以加入用戶名的邏輯
+    //     }
+    // });
 
 </script>    <div class="foodMap container-fluid p-0">
          <!-- 搜尋區域 -->
@@ -482,38 +544,6 @@ loginButton.addEventListener('click', function() {
                 }
             }
              //  ---- end of callbacks ----
-    // // function openModalFromCard1(){
-    // //     service.getDetails({ placeId: placeId }, function (placeDetails, status) {
-
-    // //     })
-
-    // //     if (status === google.maps.places.PlacesServiceStatus.OK) {
-    // //         // 填充Modal標題
-    // //         const modalTitle = document.getElementById('infoTitle');
-    // //         modalTitle.innerHTML = `<h2>北門肉圓</h2>`;
-
-    // //     // 填充Modal內容
-    // //     const modalBody = document.getElementById('modalBody');
-    // //     modalBody.innerHTML = `
-    // //         <img src="${selectedPlace.photos ? selectedPlace.photos[0].getUrl({ maxWidth: 600 }) : '../assets/images/searchSite/tainan.jpeg'}" alt="${selectedPlace.name}" class="img-fluid">
-    // //         <p>這是一家非常受歡迎的店，提供美味的菜餚！</p>
-    // //         <p><strong>更多資訊：</strong></p>
-    // //         <ul>
-    // //             <li>地址：某某街道123號</li>
-    // //             <li>電話：123-456-7890</li>
-    // //             <li>營業時間：每天 10:00 - 22:00</li>
-    // //             <li>其他資訊內容...</li>
-    // //         </ul>
-    // //     `;
-
-    // //     // 顯示Modal
-    // //     const modal = new bootstrap.Modal(document.getElementById('myModal'));
-    // //     modal.show();
-    // // } else {
-    // //     console.error('未找到該店家資料！');
-    // // }
-
-    // // }         
     
     // 顯示 modal 的函數
     function showModal() {
