@@ -98,4 +98,6 @@ router.get('/members', function (req, res) {
 
 router.get("/members/:id", memberController.getemailById);
 
+router.get("/members/:id", memberController.getemailById);
+
 module.exports = router;
