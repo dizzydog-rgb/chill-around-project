@@ -5,19 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
+    <link rel="stylesheet" href="./css/member_style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="module" crossorigin src="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-  <script type="module" crossorigin src="/chill-around-project/assets/main-BbcfAe2y.js"></script>
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-C1QXPo3y.css">
+  <script type="module" crossorigin src="/chill-around-project/assets/main-B5ouWejI.js"></script>
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-ChZxzI6a.css">
 </head>
 
 <body class="member">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 text-center">
-                <a href="index.html">
+                <a href="#">
                     <img src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png">
                 </a>
                 <div class="sidebar text-start">
@@ -36,21 +38,29 @@
                 </div>
             </div>
             <div class="col-md-10 personaldata">
-                <div class="text-end mb-3">
+                <div id="edit" class="text-end mb-3">
                     <button type="button" class="btn editbtn text-white">
                         <i class="fa-solid fa-pencil me-1"></i>編輯
+                    </button>
+                </div>
+                <div id="write" class="text-end mb-3 hidden">
+                    <button type="button" class="btn storebtn text-white">
+                        儲存
+                    </button>
+                    <button type="button" class="btn cancelbtn text-white">
+                        取消
                     </button>
                 </div>
                 <div class="mb-5">
                     <div class="card" style="max-width: 600px;">
                         <div class="row align-items-center g-0">
                             <div class="col-md-4">
-                                <img src="/chill-around-project/assets/avatar-Da6-6i89.svg">
+                                <img id="img" src="">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <p class="card-text ms-2">
-                                        歡迎! 王曉明
+                                        歡迎! <span id="uname"></span>
                                     </p>
                                 </div>
                             </div>
@@ -61,46 +71,44 @@
                     <form>
                         <div class="item">
                             <label class="col-form-label">姓名：</label>
-                            <input type="text" name="uname" id="uname" class="inpwrite" placeholder="請輸入姓名" value="王曉明"
-                                readonly>
+                            <input type="text" name="uname" id="uname1" class="inpwrite" placeholder="請輸入姓名" readonly>
                         </div>
                         <div class="item">
                             <div>
                                 <label class="col-form-label">電子信箱：</label>
                                 <input type="text" name="email" id="email" class="inpwrite" placeholder="請輸入電子信箱"
-                                    value="abc123@gmail.com" readonly>
+                                    readonly>
                             </div>
                             <div>
                                 <label class="col-form-label">密碼：</label>
-                                <input type="text" name="pwd" id="pwd" class="inpwrite" placeholder="請輸入密碼"
-                                    value="123456" readonly>
+                                <input type="text" name="pwd" id="pwd" class="inpwrite" placeholder="請輸入密碼" readonly>
                             </div>
                         </div>
                         <div class="item">
                             <div>
                                 <label class="col-form-label">出生日期：</label>
-                                <input type="text" name="birthday" id="birthday" class="inpwrite"
-                                    onfocus="(this.type='date')" placeholder="請輸入出生日期" value="1999-01-01" readonly>
+                                <input type="text" name="birthday" id="birthday" class="inpwrite" placeholder="請輸入出生日期" onfocus="(this.type='date')"
+                                    readonly>
                             </div>
                             <div>
                                 <label class="col-form-label">性別：</label>
-                                <input type="text" name="sex" id="sex" class="inpwrite" value="男" readonly>
+                                <input type="text" name="sex" id="sex" class="inpwrite" readonly>
                             </div>
                         </div>
                         <div class="item">
                             <label class="col-form-label">住址：</label>
                             <input type="text" name="address" id="address" class="inpwrite" placeholder="請輸入住址"
-                                value="408台中市南屯區公益路二段51號18樓" readonly>
+                                readonly>
                         </div>
                         <div class="item">
                             <label class="col-form-label">手機號碼：</label>
                             <input type="text" name="cellphonenum" id="cellphonenum" class="inpwrite"
-                                placeholder="請輸入手機號碼" value="0912345678" readonly>
+                                placeholder="請輸入手機號碼" readonly>
                         </div>
                         <div class="item">
                             <label class="col-form-label">市內電話：</label>
                             <input type="text" name="telephonenum" id="telephonenum" class="inpwrite"
-                                placeholder="請輸入市內電話" value="0412345678" readonly>
+                                placeholder="請輸入市內電話" readonly>
                         </div>
                     </form>
                     <div class="bindaccount">
@@ -120,6 +128,70 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            // 獲取會員資料
+            $.ajax({
+                url: 'http://localhost:8080/member/members',
+                type: 'GET',
+                success: function (res) {
+                    if (res.length > 0) {
+                        const member = res[0]; // 假設只有一個會員
+                        $('#img').prop('src', '../assets/images/memberimg/' + member.uphoto);
+                        $('#uname').html(member.uname);
+                        $('#uname1').val(member.uname);
+                        $('#email').val(member.email);
+                        $('#pwd').val(member.password);
+                        let birthday = new Date(member.birthday);
+                        let myBirthday = birthday.toLocaleDateString('zh-TW'); // 以台灣格式顯示
+                        $('#birthday').val(myBirthday.split('/').join('-'));
+                        $('#sex').val(member.sex);
+                        $('#address').val(member.address);
+                        $('#cellphonenum').val(member.cellphone);
+                        $('#telephonenum').val(member.telephone);
+
+                        function inputSize(input) {
+                            input.attr('size', input.val().length + 1)
+                        }
+
+                        $('.inpwrite').each(function () {
+                            inputSize($(this)); // 調整初始大小
+                        });
+
+                        $('.inpwrite').keyup(function () {
+                            inputSize($(this));
+                        });
+
+                        $('.editbtn').click(function () {
+                            // 切換 readonly 屬性
+                            $('#edit').addClass('hidden');
+                            $('#write').removeClass('hidden');
+                            let input = $('.inpwrite');
+                            input.css({ 'border': '1px solid #d2d2d2' }, { 'outline': 'solid thin' });
+                            if (input.prop('readonly')) {
+                                input.prop('readonly', false); // 取消 readonly
+                            }
+                        });
+
+                        $('.cancelbtn').click(function () {
+                            $('#edit').removeClass('hidden');
+                            $('#write').addClass('hidden');
+                            $('#birthday').prop('type', 'text');
+                            $('#birthday').val(myBirthday.split('/').join('-'));
+                            let input = $('.inpwrite');
+                            input.css({ 'border': 'none' }, { 'outline': 'none' });
+                            if (!input.prop('readonly')) {
+                                input.prop('readonly', true);
+                            }
+                        });
+                    }
+                },
+                error: function () {
+                    alert("資料讀取失敗");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
