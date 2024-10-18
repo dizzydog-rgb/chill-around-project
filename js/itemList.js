@@ -60,14 +60,6 @@ const categories = [
     "護照類",
     "食品類",
     "飲水器具",
-    "睡袋類",
-    "登山裝備",
-    "旅行書籍",
-    "相機類",
-    "野餐用品",
-    "保險文件",
-    "清潔用品",
-    "個人護理"
 ];
 
 const cardContainer = document.querySelector('.cardRow');
