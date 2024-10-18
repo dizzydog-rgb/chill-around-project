@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+let cors = require("cors");
+
+app.use(cors());
 
 // 載入路由區
 const indexRoutes = require("./routes/indexRoutes"); // 引入首頁相關路由

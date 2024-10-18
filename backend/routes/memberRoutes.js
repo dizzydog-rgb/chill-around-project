@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 var db = require('../config/database');
 
 router.use(bodyParser.json());
-router.use('/images', express.static(__dirname + '../../assets/images/memberimg'));
+router.use('/images', express.static(__dirname + '/assets/images'));
 
 // GET 請求: 取得頁面
 // 註冊頁面
