@@ -1,33 +1,35 @@
-let mysql =require('mysql');
-let conn = mysql.createConnection({
-    host:'127.0.0.1',
-    user:'root',
-    password:'',
-    database:'chill_around'
-})
+// let mysql =require('mysql');
+// let conn = mysql.createConnection({
+//     host:'127.0.0.1',
+//     user:'root',
+//     password:'',
+//     database:'chill_around'
+// })
 
 
-conn.connect(function (err) {
+// conn.connect(function (err) {
 
-    if(err){
-        console.log('tell you:資料庫連線 異常');
-        console.log('-----------start---------------');
-        console.log(err.sqlMessage);
-        console.log('-----------end---------------');
+//     if(err){
+//         console.log('tell you:資料庫連線 異常');
+//         console.log('-----------start---------------');
+//         console.log(err.sqlMessage);
+//         console.log('-----------end---------------');
         
-    }else{
-        console.log('tell you:資料庫連線 正常');
+//     }else{
+//         console.log('tell you:資料庫連線 正常');
 
-    }
+//     }
     
-});
+// });
+
+var db = require('../config/database');
 // hero img sql
 exports.findHero = (hero) => {
     return new Promise((resolve, reject) => {
         const query = "SELECT * FROM schedule_info"; 
 
-        console.log("觀看這行"+ conn); // 在此行查看 db 的內容
-        conn.query(query, [hero], (err, results) => {
+        console.log("觀看這行"+ db); // 在此行查看 db 的內容
+        db.exec(query, [hero], (err, results) => {
       if (err) {
         return reject(err);
       }
@@ -44,8 +46,8 @@ exports.findTag = (name) => {
     return new Promise((resolve, reject) => {
         const query = "SELECT * FROM all_tag ORDER BY RAND() LIMIT 5"; 
 
-        console.log("觀看這行"+ conn); // 在此行查看 db 的內容
-        conn.query(query, [name], (err, results) => {
+        console.log("觀看這行"+ db); // 在此行查看 db 的內容
+        db.exec(query, [name], (err, results) => {
       if (err) {
         return reject(err);
       }

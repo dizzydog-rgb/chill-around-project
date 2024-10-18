@@ -238,6 +238,29 @@
                     background-color: #6799AE;
                 }
 
+                .hidden{
+                    display: none;
+                }
+
+                .storebtn{
+                    background-color: #E2AD25;
+                    border-radius: 50px;
+                }
+                
+                .storebtn:hover{
+                    background-color: #E7BA48;
+                }
+
+                .cancelbtn{
+                    background-color: #E2AD25;
+                    border-radius: 50px;
+                }
+
+                .cancelbtn:hover{
+                    background-color: #E7BA48;
+                    border-radius: 50px;
+                }
+
                 .card {
                     border: none;
 
@@ -246,6 +269,7 @@
                             img {
                                 border-radius: 50%;
                                 background-color: #eeeeee;
+                                width: 100%;
                             }
                         }
 
@@ -273,10 +297,11 @@
                                 background: none;
                                 outline: none;
                                 border: none;
+                                border-radius: 5px;
                             }
 
                             #address {
-                                width: 350px;
+                                width: 65%;
                             }
                         }
 
@@ -304,7 +329,7 @@
 
                         .title {
                             padding: 7px 0;
-                            min-width: 100px;
+                            min-width: 120px;
                             font-size: 20px;
                         }
 

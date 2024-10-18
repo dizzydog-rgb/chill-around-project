@@ -1,19 +1,7 @@
 import axios from 'axios';
 
 console.log("載入成功");
-// <!-- Initialize Swiper -->
-var swiper = new Swiper(".mySwiperIndex", {
-    spaceBetween: 0,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    autoplay: {
-        delay: 10000, // 每秒切換一次
-        disableOnInteraction: false,
-        // 當使用者與幻燈片互動時，保持自動播放
-    },
-});
+
 
 //輪播圖的圖片及文字
 axios.get('http://localhost:8080/heroCarousel')

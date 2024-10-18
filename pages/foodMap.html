@@ -6,13 +6,19 @@
     <title>美食地圖</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+        .info-content {
+            max-width: 300px; /* 控制資訊窗口的最大寬度 */
+        }
+        .info-content img {
+            width: 100%; /* 圖片寬度設定為100% */
+        }
     </style>
     <script type="module" src="/main.js"></script>
     
     
 </head>
 <body>
-    <%- include('./layout/searchHeader'); -%>
+    <%- include('./layout/searchHeader_trans'); -%>
     <div class="foodMap container-fluid p-0">
          <!-- 搜尋區域 -->
     <div class="searchOverlay container  d-flex flex-column flex-sm-row align-items-center">
@@ -20,7 +26,7 @@
             <div class="seletGroup d-flex justify-content-between">
                 <div class="selectItem">
                     <label for="regionSelect d-flex" class="" id="regionLabel">地區</label>
-                    <select class="custom-select">
+                    <select class="custom-select" id="myRegion">
                         <option selected>請選擇</option>
                         <option value="Taipei">台北市</option>
                         <option value="NewTaipei">新北市</option>
@@ -43,10 +49,10 @@
                 </div>
                 <div class="selectItem">
                     <label for="categorySelect" class="" id="categoryLabel">類別</label>
-                    <select class="custom-select">
+                    <select class="custom-select" id="foodstoreCategory">
                         <option selected>請選擇</option>
-                        <option value="1">小吃店</option>
-                        <option value="2">咖啡廳</option>
+                        <option value="小吃店">小吃店</option>
+                        <option value="咖啡廳">咖啡廳</option>
                         <option value="3">選項C</option>
                     </select>
                 </div>
@@ -54,7 +60,7 @@
             </div>
            
             <div class="input-group-append">
-                <button class="btn btn-outline-light" type="button">搜尋</button>
+                <button class="btn btn-outline-light" type="button" onclick="searchNearby()">搜尋</button>
             </div>
         </div>
     </div>
@@ -63,8 +69,12 @@
         </div>
        
         <!-- 美食卡片 -->
-        <div class="foodcardBox container d-none d-md-block">
-                <div class="foodCard card" data-bs-toggle="modal" data-bs-target="#myModal">
+
+        <!-- <div id="foodCardContainer">
+        </div> -->
+        
+        <div class="foodcardBox container d-none d-md-block" id="foodCardContainer">
+                <!-- <div class="foodCard card" data-bs-toggle="modal" data-bs-target="#myModal">
                     <div class="d-flex">
                         <div class="foodImage">
                             <img src="../assets/images/searchSite/tainan.jpeg" class="card-img-left"  alt="卡片圖片">
@@ -78,7 +88,7 @@
                             </div>                           
                          </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="foodCard card">
                     <div class="d-flex">
@@ -144,14 +154,14 @@
         <!-- 跳出商店視窗 -->
         <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-fullscreen-md-down modalFullscreen">
-                <div class="foodModalContent modal-content">
-                    <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="foodModalContent modal-content" id="modal-content">
+                    <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
                     <div class="modal-body row">
                         <!-- 輪播圖 -->
                         <div class="col-md-8">
                             <div id="carouselExample" class="carousel slide flex-fill" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="foodStoreItem carousel-item active">
+                                <div class="carousel-inner" id="carousel-images">
+                                    <!-- <div class="foodStoreItem carousel-item active" >
                                         <img src="https://via.placeholder.com/800x400?text=圖片1" class="d-block w-100" alt="圖片 1">
                                     </div>
                                     <div class="foodStoreItem carousel-item">
@@ -159,7 +169,7 @@
                                     </div>
                                     <div class="foodStoreItem carousel-item">
                                         <img src="https://via.placeholder.com/800x400?text=圖片3" class="d-block w-100" alt="圖片 3">
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -174,25 +184,25 @@
                         <!-- 資訊 -->
                         <div class="col-md-4">
                             <div class="info">
-                                <div class="infoTitle">
+                                <div class="infoTitle" id="infoTitle">
                                     <h2>北門肉圓</h2>
                                 </div>
                                 <i class="bi bi-geo-alt customIcon"></i>
-                                <span class="ps-3">500彰化縣彰化市三民路242號</span>
+                                <span class="ps-3" id="storeAdd">500彰化縣彰化市三民路242號</span>
                                 <hr>
                                 <i class="bi bi-telephone customIcon"></i>
-                                <span class="ps-3">047240095</span>
+                                <span class="ps-3" id="storePhone">047240095</span>
                                 <hr>
                                 <div class="d-flex">
                                     <div>
                                         <i class="bi bi-clock customIcon"></i>
                                     </div>
                                     <div class="ps-3">
+                                        <p id="storeOpentime"></p>
+                                        <!-- <p>星期一 休息</p>
                                         <p>星期一 休息</p>
                                         <p>星期一 休息</p>
-                                        <p>星期一 休息</p>
-                                        <p>星期一 休息</p>
-                                        <p>星期一 休息</p>
+                                        <p>星期一 休息</p> -->
                                     </div>
                                 </div> 
                                 <div class="btnOverlay">
@@ -207,7 +217,7 @@
                 </div>
             </div>
         </div>
-        <!-- Modal -->
+        <!-- 加入行程的Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
     <div class="modal-dialog">
@@ -250,75 +260,282 @@
    </div>
    
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> -->
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMP0WUTPIwj9oi3SbbROwXL0STHfmKQuQ&libraries=places"></script> -->
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=MYKEY&libraries=places"></script>
-    <script>
-        let map;
-        let service;
+<script>
+            // import { AdvancedMarkerElement } from "https://maps.googleapis.com/maps/documentation/javascript/examples/advancedmarker.js";
 
-        function initMap(){
-            const location = new google.maps.LatLng(25.0478, 121.5319); // 預設位置（台北市）
-            map = new google.maps.Map(document.getElementById('map'), {
-                    center: location,
-                    zoom: 15
+            let map ,marker,lat,lng;
+            let service;
+            let markers = []; // 儲存標記的陣列
+            
+            async function initMap() {
+                const defaultLocation = { lat: 25.0380, lng: 121.5637 }; // 台北市中心
+                const { Map, InfoWindow } = await google.maps.importLibrary("maps");
+                const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
+                    "marker",
+                );
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: defaultLocation,
+                    zoom: 13
                 });
-        }
-        $(document).ready(function(){
-            $("#searchButton").click(function(){
-                const selectedCategory = $('#category').val();
+                
+                // infowindow = new google.maps.InfoWindow();
+            }
+            
+            //        function initMap() {
+                //             // 取得所在位置
+                //             navigator.geolocation.getCurrentPosition((position) => {
+                    //             console.log(position.coords);
+                    //             lat = position.coords.latitude;
+                    //             lng = position.coords.longitude;
+                    //             // 初始化地圖
+                    //             map = new google.maps.Map(document.getElementById('map'), {
+                        //             zoom: 18,
+                        //             center: { lat: lat, lng: lng }
+                        //         });
+                        //             infowindow = new google.maps.InfoWindow();
+                        //             // 當前位置地標
+                        //             // marker = new google.maps.Marker({
+                            //             //     position: { lat: lat, lng: lng },
+                            //             //     map: map
+                            //             // });
+                            //     });
+                            // }
+            function searchNearby() {
+                const region = document.getElementById('myRegion').value;
+                const category = document.getElementById('foodstoreCategory').value;
+                if (!region||!category  ) {
+                alert("請選擇一個地區與類別!")
+                return;
+                }else{
+                console.log("成功輸入");
+                }                 
+                // 依據地區設定中心點
+                let center;
+                switch (region) {
+                case 'Taipei':
+                    center = { lat: 25.0380, lng: 121.5637 }; // 台北市
+                    break;
+                case 'NewTaipei':
+                    center = { lat: 25.0160, lng: 121.4620 }; // 新北市
+                    break;
+                case 'Taoyuan':
+                    center = { lat: 24.9932, lng: 121.2956 }; // 桃園市
+                    break;
+                case 'Taichung':
+                    center = { lat: 24.1477, lng: 120.6736 }; // 台中市
+                    break;
+                case '台南':
+                    center = { lat: 23.0004, lng: 120.2270 }; // 台南市
+                    break;
+                default:
+                    center = { lat: 25.0380, lng: 121.5637 }; // 台北市
+            }
 
-                // 根據選擇的類別進行搜尋
-                const request = {
-                    location:map.getCenter(),
-                    radius: '500',
-                    types:[[selectedCategory]]
-                };
-
-                service = new google.maps.places.PlacesService(map);
-                service.nearbySearch(request,function(result,status){
-                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        displayResults(results);
-                    } else {
-                        alert('搜尋失敗：' + status);
-                    }
-                });
-            });
-
-            //modal
-
-            // 當選擇行程時，顯示天數選擇
-            $('#itinerarySelect').change(function () {
-                if ($(this).val()) {
-                    $('#daySelectContainer').show(); // 顯示天數選擇
-                } else {
-                    $('#daySelectContainer').hide(); // 隱藏天數選擇
-                }
-            });
-
-            // 確保關閉模態框時，隱藏天數選擇
-            $('#exampleModal').on('hide.bs.modal', function () {
-                $('#daySelectContainer').hide(); // 隱藏天數選擇
-                $('#itinerarySelect').val(''); // 重置行程選擇
-                $('#daySelect').val(''); // 重置天數選擇
-            });
-
-        });
-        function displayResults(places) {
-        const resultsList = $('#results');
-        resultsList.empty(); // 重置結果
-
-        places.forEach(place => {
-            const listItem = $('<li>').text(place.name);
-            resultsList.append(listItem);
-        });
-    }
-
-    window.onload = initMap;
+            map.setCenter(center);
 
         
-    </script>
+            const request = {
+                location: center,
+                radius: '1000',  // 搜尋半徑 1000 公尺
+                keyword: category  // 使用選擇的類別關鍵字搜尋
+            };
 
+            service = new google.maps.places.PlacesService(map);
+            clearMarkers();
+            service.nearbySearch(request, callback);             
+            // service = new google.maps.places.PlacesService(map);
+            // service.nearbySearch(request, callback);
+         }
+        //  ---- end of searchNearby
+
+            function callback(results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    clearMarkers();
+                    // document.getElementById('foodCardContainer').innerHTML = ''; // 清空舊的卡片
+                    results.forEach(place => {
+                         // console.log(place);
+                         const marker = new google.maps.Marker({
+                                            position: place.geometry.location,
+                                            map: map,
+                                            title: place.name,
+                                            gmpClickable: true,
+                                        });
+                        markers.push(marker); // 將標記添加到標記陣列
+                        // 點擊標記顯示資訊窗口
+                        google.maps.event.addListener(marker, 'click',function(){
+                            console.log(this);
+                            
+                        //     // console.log(place.place_id);
+                        //     // openModalFromCard(place.place_id)
+                            service.getDetails({placeId: place.place_id},function(placeDetails, status){
+                                    if (status === google.maps.places.PlacesServiceStatus.OK){
+                                        setModalContent(placeDetails);
+                                        showModal(); // 開啟模態窗口
+                                    }else {
+                                        alert('無法獲取店家詳細資訊');
+                                    }
+                                
+                            });
+                                     
+                        //             // 在模態中顯示內容
+                        //             // document.getElementById('infoTitle').innerText = placeDetails.name;
+                        //             // document.getElementById('storeAdd').innerText = placeDetails.formatted_address.replace(/台灣/g, "").replace(/\d{5}/g, "").trim();
+                        //             // document.getElementById('storePhone').innerText = placeDetails.formatted_phone_number || '無資料';
+                        //             // document.getElementById('storeOpentime').innerHTML = placeDetails.opening_hours ? placeDetails.opening_hours.weekday_text.join('<br>') : '無資料';
+                        //             // let storeTitle = placeDetails.name;
+                        //             // let storeAddress = placeDetails.formatted_address.replace(/台灣/g, "").replace(/\d{5}/g, "").trim();
+                        //             // let storeTel = placeDetails.formatted_phone_number || '無資料';
+                        //             // let openTime = placeDetails.opening_hours ? placeDetails.opening_hours.weekday_text.join('<br>') : '無資料'
+                                     
+                        //             // 清空輪播圖
+                        //             // const carouselImages = document.getElementById('carousel-images');
+                        //             // carouselImages.innerHTML = ''; // 清除舊的圖片
+                                   
+                        //             // if (placeDetails.photos && placeDetails.photos.length > 0) {
+                        //             //     placeDetails.photos.forEach((photo, index) => {
+                        //             //         const photoUrl = photo.getUrl({ maxWidth: 800 });
+                        //             //         // 創建新的 carousel-item 元素
+                        //             //         const carouselItem = document.createElement('div');
+                        //             //         carouselItem.className = `foodStoreItem carousel-item ${index === 0 ? 'active' : ''}`; // 第一次迴圈的圖片設為 active
+                        //             //         // 創建圖片元素
+                        //             //         const imgElement = document.createElement('img');
+                        //             //         imgElement.src = photoUrl;
+                        //             //         imgElement.className = 'd-block w-100'; // 加上 Bootstrap 類名
+                        //             //         // 將圖片添加到 carousel-item
+                        //             //         carouselItem.appendChild(imgElement);
+                        //             //         // 將 carousel-item 添加到輪播圖
+                        //             //         carouselImages.appendChild(carouselItem);
+                        //             //     });
+                        //             // } else {
+                        //             //     carouselImages.innerHTML = '<p>沒有圖片可顯示</p>';
+                        //             // }
+                                    
+                        //         
+                        //     });
+                        });
+                        // 創建美食卡片
+                        createFoodCard(place);
+                        // 增加鼠標懸停時的指標樣式
+        google.maps.event.addListener(marker, 'mouseover', function() {
+            this.setOptions({ cursor: 'pointer' }); // 鼠標變為手指
+        });
+
+        google.maps.event.addListener(marker, 'mouseout', function() {
+            this.setOptions({ cursor: '' }); // 使其恢復為默認樣式
+        });
+
+                    });//-- end forEach
+                 } else {
+                     alert("找不到符合條件的店家！");
+                }
+            }
+             //  ---- end of callbacks ----
+    
+    // 顯示 modal 的函數
+    function showModal() {
+        const modal = document.getElementById('myModal');
+        modal.style.display = 'block';
+        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';  // 設置背景顏色
+        modal.classList.add('show'); // Bootstrap modal 顯示效果
+        modal.setAttribute('aria-hidden', 'false');
+    }
+    // 關閉 modal 的函數
+    function closeModal() {
+        const modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+        modal.classList.remove('show'); // Bootstrap modal 隱藏效果
+        modal.setAttribute('aria-hidden', 'true'); // 將 aria-hidden 設為 true
+
+    }
+    function clearMarkers() {
+        // 清除地圖上的標記
+        markers.forEach(marker => marker.setMap(null));
+        markers = []; // 清空標記陣列
+    }
+        
+            function createFoodCard(place) {
+                const foodCardContainer = document.getElementById('foodCardContainer');
+                // let cardElement;
+                // 創建新的卡片元素
+                const cardElement = document.createElement('div');
+                cardElement.className = "foodCard card"; // 根據需要調整列的大小和間距
+                cardElement.setAttribute('data-bs-toggle', 'modal');
+                cardElement.setAttribute('data-bs-target', '#myModal');
+                cardElement.innerHTML = `
+                    
+                    <div class="d-flex" onclick="openModalFromCard('${place.place_id}')">
+                        <div class="foodImage">
+                            <img src="${place.photos ? place.photos[0].getUrl({ maxWidth: 300 }) : '../assets/images/searchSite/tainan.jpeg'}" class="card-img-left" alt="卡片圖片">
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">${place.name}</h6>
+                            <div class="btnOverlay">
+                                <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    加入行程
+                                </button >
+                            </div>                           
+                         </div>
+                    </div>
+                `;
+                // 將卡片添加到容器
+                foodCardContainer.appendChild(cardElement);
+            }
+            
+            function openModalFromCard(placeId) {
+                service.getDetails({ placeId: placeId }, function (placeDetails, status) {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        setModalContent(placeDetails); // 讓點擊卡片跳出相對應的店家資料
+                    } else {
+                        alert('無法獲取店家詳細資訊');
+                    }
+                });
+            }
+
+            function setModalContent(placeDetails){
+                // 將模態內容設置為對應的店家資料
+                document.getElementById('infoTitle').innerText = placeDetails.name;
+                document.getElementById('storeAdd').innerText = placeDetails.formatted_address.replace(/台灣/g, "").replace(/\d{5}/g, "").trim();
+                document.getElementById('storePhone').innerText = placeDetails.formatted_phone_number || '無資料';
+                document.getElementById('storeOpentime').innerHTML = placeDetails.opening_hours? placeDetails.opening_hours.weekday_text.join('<br>') : '無資料';
+                // 清空輪播圖
+                const carouselImages = document.getElementById('carousel-images');
+                carouselImages.innerHTML = ''; // 清除舊的圖片
+                if (placeDetails.photos && placeDetails.photos.length > 0) {
+                    placeDetails.photos.forEach((photo, index) => {
+                        const photoUrl = photo.getUrl({ maxWidth: 800 });
+                        // 創建新的 carousel-item 元素
+                        const carouselItem = document.createElement('div');
+                        carouselItem.className = `foodStoreItem carousel-item ${index === 0 ? 'active' : ''}`; // 第一次迴圈的圖片設為 active
+                        // 創建圖片元素
+                        const imgElement = document.createElement('img');
+                        imgElement.src = photoUrl;
+                        imgElement.className = 'd-block w-100'; // 加上 Bootstrap 類名
+                        // 將圖片添加到 carousel-item
+                        carouselItem.appendChild(imgElement);
+                        // 將 carousel-item 添加到輪播圖
+                        carouselImages.appendChild(carouselItem);
+                    });
+                } else {
+                    carouselImages.innerHTML = '<p>沒有圖片可顯示</p>';
+                }
+            }
+           
+
+    //         function closeModal() {
+    //             document.getElementById('myModal').style.display = "none"; // 隱藏模態
+    //         }
+                
+                        
+    window.onload = initMap;
+                            
+                            
+</script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&loading=async&libraries=places&callback=initMap">
+</script>
 </body>
 </html>
