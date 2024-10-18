@@ -90,11 +90,11 @@ router.get("/TaiwanEx", function (req, res) {
 });
 
 // 取得資料庫資料
-// router.get('/members', function (req, res) {
-//     db.exec('SELECT * FROM `member`',[],function (results,fields) {
-//         res.json(results);
-//     });
-// });
+router.get('/members', function (req, res) {
+    db.exec('SELECT * FROM `member`',[],function (results,fields) {
+        res.json(results);
+    });
+});
 
 router.get("/members/:id", memberController.getemailById);
 
