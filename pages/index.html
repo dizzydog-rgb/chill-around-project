@@ -8,7 +8,7 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
     <title>首頁</title>
 
@@ -51,8 +51,8 @@
 
       <!-- Swiper -->
       <div class="swiper mySwiperIndex swiper-h">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
+        <div class="swiper-wrapper" id="hero-container">
+          <!-- <div class="swiper-slide">
             <div
               class="hero-image"
               style="
@@ -136,56 +136,17 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="swiper-pagination"></div>
       </div>
     </div>
     <script type="module" src="/main.js"></script>
+    <script type="module" src="../js/index.js"></script>
     <!-- <script type="module" src="../js/about.js"></script> -->
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <!-- Initialize Swiper -->
-    <script>
-      var swiper = new Swiper(".mySwiperIndex", {
-        spaceBetween: 0,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        autoplay: {
-          delay: 10000, // 每秒切換一次
-          disableOnInteraction: false,
-          // 當使用者與幻燈片互動時，保持自動播放
-        },
-      });
-
-
-      // TAG資料庫
-      axios.get('http://localhost:8080/herotag')
-      
-        .then(response => {
-          const data = response.data; // 獲取資料
-          console.log(response.data);
-          
-          const tagContainer = document.getElementById('tag-container');
-          let buttonsHTML = ''; // 用來存放按鈕 HTML
-
-          // 生成按鈕 HTML
-          data.forEach(tag => {
-            buttonsHTML += `
-              <button type="button" class="IndexBtn btn btn-outline-primary btn-sm mx-2">
-                ${tag.tag_name}
-              </button>`;
-          });
-
-          tagContainer.innerHTML = buttonsHTML;
-        })
-        .catch(error => {
-          console.error('無法獲取標籤資料:', error);
-        });
-    </script>
   </body>
 </html>

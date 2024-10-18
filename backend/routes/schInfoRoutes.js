@@ -2,20 +2,16 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const router = express.Router();
+const schInfoContronller = require('../controller/schInfoContronller')
 
-
-// 提供 HTML 頁面
-// app.get('/schInfo', function (req, res) {
-//     res.sendFile(__dirname + '/dist/schInfo.html');
-//   });
-
-// // GET 請求: 取得頁面
+//取得頁面
+//http://localhost:8080/schInfo/Info
 router.get("/Info", function (req, res) {
   const options = {
     root: path.join(__dirname, "../../", "dist"),
   };
 
-  const fileName = "/schInfo.html";
+  const fileName = "schInfo.html";
   res.sendFile(fileName, options, function (err) {
     if (err) {
       console.error("Error sending file:", err);
@@ -25,6 +21,7 @@ router.get("/Info", function (req, res) {
   });
 });
 
+router.get('/Youtube',schInfoContronller.getVideoUrl);
 
 
 
