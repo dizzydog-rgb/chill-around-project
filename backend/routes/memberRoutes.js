@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const router = express.Router();
 const bodyParser = require('body-parser');
+const memberController = require("../controller/memberController");
 var db = require('../config/database');
 
 router.use(bodyParser.json());
@@ -90,9 +91,13 @@ router.get("/TaiwanEx", function (req, res) {
 
 // 取得資料庫資料
 router.get('/members', function (req, res) {
-    db.exec('SELECT * FROM `member`',[],function (data,fields) {
-        res.json(data);
-    })
+    db.exec('SELECT * FROM `member`',[],function (results,fields) {
+        res.json(results);
+    });
 });
+
+router.get("/members/:id", memberController.getemailById);
+
+router.get("/members/:id", memberController.getemailById);
 
 module.exports = router;
