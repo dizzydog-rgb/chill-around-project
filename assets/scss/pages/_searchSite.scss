@@ -7,7 +7,7 @@
     text-align: center; 
     img {
       width: 100%;
-      height: 100vh;
+      height: 90vh;
       object-fit: cover;
       margin: 0;
       &:hover {
@@ -18,7 +18,7 @@
   // 縮小後的輪播圖
    .siteCarouselItem{
     width: 100%;
-    height: 600px;
+    height: 90vh;
     img{
         height: 100%; /* 使圖片的高度適應父容器 */
         width: 100%; /* 使圖片的寬度適應父容器 */
@@ -28,14 +28,27 @@
   // 搜尋欄
 .searchOverlay {
   margin: 10px auto;  /* 在手機版上增加上下邊距 */
-  padding: 10px;    /* 增加內邊距 */
+  padding: 15px;    /* 增加內距 */
+  text-align: center;
   border-radius: 5px; /* 添加圓角 */
+  border: 2px solid $primary;
+.input-group{
+  flex-direction: column;/* 手機版排版為各自一行 */
+  width: 100%;
+  gap: 20px;
+}
+
+
  .selectItem{
-  margin: 10px;
+  // background-color: #e7ba48;
+  margin: 0;
+  gap: 20px;
+  width: 80%;
  }
     #regionLabel,
     #categoryLabel {
-      margin-right: 10px;
+      text-align: right;
+      width: auto;
       font-size: 18px;
       color: $primary;
     }
@@ -182,7 +195,7 @@
     .searchOverlay {
       position: absolute;
       z-index: 10;
-      top: 90%;
+      top: 20%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 45%;
@@ -190,7 +203,16 @@
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
       border: 2px solid $primary;
       padding: 10px;
-      
+      .input-group {
+        // background-color: #909090;
+        flex-direction: row; /* 網頁版排版為並列 */
+        
+      }
+      .selectItem{
+        // background-color: #e7ba48;
+        margin: 0;
+        width: auto;
+      }
       // border-radius: 5px;
     }
   }
