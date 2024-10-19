@@ -15,6 +15,10 @@ function closeModal() {
     // });
 }
 
+// 點擊遮罩也可以關閉視窗
+// document.getElementById('overlay2').addEventListener('click', closeModal2);
+
+
 
 // <---------------------- Modal 2 ---------------------->
 // 綁定 modal 和 連結按鈕
@@ -84,24 +88,72 @@ function selectOption(option, event) {
     selectedOption.classList.add('active');
 }
 
-// <---------------------- 增加種類細項上去 ---------------------->
+// <---------------------- 嘗試連接後端抓資料QQ ---------------------->
+
+import axios from 'axios';
+axios.get('http://localhost:8080/Budget/popupbudgets')
+    .then(response => {
+        // 處理獲取的資料，例如更新 UI
+        // 先取 種類 與 細項 的資料
+        const Categorydata = response.data.Category;
+        const Detailsdata = response.data.Details;
+        // console.log(Categorydata);
+
+        // 若 modalContent2 的 '' 放在迴圈裡會每次都執行清空一次，只剩最後一個結果
+        const modalContent2 = document.querySelector('.modalContent2');
+        modalContent2.innerHTML = '';
+
+        // 開始渲染 itemCategory
+        Categorydata.forEach(item => {
+            // console.log(item);
+
+            const newcategoryDiv = document.createElement('div');
+            newcategoryDiv.classList.add('category2');
+
+            newcategoryDiv.innerHTML = `
+            <div class="tiTle">${item.BudgetName}
+                <a>V</a>
+            </div>
+            `;
+
+            modalContent2.appendChild(newcategoryDiv);
 
 
+            <div class="modalContent2" id="modalContent2">
+                <div class="topDiv2">
+                    <a class="close2" href="#">＜</a>
+                    <button class="okBtn">確認</button>
+                </div>
+
+                <div class="category2" id="categoryDiv">
+                    <div class="tiTle"> 交通111
+                        <a>V</a>
+                    </div>
+                    <div class="options" id="options0">
+                        <div class="option" data-option="飛機">飛機</div>
+                        <div class="option" data-option="船舶">船舶</div>
+                    </div>
+                </div>
+            </div>
 
 
+            // 渲染 itemDetails
+            Detailsdata.forEach(item => {
+                // console.log(item);
 
-// 放置區
-// function toggleOptions(id) {
-//     const options = document.getElementById(id);
-//     options.classList.toggle('active'); // 切換 active 類
-// }
+                const newDetailsDiv = document.createElement('div');
+                newDetailsDiv.classList.add('options');
 
-// function confirmSelection2() {
-//     alert('確認選擇');
-// }
+                newcategoryDiv.innerHTML = `
+                <div class="tiTle">${item.BudgetName}
+                    <a>V</a>
+                </div>
+                `;
+            })
 
-// 點擊遮罩也可以關閉視窗
-// document.getElementById('overlay2').addEventListener('click', closeModal2);
-
-// <---------------------- 使用者選取資料帶入畫面 ---------------------->
+        })
+    })
+    .catch(error => {
+        console.error('無法取得種類:', error);
+    });
 
