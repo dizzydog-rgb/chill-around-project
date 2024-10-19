@@ -114,52 +114,11 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
             <h2 class="detailsTitle">景點介紹</h2>
             <p class="detailsInfo">${site_info}</p>
           </div>
-       
-
     `;
   })
   .catch(error => {
     console.error('無法取得景點資料:', error);
   });
-
-
-// 當頁面加載完成時，自動獲取資料
-// window.onload = function() {
-//     getFile(); // 這裡會在頁面加載時自動呼叫獲取資料的函數
-// };
-
-// // 宣告 function getFile()
-// function getFile() {
-//     let xhr = new XMLHttpRequest(); // 創建一個新的 XMLHttpRequest 對象
-//     xhr.open('GET', 'http://localhost:8080/site/siteinfo/1', true); // 設定請求方式和URL
-//     xhr.addEventListener('load', function () {
-//         if (this.status >= 200 && this.status < 300) { // 檢查請求是否成功
-//             let data = JSON.parse(this.responseText); // 將回應的文本解析為 JSON 物件
-//             console.log(data); // 在控制台檢查獲取的資料
-
-//             // // 確保 data 是物件，並將相關資訊顯示在畫面上
-//             // document.getElementById('divResult').innerHTML = `
-//             //     活動期間: ${data.startDate} - ${data.endDate} <br>
-//             //     活動名稱: ${data.title}
-//             //     <hr>
-//             // `;
-//         } else {
-//             console.error('無法取得資料:', this.statusText); // 請求沒有成功，處理錯誤
-//             document.getElementById('divResult').innerHTML = `<p>Error: ${this.statusText}</p>`;
-//         }
-//     });
-
-//     xhr.addEventListener('error', function () {
-//         console.error('網絡錯誤'); // 如果發生網絡錯誤，處理錯誤
-//         document.getElementById('divResult').innerHTML = `<p>Network Error</p>`;
-//     });
-
-//     xhr.send(); // 發送請求
-// }
-
-
-
-
 
 
   $(document).ready(function() {
