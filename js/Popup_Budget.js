@@ -1,4 +1,93 @@
-// <---------------------- Modal 1 ---------------------->
+// <---------------------- 嘗試連接後端抓資料QQ ---------------------->
+
+import axios from 'axios';
+axios.get('http://localhost:8080/Budget/popupbudgets')
+    .then(response => {
+        // // 處理獲取的資料，例如更新 UI
+        // // 先取 種類 與 細項 的資料
+        // const Categorydata = response.data.Category;
+        // const Detailsdata = response.data.Details;
+        // // console.log(Categorydata);
+
+        // // 若 modalContent2 的 '' 放在迴圈裡會每次都執行清空一次，只剩最後一個結果
+        // const modalContent2 = document.querySelector('.modalContent2');
+        // modalContent2.innerHTML = '';
+
+        // // 開始渲染 itemCategory
+        // Categorydata.forEach(item => {
+        //     // console.log(item);
+
+        //     const newcategoryDiv = document.createElement('div');
+        //     newcategoryDiv.classList.add('category2');
+
+        //     newcategoryDiv.innerHTML = `
+        //     <div class="tiTle">${item.BudgetName}
+        //         <a>V</a>
+        //     </div>
+        //     `;
+
+        //     modalContent2.appendChild(newcategoryDiv);
+
+
+        //////////////  TRYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY  //////////////
+
+        const Categorydata = response.data.Category;
+        const Detailsdata = response.data.Details;
+
+        const modalContent2 = document.querySelector('.modalContent2');
+        modalContent2.innerHTML = '';
+
+        // 创建一个 Map 来存储每个类别的子类别
+        const categoriesMap = new Map();
+
+        // 将每个类别添加到 Map 中
+        Categorydata.forEach(category => {
+            categoriesMap.set(category.Bcategory_id, {
+                name: category.BudgetName,
+                subcategories: []
+            });
+        });
+
+        // 将每个子类别添加到相应的类别中
+        Detailsdata.forEach(detail => {
+            const category = categoriesMap.get(detail.Bcategory_id);
+            if (category) {
+                category.subcategories.push({
+                    id: detail.Subcategory_id,
+                    name: detail.BudgetDetails
+                });
+            }
+        });
+
+        // 开始渲染类别和子类别
+        categoriesMap.forEach((value) => {
+            const newcategoryDiv = document.createElement('div');
+            newcategoryDiv.classList.add('category2');
+            newcategoryDiv.id = 'categoryDiv';
+
+            // 渲染类别
+            newcategoryDiv.innerHTML = `
+                <div class="tiTle">${value.name}
+                    <a>V</a>
+                </div>
+                <div class="options">
+                    ${value.subcategories.map(sub => `
+                        <div class="option" data-option="${sub.name}">${sub.name}</div>
+                    `).join('')}
+                </div>
+            `;
+
+            modalContent2.appendChild(newcategoryDiv);
+        });
+    })
+
+    .catch(error => {
+        console.error('無法取得種類:', error);
+    });
+
+
+
+    // <---------------------- Modal 1 ---------------------->
 function openModal() {
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('modal').style.display = 'block';
@@ -14,6 +103,10 @@ function closeModal() {
     //     toggleOptions(`options${index}`); // 使用 index 來獲取對應的 options
     // });
 }
+
+// 點擊遮罩也可以關閉視窗
+// document.getElementById('overlay2').addEventListener('click', closeModal2);
+
 
 
 // <---------------------- Modal 2 ---------------------->
@@ -83,34 +176,3 @@ function selectOption(option, event) {
     const selectedOption = event.currentTarget; // 獲取被點擊的選項
     selectedOption.classList.add('active');
 }
-
-// <---------------------- 增加種類細項上去 ---------------------->
-
-
-
-
-
-// 放置區
-// function toggleOptions(id) {
-//     const options = document.getElementById(id);
-//     options.classList.toggle('active'); // 切換 active 類
-// }
-
-// function confirmSelection2() {
-//     alert('確認選擇');
-// }
-
-// 點擊遮罩也可以關閉視窗
-// document.getElementById('overlay2').addEventListener('click', closeModal2);
-
-// <---------------------- 嘗試連接後端抓資料QQ ---------------------->
-
-import axios from 'axios';
-axios.get('http://localhost:8080/Budget/popupbudget/1')
-    .then(response => {
-        console.log('種類ID:', response.data);
-        // 這裡可以進一步處理獲取的資料，例如更新 UI
-    })
-    .catch(error => {
-        console.error('無法取得種類:', error);
-    })

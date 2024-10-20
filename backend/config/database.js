@@ -5,7 +5,7 @@ exports.exec = (sql, data, callback) => {
     host: "localhost",
     user: "root",
     password: "",
-    database: "chill_around_test",
+    database: "chill_around",
     multipleStatements: true,
   });
   connection.connect();
