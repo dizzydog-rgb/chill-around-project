@@ -1,4 +1,4 @@
-const db = require("../config/huatest");
+const db = require("../config/database");
 // 獲取特定編號景點的模組函數
 exports.findPopupBudgetById = (id) => {
     return new Promise((resolve, reject) => {
