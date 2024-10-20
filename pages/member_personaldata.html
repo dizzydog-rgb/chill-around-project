@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 
 <body class="member">
@@ -85,7 +87,7 @@
                             <div>
                                 <label class="col-form-label">出生日期：</label>
                                 <input type="text" name="birthday" id="birthday" class="inpwrite" placeholder="請輸入出生日期"
-                                    onfocus="(this.type='date')" readonly>
+                                    readonly>
                             </div>
                             <div>
                                 <label class="col-form-label">性別：</label>
@@ -132,70 +134,76 @@
             $.ajax({
                 url: 'http://localhost:8080/member/members/1',
                 type: 'GET',
-                success: function (res) {
-                    if (res.length > 0) {
-                        const member = res[0]; // 假設只有一個會員
-                        $('#img').prop('src', '../assets/images/memberimg/' + member.uphoto);
-                        $('#uname').text(member.uname);
-                        $('#uname1').val(member.uname);
-                        $('#email').val(member.email);
-                        $('#pwd').val(member.password);
-                        let birthday = new Date(member.birthday);
-                        let myBirthday = birthday.toLocaleDateString('zh-TW'); // 以台灣格式顯示
-                        $('#birthday').val(myBirthday.split('/').join('-'));
-                        $('#sex').val(member.sex);
-                        $('#address').val(member.address);
-                        $('#cellphonenum').val(member.cellphone);
-                        $('#telephonenum').val(member.telephone);
-                        let googleid = member.googleid;
-                        let lineid = member.lineid;
-                        if (googleid == undefined) {
-                            $('#google').text('未綁定');
-                        } else {
-                            $('#google').text('已綁定');
-                        }
-
-                        if (lineid == undefined) {
-                            $('#line').text('未綁定');
-                        } else {
-                            $('#line').text('已綁定');
-                        }
-
-                        function inputSize(input) {
-                            input.attr('size', input.val().length + 1)
-                        }
-
-                        $('.inpwrite').each(function () {
-                            inputSize($(this)); // 調整初始大小
-                        });
-
-                        $('.inpwrite').keyup(function () {
-                            inputSize($(this));
-                        });
-
-                        $('.editbtn').click(function () {
-                            // 切換 readonly 屬性
-                            $('#edit').addClass('hidden');
-                            $('#write').removeClass('hidden');
-                            let input = $('.inpwrite');
-                            input.css({ 'border': '1px solid #d2d2d2' }, { 'outline': 'solid thin' });
-                            if (input.prop('readonly')) {
-                                input.prop('readonly', false); // 取消 readonly
-                            }
-                        });
-
-                        $('.cancelbtn').click(function () {
-                            $('#edit').removeClass('hidden');
-                            $('#write').addClass('hidden');
-                            $('#birthday').prop('type', 'text');
-                            $('#birthday').val(myBirthday.split('/').join('-'));
-                            let input = $('.inpwrite');
-                            input.css({ 'border': 'none' }, { 'outline': 'none' });
-                            if (!input.prop('readonly')) {
-                                input.prop('readonly', true);
-                            }
-                        });
+                success: function (member) {
+                    $('#img').prop('src', '../assets/images/memberimg/' + member.uphoto);
+                    $('#uname').text(member.uname);
+                    $('#uname1').val(member.uname);
+                    $('#email').val(member.email);
+                    $('#pwd').val(member.password);
+                    let birthday = new Date(member.birthday);
+                    let myBirthday = birthday.toLocaleDateString('zh-TW', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit'
+                    }).replace(/\//g, '-');
+                    $('#birthday').val(myBirthday);
+                    $('#sex').val(member.sex);
+                    $('#address').val(member.address);
+                    $('#cellphonenum').val(member.cellphone);
+                    $('#telephonenum').val(member.telephone);
+                    let googleid = member.googleid;
+                    let lineid = member.lineid;
+                    if (googleid == undefined) {
+                        $('#google').text('未綁定');
+                    } else {
+                        $('#google').text('已綁定');
                     }
+
+                    if (lineid == undefined) {
+                        $('#line').text('未綁定');
+                    } else {
+                        $('#line').text('已綁定');
+                    }
+
+                    function inputSize(input) {
+                        var minSize = 10;
+                        input.attr('size', input.val().length)
+                    }
+
+                    $('.inpwrite').each(function () {
+                        inputSize($(this)); // 調整初始大小
+                    });
+
+                    $('.inpwrite').on('input', function () {
+                        inputSize($(this));
+                    });
+
+                    let datePicker;
+                    $('.editbtn').click(function () {
+                        $('#edit').addClass('hidden');
+                        $('#write').removeClass('hidden');
+                        let input = $('.inpwrite');
+                        input.css({ 'border': '1px solid #d2d2d2' }, { 'outline': 'solid thin' });
+                        input.prop('readonly', false); // 切換 readonly 屬性
+                        datePicker = flatpickr("#birthday", {
+                            dateFormat: "Y-m-d",
+                            allowInput: true
+                        });
+                    });
+
+                    $('.cancelbtn').click(function () {
+                        let msg = "確定取消編輯?";
+                        if (!confirm(msg)) return false;
+                        $('#edit').removeClass('hidden');
+                        $('#write').addClass('hidden');
+                        let input = $('.inpwrite');
+                        input.css({ 'border': 'none' }, { 'outline': 'none' });
+                        input.prop('readonly', true); // 切換 readonly 屬性
+                        if (datePicker) {
+                            datePicker.destroy();
+                        }
+                        $('#birthday').val(myBirthday);
+                    });
                 },
                 error: function () {
                     alert("資料讀取失敗");

@@ -3,7 +3,7 @@ const mysql = require("mysql");
 // 創建資料庫連接
 const db = mysql.createConnection({
     host: '127.0.0.1',
-    user: 'root',
+    user: 'user',
     password: '123456',
     database: 'huatest'
 });
