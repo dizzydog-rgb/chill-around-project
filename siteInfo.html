@@ -6,10 +6,19 @@
     <title>景點詳細資訊</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap");
-    </style>
-    <script type="module" crossorigin src="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-    <script type="module" crossorigin src="/chill-around-project/assets/main-BBsBh9o7.js"></script>
-    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-B-Y9YrJ1.css">
+    </style>
+    <script>
+      // 更換縮圖
+      function changeImage(image) {
+      document.getElementById("mainImage").src = image;
+    }
+    </script>
+    
+    <script type="module" crossorigin src="/chill-around-project/assets/siteInfo-GHOMJ3rJ.js"></script>
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-JssQaTV8.js">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
+    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
   </head>
   <body>
     <!-- header -->
@@ -122,9 +131,9 @@
     //     }
     // });
 
-</script><div class="siteInfoPage container-fluid p-0">
+</script><div class="siteInfoPage container-fluid p-0" id="siteInfoPage">
       <!-- 上方大圖 -->
-      <div class="topImage container-fluid p-0 bg-primary">
+      <div class="topImage container-fluid p-0 bg-primary" id="topImage">
         <img
           src="/chill-around-project/assets/chimeiMuseum-DJm8o5hA.jpeg"
           class="img-fluid"
@@ -132,68 +141,14 @@
         />
       </div>
 
-      <section class="siteInfo container row">
+      <section class="siteInfo container row" id="siteInfo">
         <!-- 景點標題-->
         <div class="m-3 container d-flex justify-content-between">
           <h1 class="text-nowrap text-nowrap fs-2">文化部文化資產園區1</h1>
           <div class="divider1">
           </div>
         </div>
-        <!-- 輪播圖 -->
-        <div
-          id="carouselExample"
-          class="carousel slide d-md-none col-md-6 order-md-1"
-          data-bs-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div class="siteCarouselItem carousel-item active">
-              <img
-                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%80-DKkF7tdz.jpg"
-                class="d-block w-100"
-                alt="圖片 1"
-              />
-            </div>
-            <div class="siteCarouselItem carousel-item">
-              <img
-                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8002-b3kvjulo.jpg"
-                class="d-block w-100"
-                alt="圖片 2"
-              />
-            </div>
-            <div class="siteCarouselItem carousel-item">
-              <img
-                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8003-ChrNFbta.jpeg"
-                class="d-block w-100"
-                alt="圖片 3"
-              />
-            </div>
-            <div class="siteCarouselItem carousel-item">
-              <img
-                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8004-B1Dy3kur.jpeg"
-                class="d-block w-100"
-                alt="圖片 4"
-              />
-            </div>
-          </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
+        
         <!-- 主圖縮圖 -->
         <div class="leftImage col-md-6 order-md-1 d-none d-md-block">
           <div class="container p-0">
@@ -262,7 +217,9 @@
                     <p>星期六：06:00 – 17:00</p>
                 </div>
             </div>
-            <p>官方網址：https://www.boch.gov.tw/home/zh-tw</p>
+            <p>官方網址：
+              <a href="https://www.boch.gov.tw/home/zh-tw" target="_blank">https://www.boch.gov.tw/home/zh-tw</a>
+              </p>
           </div>
           <div class="addBtn text-end" >
               <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -384,34 +341,6 @@
         </div>
     </footer>
 </div>  </div>
-    <script>
-       function changeImage(image) {
-        document.getElementById("mainImage").src = image;
-      }
-      $(document).ready(function() {
-        //modal
-            // 當選擇行程時，顯示天數選擇
-            $('#itinerarySelect').change(function () {
-                if ($(this).val()) {
-                    $('#daySelectContainer').show(); // 顯示天數選擇
-                } else {
-                    $('#daySelectContainer').hide(); // 隱藏天數選擇
-                }
-            });
-
-            // 確保關閉模態框時，隱藏天數選擇
-            $('#exampleModal').on('hide.bs.modal', function () {
-                $('#daySelectContainer').hide(); // 隱藏天數選擇
-                $('#itinerarySelect').val(''); // 重置行程選擇
-                $('#daySelect').val(''); // 重置天數選擇
-            });
-
-      
-
-
-
-      });
-    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </body>
 </html>
