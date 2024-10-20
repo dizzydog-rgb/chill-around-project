@@ -30,7 +30,7 @@ router.get("/edit", function (req, res) {
     root: path.join(__dirname, "../../", "dist"),
   };
 
-  const fileName = "test.html";
+  const fileName = "editPlan.html";
   res.sendFile(fileName, options, function (err) {
     if (err) {
       console.error("Error sending file:", err);
