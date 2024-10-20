@@ -1,4 +1,93 @@
-// <---------------------- Modal 1 ---------------------->
+// <---------------------- 嘗試連接後端抓資料QQ ---------------------->
+
+import axios from 'axios';
+axios.get('http://localhost:8080/Budget/popupbudgets')
+    .then(response => {
+        // // 處理獲取的資料，例如更新 UI
+        // // 先取 種類 與 細項 的資料
+        // const Categorydata = response.data.Category;
+        // const Detailsdata = response.data.Details;
+        // // console.log(Categorydata);
+
+        // // 若 modalContent2 的 '' 放在迴圈裡會每次都執行清空一次，只剩最後一個結果
+        // const modalContent2 = document.querySelector('.modalContent2');
+        // modalContent2.innerHTML = '';
+
+        // // 開始渲染 itemCategory
+        // Categorydata.forEach(item => {
+        //     // console.log(item);
+
+        //     const newcategoryDiv = document.createElement('div');
+        //     newcategoryDiv.classList.add('category2');
+
+        //     newcategoryDiv.innerHTML = `
+        //     <div class="tiTle">${item.BudgetName}
+        //         <a>V</a>
+        //     </div>
+        //     `;
+
+        //     modalContent2.appendChild(newcategoryDiv);
+
+
+        //////////////  TRYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY  //////////////
+
+        const Categorydata = response.data.Category;
+        const Detailsdata = response.data.Details;
+
+        const modalContent2 = document.querySelector('.modalContent2');
+        modalContent2.innerHTML = '';
+
+        // 创建一个 Map 来存储每个类别的子类别
+        const categoriesMap = new Map();
+
+        // 将每个类别添加到 Map 中
+        Categorydata.forEach(category => {
+            categoriesMap.set(category.Bcategory_id, {
+                name: category.BudgetName,
+                subcategories: []
+            });
+        });
+
+        // 将每个子类别添加到相应的类别中
+        Detailsdata.forEach(detail => {
+            const category = categoriesMap.get(detail.Bcategory_id);
+            if (category) {
+                category.subcategories.push({
+                    id: detail.Subcategory_id,
+                    name: detail.BudgetDetails
+                });
+            }
+        });
+
+        // 开始渲染类别和子类别
+        categoriesMap.forEach((value) => {
+            const newcategoryDiv = document.createElement('div');
+            newcategoryDiv.classList.add('category2');
+            newcategoryDiv.id = 'categoryDiv';
+
+            // 渲染类别
+            newcategoryDiv.innerHTML = `
+                <div class="tiTle">${value.name}
+                    <a>V</a>
+                </div>
+                <div class="options">
+                    ${value.subcategories.map(sub => `
+                        <div class="option" data-option="${sub.name}">${sub.name}</div>
+                    `).join('')}
+                </div>
+            `;
+
+            modalContent2.appendChild(newcategoryDiv);
+        });
+    })
+
+    .catch(error => {
+        console.error('無法取得種類:', error);
+    });
+
+
+
+    // <---------------------- Modal 1 ---------------------->
 function openModal() {
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('modal').style.display = 'block';
@@ -87,73 +176,3 @@ function selectOption(option, event) {
     const selectedOption = event.currentTarget; // 獲取被點擊的選項
     selectedOption.classList.add('active');
 }
-
-// <---------------------- 嘗試連接後端抓資料QQ ---------------------->
-
-import axios from 'axios';
-axios.get('http://localhost:8080/Budget/popupbudgets')
-    .then(response => {
-        // 處理獲取的資料，例如更新 UI
-        // 先取 種類 與 細項 的資料
-        const Categorydata = response.data.Category;
-        const Detailsdata = response.data.Details;
-        // console.log(Categorydata);
-
-        // 若 modalContent2 的 '' 放在迴圈裡會每次都執行清空一次，只剩最後一個結果
-        const modalContent2 = document.querySelector('.modalContent2');
-        modalContent2.innerHTML = '';
-
-        // 開始渲染 itemCategory
-        Categorydata.forEach(item => {
-            // console.log(item);
-
-            const newcategoryDiv = document.createElement('div');
-            newcategoryDiv.classList.add('category2');
-
-            newcategoryDiv.innerHTML = `
-            <div class="tiTle">${item.BudgetName}
-                <a>V</a>
-            </div>
-            `;
-
-            modalContent2.appendChild(newcategoryDiv);
-
-
-            <div class="modalContent2" id="modalContent2">
-                <div class="topDiv2">
-                    <a class="close2" href="#">＜</a>
-                    <button class="okBtn">確認</button>
-                </div>
-
-                <div class="category2" id="categoryDiv">
-                    <div class="tiTle"> 交通111
-                        <a>V</a>
-                    </div>
-                    <div class="options" id="options0">
-                        <div class="option" data-option="飛機">飛機</div>
-                        <div class="option" data-option="船舶">船舶</div>
-                    </div>
-                </div>
-            </div>
-
-
-            // 渲染 itemDetails
-            Detailsdata.forEach(item => {
-                // console.log(item);
-
-                const newDetailsDiv = document.createElement('div');
-                newDetailsDiv.classList.add('options');
-
-                newcategoryDiv.innerHTML = `
-                <div class="tiTle">${item.BudgetName}
-                    <a>V</a>
-                </div>
-                `;
-            })
-
-        })
-    })
-    .catch(error => {
-        console.error('無法取得種類:', error);
-    });
-

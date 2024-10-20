@@ -1,10 +1,10 @@
-const db = require("../config/huatest");
+const db = require("../config/database");
 
 // 獲取特定編號預算種類的模組函數
 exports.findPopupBudgetById = (id) => {
     return new Promise((resolve, reject) => {
         const query = "SELECT * FROM budgetcategory WHERE Bcategory_id = ?"; // 根據 sites 資料表的 id 欄位
-        db.query(query, [id], (err, results) => {
+        db.exec(query, [id], (err, results) => {
             if (err) {
                 return reject(err);
             }
@@ -21,12 +21,12 @@ exports.findAllPopupBudgets = () => {
         const query2 = "SELECT * FROM budgetdetails";
         // console.log(query1);
 
-        db.query(query1, (err1, results1) => {
+        db.exec(query1, (err1, results1) => {
             if (err1) {
                 return reject(err1);
             }
 
-            db.query(query2, (err2, results2) => {
+            db.exec(query2, (err2, results2) => {
                 if (err2) {
                     return reject(err2);
                 }
