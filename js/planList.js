@@ -1,5 +1,4 @@
 import axios from "axios";
-import { render } from "ejs";
 
 axios
   .get("http://localhost:8080/buildPlan/planList")
@@ -31,8 +30,7 @@ function renderPlanList(schedules) {
 
     // 建立卡片的 HTML 結構
     cardItem.innerHTML = `
-            <a  href="http://localhost:5173/chill-around-project/pages/editPlan/${schedule.sch_id}">    
-            <li class="d-flex justify-content-center">
+            <li class="d-flex justify-content-center" data-scheduleId="${schedule.sch_id}">
                 <div class="card" style="width: 90%">
                   <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title"></h5>
@@ -43,7 +41,7 @@ function renderPlanList(schedules) {
                     </div>
                   </div>
                   <img
-                    src="${schedule.sch_image}"
+                    src="https://picsum.photos/seed/picsum/1000/1000"
                     class="card-img-top"
                   />
                   <div class="card-body d-flex justify-content-between">
@@ -59,10 +57,25 @@ function renderPlanList(schedules) {
                   </div>
                 </div>
               </li>
-              </a>
       `;
 
     // 將卡片加入到 ul 中
     cardList.appendChild(cardItem);
+  });
+  // 添加點擊事件，將 ${schedule.sch_id} 儲存在localStorage
+  let cardItems = document.querySelectorAll(".card");
+  cardItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      let targetElement = e.target.closest("li");
+      if (targetElement) {
+        // targetElement.dataset.scheduleid 是小寫
+        const scheduleId = targetElement.dataset.scheduleid;
+        localStorage.setItem("scheduleId", scheduleId);
+
+        window.location.href = "editPlan.html";
+      } else {
+        console.log("找不到最近的 LI");
+      }
+    });
   });
 }
