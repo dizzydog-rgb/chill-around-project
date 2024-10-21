@@ -19,7 +19,7 @@ exports.findAllSchedule = () => {
 exports.findScheduleById = (id) => {
   return new Promise((resolve, reject) => {
     const query = "SELECT * FROM `schedule` WHERE sch_id = ?";
-    db.exec(query, [], (results, fields) => {
+    db.exec(query, [id], (results, fields) => {
       if (results) {
         resolve(results);
       } else {

@@ -29,5 +29,10 @@
     "sass-loader": "^13.2.2",
     "swiper": "^11.1.14",
     "vite-plugin-live-reload": "^3.0.2"
-  }
+  },
+  "description": "- 請遵循以下步驟，將專案從 GitHub 複製到你的本地開發環境：\r   1. 打開終端或命令提示字元\r   2. 使用`cd`進入到你想要存放專案的資料夾\r   3. 使用以下命令進行克隆：\r   ```\r   git clone https://github.com/dizzydog-rgb/chill-around-project.git\r   ```\r - 進入專案資料夾：\r   ```\r   cd chill-around-project\r   ```\r - 注意事項: `git clone` 指令只會下載主分支的檔案，若要和自己的分支同步，請參考 第6點 的常用指令 (Other Commands)，透過切換分支以及`git pull`來與目標分支的檔案同步",
+  "main": "main.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
