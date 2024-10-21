@@ -1,5 +1,21 @@
 const schInfoModel = require("../models/schInfoModel");
 
+exports.getSiteInfo = async (req, res) => {
+    try {
+        const siteInfo = req.params.site
+        const mySite = await schInfoModel.findSite(siteInfo);
+        // 如果找不到資料，回傳 404
+        if (!mySite) {
+            return res.status(404).json({ message: "Site not found" });
+        }
+        // 成功取得資料後回傳 JSON 給前端
+        res.json(mySite);
+    } catch (error) {
+        console.error("Error fetching site:", error);
+        res.status(500).json({ message: "Server Error" });
+    }
+}
+
 //景點加入行程
 exports.getSchedulesAndSites = async (req, res) => {
     try {

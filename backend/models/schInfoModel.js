@@ -24,6 +24,26 @@
 
 const db = require("../config/database");
 
+exports.findSite = () => {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT SUBSTRING(site_add, 1, 6) AS short_site_add, sites.* FROM sites ORDER BY RAND() LIMIT 20";
+
+
+      console.log("觀看這行"+ db); // 在此行查看 db 的內容
+      db.exec(query, [], (err, results) => {
+    if (err) {
+      return reject(err);
+    }
+    // 如果查詢結果有資料，返回第一筆
+  //   resolve(results[0]);
+    resolve(results);
+   
+  });
+});
+};
+
+
+
 exports.getScheduleData = () => {
   return new Promise((resolve, reject) => {
       const query = "SELECT DISTINCT sch_id, sch_name, edit_date, end_date, DATEDIFF(end_date, edit_date) AS days FROM schedule"; 
@@ -82,7 +102,7 @@ exports.addScheduleDetail = (sch_id, sch_day, sch_order, sch_spot) => {
 
 exports.findVideo = (yt) => {
     return new Promise((resolve, reject) => {
-        const query = "SELECT * FROM schedule_info"; 
+        const query = "SELECT *, DATE_FORMAT(blog_date, '%Y-%m') AS blog_year_month FROM schedule_info "; 
 
         console.log("觀看這行"+ db); // 在此行查看 db 的內容
         db.exec(query, [yt], (err, results) => {
