@@ -21,7 +21,7 @@ export function addItem() {
     if (userInput) {
         const categoryContainer = document.querySelector('.categoryContainer');
 
-        // 創建一個新的元素來顯示用戶輸入的文字
+        // 創建一個新元素顯示用戶輸入選擇的種類
         const newItemDiv = document.createElement('div');
         newItemDiv.classList.add('categoryContent');
 

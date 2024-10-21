@@ -1,12 +1,12 @@
 // const mysql = require("mysql");
 
-// // 創建資料庫連接
-// const db = mysql.createConnection({
-//     host: '127.0.0.1',
-//     user: 'root',
-//     password: '123456',
-//     database: 'huatest'
-// });
+// 創建資料庫連接
+const db = mysql.createConnection({
+    host: '127.0.0.1',
+    user: 'root',
+    password: '123456',
+    database: 'huatest'
+});
 
 // // 連接到資料庫
 // db.connect((err) => {

@@ -2,24 +2,28 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <title>首頁</title>
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+
+  <title>首頁</title>
 
 </head>
 
 <body>
 
-    <div class="Index container-fluid p-0">
-      <!-- header -->
-      <%- include('./layout/searchHeader_trans'); -%>
+  <div class="Index container-fluid p-0">
+    <!-- header -->
+    <%- include('./layout/searchHeader_trans'); -%>
 
       <!-- tag -->
-      <nav class="tag text-center m-0">
-        <button
+      <!-- 按鈕將由 JavaScript 動態生成 -->
+      <nav class="tag text-center m-0" id="tag-container">
+        <!-- <button
           type="button"
           class="IndexBtn btn btn-outline-primary btn-sm mx-2"
         >
@@ -42,13 +46,13 @@
           class="IndexBtn btn btn-outline-primary btn-sm mx-2"
         >
           家庭旅行
-        </button>
+        </button> -->
       </nav>
 
       <!-- Swiper -->
       <div class="swiper mySwiperIndex swiper-h">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
+        <div class="swiper-wrapper" id="hero-container">
+          <!-- <div class="swiper-slide">
             <div
               class="hero-image"
               style="
@@ -132,31 +136,33 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="swiper-pagination"></div>
       </div>
-    </div>
-    <script type="module" src="/main.js"></script>
-    <!-- <script type="module" src="../js/about.js"></script> -->
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  </div>
+  <script type="module" src="/main.js"></script>
+  <script type="module" src="../js/index.js"></script>
+  <!-- <script type="module" src="../js/about.js"></script> -->
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // <!-- Initialize Swiper -->
+    var swiper = new Swiper(".mySwiperIndex", {
+      spaceBetween: 0,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      autoplay: {
+        delay: 10000, // 每秒切換一次
+        disableOnInteraction: false,
+        // 當使用者與幻燈片互動時，保持自動播放
+      },
+    });
+  </script>
 
-    <!-- Initialize Swiper -->
-    <script>
-      var swiper = new Swiper(".mySwiperIndex", {
-        spaceBetween: 0,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        autoplay: {
-          delay: 10000, // 每秒切換一次
-          disableOnInteraction: false,
-          // 當使用者與幻燈片互動時，保持自動播放
-        },
-      });
-    </script>
-  </body>
+</body>
+
 </html>
