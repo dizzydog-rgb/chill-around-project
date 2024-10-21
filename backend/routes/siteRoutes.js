@@ -14,7 +14,10 @@ router.use(cors());
 router.get("/siteinfo/:id", siteController.getSiteById);
 
 // GET 請求: 取得景點總覽頁面資料
-router.get("/allsite/:city", siteController.getSiteByCity);
+// router.get("/allsite/:city", siteController.getSiteByCity);
+router.get("/allsite/select", siteController.getSiteTag);
+// GET 請求: 取得景點總覽頁面資料
+router.get("/allsite/all/randomCity", siteController.getRandomSite);
 
 
 
