@@ -1,4 +1,4 @@
-const mysql = require("mysql2");
+const mysql = require("mysql");
 
 exports.exec = (sql, data, callback) => {
   const connection = mysql.createConnection({

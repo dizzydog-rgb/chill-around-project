@@ -54,11 +54,11 @@
 // }
 
 // database.js 查詢cahtgpt =>差異callback多一個null callback(null, results, fields);
-var mysql = require('mysql');
+var mysql1 = require('mysql');
 
 exports.exec = (sql, data, callback) => {
-    const connection = mysql.createConnection({
-        host: '127.0.0.1',
+    const connection = mysql1.createConnection({
+        host: 'localhost',
         port: '8889',
         user: 'root',
         password: 'root',

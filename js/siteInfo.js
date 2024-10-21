@@ -24,7 +24,7 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
     // 更新 UI，顯示資料
     document.getElementById('topImage').innerHTML = `
     <img
-          src="${photo_four}"
+          src="../assets/images/searchSite/${photo_four}"
           class="img-fluid"
           alt="大圖"
         />
@@ -43,7 +43,7 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
               <div class="mainImage col-md-12 text-center d-none d-md-block">
                 <img
                   id="mainImage"
-                  src="${photo_one}"
+                  src="../assets/images/searchSite/${photo_one}"
                   class="img-fluid"
                   alt="主圖"
                 />
@@ -52,34 +52,34 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
             <div class="row mt-2">
               <div class="smallImage col-md-3 text-center">
                 <img
-                  src="${photo_one}"
+                  src="../assets/images/searchSite/${photo_one}"
                   class="p-0 thumbnail img-thumbnail"
                   alt="縮圖1"
-                  onclick="changeImage('${photo_one}')"
+                  onclick="changeImage('../assets/images/searchSite/${photo_one}')"
                 />
               </div>
               <div class="smallImage col-md-3 text-center">
                 <img
-                  src="${photo_two}"
+                  src="../assets/images/searchSite/${photo_two}"
                   class=" p-0 thumbnail img-thumbnail"
                   alt="縮圖2"
-                  onclick="changeImage('${photo_two}')"
+                  onclick="changeImage('../assets/images/searchSite/${photo_two}')"
                 />
               </div>
               <div class="smallImage col-md-3 text-center">
                 <img
-                  src="${photo_three}"
+                  src="../assets/images/searchSite/${photo_three}"
                   class="p-0 thumbnail img-thumbnail"
                   alt="縮圖3"
-                  onclick="changeImage('${photo_three}')"
+                  onclick="changeImage('../assets/images/searchSite/${photo_three}')"
                 />
               </div>
               <div class="smallImage col-md-3 text-center">
                 <img
-                  src="${photo_four}"
+                  src="../assets/images/searchSite/${photo_four}"
                   class="p-0 thumbnail img-thumbnail"
                   alt="縮圖4"
-                  onclick="changeImage('${photo_four}')"
+                  onclick="changeImage('../assets/images/searchSite/${photo_four}')"
                 />
               </div>
             </div>
