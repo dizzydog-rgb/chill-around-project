@@ -4,7 +4,7 @@ const db = require("../config/database");
 exports.findAllSchedule = () => {
   return new Promise((resolve, reject) => {
     const query = "SELECT * FROM `schedule`";
-    db.exec(query, [], (results, fields) => {
+    db.exec(query, [], (error, results, fields) => {
       if (results) {
         resolve(results);
       } else {
@@ -19,7 +19,7 @@ exports.findAllSchedule = () => {
 exports.findScheduleById = (id) => {
   return new Promise((resolve, reject) => {
     const query = "SELECT * FROM `schedule` WHERE sch_id = ?";
-    db.exec(query, [id], (results, fields) => {
+    db.exec(query, [id], (error, results, fields) => {
       if (results) {
         resolve(results);
       } else {
