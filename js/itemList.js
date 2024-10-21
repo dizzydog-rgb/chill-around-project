@@ -1,3 +1,9 @@
+import axios from "axios";
+axios.get('http://localhost:8080/Budget/popupbudgets')
+    .then(response => {
+        console.log(response);
+    })
+
 // ------------------ 進度條勾選 ------------------
 const checkboxes = document.querySelectorAll('.checkBOX');
 const progress = document.getElementById('progress-bar');
@@ -70,7 +76,7 @@ categories.forEach((category, index) => {
     // 創建 .col-md-4 和 .cardOut 容器
     const cardOut = document.createElement('div');
     cardOut.classList.add('col-md-4', 'col-4', 'mb-3', 'cardOut');
-  
+
     // 創建卡片元素
     const card = document.createElement('div');
     card.classList.add('card');

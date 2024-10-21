@@ -14,8 +14,9 @@ const popupBudgetController = require("../controller/popupBudgetController");
 
 // 定義 GET 請求的路由為 /sites/:id，來處理帶有景點 ID 的請求
 // 這裡定義各種資料取用的路由請求
-router.get("/popupBudget/:id", popupBudgetController.getPopupBudgetById);
-router.get("/popupBudgets", popupBudgetController.getAllPopupBudgets);
 
+// router.get("/popupBudget/:id", popupBudgetController.getUserBudgetID);
+router.get("/:id", popupBudgetController.getUserBudgetID);
+router.get("/popupBudgets", popupBudgetController.getBudgetCategory);
 
 module.exports = router;

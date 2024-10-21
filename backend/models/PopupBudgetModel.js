@@ -1,9 +1,9 @@
 const db = require("../config/database");
 
 // 獲取特定編號預算種類的模組函數
-exports.findPopupBudgetById = (id) => {
+exports.findUserBudgetId = (id) => {
     return new Promise((resolve, reject) => {
-        const query = "SELECT * FROM budgetcategory WHERE Bcategory_id = ?"; // 根據 sites 資料表的 id 欄位
+        const query = "SELECT * FROM userbudget WHERE sch_id = ?"; // 根據 sites 資料表的 id 欄位
         db.exec(query, [id], (err, results) => {
             if (err) {
                 return reject(err);
@@ -15,9 +15,9 @@ exports.findPopupBudgetById = (id) => {
 };
 
 // 獲取全部預算種類 TEST
-exports.findAllPopupBudgets = () => {
+exports.findBudgetCategory = () => {
     return new Promise((resolve, reject) => {
-        const query1 = "SELECT * FROM budgetcategory";
+        const query1 = "SELECT * FROM budgetcategory ORDER BY Bcategory_id ASC";
         const query2 = "SELECT * FROM budgetdetails";
         // console.log(query1);
 

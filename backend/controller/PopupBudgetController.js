@@ -1,11 +1,13 @@
 const popupBudgetModel = require("../models/popupBudgetModel");
 // 獲取特定物品種類的控制器
-exports.getPopupBudgetById = async (req, res) => {
+exports.getUserBudgetID = async (req, res) => {
     try {
         // 從 URL 參數中提取 ID
         const popupBudgetId = req.params.id;
+        // const popupBudgetId = parseInt(req.params.id, 10);
+
         // 從資料庫取得特定 ID 的景點資料
-        const popupBudget = await popupBudgetModel.findPopupBudgetById(popupBudgetId);
+        const popupBudget = await popupBudgetModel.findUserBudgetId(popupBudgetId);
         // 如果找不到資料，回傳 404
         if (!popupBudget) {
             return res.status(404).json({ message: "PopupBudget not found" });
@@ -15,14 +17,14 @@ exports.getPopupBudgetById = async (req, res) => {
     } catch (error) {
         // 錯誤處理
         console.error("Error fetching PopupBudget:", error);
-        res.status(500).json({ message: "Server Error" });
+        // res.status(500).json({ message: "Server Error" });
     }
 };
 
 // 獲得全部種類的控制器
-exports.getAllPopupBudgets = async (req, res) => {
+exports.getBudgetCategory = async (req, res) => {
     try {
-        const popupBudgets = await popupBudgetModel.findAllPopupBudgets();
+        const popupBudgets = await popupBudgetModel.findBudgetCategory();
         res.json(popupBudgets);
     } catch (error) {
         console.error("Error fetching PopupBudgets:", error);
