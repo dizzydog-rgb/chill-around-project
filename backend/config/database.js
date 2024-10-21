@@ -15,7 +15,7 @@ exports.exec = (sql, data, callback) => {
       console.log("Error connecting to the database:", error);
     }
     console.log("Connected to the database.");
-    callback(results, fields);
+    callback(null, results, fields);
   });
   connection.end();
 };
