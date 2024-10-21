@@ -3,7 +3,7 @@ const db = require("../config/database");
 // hero img sql
 exports.findHero = (hero) => {
     return new Promise((resolve, reject) => {
-        const query = "SELECT * FROM schedule_info"; 
+        const query = "SELECT * FROM schedule_info ORDER BY RAND() LIMIT 5"; 
 
         console.log("觀看這行"+ db); // 在此行查看 db 的內容
         db.exec(query, [hero], (err, results) => {

@@ -1,9 +1,11 @@
 const express = require("express");
-const app = express();
+const cors = require("cors"); 
 const path = require("path");
 const router = express.Router();
-const schInfoContronller = require('../controller/schInfoContronller')
+const schInfoController = require('../controller/schInfoController')
 
+
+router.use(cors());
 //取得頁面
 //http://localhost:8080/schInfo/Info
 router.get("/Info", function (req, res) {
@@ -21,7 +23,12 @@ router.get("/Info", function (req, res) {
   });
 });
 
-router.get('/Youtube',schInfoContronller.getVideoUrl);
+router.get('/getspot', schInfoController.getSchedulesAndSites);
+router.post('/getspot/add', schInfoController.addSchedule);
+
+//http://localhost:8080/schInfo/Youtube
+router.get('/Youtube',schInfoController.getVideoUrl);
+
 
 
 
