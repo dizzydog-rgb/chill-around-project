@@ -1,10 +1,11 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
+// const testController = require("../controllers/testController");
 
 
-router.get("/test", function (req, res) {
-    // res.send("成功呼叫")
+router.get("/", function (req, res) {
+    // res.send("成功呼叫")  // localhost:8080/test
   const options = {
     root: path.join(__dirname, "../../", "dist"),
   };
@@ -17,3 +18,4 @@ router.get("/test", function (req, res) {
     }
   });
 });
+module.exports = router;

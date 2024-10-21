@@ -1,3 +1,23 @@
+import $ from 'https://code.jquery.com/jquery-3.7.1.js';
+// 請求資料庫資料
+import axios from "axios";
+axios
+  .get("http://localhost:8080/test/1")
+  .then(function (response) {
+    // handle success
+    const testStyle = response.data;
+    console.log(testStyle);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+    console.log("請求失敗");
+  })
+//   .finally(function () {
+//     // always executed
+//   });
+
+
 // 切換頁面
 // $(".content").hide();
 $(".testQuestion1").hide();
@@ -87,7 +107,12 @@ $(".btn5").on("click", () => {
         $(".content").hide();
         $(".testQuestion5").hide();
         $(".testResult").fadeIn(()=>{setTimeout(setloadingout,3000);});
-        
+
+        // 結果
+        console.log(mbti);
+        // 串接資料庫結果
+        // 判斷式
+
         // 推薦行程卡片
         let schData=[
             {title:'卡片標題',img:'https://via.placeholder.com/400x200',des:'這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。'},

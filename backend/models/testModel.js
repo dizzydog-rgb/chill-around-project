@@ -1,6 +1,6 @@
 var db = require('../config/database');
 
-exports.findEmailById = (id) => {
+exports.findTestById = (id) => {
     return new Promise((resolve, reject) => {
         var sql = "SELECT * FROM `test_result` WHERE result_id = ?";
         db.exec(sql, [id], function (results, fields) {

@@ -24,6 +24,7 @@ app.use("/", indexRoutes);
 app.use("/buildPlan", buildPlanRoutes);
 app.use("/member", memberRoutes);
 app.use("/site", siteRoutes);
+app.use("/test", testRoutes);
 
 // 注意，埠號是 8080
 const port = 8080;
