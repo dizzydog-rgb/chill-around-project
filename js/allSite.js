@@ -24,45 +24,40 @@ function showRandomAttractions() {
         });
    
 }
+// 在DOM加載完成後讀網址
+document.addEventListener("DOMContentLoaded",()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    const selectSiteCity = urlParams.get('site_city');
+    const selectTagId = urlParams.get('tag_id');
 
-// 在 DOM 內容加載完成時調用隨機函數
-document.addEventListener('DOMContentLoaded', () => {
-    showRandomAttractions(); // 顯示隨機的景點
+    const cityCheckboxes = document.querySelectorAll('.cityCheckbox');
+    const tagCheckboxes = document.querySelectorAll('.tagCheckbox');
+    
+    
+
+    // 寫判斷式 如果有參數執行生成相對應的內容 根據 URL 中的參數設置核取方塊的狀態 並生成卡片
+    if(selectSiteCity && selectTagId) {
+        // 根據 URL 中的參數設置核取方塊的狀態
+        cityCheckboxes.forEach(checkbox=>{
+            checkbox.checked = (selectSiteCity === checkbox.value); // 設置核取方塊狀態
+        })
+        tagCheckboxes.forEach(checkbox => {
+            checkbox.checked = (selectTagId === checkbox.value);
+        });
+        updateCards();
+        // fetchAttractions(selectSiteCity, selectTagId);
+    }else{
+        // 如果沒有城市和標籤，顯示隨機的景點
+        showRandomAttractions();
+    }
 });
 
-
-// 獲取地區的景點資料
-// const siteData = {}; // 用於儲存獲取的景點資料
-// function fetchAttractionData(cityName) {
-//     return axios.get(`http://localhost:8080/site/allsite/${cityName}`) // 注意確保後端可接受的 URL 和查詢參數
-//         .then(response => {
-//             console.log("取得資料"+response.data);
-//             console.log(response.data);
-//             // for(index in response.data ){
-                
-//             // }
-//             siteData[cityName] = response.data; // 將資料儲存到 siteData 中
-//         })
-//         .catch(error => {
-//             console.error(`Error fetching data for ${cityName}:`, error);
-//         });
-// }
-// 綁定點擊事件
-// document.addEventListener('DOMContentLoaded', () => {
-//     const checkboxes = document.querySelectorAll('.form-check-input');
-//     checkboxes.forEach(checkbox => {
-//         checkbox.addEventListener('click', updateCards);
-//         // console.log(checkbox); // 確認所有核取方塊都被選到
-//     });
-    
-// });
-// 更新卡片根據選擇的地區和標籤
 // 依照使用者選取內容呈現卡片
 function updateCards() {
     const selectedRegions = Array.from(document.querySelectorAll('.cityCheckbox:checked')).map(checkbox => checkbox.value).join(',');
     const selectedTags = Array.from(document.querySelectorAll('.tagCheckbox:checked')).map(checkbox => checkbox.value).join(',');
-    // const sitecardBox = document.getElementById('sitecardBox');
-    // sitecardBox.innerHTML = ''; // 清空已有的卡片
+    console.log(`Selected regions: ${selectedRegions}, selected tags: ${selectedTags}`); // 確認選��的地��和標��
     if(!selectedRegions && !selectedTags){
         // const sitecardBox = document.getElementById('sitecardBox');
         // sitecardBox.innerHTML = ''; // 清空目前顯示的卡片
@@ -97,41 +92,10 @@ function updateCards() {
     
 }
 
-// 綁定事件
-document.querySelectorAll('.cityCheckbox').forEach(checkbox => {
-    checkbox.addEventListener('change', updateCards);
-});
-document.querySelectorAll('.tagCheckbox').forEach(checkbox => {
-    checkbox.addEventListener('change', updateCards);
-});
-
-// 更新卡片根據選中的地區
-// function updateCards() {
-//     const checkboxes = document.querySelectorAll('#checkboxContainer input[type="checkbox"]:checked');
-//     const cardContainer = document.getElementById('sitecardBox');
-//     cardContainer.innerHTML = ''; // 清空已有的卡片
-    
-//     const selectedCities = Array.from(checkboxes).map(checkbox => checkbox.value);
-//     console.log("選到的城市"+selectedCities);
-
-//     const promises = selectedCities.map(cityName => fetchAttractionData(cityName)); // 獲取每個選中的城市的景點資料
-//     console.log(promises);
-    
-//     Promise.all(promises).then(() => {
-//         // 獲取完資料後，根據選擇的城市產生卡片
-//         selectedCities.forEach(city => {
-//             console.log("看資料"+city);
-            
-//             const attractions = siteData[city];
-//             attractions.forEach(attraction => {
-//                 createCard(attraction);
-//             });
-//         });
-//     });
-// }
  // 創建卡片
- function createCard(attraction) {
+function createCard(attraction) {
     console.log(attraction); //確認有叫出點擊的卡片資訊
+    
     
     const sitecardBox = document.getElementById('sitecardBox');
     const siteCard = document.createElement("div");
@@ -143,7 +107,7 @@ document.querySelectorAll('.tagCheckbox').forEach(checkbox => {
                     </div>
                     <div class="cardOverlay">
                         <h5 class="card-title">${attraction.site_name}</h5>
-                        <p class="card-subtitle">${attraction.site_city}</p>
+                        <p class="card-subtitle">${attraction.short_add}</p>
                     </div>
                     <div class="btnOverlay">
                         <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -151,27 +115,35 @@ document.querySelectorAll('.tagCheckbox').forEach(checkbox => {
                         </button>
                     </div>
                 </div>`;
+    console.log(sitecardBox);
+
+    // 用 onclick 導向到詳細資訊頁面
+    siteCard.onclick = function() {
+        window.location.href = `/chill-around-project/pages/siteInfo.html?id=${attraction.site_id}`;
+    };
+    
     sitecardBox.appendChild(siteCard);
 }
 
+// 綁定事件
+document.querySelectorAll('.cityCheckbox').forEach(checkbox => {
+    checkbox.addEventListener('change', updateCards);
+});
+document.querySelectorAll('.tagCheckbox').forEach(checkbox => {
+    checkbox.addEventListener('change', updateCards);
+});
 
 
-// // 獲取台北的景點資料
-// axios.get(`http://localhost:8080/site/allsite/${cityName}`)
-//     .then(response => {
-//         console.log(response.data);
-        
-        // const attractionsContainer = document.getElementById('attractions');
-        // attractionsContainer.innerHTML = ''; // 清空已有的結果
-        
-        // response.data.forEach(attraction => {
-        //     const attractionElement = document.createElement('div');
-        //     attractionElement.innerText = attraction.name; // 假設每個景點都有 'name' 屬性
-        //     attractionElement.className = 'attraction-item';
-        //     attractionElement.onclick = () => createCard(attraction); // 點擊時創建卡片
-        //     attractionsContainer.appendChild(attractionElement);
-        // });
-    // })
-    // .catch(error => {
-    //     console.error('Error fetching attractions:', error);
+// 目前點加入行程按鈕沒反應
+ // document.addEventListener('DOMContentLoaded', () => {
+    //     // 獲取按鈕並綁定事件
+    //     const addButton = document.querySelector('.addBtn');
+    //     addButton.onclick = (event) => {
+    //         event.stopPropagation(); // 阻止事件向上冒泡，這樣不會觸發卡片的點擊事件 
+            
+    
+    // };
     // });
+
+
+

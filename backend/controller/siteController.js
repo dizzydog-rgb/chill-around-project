@@ -37,7 +37,7 @@ exports.getSiteById = async (req, res) => {
 //       res.status(500).json({ message: "Server Error" });
 //     }
 //   };
-// 用隨機撈資料
+// allsite隨機撈景點資料
 exports.getRandomSite = async (req, res) => {
     siteModel.findRandomSite()
         .then(site => {
@@ -51,6 +51,20 @@ exports.getRandomSite = async (req, res) => {
     
   };
 
+// serchsite 熱門景點 隨機撈資料
+exports.getRandomCard = async (req, res) => {
+    siteModel.findRandomCard()
+        .then(site => {
+            res.json(site);  // 返回 JSON 格式的資料
+        })
+        .catch(err => {
+            console.error('查詢發生錯誤:', err);
+            res.status(500).json({ error: 'getRandomCard資料庫查詢失敗' });
+        });
+    
+  };
+
+  // 根據使用者選取的內容撈資料
 exports.getSiteTag = async (req, res) => {
     const regions = req.query.site_city; // 提取城市參數
     const tags = req.query.tag_id; // 提取標籤 ID 參數
@@ -63,3 +77,20 @@ exports.getSiteTag = async (req, res) => {
     }
     
   };
+
+exports.getsearchSite = async(req, res) => {
+    const region = req.query.site_city; // 提取城市參數
+    const tag = req.query.tag_id; // 提取標籤 ID 參數
+    // const { region, tag } = req.query; // 假設地區和標籤是從查詢字符串獲取的
+    try {
+        const results = await siteModel.findSearchSite(region, tag);
+        // res.json(attractions);
+        // 將數據作為JSON響應
+        res.json(results);
+    } catch (error) {
+        console.error('搜尋失敗', error);
+        if (!res.headersSent) { // 檢查響應是否已發送
+            res.status(500).json({ error: '伺服器錯誤' });
+        }
+    }
+};

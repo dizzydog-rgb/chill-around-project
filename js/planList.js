@@ -5,6 +5,8 @@ axios
   .then(function (response) {
     // handle success
     const schedules = response.data;
+    console.log(schedules);
+
     renderPlanList(schedules);
   })
   .catch(function (error) {
@@ -41,7 +43,7 @@ function renderPlanList(schedules) {
                     </div>
                   </div>
                   <img
-                    src="https://picsum.photos/seed/picsum/1000/1000"
+                    src="../assets/images/searchSite/${schedule.photo_one}"
                     class="card-img-top"
                   />
                   <div class="card-body d-flex justify-content-between">

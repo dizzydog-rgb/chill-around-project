@@ -172,7 +172,7 @@ html {
 
         &:hover img {
             transform: scale(1.1);
-            
+
         }
 
         .cardOverlay {
@@ -256,7 +256,7 @@ html {
 
 //swiper
 
-.shcInfo  .swiper {
+.shcInfo .swiper {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
@@ -287,7 +287,7 @@ html {
 
 
 //Blog Card
-.BlogBox{
+.BlogBox {
     background-color: #F9F7EA;
 }
 
@@ -315,19 +315,49 @@ html {
         flex-direction: column;
         justify-content: top;
         padding: 1.5rem;
+        
+
+        
 
         .card-title {
-            margin: 0;
-            padding: 0;
+            white-space: nowrap;             /* 不換行 */
+            overflow: hidden;                /* 隱藏超出部分 */
+            text-overflow: ellipsis;         /* 顯示省略號 */
+            margin: 0;                       /* 清除外邊距 */
+            padding: 0;                      /* 清除內邊距 */
+            width: 100%                     /* 確保寬度為 100% */
+
+            h6 {
+                white-space: nowrap;
+            }
+
+            .date {
+                white-space: nowrap;
+                font-size: 8px;
+                margin: 0;                       /* 清除外邊距 */
+                padding: 0; 
+            }
+
         }
 
         .card-text {
             color: black;
-            font-size: 18px;
+            font-size: 16px;
+            display: -webkit-box;
+            /* 使文本成為彈性盒子 */
+            -webkit-box-orient: vertical;
+            /* 垂直排列盒子 */
+            -webkit-line-clamp: 3;
+            /* 限制顯示兩行 */
+            overflow: hidden;
+            /* 隱藏超出部分 */
+            text-overflow: ellipsis;
+            /* 顯示省略號 */
         }
-        
+
 
     }
+
     // 這裡讓卡片 hover 時緩慢放大
     transition: transform 0.6s ease;
 
@@ -337,45 +367,67 @@ html {
 
 }
 
+
+
 @media (max-width: 768px) {
     .custom-card {
         object-fit: cover;
         height: auto;
-       
+
         /* 手機或平板自動調整高度 */
         .custom-img {
             border-radius: 10px 10px 0px 0px;
-    
+
         }
     }
+
     .searchOverlay2 {
         padding: 15px;
-        text-align: center; /* 確保內容居中 */
+        text-align: center;
+        /* 確保內容居中 */
 
     }
+
     .input-group2 {
         display: flex;
-        flex-direction: column; /* 讓元素垂直排列 */
-        align-items: center; /* 垂直居中 */
-        justify-content: center; /* 水平居中 */
+        flex-direction: column;
+        /* 讓元素垂直排列 */
+        align-items: center;
+        /* 垂直居中 */
+        justify-content: center;
+        /* 水平居中 */
         width: 100%;
-        gap: 20px; /* 增加元素之間的間距 */
+        gap: 20px;
+        /* 增加元素之間的間距 */
     }
+
     .inputRWD {
         margin: 0;
         display: flex;
-        flex-direction: row; /* 讓 label 和 select 水平排列 */
-        justify-content: center; /* 水平居中 */
-        align-items: center; /* 垂直對齊 */
-        width: 80%; /* 撐滿容器 */
-        gap: 10px; /* 調整 label 和 select 之間的距離 */
+        flex-direction: row;
+        /* 讓 label 和 select 水平排列 */
+        justify-content: center;
+        /* 水平居中 */
+        align-items: center;
+        /* 垂直對齊 */
+        width: 80%;
+        /* 撐滿容器 */
+        gap: 10px;
+        /* 調整 label 和 select 之間的距離 */
     }
-    #regionLabel, #categoryLabel2 {
-        text-align: right; /* 讓 label 文字靠右，與選單對齊 */
-        width: auto; /* 適應內容寬度 */
+
+    #regionLabel,
+    #categoryLabel2 {
+        text-align: right;
+        /* 讓 label 文字靠右，與選單對齊 */
+        width: auto;
+        /* 適應內容寬度 */
     }
-    .custom-select, .custom-select2 {
-        flex-grow: 1; /* 讓 select 撐滿剩餘空間 */
+
+    .custom-select,
+    .custom-select2 {
+        flex-grow: 1;
+        /* 讓 select 撐滿剩餘空間 */
         padding: 8px;
         border-radius: 5px;
         border: 1px solid #ccc;
@@ -387,25 +439,26 @@ html {
 }
 
 //modal
-.modal-footer{
+.modal-footer {
 
-    .Close{
+    .Close {
 
         border-radius: 50px;
         background-color: $warning;
         color: white;
-    
+
         &:hover {
             background-color: $secondary;
             color: white;
         }
 
     }
-    .Save{
+
+    .Save {
         border-radius: 50px;
         background-color: primary;
         color: white;
-    
+
         &:hover {
             background-color: $success;
             color: white;

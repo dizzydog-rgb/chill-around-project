@@ -8,10 +8,10 @@
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap");
     </style>
     <script>
-      // 更換縮圖
       function changeImage(image) {
-      document.getElementById("mainImage").src = image;
-    }
+        console.log(image);
+        document.getElementById("mainImage").src =image;
+      }
     </script>
     
   </head>
@@ -35,7 +35,62 @@
           <div class="divider1">
           </div>
         </div>
-        
+        <!-- 輪播圖 -->
+        <div
+          id="carouselExample"
+          class="carousel slide d-md-none col-md-6 order-md-1"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="siteCarouselItem carousel-item active">
+              <img
+                src="../assets/images/searchSite/Taipei/ShilinNightMarket01.jpeg"
+                class="d-block w-100"
+                alt="圖片 1"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="../assets/images/searchSite/文創園區02.jpg"
+                class="d-block w-100"
+                alt="圖片 2"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="../assets/images/searchSite/文創園區03.jpeg"
+                class="d-block w-100"
+                alt="圖片 3"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="../assets/images/searchSite/文創園區04.jpeg"
+                class="d-block w-100"
+                alt="圖片 4"
+              />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
         <!-- 主圖縮圖 -->
         <div class="leftImage col-md-6 order-md-1 d-none d-md-block">
           <div class="container p-0">
@@ -167,7 +222,7 @@
     <%- include('./layout/footer'); -%>
   </div>
   <script type="module" src="/main.js"></script>
-    <script type="module" src="../js/siteInfo.js">
+  <script type="module" src="../js/siteInfo.js">
       
 
 
