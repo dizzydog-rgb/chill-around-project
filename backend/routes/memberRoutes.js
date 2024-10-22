@@ -3,14 +3,18 @@ const path = require("path");
 const router = express.Router();
 const bodyParser = require('body-parser');
 const memberController = require("../controller/memberController");
+const auth = require('../middleware/authMiddleware');
 var db = require('../config/database');
 
 router.use(bodyParser.json());
 router.use('/images', express.static(__dirname + '/assets/images'));
 
+// 驗證token，取得資料庫會員資料
+router.get("/members/user", auth, memberController.getByemail);
+
 // GET 請求: 取得頁面
 // 登入
-router.get("/loginpage", function (req, res) {
+router.get("/login", function (req, res) {
     const options = {
         root: path.join(__dirname, "../../", "dist"),
     };
@@ -106,8 +110,5 @@ router.get("/TaiwanEx", function (req, res) {
         }
     });
 });
-
-// 取得資料庫資料
-router.get("/members/:id", memberController.getemailById);
 
 module.exports = router;

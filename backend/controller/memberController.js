@@ -1,9 +1,9 @@
 const memberModel = require("../models/memberModel");
 
-exports.getemailById = async (req, res) => {
+exports.getByemail = async (req, res) => {
     try {
-        const emailId = req.params.id;
-        const user = await memberModel.findEmailById(emailId);
+        const email = req.user.email;
+        const user = await memberModel.findEmail(email);
         if (!user) {
             return res.status(404).json({ message: "未找到該會員。" });
         } else {
@@ -17,12 +17,15 @@ exports.getemailById = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const member = req.body;
-        const user = await memberModel.loginEmail(member);
-        if (!user) {
-            return res.status(404).json({ message: "未找到該會員。" });
+        const result = await memberModel.loginEmail(req.body);
+        if (result.token) {
+            res.json({
+                token: result.token,
+                account: result.account,
+                updated_at: result.updated_at
+            });
         } else {
-            res.json(user);
+            res.status(401).json({ message: result.error });
         }
     } catch (error) {
         console.error("登入錯誤:", error);
