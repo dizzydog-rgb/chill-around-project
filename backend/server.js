@@ -28,7 +28,8 @@ app.use("/buildPlan", buildPlanRoutes);
 app.use("/schInfo", schInfoRoutes);
 app.use("/member", memberRoutes);
 app.use("/site", siteRoutes);
-app.use("/budget", PopBudgetRoutes);
+app.use("/budget", popupBudgetRoutes);
+app.use("/test", testRoutes);
 
 // 注意，埠號是 8080
 const port = 8080;

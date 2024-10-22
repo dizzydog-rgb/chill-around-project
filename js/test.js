@@ -1,22 +1,24 @@
-import $ from 'https://code.jquery.com/jquery-3.7.1.js';
 // 請求資料庫資料
-import axios from "axios";
-axios
-  .get("http://localhost:8080/test/1")
-  .then(function (response) {
-    // handle success
-    const testStyle = response.data;
-    console.log(testStyle);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-    console.log("請求失敗");
-  })
-//   .finally(function () {
-//     // always executed
-//   });
-
+// const axios = require('axios');
+import axios from 'axios';
+let urlMap = {
+    'ESTJ': "http://localhost:8080/test/1",
+    'ESFJ': "http://localhost:8080/test/2",
+    'ENFJ': "http://localhost:8080/test/3",
+    'ENTJ': "http://localhost:8080/test/4",
+    'ISTJ': "http://localhost:8080/test/5",
+    'ISFJ': "http://localhost:8080/test/6",
+    'INFJ': "http://localhost:8080/test/7",
+    'INTJ': "http://localhost:8080/test/8",
+    'ESTP': "http://localhost:8080/test/9",
+    'ESFP': "http://localhost:8080/test/10",
+    'ENFP': "http://localhost:8080/test/11",
+    'ENTP': "http://localhost:8080/test/12",
+    'ISTP': "http://localhost:8080/test/13",
+    'ISFP': "http://localhost:8080/test/14",
+    'INFP': "http://localhost:8080/test/15",
+    'INTP': "http://localhost:8080/test/16"
+};
 
 // 切換頁面
 // $(".content").hide();
@@ -110,8 +112,73 @@ $(".btn5").on("click", () => {
 
         // 結果
         console.log(mbti);
-        // 串接資料庫結果
+        // 引入資料庫結果
+        const fetchTestStyle = (mbtiType) => {
+            axios.get(urlMap[mbtiType])
+            .then(function (response) {
+            // handle success
+            const testStyle = response.data;
+            // console.log(testStyle);
+            // console.log(testStyle.result_style);
+            // console.log(testStyle.style_des);
+            // 更改資料
+            const imageSrc = testStyle.style_img.replace(/['"]/g, ''); // 去除引號(資料表圖片存字串)
+            const bestImage = testStyle.best_style_img.replace(/['"]/g, ''); // 去除引號(資料表圖片存字串)
+            const countryImage = testStyle.country_img.replace(/['"]/g, ''); // 去除引號(資料表圖片存字串)
+            let resultHtml = `
+                <h2 class="text-primary m-3">你的旅行風格是...</h2>
+                <!-- 角色 -->
+                <div class="col-10 d-flex m-auto" id="resultStyle">
+                <div class="characterDes me-3">
+                <h2 class="text-secondary">${testStyle.result_style}</h2>
+                <hr>
+                <p>${testStyle.style_des}</p>
+                    </div>
+                        <img src="../assets/images/test/mbti/${imageSrc}" style="width: 200px; height: 200px;">
+                </div>
+                <!-- 旅遊地 -->
+                <div class="resultCountry card flex-row flex-wrap col-10 my-3 mx-auto">
+                    <!-- 左邊的圖片 -->
+                    <div class="col-4">
+                        <img src="../assets/images/test/country/${countryImage}" class="countryImg">
+                    </div>
+                            
+                    <!-- 右邊的文字內容 -->
+                    <div class="col-8 p-3">
+                        <h4>最佳旅遊地:${testStyle.country_name}</h4>
+                        <hr>
+                        <p>${testStyle.country_des}</p>  
+                    </div>
+                </div>
+                <!-- 標籤/旅伴 -->
+                <div class="d-flex justify-content-between col-lg-8 col-sm-10 relativeInfo">
+                    <!-- 適合標籤 -->
+                    <div>
+                        <h5>推薦旅遊標籤</h5>
+                        <button class="btn btn-success m-1">#${testStyle.style_tag_1}</button>
+                        <br/>
+                        <button class="btn btn-success m-1">#${testStyle.style_tag_2}</button>
+                    </div>
+                    <!-- 最佳旅伴 -->
+                    <div>
+                        <h5>最佳旅伴</h5>
+                        <img src="../assets/images/test/mbti/${bestImage}" style="width: 150px; height: 150px;object-fit: cover;">
+                    </div>
+                </div>`;
+            $("#mbtiType").html(resultHtml);
+            })
+            .catch(function (error) {
+            // handle error
+            console.log(error);
+            console.log("請求失敗");
+            })
+        };
+
         // 判斷式
+        if (urlMap[mbti]) {
+            fetchTestStyle(mbti);
+        };
+        
 
         // 推薦行程卡片
         let schData=[
@@ -145,92 +212,3 @@ $(".testAgain").on("click",()=>{
     $(".content").show();
     $(".testHomePage").show();
 })
-
-
-data = [{
-    question:'Q1:突然獲得了休假時間，你會偏好?',
-    option:[
-        {
-            img:'../assets/images/test/taipei.jpg',
-            ans:'A.流行文化的西門町',
-            value:'E'
-        },
-        {
-            img:'../assets/images/test/temple.jpg',
-            ans:'B.歷史文化的鹿港',
-            value:'I'
-        },
-        {
-            img:'../assets/images/test/hualain.jpg',
-            ans:'C.壯闊的太魯閣',
-            value:'E'
-        },
-        {
-            img:'../assets/images/test/sea.jpg',
-            ans:'D.寧靜的小琉球',
-            value:'I'
-        }
-    ]
-},{
-    question:'Q2:你會如何規劃旅行?',
-    option:[
-        {
-            ans:'A.有明確的安排，充分的利用旅行時間',
-            value:'J'
-        },
-        {
-            ans:'B.有大概的計畫，中間保有彈性調整',
-            value:'P'
-        },
-        {
-            ans:'C.沒有規劃，自在地遊玩，不受時間限制',
-            value:'P'
-        }
-    ]
-},{
-    question:'Q3:一早醒來準備出門，你會偏好哪種路線抵達目的?',
-    option:[
-        {
-            img:'../assets/images/test/taipei.jpg',
-            ans:'A.穿梭在山谷之間',
-            value:'N'
-        },
-        {
-            img:'../assets/images/test/temple.jpg',
-            ans:'B.徜徉在海景間',
-            value:'S'
-        },
-        {
-            img:'../assets/images/test/hualain.jpg',
-            ans:'C.沿著溪流與埤塘',
-            value:'N'
-        },
-        {
-            img:'../assets/images/test/sea.jpg',
-            ans:'D.奔馳稻浪及林木間',
-            value:'S'
-        }
-    ]
-},{
-    question:'Q4:到達目的地時肚子開始餓了，你會選擇?',
-    option:[
-        {
-            ans:'A.可以眺望風景的景觀餐廳',
-            value:'F'
-        },
-        {
-            ans:'B.充滿當地特色的小吃',
-            value:'F'
-        },
-        {
-            ans:'C.感受海水鹹鮮的海鮮料理',
-            value:'T'
-        },
-        {
-            ans:'D.展現原始風味的部落料理',
-            value:'T'
-        }
-    ]
-}]
-
-    

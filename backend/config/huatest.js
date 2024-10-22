@@ -1,5 +1,6 @@
 // const mysql = require("mysql");
 
+<<<<<<< HEAD
 // 創建資料庫連接
 const db = mysql.createConnection({
     host: '127.0.0.1',
@@ -7,6 +8,15 @@ const db = mysql.createConnection({
     password: '123456',
     database: 'huatest'
 });
+=======
+// // 創建資料庫連接
+// const db = mysql.createConnection({
+//     host: '127.0.0.1',
+//     user: 'root',
+//     password: '',
+//     database: 'huatest'
+// });
+>>>>>>> a1f5e16a3bb6a222be0f2ae65dd0b963f447834f
 
 // // 連接到資料庫
 // db.connect((err) => {
