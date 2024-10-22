@@ -1,58 +1,16 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
+const buildPlanController = require("../controller/buildPlanController");
 
-// 假設這是一些計畫的假資料
-// const plans = [
-//     { id: 1, planName: 'First Plan', startDate: '2024/8/10', endDate: '2024/8/12' },
-//     { id: 2, planName: 'second Plan', startDate: '2024/10/15', endDate: '2024/10/18' },
-//     { id: 3, planName: 'Third Plan', startDate: '2024/11/25', endDate: '2024/11/27' }
-//   ];
-
-// GET 請求: 取得頁面
-router.get("/create", function (req, res) {
-  const options = {
-    root: path.join(__dirname, "../../", "dist"),
-  };
-
-  const fileName = "buildPlan.html";
-  res.sendFile(fileName, options, function (err) {
-    if (err) {
-      console.error("Error sending file:", err);
-    } else {
-      console.log("Sent:", fileName);
-    }
-  });
-});
-
-router.get("/edit", function (req, res) {
-  const options = {
-    root: path.join(__dirname, "../../", "dist"),
-  };
-
-  const fileName = "editPlan.html";
-  res.sendFile(fileName, options, function (err) {
-    if (err) {
-      console.error("Error sending file:", err);
-    } else {
-      console.log("Sent:", fileName);
-    }
-  });
-});
-
-router.get("/list", function (req, res) {
-  const options = {
-    root: path.join(__dirname, "../../", "dist"),
-  };
-
-  const fileName = "planList.html";
-  res.sendFile(fileName, options, function (err) {
-    if (err) {
-      console.error("Error sending file:", err);
-    } else {
-      console.log("Sent:", fileName);
-    }
-  });
-});
+// 呼叫controller
+// GET 請求: 獲取所有行程資料
+router.get("/planList", buildPlanController.getAllSchedule);
+// GET 請求: 獲取特定ID的行程資料
+router.get("/editPlan/:id", buildPlanController.getScheduleById);
+// POST 請求: 新增特定ID行程的景點
+router.post("/editPlan/sites/:id", buildPlanController.postSiteToSchedule);
+// PUT 請求: 修改特定ID行程
+// router.put("/editPlan/:id", buildPlanController.getScheduleById);
 
 module.exports = router;

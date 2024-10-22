@@ -3,8 +3,8 @@ const mysql = require("mysql");
 exports.exec = (sql, data, callback) => {
   const connection = mysql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "",
+    user: "user",
+    password: "123456",
     database: "chill_around",
     multipleStatements: true,
   });
@@ -15,7 +15,7 @@ exports.exec = (sql, data, callback) => {
       console.log("Error connecting to the database:", error);
     }
     console.log("Connected to the database.");
-    callback(null,results, fields);
+    callback(null, results, fields);
   });
   connection.end();
 };

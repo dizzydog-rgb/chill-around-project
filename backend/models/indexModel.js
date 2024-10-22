@@ -6,9 +6,9 @@ exports.findHero = (hero) => {
         const query = "SELECT * FROM schedule_info ORDER BY RAND() LIMIT 5"; 
 
         console.log("觀看這行"+ db); // 在此行查看 db 的內容
-        db.exec(query, [hero], (err, results) => {
-      if (err) {
-        return reject(err);
+        db.exec(query, [hero], (error, results, fields) => {
+      if (error) {
+        return reject(error);
       }
       // 如果查詢結果有資料，返回第一筆
     //   resolve(results[0]);

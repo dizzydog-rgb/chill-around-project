@@ -193,6 +193,9 @@
           object-fit: cover;
         }
       }
+      .card:hover{
+        cursor: pointer;
+      }
     }
 
     .addJourneyBtn {
