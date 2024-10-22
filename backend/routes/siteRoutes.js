@@ -14,25 +14,17 @@ router.use(cors());
 router.get("/siteinfo/:id", siteController.getSiteById);
 
 // GET 請求: 取得景點總覽頁面資料
-router.get("/allsite/:city", siteController.getSiteByCity);
+// router.get("/allsite/:city", siteController.getSiteByCity);
+router.get("/allsite/select", siteController.getSiteTag);
+// GET 請求: 8080取得景點隨機資料
+router.get("/allsite/all/randomCity", siteController.getRandomSite);
 
 
+// GET 請求: 8080取得熱門景點4筆資料
+router.get("/searchSite/randomSite", siteController.getRandomCard ); 
 
-router.get("/searchSite", function (req, res) {
-    // res.send("成功呼叫")
-  const options = {
-    root: path.join(__dirname, "../../", "dist"),
-  };
-  const fileName = "searchSite.html";
-  res.sendFile(fileName, options, function (err) {
-    if (err) {
-      console.error("Error sending file:", err);
-    } else {
-      console.log("Sent:", fileName);
-    }
-  });
-}); 
 
+router.get('/searchsite/search?', siteController.getsearchSite);
 
 
 router.get("/foodmap", function (req, res) {
@@ -49,4 +41,7 @@ router.get("/foodmap", function (req, res) {
     }
   });
 }); 
+
+
+
 module.exports = router;

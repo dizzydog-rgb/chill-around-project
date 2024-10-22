@@ -219,6 +219,11 @@
                         }
                     }
                 }
+
+                #logoutbtn{
+                    padding: 6px 12px;
+                    border-radius: 50px;
+                }
             }
 
             .col-md-10 {
@@ -230,12 +235,7 @@
                 height: 100%;
 
                 .editbtn {
-                    background-color: #4A859F;
                     border-radius: 50px;
-                }
-
-                .editbtn:hover {
-                    background-color: #6799AE;
                 }
 
                 .hidden{
@@ -243,21 +243,10 @@
                 }
 
                 .storebtn{
-                    background-color: #E2AD25;
                     border-radius: 50px;
-                }
-                
-                .storebtn:hover{
-                    background-color: #E7BA48;
                 }
 
                 .cancelbtn{
-                    background-color: #E2AD25;
-                    border-radius: 50px;
-                }
-
-                .cancelbtn:hover{
-                    background-color: #E7BA48;
                     border-radius: 50px;
                 }
 
@@ -360,12 +349,7 @@
 
                 .editbtn {
                     padding: 6px 15px;
-                    background-color: #4A859F;
                     border-radius: 50px;
-                }
-
-                .editbtn:hover {
-                    background-color: #6799AE;
                 }
 
                 a {
@@ -487,12 +471,7 @@
 
                 .editbtn {
                     padding: 6px 15px;
-                    background-color: #4A859F;
                     border-radius: 50px;
-                }
-
-                .editbtn:hover {
-                    background-color: #6799AE;
                 }
 
                 a {

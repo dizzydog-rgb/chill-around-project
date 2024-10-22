@@ -1,8 +1,13 @@
 const express = require("express");
+const cors = require("cors"); 
 const path = require("path");
 const router = express.Router();
+const indexContronller = require("../controller/indexController")
+// var db = require('../config/database');// db.js 檔案
 
-// GET 請求: 取得頁面
+router.use(cors());
+
+// 取得頁面
 router.get("/", function (req, res) {
   const options = {
     root: path.join(__dirname, "../../", "dist"),
@@ -17,5 +22,9 @@ router.get("/", function (req, res) {
     }
   });
 });
+
+router.get('/heroCarousel',indexContronller.getHeroImg);
+router.get('/herotag',indexContronller.getHeroTag);
+
 
 module.exports = router;

@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script type="module" src="/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
 </head>
 <body>
     <div class="test">
@@ -30,7 +30,7 @@
                 <div class="d-flex twoCard">
                     <div class="aCard">
                         <label for="que1AnsA">
-                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsA">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsA" data-value="E">
                             <div class="answer">
                                 <img src="../assets/images/test/taipei.jpg">
                                 <p>A.流行文化的西門町</p>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="aCard">
                         <label for="que1AnsB">
-                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsB">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsB" data-value="I">
                             <div class="answer">
                                 <img src="../assets/images/test/temple.jpg">
                                 <p>B.歷史文化的鹿港</p>
@@ -50,7 +50,7 @@
                 <div class="d-flex twoCard">
                     <div class="aCard">
                         <label for="que1AnsC">
-                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsC">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsC" data-value="E">
                             <div class="answer">
                                 <img src="../assets/images/test/hualain.jpg">
                                 <p>C.壯闊的太魯閣</p>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="aCard">
                         <label for="que1AnsD">
-                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsD">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsD" data-value="I">
                             <div class="answer">
                                 <img src="../assets/images/test/sea.jpg">
                                 <p>D.寧靜的小琉球</p>
@@ -76,19 +76,19 @@
                 <h2 class="text-primary">Q2:你會如何規劃旅行?</h2>
                     <div class="aCard">
                         <label for="que2AnsA" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn2" id="que2AnsA">
+                            <input type="radio" name="radio_2" class="btn btn2" id="que2AnsA" data-value="J">
                             <div>
                                 <p>A.有明確的安排，充分的利用旅行時間</p>
                             </div>
                         </label>
                         <label for="que2AnsB" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn2" id="que2AnsB">
+                            <input type="radio" name="radio_2" class="btn btn2" id="que2AnsB" data-value="P">
                             <div>
                                 <p>B.有大概的計畫，中間保有彈性調整</p>
                             </div>
                         </label>
                         <label for="que2AnsC" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn2" id="que2AnsC">
+                            <input type="radio" name="radio_2" class="btn btn2" id="que2AnsC" data-value="P">
                             <div>
                                 <p>C.沒有規劃，自在地遊玩，不受時間限制</p>
                             </div>
@@ -104,7 +104,7 @@
                 <div class="d-flex twoCard">
                     <div class="aCard">
                         <label for="que3AnsA" class="answer">
-                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsA">
+                            <input type="radio" name="radio_3" class="btn btn3" id="que3AnsA" data-value="N">
                             <div>
                                 <img src="../assets/images/test/mountain.jpg">
                                 <p>A.穿梭在山谷之間</p>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="aCard">
                         <label for="que3AnsB" class="answer">
-                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsB">
+                            <input type="radio" name="radio_3" class="btn btn3" id="que3AnsB" data-value="S">
                             <div>
                                 <img src="../assets/images/test/beach.jpg">
                                 <p>B.徜徉在海景間</p>
@@ -124,7 +124,7 @@
                 <div class="d-flex twoCard">
                     <div class="aCard">
                         <label for="que3AnsC" class="answer">
-                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsC">
+                            <input type="radio" name="radio_3" class="btn btn3" id="que3AnsC" data-value="N">
                             <div>
                                 <img src="../assets/images/test/pound.jpg">
                                 <p>C.沿著溪流與埤塘</p>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="aCard">
                         <label for="que3AnsD" class="answer">
-                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsD">
+                            <input type="radio" name="radio_3" class="btn btn3" id="que3AnsD" data-value="S">
                             <div>
                                 <img src="../assets/images/test/grass.jpg">
                                 <p>D.奔馳稻浪及林木間</p>
@@ -150,25 +150,25 @@
                 <h2 class="text-primary">Q4:到達目的地時肚子開始餓了，你會選擇?</h2>
                     <div class="aCard">
                         <label for="que4AnsA" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsA">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsA" data-value="F">
                             <div>
                                 <p>A.可以眺望風景的景觀餐廳</p>
                             </div>
                         </label>
                         <label for="que4AnsB" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsB">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsB" data-value="F">
                             <div>
                                 <p>B.充滿當地特色的小吃</p>
                             </div>
                         </label>
                         <label for="que4AnsC" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsC">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsC" data-value="T">
                             <div>
                                 <p>C.感受海水鹹鮮的海鮮料理</p>
                             </div>
                         </label>
                         <label for="que4AnsD" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsD">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsD" data-value="T">
                             <div>
                                 <p>D.展現原始風味的部落料理</p>
                             </div>
@@ -183,25 +183,25 @@
                 <h2 class="text-primary">Q5:旅行中甚麼讓你感觸最深?</h2>
                     <div class="aCard">
                         <label for="que5AnsA" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsA">
+                            <input type="radio" name="radio_5" class="btn btn5" id="que5AnsA">
                             <div>
                                 <p>A.壯闊的美景</p>
                             </div>
                         </label>
                         <label for="que5AnsB" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsB">
+                            <input type="radio" name="radio_5" class="btn btn5" id="que5AnsB">
                             <div>
                                 <p>B.小鎮上人們的純樸熱情</p>
                             </div>
                         </label>
                         <label for="que5AnsC" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsC">
+                            <input type="radio" name="radio_5" class="btn btn5" id="que5AnsC">
                             <div>
                                 <p>C.踩在細沙間的觸感</p>
                             </div>
                         </label>
                         <label for="que5AnsD" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsD">
+                            <input type="radio" name="radio_5" class="btn btn5" id="que5AnsD">
                             <div>
                                 <p>D.田野中清爽的微風</p>
                             </div>
@@ -247,7 +247,7 @@
                         <img src="../assets/images/test/character1.jpg" style="width: 200px; height: 200px;">
                     </div>
                 <!-- 旅遊地 -->
-                <div class="resultCountry card flex-row flex-wrap h-100 col-10 my-3 mx-auto">
+                <div class="resultCountry card flex-row flex-wrap col-10 my-3 mx-auto">
                     <!-- 左邊的圖片 -->
                     <div class="col-4">
                         <img src="../assets/images/test/temple2.jpg" class="countryImg">
@@ -260,15 +260,15 @@
                         <p>describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribede</p>  
                     </div>
                 </div>
-    
-                <div class="d-flex justify-content-between col-8 relativeInfo">
+                <!-- 標籤/旅伴 -->
+                <div class="d-flex justify-content-between col-lg-8 col-sm-10 relativeInfo">
                     <!-- 適合標籤 -->
                     <div class="suitTag">
                         <h5>推薦旅遊標籤</h5>
                         <button class="btn btn-success">#tag</button>
                         <button class="btn btn-success">#tag</button>
-                        <button class="btn btn-success">#tag</button>
-                        <button class="btn btn-success">#tag</button>
+                        <!-- <button class="btn btn-success">#tag</button>
+                        <button class="btn btn-success">#tag</button> -->
                     </div>
                     <!-- 最佳旅伴 -->
                     <div class="partner">
@@ -278,7 +278,7 @@
                 </div>
     
                 <!-- 分享 -->
-                <div class="col-8 otherOption d-flex justify-content-between mx-auto my-3">
+                <div class="col-lg-8 col-sm-10 otherOption d-flex justify-content-between mx-auto my-3">
                     <button class="btn btn-secondary testAgain m-2">再測一次!</button>
                     <button class="btn btn-secondary m-2">分享測驗結果<i class="bi bi-box-arrow-up ms-1"></i></button>
                 </div>
@@ -292,19 +292,7 @@
                         <a href="">看看別人怎麼玩<i class="bi bi-caret-down-fill ms-1"></i></a>
                         <a href="">點我安排行程<i class="bi bi-plus-circle ms-1"></i></a>
                     </div>
-                    <div class="card custom-card flex-row flex-wrap h-75">
-                        <!-- 左邊的圖片 -->
-                        <div class="col-lg-4 col-md-4 col-sm-12">
-                            <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
-                        </div>
-        
-                        <!-- 右邊的文字內容 -->
-                        <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
-                            <h4>卡片標題</h4>
-                            <hr>
-                            <p>這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
-                        </div>
-                    </div>
+                    <div id="schCard"></div>
                 </div>
             </div>
         </div>

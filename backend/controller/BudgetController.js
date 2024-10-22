@@ -3,9 +3,9 @@ const BudgetModel = require("../models/BudgetModel");
 exports.getUserBudgetID = async (req, res) => {
     try {
         // 從 URL 參數中提取 ID
-        const UserBudgetId = parseInt(req.params.id, 10);
-        // const UserBudgetId = req.params.id;
-        // console.log("Fetching Budget with ID:", UserBudgetId);
+        // const UserBudgetId = parseInt(req.params.id, 10);
+        const UserBudgetId = req.params.id;
+        console.log("Fetching Budget with ID:", UserBudgetId);
         
         // 從資料庫取得特定 ID 的景點資料
         const UserBudget = await BudgetModel.findUserBudgetId(UserBudgetId);

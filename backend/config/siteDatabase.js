@@ -54,11 +54,11 @@
 // }
 
 // database.js 查詢cahtgpt =>差異callback多一個null callback(null, results, fields);
-var mysql = require('mysql');
+var mysql1 = require('mysql');
 
 exports.exec = (sql, data, callback) => {
-    const connection = mysql.createConnection({
-        host: '127.0.0.1',
+    const connection = mysql1.createConnection({
+        host: 'localhost',
         port: '8889',
         user: 'root',
         password: 'root',
@@ -72,7 +72,7 @@ exports.exec = (sql, data, callback) => {
         if (error) {
             console.log('----皮卡資料連接異常----');
             console.log(error);
-            console.error('異常內容: ' + error.sqlMessage);
+            console.log('異常內容: ' + error.sqlMessage);
             console.log('----皮卡資料連接異常----');
             connection.end(); // 儘早結束連接
             return callback(error, null); // 返回錯誤
