@@ -22,12 +22,13 @@ router.get("/Info", function (req, res) {
     }
   });
 });
-
+http://localhost:8080/schInfo/siteinfo
+router.get('/siteinfo', schInfoController.getSiteInfo);
 router.get('/getspot', schInfoController.getSchedulesAndSites);
 router.post('/getspot/add', schInfoController.addSchedule);
 
-//http://localhost:8080/schInfo/Youtube
-router.get('/Youtube',schInfoController.getVideoUrl);
+//http://localhost:8080/schInfo/YtAndBlog
+router.get('/YtAndBlog',schInfoController.getVideoUrl);
 
 
 
