@@ -3,7 +3,7 @@ const db = require("../config/database");
 // 獲取所有行程的模組函數
 exports.findAllSchedule = () => {
   return new Promise((resolve, reject) => {
-    const query = "SELECT * FROM schedule";
+    const query = "SELECT * FROM `schedule`";
     db.exec(query, [], (error, results, fields) => {
       if (results) {
         resolve(results);
