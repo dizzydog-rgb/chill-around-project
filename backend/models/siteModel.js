@@ -1,4 +1,4 @@
-const db = require("../config/siteDatabase");
+const db = require("../config/database");
 
 // 獲取特定編號景點的模組函數
 exports.findSiteById = (id) => {
@@ -36,9 +36,15 @@ exports.findSiteByCity = (cityName) => {
 exports.findRandomSite = () => {
     return new Promise((resolve, reject) => {
         const query = `
-            SELECT *
-        FROM sites
-        WHERE photo_one IS NOT NULL AND photo_one != ''
+            SELECT 
+                s.site_id,
+                s.site_name,
+                LEFT(s.site_add,6) AS short_add,
+                s.photo_one,
+                s.photo_two,
+                s.photo_three
+        FROM sites s
+        WHERE photo_three IS NOT NULL AND photo_three != ''
         ORDER BY RAND()
         LIMIT 9; `; // 根據 sites 資料表的 id 欄位
         console.log("觀看這行"+ db); // 在此行查看 db 的內容
@@ -59,9 +65,15 @@ exports.findRandomSite = () => {
 exports.findRandomCard = () => {
     return new Promise((resolve, reject) => {
         const query = `
-            SELECT *
-        FROM sites
-        WHERE photo_two IS NOT NULL AND photo_two != '' 
+            SELECT 
+                s.site_id,
+                s.site_name,
+                LEFT(s.site_add,6) AS short_add,
+                s.photo_one,
+                s.photo_two,
+                s.photo_three
+        FROM sites s
+        WHERE photo_two IS NOT NULL AND photo_two != ''
         ORDER BY RAND()
         LIMIT 4; `; // 隨機取四個資料 這些景點的photo_two必須有內容
         console.log("觀看這行"+ db); // 在此行查看 db 的內容
@@ -78,16 +90,26 @@ exports.findRandomCard = () => {
   });
 };
 
-// 標籤卡片
+// 根據使用者選地區類別對應到的資料庫內容
 exports.findSiteTag = (regions, tags) => {
     return new Promise((resolve, reject) => {
         let query = `
-        SELECT s.*,
-        GROUP_CONCAT(a.tag_name SEPARATOR ', ') AS tags  -- 聚合標籤
-        FROM site_tag st
-        JOIN sites s ON st.site_id = s.site_id
-        JOIN all_tag a ON st.tag_id = a.tag_id
+        SELECT
+            s.site_id,
+            s.site_name,
+            s.site_city,
+            LEFT(s.site_add,6) AS short_add,
+            s.photo_one,
+            s.photo_two,
+            GROUP_CONCAT(a.tag_name SEPARATOR ', ') AS tags
+        FROM 
+            site_tag st
+        JOIN 
+            sites s ON st.site_id = s.site_id
+        JOIN 
+            all_tag a ON st.tag_id = a.tag_id
         `;
+        
         const parameters = [];
         let whereClauses = []; // 儲存 WHERE 條件
 
@@ -112,7 +134,7 @@ exports.findSiteTag = (regions, tags) => {
             query += ' WHERE ' + whereClauses.join(' AND '); // 關聯多個條件
         }
 
-        query += ` GROUP BY s.site_id;`; // 集合結果
+        query += `GROUP BY  s.site_id, s.site_name, s.site_city, s.site_add, s.photo_one, s.photo_two;`; // 集合結果
        
 
         db.exec(query, parameters, (err, results) => {
@@ -133,8 +155,6 @@ exports.findSearchSite = (region,tag) =>{
         FROM site_tag st
         JOIN sites s ON st.site_id = s.site_id
         JOIN all_tag a ON st.tag_id = a.tag_id
-        WHERE s.site_city IN (?)
-        AND a.tag_id = ?
         `;
         if(region){
             query+=`WHERE s.site_city IN (?)`;

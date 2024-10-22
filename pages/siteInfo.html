@@ -8,10 +8,10 @@
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap");
     </style>
     <script>
-      // 更換縮圖
       function changeImage(image) {
-      document.getElementById("mainImage").src = image;
-    }
+        console.log(image);
+        document.getElementById("mainImage").src =image;
+      }
     </script>
     
   </head>
@@ -222,7 +222,7 @@
     <%- include('./layout/footer'); -%>
   </div>
   <script type="module" src="/main.js"></script>
-    <script type="module" src="../js/siteInfo.js">
+  <script type="module" src="../js/siteInfo.js">
       
 
 
