@@ -9,6 +9,24 @@ router.use(bodyParser.json());
 router.use('/images', express.static(__dirname + '/assets/images'));
 
 // GET 請求: 取得頁面
+// 登入
+router.get("/loginpage", function (req, res) {
+    const options = {
+        root: path.join(__dirname, "../../", "dist"),
+    };
+
+    const fileName = "login.html";
+    res.sendFile(fileName, options, function (err) {
+        if (err) {
+            console.error("Error sending file:", err);
+        } else {
+            console.log("Sent:", fileName);
+        }
+    });
+});
+
+router.post("/login", memberController.login);
+
 // 註冊頁面
 router.get("/register", function (req, res) {
     const options = {
@@ -90,12 +108,6 @@ router.get("/TaiwanEx", function (req, res) {
 });
 
 // 取得資料庫資料
-router.get('/members', function (req, res) {
-    db.exec('SELECT * FROM `member`',[],function (results,fields) {
-        res.json(results);
-    });
-});
-
 router.get("/members/:id", memberController.getemailById);
 
 module.exports = router;
