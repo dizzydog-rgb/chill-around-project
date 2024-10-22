@@ -9,10 +9,10 @@ exports.getUserBudgetID = async (req, res) => {
         
         // 從資料庫取得特定 ID 的景點資料
         const UserBudget = await BudgetModel.findUserBudgetId(UserBudgetId);
-        console.log("PopupBudget data fetched:", UserBudget);
+        console.log("UserBudgets data fetched:", UserBudget);
         // 如果找不到資料，回傳 404
         if (!UserBudget) {
-            return res.status(404).json({ message: "PopupBudget not found" });
+            return res.status(404).json({ message: "UserBudgets not found" });
         }
         // 成功取得資料後回傳 JSON 給前端
         // console.log("PopupBudget data to send:", UserBudget);

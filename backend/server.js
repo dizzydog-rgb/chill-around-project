@@ -29,7 +29,6 @@ app.use("/schInfo", schInfoRoutes);
 app.use("/member", memberRoutes);
 app.use("/site", siteRoutes);
 app.use("/budget", BudgetRoutes);
-app.use("/budget", popupBudgetRoutes);
 app.use("/test", testRoutes);
 
 
