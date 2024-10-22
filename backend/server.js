@@ -1,11 +1,7 @@
 const express = require("express");
 const app = express();
-<<<<<<< HEAD
 const cors = require('cors');
 require('dotenv').config();
-=======
-const cors = require("cors");
->>>>>>> a4f45622aa8d9095a34c14c3696d3d20643dcb53
 
 // 在你的 Express 應用中
 app.use(cors());
