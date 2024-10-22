@@ -24,12 +24,67 @@ function showRandomAttractions() {
         });
    
 }
-
-// 在 DOM 內容加載完成時調用隨機函數
-document.addEventListener('DOMContentLoaded', () => {
-    showRandomAttractions(); // 顯示隨機的景點
+// 在DOM加載完成後讀網址
+document.addEventListener("DOMContentLoaded",()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectSiteCity = urlParams.get('site_city');
+    const selectTagId = urlParams.get('tag_id');
+    // 寫判斷式 如果有參數執行生成相對應的內容
+    if(selectSiteCity && selectTagId) {
+        fetchAttractions(selectSiteCity, selectTagId);
+    }else{
+    // 如果沒有城市和標籤，顯示隨機的景點
+    showRandomAttractions();
+    }
 });
 
+function fetchAttractionData(city,tag){
+    axios.get(`http://localhost:8080/site/searchsite/search`,{
+        params: {
+            site_city: city,
+            tag_id: tag
+        }
+    })
+    .then(response =>{
+        const attractions = response.data;
+        const sitecardBox = document.getElementById('sitecardBox');
+        sitecardBox.innerHTML = ''; // 清空現有的卡片
+        
+        if(attractions.length === 0){
+            sitecardBox.innerHTML = '<p>沒有符合條件的景點。</p>';
+        }else{
+            attractions.forEach(attraction => {
+                createCard(attraction);
+            });
+        }
+    })
+}
+
+// 在 DOM 內容加載完成時調用隨機函數
+// document.addEventListener('DOMContentLoaded', () => {
+//     showRandomAttractions(); // 顯示隨機的景點
+// });
+
+// 根據網址選擇核取方塊
+document.addEventListener('DOMContentLoaded', function() {
+    const cityCheckboxes = document.querySelectorAll('.cityCheckbox');
+    const tagCheckboxes = document.querySelectorAll('.tagCheckbox');
+
+    // 獲取 URL 中的查詢參數
+    const urlParams = new URLSearchParams(window.location.search);
+    const siteCity = urlParams.get('site_city');
+    const tagId = urlParams.get('tag_id');
+    // const filters = urlParams.getAll('filter[]'); // 獲取所有篩選參數
+
+    // 根據 URL 中的參數設置核取方塊的狀態
+    cityCheckboxes.forEach(checkbox=>{
+        checkbox.checked = (siteCity === checkbox.value); // 設置核取方塊狀態
+    })
+    tagCheckboxes.forEach(checkbox => {
+        checkbox.checked = (tagId === checkbox.value);
+    });
+   
+});
 
 // 獲取地區的景點資料
 // const siteData = {}; // 用於儲存獲取的景點資料
@@ -57,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 // });
 // 更新卡片根據選擇的地區和標籤
+
 // 依照使用者選取內容呈現卡片
 function updateCards() {
     const selectedRegions = Array.from(document.querySelectorAll('.cityCheckbox:checked')).map(checkbox => checkbox.value).join(',');
@@ -133,6 +189,7 @@ document.querySelectorAll('.tagCheckbox').forEach(checkbox => {
  function createCard(attraction) {
     console.log(attraction); //確認有叫出點擊的卡片資訊
     
+    
     const sitecardBox = document.getElementById('sitecardBox');
     const siteCard = document.createElement("div");
     siteCard.className = "col-md-4 p-0 m-0";
@@ -151,8 +208,31 @@ document.querySelectorAll('.tagCheckbox').forEach(checkbox => {
                         </button>
                     </div>
                 </div>`;
+    console.log(sitecardBox);
+
+    // 用 onclick 導向到詳細資訊頁面
+    siteCard.onclick = function() {
+        window.location.href = `/chill-around-project/pages/siteInfo.html?id=${attraction.site_id}`;
+    };
+    
     sitecardBox.appendChild(siteCard);
 }
+// 導到相對應的景點詳細資訊頁
+function gotoSiteInfo(){
+    const id = new URLSearchParams(window.location.search).get('id');
+    console.log(id);
+    window.location.href = `/chill-around-project/pages/siteInfo.html?id=${id}`;
+}
+// 目前點加入行程按鈕沒反應
+ // document.addEventListener('DOMContentLoaded', () => {
+    //     // 獲取按鈕並綁定事件
+    //     const addButton = document.querySelector('.addBtn');
+    //     addButton.onclick = (event) => {
+    //         event.stopPropagation(); // 阻止事件向上冒泡，這樣不會觸發卡片的點擊事件 
+            
+    
+    // };
+    // });
 
 
 

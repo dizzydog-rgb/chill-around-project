@@ -32,7 +32,7 @@ exports.findSiteByCity = (cityName) => {
     });
   });
 };
-// 隨機產生卡片
+// 景點總覽隨機產生卡片
 exports.findRandomSite = () => {
     return new Promise((resolve, reject) => {
         const query = `
@@ -55,6 +55,29 @@ exports.findRandomSite = () => {
   });
 };
 
+// serchsite隨機產生卡片
+exports.findRandomCard = () => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            SELECT *
+        FROM sites
+        WHERE photo_two IS NOT NULL AND photo_two != '' 
+        ORDER BY RAND()
+        LIMIT 4; `; // 隨機取四個資料 這些景點的photo_two必須有內容
+        console.log("觀看這行"+ db); // 在此行查看 db 的內容
+        db.exec(query, [], (err, results) => {
+            if (err) {
+        console.log("-----隨機卡片取得異常-----");
+        return reject(err);
+        
+      }
+      // 如果查詢結果有資料，返回第一筆
+      resolve(results);
+     
+    });
+  });
+};
+
 // 標籤卡片
 exports.findSiteTag = (regions, tags) => {
     return new Promise((resolve, reject) => {
@@ -65,11 +88,6 @@ exports.findSiteTag = (regions, tags) => {
         JOIN sites s ON st.site_id = s.site_id
         JOIN all_tag a ON st.tag_id = a.tag_id
         `;
-        let query2 = `SELECT s.*, a.tag_id,a.tag_name 
-            FROM site_tag st
-            JOIN sites s ON st.site_id = s.site_id
-            JOIN all_tag a ON st.tag_id = a.tag_id
-            WHERE 1=1`;
         const parameters = [];
         let whereClauses = []; // 儲存 WHERE 條件
 
@@ -89,7 +107,6 @@ exports.findSiteTag = (regions, tags) => {
                 parameters.push(tagId); // 將每個標籤 ID 加入參數中
             });
         }
-        
         // 如果有任何 WHERE 條件，將其加入查詢
         if (whereClauses.length > 0) {
             query += ' WHERE ' + whereClauses.join(' AND '); // 關聯多個條件
@@ -107,3 +124,33 @@ exports.findSiteTag = (regions, tags) => {
         });
     });
 };
+
+exports.findSearchSite = (region,tag) =>{
+    return new Promise((resolve, reject) =>{
+        const query = `
+        SELECT s.*,
+        a.tag_id,a.tag_name 
+        FROM site_tag st
+        JOIN sites s ON st.site_id = s.site_id
+        JOIN all_tag a ON st.tag_id = a.tag_id
+        WHERE s.site_city IN (?)
+        AND a.tag_id = ?
+        `;
+        if(region){
+            query+=`WHERE s.site_city IN (?)`;
+        }
+        if(tag){
+            query+=`AND a.tag_id =?`;
+        }
+
+        db.exec(query, [region, tag],(err, results) =>{
+            if (err) {
+                return reject(err);
+              }
+              // 如果查詢結果有資料，返回第一筆
+              resolve(results[0]);
+        });
+    });
+}
+
+

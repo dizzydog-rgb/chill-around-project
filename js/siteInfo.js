@@ -36,7 +36,63 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
           <div class="divider1">
           </div>
         </div>
-        <!-- 主圖縮圖 -->
+        <!-- 手機版才會出現的輪播圖 -->
+        <div
+          id="carouselExample"
+          class="carousel slide d-md-none col-md-6 order-md-1"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="siteCarouselItem carousel-item active">
+              <img
+                src="../assets/images/searchSite/${photo_one}"
+                class="d-block w-100"
+                alt="圖片 1"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="../assets/images/searchSite/${photo_two}"
+                class="d-block w-100"
+                alt="圖片 2"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="../assets/images/searchSite/${photo_three}"
+                class="d-block w-100"
+                alt="圖片 3"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="../assets/images/searchSite/${photo_four}"
+                class="d-block w-100"
+                alt="圖片 4"
+              />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+        <!-- 電腦版呈現的樣子 主圖縮圖 -->
         <div class="leftImage col-md-6 order-md-1 d-none d-md-block">
           <div class="container p-0">
             <div class="row">

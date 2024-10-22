@@ -72,7 +72,7 @@ exports.exec = (sql, data, callback) => {
         if (error) {
             console.log('----皮卡資料連接異常----');
             console.log(error);
-            console.error('異常內容: ' + error.sqlMessage);
+            console.log('異常內容: ' + error.sqlMessage);
             console.log('----皮卡資料連接異常----');
             connection.end(); // 儘早結束連接
             return callback(error, null); // 返回錯誤
