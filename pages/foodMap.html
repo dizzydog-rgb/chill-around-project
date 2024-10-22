@@ -51,9 +51,15 @@
                     <label for="categorySelect" class="" id="categoryLabel">類別</label>
                     <select class="custom-select" id="foodstoreCategory">
                         <option selected>請選擇</option>
-                        <option value="小吃店">小吃店</option>
+                        <option value="特色小吃">特色小吃</option>
+                        <option value="飲料店">飲料店</option>
+                        <option value="火鍋店">火鍋店</option>
+                        <option value="燒烤店">燒烤店</option>
                         <option value="咖啡廳">咖啡廳</option>
-                        <option value="3">選項C</option>
+                        <option value="中式料理">中式料理</option>
+                        <option value="西式料理">西式料理</option>
+                        <option value="義式餐廳">義式餐廳</option>
+                        <option value="寵物餐廳">寵物餐廳</option>
                     </select>
                 </div>
 
@@ -322,14 +328,50 @@
                 case 'NewTaipei':
                     center = { lat: 25.0160, lng: 121.4620 }; // 新北市
                     break;
+                case 'Keelung':
+                    center = { lat: 25.1282, lng: 121.7395 }; // 基隆
+                    break;
+                case 'Yilan':
+                    center = { lat: 24.7506, lng: 121.7590 }; // 宜蘭
+                    break;
+                case 'Hsinchu':
+                    center = { lat: 24.8030, lng: 120.9646 }; // 新竹市
+                    break;
                 case 'Taoyuan':
                     center = { lat: 24.9932, lng: 121.2956 }; // 桃園市
+                    break;
+                case 'Miaoli':
+                    center = { lat: 24.5600, lng: 120.8237 }; // 苗栗
                     break;
                 case 'Taichung':
                     center = { lat: 24.1477, lng: 120.6736 }; // 台中市
                     break;
-                case '台南':
+                case 'Changhua':
+                    center = { lat: 24.0801, lng: 120.5410 }; // 彰化
+                    break;
+                case 'Nantou':
+                    center = { lat: 23.9568, lng: 120.6856 }; // 南投
+                    break;
+                case 'Yunlin':
+                    center = { lat: 23.7189, lng: 120.5019 }; // 雲林
+                    break;
+                case 'Chiayi':
+                    center = { lat: 23.4826, lng: 120.4414 }; // 嘉義
+                    break;
+                case 'Tainan':
                     center = { lat: 23.0004, lng: 120.2270 }; // 台南市
+                    break;
+                case 'Kaohsiung':
+                    center = { lat: 22.6273, lng: 120.3014 }; // 高雄
+                    break;
+                case 'Pingtung':
+                    center = { lat: 22.6672, lng: 120.48895 }; // 屏東
+                    break;
+                case 'Hualien':
+                    center = { lat: 23.9759, lng: 121.6076 }; // 花蓮
+                    break;
+                case 'Taitung':
+                    center = { lat: 22.7589, lng: 121.1430 }; // 台東
                     break;
                 default:
                     center = { lat: 25.0380, lng: 121.5637 }; // 台北市
@@ -340,7 +382,7 @@
         
             const request = {
                 location: center,
-                radius: '1000',  // 搜尋半徑 1000 公尺
+                radius: '9000',  // 搜尋半徑 1000 公尺
                 keyword: category  // 使用選擇的類別關鍵字搜尋
             };
 
@@ -535,7 +577,7 @@
                             
 </script>
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&loading=async&libraries=places&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMP0WUTPIwj9oi3SbbROwXL0STHfmKQuQ&loading=async&libraries=places&callback=initMap">
 </script>
 </body>
 </html>
