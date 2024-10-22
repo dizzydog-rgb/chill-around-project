@@ -198,14 +198,13 @@ axios.get("http://localhost:8080/schInfo/YtAndBlog")
               
                       <!-- 右邊的文字內容 -->
                       <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
-                           
-                        <div class="d-flex justify-content-end align-items-center mb-2">
-                       
+                           <h4 class="card-title fw-bolder">${blog.blog_title}</h4>
+                        <div class="d-flex justify-content-end align-items-center mt-2">
                             <h6 class="p-0 m-0">${blog.blog_author}</h6>
                             <p class="date p-0 my-0 ms-3">${blog.blog_year_month}</p>
                           
                         </div>
-                         <h4 class="card-title fw-bolder">${blog.blog_title}</h4>
+                         
                      
                         <hr />
                         <p class="card-text">

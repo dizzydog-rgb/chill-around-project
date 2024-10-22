@@ -60,6 +60,7 @@ exports.getScheduleData = () => {
   });
 };
 
+//這帶入card資料
 exports.getSiteData = () => {
   return new Promise((resolve, reject) => {
     const query = "SELECT DISTINCT site, site_name, site_add FROM test_site";
