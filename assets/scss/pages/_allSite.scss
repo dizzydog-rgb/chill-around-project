@@ -14,6 +14,10 @@ h1 {
     font-style: normal;
     font-size: 18px;
   }
+  h5,p,button{
+    font-family: "Noto Sans TC", sans-serif;
+    font-optical-sizing: auto;
+  }
 // 最上方大圖
 .topImage{
     position: relative;
