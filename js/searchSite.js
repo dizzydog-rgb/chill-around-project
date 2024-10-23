@@ -28,6 +28,43 @@ document.getElementById("searchButton").addEventListener("click", function(){
 //    });
 });
 
+axios.get('http://localhost:8080/site/allsite')
+.then(response =>{
+    const data =  response.data;
+    const siteData = data.filter(data => data.photo_three != '').slice(15,18)
+    console.log(siteData);
+    // 使用 map 提取每個點的 photo_three 屬性
+    const siteImages = siteData.map(site => site.photo_three);
+    // 輸出圖片陣列
+    console.log(siteImages);
+
+    const heroImage = document.getElementById('hero-image');
+    heroImage.innerHTML='';
+
+    const allImage = document.createElement("div");
+    allImage.classList.add("row", "no-gutters" ,"ms-0", "me-0");
+    allImage.innerHTML = `
+    <div id="image1" class="col-md-4 ps-0 pe-0">
+        <a href="/chill-around-project/pages/siteInfo.html?id=${siteData[0].site_id}">
+            <img src="../assets/images/searchSite/${siteImages[0]}" alt="Image 1">
+        </a>    
+    </div>
+    <div id="image2" class="col-md-4 ps-0 pe-0">
+        <a href="/chill-around-project/pages/siteInfo.html?id=${siteData[1].site_id}">
+            <img src="../assets/images/searchSite/${siteImages[1]}" alt="Image 2">
+        </a> 
+    </div>
+    <div id="image3" class="col-md-4 ps-0 pe-0">
+        <a href="/chill-around-project/pages/siteInfo.html?id=${siteData[2].site_id}">
+            <img src="../assets/images/searchSite/${siteImages[2]}" alt="Image 3">
+        </a> 
+    </div>
+    
+    `;
+    heroImage.appendChild(allImage);
+
+})
+
 // 引入 Axios
 // const selectedCity = '指定的城市'; // 使用者選擇的城市
 // const selectedTag = '指定的標籤'; // 使用者選擇的標籤
@@ -76,7 +113,7 @@ document.getElementById("searchButton").addEventListener("click", function(){
             </div>
             <div class="cardOverlay">
                 <h5 class="card-title ">${attraction.site_name}</h5>
-                <p class="card-subtitle">${attraction.site_city}</p>
+                <p class="card-subtitle">${attraction.short_add}</p>
             </div>
             <div class="btnOverlay">
                 <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

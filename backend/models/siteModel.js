@@ -1,5 +1,20 @@
 const db = require("../config/database");
 
+// 獲得全部景點資料
+exports.findAllSite = () => {
+    return new Promise((resolve, reject) => {
+        const query = "SELECT * FROM sites;" ; // 找到site資料表所有資料
+        console.log("觀看這行"+ db); // 在此行查看 db 的內容
+    db.exec(query, [], (err, results) => {
+      if (err) {
+        return reject(err);
+      }
+      // 如果查詢結果有資料，返回全部
+      resolve(results);
+     
+    });
+  });
+};
 // 獲取特定編號景點的模組函數
 exports.findSiteById = (id) => {
     return new Promise((resolve, reject) => {
