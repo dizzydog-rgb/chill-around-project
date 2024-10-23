@@ -57,7 +57,7 @@
     <script type="module" src="/main.js"></script>
     <script>
         $("#form").submit(function (e) {
-            e.preventDefault();
+            e.preventDefault(); // 防止畫面重新整理
             var formData = new FormData(this);
             var JSONData = JSON.stringify(Object.fromEntries(formData));
             console.log("Sending data:", JSONData);
@@ -74,7 +74,7 @@
                     success: function (res) {
                         if (res.token) {
                             localStorage.setItem('token', res.token);
-                            alert("登入成功!");
+                            alert("登入成功!請更新會員資料。");
                             window.location.href = 'member_personaldata.html';
                         }
                     },
