@@ -10,6 +10,10 @@ const siteController = require("../controller/siteController");
 
 // 使用 CORS
 router.use(cors());
+
+// GET 請求: 取得所有景點資料
+router.get("/allsite", siteController.getAllSite);
+
 // GET 請求: 取得景點詳細資訊頁面
 router.get("/siteinfo/:id", siteController.getSiteById);
 

@@ -38,6 +38,45 @@ exports.getScheduleById = async (req, res) => {
   }
 };
 
+// 獲取用於景點的modal的所有標籤的控制器
+exports.getAllTags = async (req, res) => {
+  try {
+    // 從資料庫取得所有的標籤資料
+    const alltags = await buildPlanModel.findAllTag();
+    // 如果找不到資料，回傳 404
+    if (!alltags || alltags.length === 0) {
+      return res.status(404).json({ message: "alltags not found" });
+    }
+    // 成功取得資料後回傳 JSON 給前端
+    res.json(alltags);
+  } catch (error) {
+    // 錯誤處理
+    console.error("controller發生錯誤:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// 獲取用於景點的modal的標籤的控制器
+exports.getSiteTags = async (req, res) => {
+  try {
+    // 從 URL 參數中提取 景點名稱
+    const siteName = decodeURIComponent(req.params.name);
+    // console.log("Received siteName:", siteName);
+    // 從資料庫取得特定景點的標籤資料
+    const tags = await buildPlanModel.findTagBySiteName(siteName);
+    // 如果找不到資料，回傳 404
+    if (!tags || tags.length === 0) {
+      return res.status(404).json({ message: "tag not found" });
+    }
+    // 成功取得資料後回傳 JSON 給前端
+    res.json(tags);
+  } catch (error) {
+    // 錯誤處理
+    console.error("controller發生錯誤:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 // 新增景點至特定旅行計畫的控制器
 exports.postSiteToSchedule = async (req, res) => {
   try {

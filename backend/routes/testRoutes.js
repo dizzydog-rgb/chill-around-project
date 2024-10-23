@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
-// const testController = require("../controllers/testController");
+const testController = require("../controller/testController");
 
 
 router.get("/", function (req, res) {
@@ -18,4 +18,5 @@ router.get("/", function (req, res) {
     }
   });
 });
+router.get("/:id", testController.getTestById);  // http://localhost:8080/test/1
 module.exports = router;

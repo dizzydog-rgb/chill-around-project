@@ -170,7 +170,7 @@
     .result{
         display: none;
     }
-    .resultStyle{
+    #resultStyle{
         // margin: auto;
         .characterDes{
             word-break: break-all;
@@ -191,7 +191,7 @@
             word-break: break-all;
         }
     }.relativeInfo{
-        margin: 0px auto 32px;
+        margin: 32px auto 32px;
         // justify-content: space-between;
     }
     a{

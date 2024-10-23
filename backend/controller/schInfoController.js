@@ -16,6 +16,25 @@ exports.getSiteInfo = async (req, res) => {
     }
 }
 
+//已建立好的行程資料
+exports.getSch = async (req, res) => {
+    try {
+        const sch = req.params.yt
+        const mySch = await schInfoModel.findVideo(sch);
+        // 如果找不到資料，回傳 404
+        if (!mySch) {
+            return res.status(404).json({ message: "video not found" });
+        }
+        // 成功取得資料後回傳 JSON 給前端
+        res.json(mySch);
+    } catch (error) {
+        console.error('會員行程查詢失敗:', err);
+        res.status(500).send('會員行程查詢失敗');
+    }
+
+};
+
+
 //景點加入行程
 exports.getSchedulesAndSites = async (req, res) => {
     try {
@@ -25,12 +44,12 @@ exports.getSchedulesAndSites = async (req, res) => {
         ]);
         res.json({ schedules, sites });
     } catch (err) {
-        console.error('查詢失敗:', err);
-        res.status(500).send('資料查詢失敗');
+        console.error('景點查詢失敗:', err);
+        res.status(500).send('景點查詢失敗');
     }
 };
 
-
+//景點post
 exports.addSchedule = async (req, res) => {
     const { sch_id, sch_day, sch_order, sch_spot } = req.body;
     try {

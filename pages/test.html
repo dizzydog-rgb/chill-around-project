@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script type="module" src="/main.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
     <div class="test">
@@ -236,47 +236,7 @@
 
 
             <div class="result">
-                <h2 class="text-primary m-3">你的旅行風格是...</h2>
-                <!-- 角色 -->
-                <div class="resultStyle col-10 d-flex m-auto">
-                    <div class="characterDes me-3">
-                        <h2 class="text-secondary">探險家</h2>
-                        <hr>
-                        <p>describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribede</p>
-                    </div>
-                        <img src="../assets/images/test/character1.jpg" style="width: 200px; height: 200px;">
-                    </div>
-                <!-- 旅遊地 -->
-                <div class="resultCountry card flex-row flex-wrap col-10 my-3 mx-auto">
-                    <!-- 左邊的圖片 -->
-                    <div class="col-4">
-                        <img src="../assets/images/test/temple2.jpg" class="countryImg">
-                    </div>
-                            
-                    <!-- 右邊的文字內容 -->
-                    <div class="col-8 p-3">
-                        <h4>最佳旅遊地</h4>
-                        <hr>
-                        <p>describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribede</p>  
-                    </div>
-                </div>
-                <!-- 標籤/旅伴 -->
-                <div class="d-flex justify-content-between col-lg-8 col-sm-10 relativeInfo">
-                    <!-- 適合標籤 -->
-                    <div class="suitTag">
-                        <h5>推薦旅遊標籤</h5>
-                        <button class="btn btn-success">#tag</button>
-                        <button class="btn btn-success">#tag</button>
-                        <!-- <button class="btn btn-success">#tag</button>
-                        <button class="btn btn-success">#tag</button> -->
-                    </div>
-                    <!-- 最佳旅伴 -->
-                    <div class="partner">
-                        <h5>最佳旅伴</h5>
-                        <img src="../assets/images/test/character2.jpg" style="width: 150px; height: 150px;object-fit: cover;">
-                    </div>
-                </div>
-    
+                <div id="mbtiType"></div>
                 <!-- 分享 -->
                 <div class="col-lg-8 col-sm-10 otherOption d-flex justify-content-between mx-auto my-3">
                     <button class="btn btn-secondary testAgain m-2">再測一次!</button>
@@ -299,6 +259,6 @@
 
     </div>
             
-    <script src="../js/test.js"></script>
+    <script type="module" src="../js/test.js"></script>
 </body>
 </html>
