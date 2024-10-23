@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+const cors = require('cors');
+require('dotenv').config();
 
 // 在你的 Express 應用中
 app.use(cors());
@@ -29,7 +30,6 @@ app.use("/schInfo", schInfoRoutes);
 app.use("/member", memberRoutes);
 app.use("/site", siteRoutes);
 app.use("/budget", BudgetRoutes);
-app.use("/budget", popupBudgetRoutes);
 app.use("/test", testRoutes);
 
 // 注意，埠號是 8080
