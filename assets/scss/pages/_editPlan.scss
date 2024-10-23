@@ -162,6 +162,8 @@
       text-align: right;
       color: $secondary;
       margin-right: 20px;
+      margin-top: auto;
+      margin-bottom: 16px;
       h3 {
         font-size: 20px;
         font-weight: bold;
@@ -266,7 +268,8 @@
           color: $primary;
           margin-bottom: 16px;
         }
-        input {
+        input,
+        textarea {
           width: 100%;
           border: 1px solid $primary;
           font-size: 30px;
