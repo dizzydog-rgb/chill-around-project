@@ -1,6 +1,6 @@
 const BudgetModel = require("../models/BudgetModel");
-// 獲取使用者預算的控制器
 
+// 獲取使用者預算的控制器
 exports.getUserBudgetID = async (req, res) => {
     try {
         // 從 URL 參數中提取 ID
@@ -27,6 +27,7 @@ exports.getUserBudgetID = async (req, res) => {
     }
 };
 
+// 取得使用者選取的預算資料方塊（編輯頁）的控制器
 exports.getUserBudgetOneDetails = async (req, res) => {
     try {
         const scheduleId = req.params.id; 
@@ -54,4 +55,24 @@ exports.getBudgetCategory = async (req, res) => {
         console.error("Error fetching PopupBudgets:", error);
         res.status(500).json({ message: "getAllPopupBudgets Server Error" });
     }
+};
+
+exports.userAddBudgetController = (req, res) => {
+    BudgetModel.userAddBudget(req.body)
+        .then(message => res.status(201).send(message))
+        .catch(err => res.status(500).send(err));
+};
+
+exports.userEditBudgetController = (req, res) => {
+    const id = req.params.id;
+    BudgetModel.userEditBudget(id, req.body)
+        .then(message => res.send(message))
+        .catch(err => res.status(500).send(err));
+};
+
+exports.userDeleteBudgetController = (req, res) => {
+    const id = req.params.id;
+    BudgetModel.userDeleteBudget(id)
+        .then(message => res.send(message))
+        .catch(err => res.status(500).send(err));
 };
