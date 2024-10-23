@@ -1,6 +1,6 @@
 import axios from "axios";
 
-console.log("已從 localStorage 取得:", localStorage.getItem("scheduleId"));
+// console.log("已從 localStorage 取得:", localStorage.getItem("scheduleId"));
 const currentScheduleId = localStorage.getItem("scheduleId");
 
 axios
@@ -106,13 +106,13 @@ function renderDayContent(filteredData) {
   // 清空卡片列表
   cardList.innerHTML = "";
 
-  console.log("當天的資料:", filteredData);
+  // console.log("當天的資料:", filteredData);
   filteredData.forEach((site) => {
     const cardItem = document.createElement("li");
 
     // 建立卡片的 HTML 結構
     cardItem.innerHTML = `
-      <li data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-site-name="${site.sch_spot}" data-site-id="${site.detail_id}" class="siteItem">
+      <li data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-site-name="${site.sch_spot}" data-site-id="${site.detail_id}" data-sch-id="${site.sch_id}" data-site-day="${site.sch_day}" class="siteItem">
         <div class="card">
           <div class="row g-0">
             <div class="col-12 col-md-8">
@@ -138,6 +138,8 @@ function renderDayContent(filteredData) {
       let targetElement = e.target.closest("li");
       let currentSiteName = "";
       let currentModal = document.querySelector(".modal");
+      // console.log(isEditMode);
+      
       if (targetElement) {
         currentSiteName = targetElement.dataset.siteName;
 
@@ -169,32 +171,6 @@ function renderDayContent(filteredData) {
         .catch(function (error) {
           console.log("Error fetching alltags details:", error);
         });
-
-      const tagList = document.querySelector(".taglist");
-
-      function renderAllTags(alltags) {
-        tagList.innerHTML = "";
-
-        alltags.forEach((tag) => {
-          const tagItem = document.createElement("li");
-
-          // 建立標籤的 HTML 結構
-          tagItem.innerHTML = `
-            <li>
-              <button
-                type="button"
-                data-tag-id="${tag.tag_id}"
-                class="btn btn-outline-primary toggle-button"
-              >
-                ${tag.tag_name}
-              </button>
-            </li>
-          `;
-
-          // 將卡片加入到 ul 中
-          tagList.appendChild(tagItem);
-        });
-      }
 
       // 根據 currentSiteName 從後端獲取標籤，然後將 Modal 中對應的標籤添加樣式
       axios
@@ -263,74 +239,39 @@ function renderDayContent(filteredData) {
               // 如果按鈕沒有 btnSelected 樣式，從 selectedTags 中移除該標籤 ID
               selectedTags = selectedTags.filter((id) => id !== tagId);
             }
-            console.log("當前選中的標籤:", selectedTags);
+            // 將 selectedTags 存入 localStorage
+            localStorage.setItem('selectedTags', JSON.stringify(selectedTags));
+
+            // console.log("當前選中的標籤:", selectedTags);
           });
         });
       }
-
-      // modal 的 PUT 及 POST 邏輯
-      let isEditMode = true;
-      let currentSiteId = targetElement.dataset.siteId;
-
-      document
-        .querySelector(".addJourneyBtn")
-        .addEventListener("click", function () {
-          isEditMode = false;
-          currentSpotId = null;
-          // 清空 modal
-          currentModal.querySelector('input[name="siteName"]').value = "";
-          currentModal.querySelector('textarea[name="siteParagh"]').value = "";
-        });
-
-      // 綁定 PUT/POST事件至 Modal 中的完成按鈕
-      document
-        .getElementById("save-site")
-        .addEventListener("click", function () {
-          const siteName = currentModal.querySelector(
-            'input[name="siteName"]'
-          ).value;
-          const siteDescription = currentModal.querySelector(
-            'textarea[name="siteParagh"]'
-          ).value;
-
-          if (isEditMode) {
-            // PUT 請求 (更新行程點)
-            axios
-              .put(
-                `http://localhost:8080/buildPlan/editPlan/sites/${currentSiteId}`,
-                {
-                  sch_spot: siteName,
-                  sch_paragh: siteDescription,
-                  tags: selectedTags,
-                }
-              )
-              .then(function (response) {
-                console.log("行程點已更新:", response.data);
-                selectedTags = [];
-                currentModal.style.display = "none"; // 關閉 Modal
-                // location.reload(); // 刷新頁面
-              })
-              .catch(function (error) {
-                console.log("更新行程點時發生錯誤:", error);
-              });
-          } else {
-            // POST 請求 (新增行程點)
-            // axios
-            //   .post("http://localhost:8080/scheduleDetails", {
-            //     sch_spot: spotName,
-            //     sch_paragh: spotDescription,
-            //     // 你可能需要提供其他必要字段，例如 sch_day, sch_order 等
-            //   })
-            //   .then(function (response) {
-            //     console.log("行程點已新增:", response.data);
-            //     // 新增成功後可以刷新列表或顯示提示
-            //   })
-            //   .catch(function (error) {
-            //     console.log("新增行程點時發生錯誤:", error);
-            //   });
-          }
-        });
     });
+  });
+}
+
+export function renderAllTags(alltags) {
+  const tagList = document.querySelector(".taglist");
+  tagList.innerHTML = "";
+
+  alltags.forEach((tag) => {
+    const tagItem = document.createElement("li");
+
+    // 建立標籤的 HTML 結構
+    tagItem.innerHTML = `
+      <li>
+        <button
+          type="button"
+          data-tag-id="${tag.tag_id}"
+          class="btn btn-outline-primary toggle-button"
+        >
+          ${tag.tag_name}
+        </button>
+      </li>
+    `;
+    
+    // 將卡片加入到 ul 中
+    tagList.appendChild(tagItem);
   });
 }
 
@@ -355,9 +296,3 @@ function calculateTodayDate(startDate, i) {
   return formattedDate;
 }
 
-// 關閉 Modal 的函數
-function closeModal() {
-  const modal = document.querySelector(".modal");
-  const modalInstance = bootstrap.Modal.getInstance(modal);
-  modalInstance.hide();
-}

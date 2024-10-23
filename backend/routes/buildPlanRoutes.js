@@ -23,6 +23,6 @@ router.get(
 router.put("/editPlan/sites/:id", buildPlanController.putSiteDetailById);
 
 // POST 請求: 新增特定ID行程的景點
-// router.post("/editPlan/sites", buildPlanController.postSiteToSchedule);
+router.post("/editPlan/sites/:id/:day", buildPlanController.postSiteToSchedule);
 
 module.exports = router;

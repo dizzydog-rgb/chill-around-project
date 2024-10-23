@@ -181,18 +181,36 @@ exports.updateSiteTags = (sch_spot, tags) => {
   });
 };
 
-// 添加景點至特定編號行程的模組函數
-exports.addSiteToSchedule = (id) => {
+// 檢查景點是否存在於 sites 資料表的模組函數
+exports.checkSiteExists = (sch_spot) => {
   return new Promise((resolve, reject) => {
     const query = `
-    SQL
+      SELECT COUNT(*) AS count FROM sites WHERE site_name = ?;
+    `;
+    db.exec(query, [sch_spot], (error, results, fields) => {
+      if (error) {
+        console.error("Error checking site existence:", error);
+        return reject(error);
+      }
+      const count = results[0].count;
+      resolve(count > 0); // 如果 count 大於 0，表示景點存在
+    });
+  });
+};
+
+// 添加景點至特定編號行程的模組函數
+exports.addSiteToSchedule = (sch_id, sch_day, sch_spot, sch_paragh) => {
+  return new Promise((resolve, reject) => {
+    const query = `
+    INSERT INTO schedule_details (sch_id, sch_day, sch_spot, sch_paragh, sch_order)
+    VALUES (?, ?, ?, ?, (SELECT COALESCE(MAX(sd.sch_order), 0) + 1 FROM schedule_details AS sd WHERE sd.sch_id = ? AND sd.sch_day = ?));
   `;
-    db.exec(query, [id], (error, results, fields) => {
+    db.exec(query, [sch_id, sch_day, sch_spot, sch_paragh, sch_id, sch_day], (error, results, fields) => {
       if (results) {
         resolve(results);
       } else {
-        console.error("No results found or query error");
-        reject(new Error("No results found or query error"));
+        console.error("Insert site fail or query error");
+        reject(new Error("Insert site fail or query error"));
       }
     });
   });
