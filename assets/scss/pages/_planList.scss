@@ -17,11 +17,12 @@
 
       .card:hover {
         cursor: pointer;
-        box-shadow: 0 6px 8px 0 $secondary;
+        transform: scale(1.05);
       }
       .card {
         margin-bottom: 48px;
         border: 1px solid $danger;
+        transition: transform 0.2s;
         .card-header {
           background-color: #ffffff;
           padding: 10px 20px;

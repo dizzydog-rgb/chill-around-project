@@ -9,9 +9,9 @@ const siteId = params.get('id'); // 假設 URL 包含 ?id=1
 console.log('siteId:'+ siteId); //siteId:1
 
 // 這段放在hesder.js中，因為要確保在引入 HTML 中的圖片之前加載
-// function changeImage(image) {
-//     document.getElementById("mainImage").src = image;
-//   }
+function changeImage(image) {
+    document.getElementById("mainImage").src = image;
+  }
 
 axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
   .then(response => {
@@ -171,6 +171,11 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
             <p class="detailsInfo">${site_info}</p>
           </div>
     `;
+    function changeImage(image) {
+        console.log(image);
+        
+        document.getElementById("mainImage").src =image;
+      }
   })
   .catch(error => {
     console.error('無法取得景點資料:', error);

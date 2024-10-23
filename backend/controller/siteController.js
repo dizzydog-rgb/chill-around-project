@@ -1,4 +1,12 @@
 const siteModel = require("../models/siteModel");
+exports.getAllSite = async(req,res) =>{
+    try {
+        const allSiteResult =  await siteModel.findAllSite();
+        res.json(allSiteResult)
+    } catch (error) {
+        console.error("獲取所有景點資料出問題：" + error);
+    }
+}
 exports.getSiteById = async (req, res) => {
     try {
       // 從 URL 參數中提取 ID
@@ -39,14 +47,14 @@ exports.getSiteById = async (req, res) => {
 //   };
 // allsite隨機撈景點資料
 exports.getRandomSite = async (req, res) => {
-    siteModel.findRandomSite()
+    await siteModel.findRandomSite()
         .then(site => {
             
             res.json(site);  // 返回 JSON 格式的資料
         })
         .catch(err => {
             console.error('查詢發生錯誤:', err);
-            res.status(500).json({ error: '資料庫查詢失敗' });
+            res.status(500).json({ error: '資料庫查詢失敗' + err.message});
         });
     
   };
