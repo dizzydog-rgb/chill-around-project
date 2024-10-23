@@ -6,8 +6,7 @@ exports.login = async (req, res) => {
         if (result.token) {
             res.json({
                 token: result.token,
-                account: result.account,
-                updated_at: result.updated_at
+                account: result.account
             });
         } else {
             res.status(401).json({ message: result.error });
@@ -36,11 +35,13 @@ exports.getByemail = async (req, res) => {
 exports.registermember = async (req, res) => {
     try {
         const result = await memberModel.registerData(req.body);
+        if (result.error) {
+            return res.status(400).json({ message: result.error }); // 返回錯誤消息
+        }
         if (result.token) {
             res.json({
                 token: result.token,
-                account: result.account,
-                password:result.password
+                account: result.account
             });
         } else {
             res.status(401).json({ message: result.error });
