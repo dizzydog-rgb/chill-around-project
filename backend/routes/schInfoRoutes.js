@@ -22,9 +22,11 @@ router.get("/Info", function (req, res) {
     }
   });
 });
-http://localhost:8080/schInfo/siteinfo
+//http://localhost:8080/schInfo/siteinfo
 router.get('/siteinfo', schInfoController.getSiteInfo);
+//http://localhost:8080/schInfo/getspot
 router.get('/getspot', schInfoController.getSchedulesAndSites);
+//http://localhost:8080/schInfo/getspot/add
 router.post('/getspot/add', schInfoController.addSchedule);
 
 //http://localhost:8080/schInfo/YtAndBlog
