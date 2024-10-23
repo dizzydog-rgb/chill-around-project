@@ -14,5 +14,7 @@ const BudgetController = require("../controller/BudgetController");
 // 這裡定義各種資料取用的路由請求
 router.get("/popupBudget", BudgetController.getBudgetCategory);
 router.get("/UserBudget/:id", BudgetController.getUserBudgetID);
+router.get("/UserBudget/:id/:detailId", BudgetController.getUserBudgetOneDetails);
+router.put("/UserBudget/:id/:detailId", BudgetController.getUserBudgetOneDetails);
 
 module.exports = router;

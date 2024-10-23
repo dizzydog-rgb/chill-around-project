@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
 
 // 在你的 Express 應用中
 app.use(cors());
@@ -30,7 +30,6 @@ app.use("/member", memberRoutes);
 app.use("/site", siteRoutes);
 app.use("/budget", BudgetRoutes);
 app.use("/test", testRoutes);
-
 
 // 注意，埠號是 8080
 const port = 8080;

@@ -1,5 +1,6 @@
 const BudgetModel = require("../models/BudgetModel");
-// 獲取特定物品種類的控制器
+// 獲取使用者預算的控制器
+
 exports.getUserBudgetID = async (req, res) => {
     try {
         // 從 URL 參數中提取 ID
@@ -22,6 +23,24 @@ exports.getUserBudgetID = async (req, res) => {
         // 錯誤處理
         // console.error("Error fetching PopupBudget:", error);
         // res.status(500).json({ message: "Server Error" });
+        res.status(500).json({ message: "Server Error", error: error.message });
+    }
+};
+
+exports.getUserBudgetOneDetails = async (req, res) => {
+    try {
+        const scheduleId = req.params.id; 
+        const BudgetOneDetailId = req.params.detailId;
+        console.log("Fetching One Budget with ID:", scheduleId, BudgetOneDetailId);
+        
+        const BudgetOneDetail = await BudgetModel.findUserBudgetOneDetails(scheduleId, BudgetOneDetailId);
+        console.log("成功更改編輯方塊:", BudgetOneDetail);
+
+        if (!BudgetOneDetail) {
+            return res.status(404).json({ message: "UserBudgets not found" });
+        }
+         res.json(BudgetOneDetail);
+    } catch (error) {
         res.status(500).json({ message: "Server Error", error: error.message });
     }
 };

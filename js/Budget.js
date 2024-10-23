@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-localStorage.setItem("scheduleId", "3");
+// localStorage.setItem("scheduleId", "3");
 const currentScheduleId = localStorage.getItem("scheduleId");
 console.log("皮卡：目前從 localStorage 取得: ------- ", currentScheduleId);
 
@@ -39,6 +39,7 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
 
             const historyContentDiv = document.createElement('div');
             historyContentDiv.className = 'historyContent';
+            historyContentDiv.setAttribute('data-budget-id', item.Budget_id);
             historyContentDiv.innerHTML = `
                 <img src="../assets/images/Budget_Item/Items/clothes.png">
                 <span class="leftCategory">${item.BudgetName} ${item.BudgetDetails}</span>
@@ -46,11 +47,23 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
                 <span class="rightMoney">${item.Cost}</span>
             `;
             dayHistoryDiv.appendChild(historyContentDiv);
+
+            // ---------------------------------------------------- 點擊事件 - 進入編輯
+            historyContentDiv.addEventListener('click', () => {
+                    const UserChooseDiv = item;
+                    localStorage.setItem("UserChooseDiv", JSON.stringify(UserChooseDiv));
+                    window.location.href = '../pages/Popup_Budget.html';
+            });
+
+            document.querySelector('.increaseBtn').addEventListener('click', () => {
+                localStorage.removeItem("UserChooseDiv");
+                window.location.href = '../pages/Popup_Budget.html';
+            });
         });
 
         // ---------------------------------------------------- 渲染總額、已付和未付區
         const TotalAndifPaid = budgetItems[0].TotalAndifPaid;
-        // console.log("總額、已付和未付資料", TotalAndifPaid);
+        console.log("總額、已付和未付資料", TotalAndifPaid);
         // console.log("這是總額", TotalAndifPaid[0].TotalCost)
         // console.log("這是已付", TotalAndifPaid[0].TotalPaid)
         // console.log("這是未付錢", TotalAndifPaid[0].TotalUnpaid)
@@ -108,10 +121,9 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
                 `
                 categoryDiv.appendChild(categoryHistoryDiv);
                 // console.log("目前的coding位置 ---", categoryDiv)
-            }
-        })
 
-    })
-    .catch(function (error) {
+            }
+        });
+    }).catch(function (error) {
         console.error("獲取資料時發生錯誤:", error);
     });

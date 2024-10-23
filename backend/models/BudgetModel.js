@@ -58,6 +58,55 @@ exports.findUserBudgetId = (id) => {
     });
 };
 
+// 編輯方塊可編輯(UPDATE)
+// exports.findUserBudgetOneDetails = (scheduleId, BudgetOneDetailId) => {
+//     return new Promise((resolve, reject) => {
+//         const query = "SELECT * FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
+
+//         db.exec(query, [scheduleId, BudgetOneDetailId], (err, results) => {
+//             if (err) {
+//                 return reject(err);
+//             }
+//             resolve({results});
+//         });
+//     });
+// };
+exports.updateUserBudgetDetails = (scheduleId, BudgetOneDetailId, updateData) => {
+    return new Promise((resolve, reject) => {
+        // 查詢當前預算資料
+        const querySelect = "SELECT * FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
+        db.exec(querySelect, [scheduleId, BudgetOneDetailId], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            if (results.length === 0) {
+                return reject(new Error("該預算項目不存在"));
+            }
+
+            // 更新預算資料
+            const { BudgetDate, BudgetDetails, BudgetName, Cost, PaidStatus, WhoPay } = updateData;
+            const queryUpdate = `
+                UPDATE userbudget 
+                SET 
+                    BudgetDate = ?, 
+                    BudgetDetails = ?, 
+                    BudgetName = ?, 
+                    Cost = ?, 
+                    PaidStatus = ?, 
+                    WhoPay = ? 
+                WHERE 
+                    sch_id = ? AND Budget_id = ?;
+            `;
+            db.exec(queryUpdate, [BudgetDate, BudgetDetails, BudgetName, Cost, PaidStatus, WhoPay, scheduleId, BudgetOneDetailId], (errUpdate, updateResult) => {
+                if (errUpdate) {
+                    return reject(errUpdate);
+                }
+                resolve({ results, updated: updateResult });
+            });
+        });
+    });
+};
+
 // 獲取全部預算種類 TEST
 exports.findBudgetCategory = () => {
     return new Promise((resolve, reject) => {
