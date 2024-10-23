@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, SECRET_KEY);
-        req.user = decoded; // 将解码后的用户信息附加到请求对象上
+        req.currentUser = decoded; // 將解碼後的使用者資訊附加到請求對像上
         next();
     } catch (error) {
         if (error.name === 'TokenExpiredError') {

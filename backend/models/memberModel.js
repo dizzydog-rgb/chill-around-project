@@ -29,7 +29,10 @@ exports.loginEmail = (member) => {
                             console.error("更新 updated_at 錯誤:", updateError);
                         }
                         const token = jwt.sign(
-                            { id: results[0].emailid, email: results[0].email },
+                            {
+                                id: results[0].emailid,
+                                email: results[0].email
+                            },
                             SECRET_KEY,
                             { expiresIn: '1h' }
                         );
@@ -63,6 +66,38 @@ exports.findEmail = (email) => {
             }
             if (results) {
                 resolve(results[0]);
+            } else {
+                console.error("No results found or query error:" + error);
+                resolve(null);
+            }
+        });
+    });
+}
+
+exports.registerData = (user) => {
+    return new Promise((resolve, reject) => {
+        var sql = "INSERT INTO `member`(uname,email,password) VALUES (?,?,?)";
+        var data = [user.uname,user.email,user.pw2];
+        db.exec(sql, data, function (error, results, fields) {
+            if (error) {
+                console.error("錯誤訊息:", error);
+                reject(error);
+                return;
+            }
+            if (results) {
+                const token = jwt.sign(
+                    {
+                        id: results[0].emailid,
+                        email: results[0].email
+                    },
+                    SECRET_KEY,
+                    { expiresIn: '1h' }
+                );
+                resolve({
+                    account: results[0].email,
+                    password: results[0].password,
+                    token
+                });
             } else {
                 console.error("No results found or query error:" + error);
                 resolve(null);

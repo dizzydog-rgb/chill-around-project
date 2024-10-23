@@ -9,9 +9,6 @@ var db = require('../config/database');
 router.use(bodyParser.json());
 router.use('/images', express.static(__dirname + '/assets/images'));
 
-// 驗證token，取得資料庫會員資料
-router.get("/members/user", auth, memberController.getByemail);
-
 // GET 請求: 取得頁面
 // 登入
 router.get("/login", function (req, res) {
@@ -29,6 +26,7 @@ router.get("/login", function (req, res) {
     });
 });
 
+// POST 傳送登入帳密
 router.post("/login", memberController.login);
 
 // 註冊頁面
@@ -46,6 +44,11 @@ router.get("/register", function (req, res) {
         }
     });
 });
+
+router.post("/register", memberController.registermember);
+
+// 驗證帳密，取得資料庫會員資料
+router.get("/members/user", auth, memberController.getByemail);
 
 // 個人資訊頁面
 router.get("/personaldata", function (req, res) {
