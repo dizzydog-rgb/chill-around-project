@@ -7,7 +7,7 @@ axios
   .get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)
   .then(function (response) {
     const schedules = response.data;
-    console.log("取得資料:", schedules);
+    // console.log("取得資料:", schedules);
     renderEditPlan(schedules);
   })
   .catch(function (error) {
@@ -82,6 +82,10 @@ function switchCurrentDay(i, schedules) {
   const dayListItems = document
     .querySelector(".dayList")
     .getElementsByTagName("li");
+  const todayInfo = document.querySelector(".todayInfo");
+  let startDate = schedules[0].edit_date.slice(0, 10);
+  let currentDate = calculateTodayDate(startDate, i);
+  todayInfo.innerHTML = `<h3>${currentDate}</h3>`;
 
   // 移除所有 class="currentDay"
   for (let i = 0; i < dayListItems.length; i++) {
@@ -108,7 +112,7 @@ function renderDayContent(filteredData) {
 
     // 建立卡片的 HTML 結構
     cardItem.innerHTML = `
-      <li data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-site-name="${site.sch_spot}" class="siteItem">
+      <li data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-site-name="${site.sch_spot}" data-site-id="${site.detail_id}" class="siteItem">
         <div class="card">
           <div class="row g-0">
             <div class="col-12 col-md-8">
@@ -133,8 +137,23 @@ function renderDayContent(filteredData) {
     site.addEventListener("click", function (e) {
       let targetElement = e.target.closest("li");
       let currentSiteName = "";
+      let currentModal = document.querySelector(".modal");
       if (targetElement) {
         currentSiteName = targetElement.dataset.siteName;
+
+        // 使用 querySelector 來找到 Modal 中的 input，並設置其值
+        const siteNameInput = currentModal.querySelector(
+          'input[name="siteName"]'
+        );
+        const siteParaghTA = currentModal.querySelector(
+          'textarea[name="siteParagh"]'
+        );
+        if (siteNameInput) {
+          siteNameInput.value = currentSiteName;
+          siteParaghTA.value = targetElement.querySelector(
+            "p[class='card-text']"
+          ).innerText;
+        }
       } else {
         console.log("找不到最近的 LI");
       }
@@ -152,17 +171,19 @@ function renderDayContent(filteredData) {
         });
 
       const tagList = document.querySelector(".taglist");
+
       function renderAllTags(alltags) {
         tagList.innerHTML = "";
 
         alltags.forEach((tag) => {
           const tagItem = document.createElement("li");
 
-          // 建立卡片的 HTML 結構
+          // 建立標籤的 HTML 結構
           tagItem.innerHTML = `
             <li>
               <button
                 type="button"
+                data-tag-id="${tag.tag_id}"
                 class="btn btn-outline-primary toggle-button"
               >
                 ${tag.tag_name}
@@ -191,50 +212,124 @@ function renderDayContent(filteredData) {
           console.log("Error fetching tags details:", error);
         });
 
+      let selectedTags = [];
       function highlightMatchedTags(siteTags) {
         const allButtons = document.querySelectorAll(".toggle-button");
 
-        let selectedTags = [];
+        // 清空樣式
+        allButtons.forEach(function (button) {
+          button.classList.remove("btnSelected");
+        });
+
+        // 清空 selectedTags
+        selectedTags = [];
+
         // 遍歷所有的標籤按鈕
         allButtons.forEach(function (button) {
           // 獲取按鈕的文字內容，並去除多餘的空白
           const tagName = button.textContent.trim();
+          const tagId = button.dataset.tagId;
+
           // 檢查該標籤是否在 siteTags 中
           for (let i = 0; i < siteTags.length; i++) {
             if (siteTags[i].tag_name === tagName) {
               button.classList.add("btnSelected");
-              selectedTags.push(tagName);
-            } else {
-              button.classList.remove("btnSelected");
+              selectedTags.push(tagId);
             }
           }
         });
 
         // 選取標籤後變更樣式，獲得選取的標籤列表
         allButtons.forEach((button) => {
-          // 獲取按鈕的標籤名稱
+          // 獲取按鈕的標籤ID
           const tagName = button.textContent.trim();
+          const tagId = button.dataset.tagId;
+
           if (siteTags.includes(tagName)) {
             button.classList.add("btnSelected");
-            selectedTags.push(tagName);
+            if (!selectedTags.includes(tagId)) {
+              selectedTags.push(tagId);
+            }
           }
 
           button.addEventListener("click", function () {
             button.classList.toggle("btnSelected");
-            // 如果按鈕有 btnSelected，將標籤名稱添加到 selectedTags 中
+            // 如果按鈕有 btnSelected 樣式，將標籤 ID 添加到 selectedTags 中
             if (button.classList.contains("btnSelected")) {
-              if (!selectedTags.includes(tagName)) {
-                selectedTags.push(tagName);
+              if (!selectedTags.includes(tagId)) {
+                selectedTags.push(tagId);
               }
             } else {
-              // 如果按鈕沒有 btnSelected，從 selectedTags 中移除標籤名稱
-              selectedTags = selectedTags.filter((tag) => tag !== tagName);
+              // 如果按鈕沒有 btnSelected 樣式，從 selectedTags 中移除該標籤 ID
+              selectedTags = selectedTags.filter((id) => id !== tagId);
             }
-
             console.log("當前選中的標籤:", selectedTags);
           });
         });
       }
+
+      // modal 的 PUT 及 POST 邏輯
+      let isEditMode = true;
+      let currentSiteId = targetElement.dataset.siteId;
+
+      document
+        .querySelector(".addJourneyBtn")
+        .addEventListener("click", function () {
+          isEditMode = false;
+          currentSpotId = null;
+          // 清空 modal
+          currentModal.querySelector('input[name="siteName"]').value = "";
+          currentModal.querySelector('textarea[name="siteParagh"]').value = "";
+        });
+
+      // 綁定 PUT/POST事件至 Modal 中的完成按鈕
+      document
+        .getElementById("save-site")
+        .addEventListener("click", function () {
+          const siteName = currentModal.querySelector(
+            'input[name="siteName"]'
+          ).value;
+          const siteDescription = currentModal.querySelector(
+            'textarea[name="siteParagh"]'
+          ).value;
+
+          if (isEditMode) {
+            // PUT 請求 (更新行程點)
+            axios
+              .put(
+                `http://localhost:8080/buildPlan/editPlan/sites/${currentSiteId}`,
+                {
+                  sch_spot: siteName,
+                  sch_paragh: siteDescription,
+                  tags: selectedTags,
+                }
+              )
+              .then(function (response) {
+                console.log("行程點已更新:", response.data);
+                selectedTags = [];
+                currentModal.style.display = "none"; // 關閉 Modal
+                // location.reload(); // 刷新頁面
+              })
+              .catch(function (error) {
+                console.log("更新行程點時發生錯誤:", error);
+              });
+          } else {
+            // POST 請求 (新增行程點)
+            // axios
+            //   .post("http://localhost:8080/scheduleDetails", {
+            //     sch_spot: spotName,
+            //     sch_paragh: spotDescription,
+            //     // 你可能需要提供其他必要字段，例如 sch_day, sch_order 等
+            //   })
+            //   .then(function (response) {
+            //     console.log("行程點已新增:", response.data);
+            //     // 新增成功後可以刷新列表或顯示提示
+            //   })
+            //   .catch(function (error) {
+            //     console.log("新增行程點時發生錯誤:", error);
+            //   });
+          }
+        });
     });
   });
 }
@@ -245,4 +340,24 @@ function calculateDayDifference(startDate, endDate) {
   const diffInMilliseconds = end - start;
   const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
   return Math.floor(diffInDays) + 1;
+}
+
+function calculateTodayDate(startDate, i) {
+  const start = new Date(startDate);
+
+  // 計算當天日期
+  const currentDate = new Date(start.getTime() + i * (1000 * 60 * 60 * 24));
+
+  // 格式化為YYYY-MM-DD
+  const formattedDate = currentDate.toISOString().slice(0, 10);
+
+  // 輸出指定日期
+  return formattedDate;
+}
+
+// 關閉 Modal 的函數
+function closeModal() {
+  const modal = document.querySelector(".modal");
+  const modalInstance = bootstrap.Modal.getInstance(modal);
+  modalInstance.hide();
 }

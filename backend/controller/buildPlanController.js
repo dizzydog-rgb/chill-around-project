@@ -77,22 +77,24 @@ exports.getSiteTags = async (req, res) => {
   }
 };
 
-// 新增景點至特定旅行計畫的控制器
-exports.postSiteToSchedule = async (req, res) => {
+// 編輯特定景點的控制器
+exports.putSiteDetailById = async (req, res) => {
   try {
-    // 從 URL 參數中提取 ID
-    const scheduleId = req.params.id;
-    // 從資料庫取得所有的行程資料
-    const schedule = await buildPlanModel.addSiteToSchedule(scheduleId);
-    // 如果找不到資料，回傳 404
-    if (!schedule || schedule.length === 0) {
-      return res.status(404).json({ message: "schedule not found" });
-    }
-    // 成功取得資料後回傳 JSON 給前端
-    res.json(schedule);
+    // 從 URL 參數中提取 ID、景點名稱、及景點說明
+    const detail_id = req.params.id;
+    const { sch_spot, sch_paragh, tags } = req.body;
+
+    // 調用 model 中的方法更新 景點資料
+    await buildPlanModel.updateSiteDetailById(detail_id, sch_spot, sch_paragh);
+
+    // 調用 model 中的方法更新 標籤關聯
+    await buildPlanModel.updateSiteTags(sch_spot, tags);
+
+    // 成功取得資料後回傳 更新成功 的訊息給前端
+    res.send({ message: "更新成功" });
   } catch (error) {
     // 錯誤處理
-    console.error("Error fetching site:", error);
+    console.error("Error updating schedule detail:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
