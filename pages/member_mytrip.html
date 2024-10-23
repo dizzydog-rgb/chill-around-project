@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -165,6 +166,23 @@
         </div>
     </div>
     <script type="module" src="/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert("請先登入");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            $('#logoutbtn').click(function () {
+                if (confirm('您確定要登出嗎？')) {
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                }
+            });
+        })
+    </script>
 </body>
 
 </html>

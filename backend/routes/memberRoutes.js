@@ -3,6 +3,7 @@ const path = require("path");
 const router = express.Router();
 const bodyParser = require('body-parser');
 const memberController = require("../controller/memberController");
+const auth = require('../middleware/authMiddleware');
 var db = require('../config/database');
 
 router.use(bodyParser.json());
@@ -10,7 +11,7 @@ router.use('/images', express.static(__dirname + '/assets/images'));
 
 // GET 請求: 取得頁面
 // 登入
-router.get("/loginpage", function (req, res) {
+router.get("/login", function (req, res) {
     const options = {
         root: path.join(__dirname, "../../", "dist"),
     };
@@ -25,6 +26,7 @@ router.get("/loginpage", function (req, res) {
     });
 });
 
+// POST 傳送登入帳密
 router.post("/login", memberController.login);
 
 // 註冊頁面
@@ -42,6 +44,12 @@ router.get("/register", function (req, res) {
         }
     });
 });
+
+// 傳送註冊資料
+router.post("/register", memberController.registermember);
+
+// 驗證帳密，取得資料庫會員資料
+router.get("/members/user", auth, memberController.getByemail);
 
 // 個人資訊頁面
 router.get("/personaldata", function (req, res) {
@@ -106,8 +114,5 @@ router.get("/TaiwanEx", function (req, res) {
         }
     });
 });
-
-// 取得資料庫資料
-router.get("/members/:id", memberController.getemailById);
 
 module.exports = router;
