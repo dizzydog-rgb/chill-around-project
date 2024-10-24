@@ -1,4 +1,15 @@
 const BudgetModel = require("../models/BudgetModel");
+// 獲得全部種類的控制器
+exports.getBudgetCategory = async (req, res) => {
+    try {
+        const popupBudgets = await BudgetModel.findBudgetCategory();
+        res.json(popupBudgets);
+    } catch (error) {
+        console.error("Error fetching PopupBudgets:", error);
+        res.status(500).json({ message: "getAllPopupBudgets Server Error" });
+    }
+};
+
 
 // 獲取使用者預算的控制器
 exports.getUserBudgetID = async (req, res) => {
@@ -7,7 +18,7 @@ exports.getUserBudgetID = async (req, res) => {
         // const UserBudgetId = parseInt(req.params.id, 10);
         const UserBudgetId = req.params.id;
         console.log("Fetching Budget with ID:", UserBudgetId);
-        
+
         // 從資料庫取得特定 ID 的景點資料
         const UserBudget = await BudgetModel.findUserBudgetId(UserBudgetId);
         console.log("UserBudgets data fetched:", UserBudget);
@@ -30,49 +41,46 @@ exports.getUserBudgetID = async (req, res) => {
 // 取得使用者選取的預算資料方塊（編輯頁）的控制器
 exports.getUserBudgetOneDetails = async (req, res) => {
     try {
-        const scheduleId = req.params.id; 
+        const schId = req.params.id;
         const BudgetOneDetailId = req.params.detailId;
-        console.log("Fetching One Budget with ID:", scheduleId, BudgetOneDetailId);
-        
-        const BudgetOneDetail = await BudgetModel.findUserBudgetOneDetails(scheduleId, BudgetOneDetailId);
-        console.log("成功更改編輯方塊:", BudgetOneDetail);
+
+        console.log("Fetching One Budget with ID:", schId, BudgetOneDetailId);
+
+        const BudgetOneDetail = await BudgetModel.findUserBudgetOneDetails(schId, BudgetOneDetailId);
+        console.log("進入使用者選擇的編輯方塊:", BudgetOneDetail);
 
         if (!BudgetOneDetail) {
             return res.status(404).json({ message: "UserBudgets not found" });
         }
-         res.json(BudgetOneDetail);
+        res.json(BudgetOneDetail);
     } catch (error) {
         res.status(500).json({ message: "Server Error", error: error.message });
     }
 };
 
-// 獲得全部種類的控制器
-exports.getBudgetCategory = async (req, res) => {
-    try {
-        const popupBudgets = await BudgetModel.findBudgetCategory();
-        res.json(popupBudgets);
-    } catch (error) {
-        console.error("Error fetching PopupBudgets:", error);
-        res.status(500).json({ message: "getAllPopupBudgets Server Error" });
-    }
+// 編輯預算的控制器
+exports.userEditBudgetController = (req, res) => {
+    const schId = req.params.id; // 獲取預算ID
+    const budgetId = req.params.detailId; // 獲取詳細ID
+    const budgetData = req.body; // 獲取更新的數據
+
+    BudgetModel.userEditBudget(schId, budgetId, budgetData)
+        .then(message => res.send(message))
+        .catch(err => res.status(500).send(err));
 };
 
+// 刪除預算的控制器
+exports.userDeleteBudgetController = (req, res) => {
+    const schId = req.params.id; // 獲取預算ID
+    const budgetId = req.params.detailId; // 獲取詳細ID
+    BudgetModel.userDeleteBudget(schId, budgetId)
+        .then(message => res.send(message))
+        .catch(err => res.status(500).send(err));
+};
+
+// 增加預算的控制器
 exports.userAddBudgetController = (req, res) => {
     BudgetModel.userAddBudget(req.body)
         .then(message => res.status(201).send(message))
-        .catch(err => res.status(500).send(err));
-};
-
-exports.userEditBudgetController = (req, res) => {
-    const id = req.params.id;
-    BudgetModel.userEditBudget(id, req.body)
-        .then(message => res.send(message))
-        .catch(err => res.status(500).send(err));
-};
-
-exports.userDeleteBudgetController = (req, res) => {
-    const id = req.params.id;
-    BudgetModel.userDeleteBudget(id)
-        .then(message => res.send(message))
         .catch(err => res.status(500).send(err));
 };

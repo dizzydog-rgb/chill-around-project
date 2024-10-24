@@ -81,10 +81,109 @@ exports.findBudgetCategory = () => {
     });
 };
 
+// 使用者選取的資料區塊
+exports.findUserBudgetOneDetails = (schId, DetailId) => {
+    return new Promise((resolve, reject) => {
+        const query = "SELECT * FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
+        db.exec(query, [schId, DetailId], (err, result) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(result);
+        });
+    });
+};
+
+
+// 使用者編輯預算方塊
+exports.userEditBudget = (schId, budgetId, budgetData) => {
+    return new Promise((resolve, reject) => {
+        const query = "SELECT * FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
+
+        db.exec(query, [schId, budgetId], (err, currentBudget) => {
+
+            console.log('Error:', err);
+            console.log('崩潰卡比---------------------------------------------------', new Date().toLocaleTimeString())
+            console.log('Current Budget:', currentBudget);
+
+            if (err) {
+                return reject(err);
+            }
+            if (currentBudget.length === 0) {
+                return reject(new Error('Budget not found.'));
+            }
+
+            const fieldsToUpdate = [];
+            const values = [];
+
+            // 更新 BudgetName 如果提供
+            if (budgetData.BudgetName) {
+                fieldsToUpdate.push("BudgetName = ?");
+                values.push(budgetData.BudgetName);
+            }
+            // 更新 BudgetDetails 如果提供
+            if (budgetData.BudgetDetails) {
+                fieldsToUpdate.push("BudgetDetails = ?");
+                values.push(budgetData.BudgetDetails);
+            }
+            // 更新 BudgetDate 如果提供
+            if (budgetData.BudgetDate) {
+                fieldsToUpdate.push("BudgetDate = ?");
+                values.push(budgetData.BudgetDate);
+            }
+            // 更新 Cost 如果提供
+            if (budgetData.Cost) {
+                fieldsToUpdate.push("Cost = ?");
+                values.push(budgetData.Cost);
+            }
+            // 更新 PaidStatus 如果提供
+            if (budgetData.PaidStatus !== undefined) {
+                fieldsToUpdate.push("PaidStatus = ?");
+                values.push(budgetData.PaidStatus);
+            }
+            // 更新 WhoPay 如果提供
+            if (budgetData.WhoPay) {
+                fieldsToUpdate.push("WhoPay = ?");
+                values.push(budgetData.WhoPay);
+            }
+            // 更新 BudgetContent 如果提供
+            if (budgetData.BudgetContent) {
+                fieldsToUpdate.push("BudgetContent = ?");
+                values.push(budgetData.BudgetContent);
+            }
+
+            // 添加 sch_id、Budget_id 到查詢參數
+            values.push(schId);
+            values.push(budgetId);
+
+            // 建構更新查询
+            const updateQuery = `UPDATE userbudget SET ${fieldsToUpdate.join(", ")} WHERE sch_id = ? AND Budget_id = ?`;
+
+            db.exec(updateQuery, [...values, schId, budgetId], (err, result) => { // 傳遞 sch_id、budgetId
+                console.log("Updating query:", values);
+                if (err) {
+                    return reject(err);
+                }
+                if (result.affectedRows === 0) {
+                    console.log("Updating query:", updateQuery);
+                    console.log("Updating values 和 schId, budgetId:", [...values, schId, budgetId]);
+                    console.log("Updating values:", values);
+                    console.log("這裡是result.affectedRows", result.affectedRows);
+                    // return reject(new Error('Budget not found.'));
+                    console.error("No rows updated. Check if the budget exists and the data is different.");
+                    return reject(new Error('No rows updated. Please check your data.'));
+                }
+                resolve('Budget updated!');
+            });
+        });
+    });
+};
+
+
 // 編輯頁面 - 新增功能
 exports.userAddBudget = (budgetData) => {
     return new Promise((resolve, reject) => {
-        const query = "INSERT INTO Budgets (BudgetDate, BudgetDetails, BudgetName, Cost, PaidStatus, WhoPay) VALUES (?, ?, ?, ?, ?, ?)";
+        const query = "INSERT INTO userbudget (BudgetDate, BudgetDetails, BudgetName, Cost, PaidStatus, WhoPay) VALUES (?, ?, ?, ?, ?, ?)";
         db.exec(query, [budgetData.BudgetDate, budgetData.BudgetDetails, budgetData.BudgetName, budgetData.Cost, budgetData.PaidStatus, budgetData.WhoPay], (err, result) => {
             if (err) {
                 return reject(err);
@@ -95,28 +194,16 @@ exports.userAddBudget = (budgetData) => {
 };
 
 
-// 編輯頁面 - 編輯功能
-exports.userEditBudget = (id, budgetData) => {
-    return new Promise((resolve, reject) => {
-        const query = "UPDATE Budgets SET BudgetDate = ?, BudgetDetails = ?, BudgetName = ?, Cost = ?, PaidStatus = ?, WhoPay = ? WHERE BudgetID = ?";
-        db.exec(query, [budgetData.BudgetDate, budgetData.BudgetDetails, budgetData.BudgetName, budgetData.Cost, budgetData.PaidStatus, budgetData.WhoPay, id], (err, result) => {
-            if (err) {
-                return reject(err);
-            }
-            resolve('Budget updated!');
-        });
-    });
-};
-
 // 編輯頁面 - 刪除功能
 exports.userDeleteBudget = (id) => {
     return new Promise((resolve, reject) => {
-        const query = "DELETE FROM Budgets WHERE BudgetID = ?";
+        const query = "DELETE FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
         db.exec(query, [id], (err, result) => {
+            console.log('崩潰卡比---------------------------------------------------', new Date().toLocaleTimeString());
             if (err) {
                 return reject(err);
             }
-            resolve('Budget deleted!');
+            resolve('Budget deleted!', result);
         });
     });
 };
