@@ -59,9 +59,9 @@ var mysql1 = require('mysql');
 exports.exec = (sql, data, callback) => {
     const connection = mysql1.createConnection({
         host: 'localhost',
-        port: '8889',
+        port: '',
         user: 'root',
-        password: 'root',
+        password: '',
         database: 'chill_around',
         multipleStatements: true,
     });
