@@ -1,11 +1,58 @@
 const db = require("../config/database");
 
+// 獲取取特定編號行程的模組函數
+exports.findScheduleById = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = `
+    SELECT s.*, sd.* ,
+    (
+        SELECT si.photo_one
+        FROM sites si
+        ORDER BY RAND()
+        LIMIT 1
+    ) AS photo_one
+    FROM schedule s
+    JOIN schedule_details sd ON s.sch_id = sd.sch_id
+    WHERE s.sch_id = ?;
+  `;
+    db.exec(query, [id], (error, results, fields) => {
+      if (results) {
+        resolve(results);
+      } else {
+        console.error("No results found or query error");
+        reject(new Error("No results found or query error"));
+      }
+    });
+  });
+};
 
-//取得卡片行程資料
+//取得卡片行程資料、標籤、景點
 exports.getScheduleCardData = () => {
   return new Promise((resolve, reject) => {
     const query =
-      `取schedule_details join schedule sites.img tag schedule_tag`;
+    `SELECT 
+      s.sch_id,
+      s.sch_name,
+      s.edit_date,
+      t.tag_id,
+      t.tag_name,
+      sd.*,            -- 包含 schedule_details 表的所有字段
+      si.photo_one,     -- 從 sites 表選出 photo_one
+      si.photo_two,     
+      si.photo_three ,    
+      si.photo_four     
+    FROM 
+      schedule s
+    JOIN 
+      schedule_details sd ON s.sch_id = sd.sch_id
+    JOIN 
+      schedule_tag st ON s.sch_id = st.sch_id
+    JOIN 
+      all_tag t ON st.tag_id = t.tag_id
+    LEFT JOIN 
+      sites si ON si.site_name = sd.sch_spot
+    ORDER BY 
+      s.sch_id;      -- 根據 sch_id 進行排序`;
 
     console.log("觀看這行" + db); // 在此行查看 db 的內容
     db.exec(query, [], (err, results) => {

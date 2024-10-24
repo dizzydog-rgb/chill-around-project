@@ -16,11 +16,33 @@ exports.getSiteInfo = async (req, res) => {
     }
 }
 
+
+// 獲取旅行計畫資料帶入完成頁面
+exports.getScheduleById = async (req, res) => {
+    try {
+      // 從 URL 參數中提取 ID
+      const scheduleId = req.params.id;
+      // 從資料庫取得所有的行程資料
+      const schedule = await schInfoModel.findScheduleById(scheduleId);
+      // 如果找不到資料，回傳 404
+      if (!schedule || schedule.length === 0) {
+        return res.status(404).json({ message: "schedule not found" });
+      }
+      // 成功取得資料後回傳 JSON 給前端
+      res.json(schedule);
+    } catch (error) {
+      // 錯誤處理
+      console.error("Error fetching site:", error);
+      res.status(500).json({ message: "Server Error" });
+    }
+  };
+
+
 //已建立好的行程資料
 exports.getSch = async (req, res) => {
     try {
         const sch = req.params.yt
-        const mySch = await schInfoModel.findVideo(sch);
+        const mySch = await schInfoModel.getScheduleCardData(sch);
         // 如果找不到資料，回傳 404
         if (!mySch) {
             return res.status(404).json({ message: "video not found" });

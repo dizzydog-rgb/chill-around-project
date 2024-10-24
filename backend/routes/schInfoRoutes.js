@@ -6,7 +6,7 @@ const schInfoController = require('../controller/schInfoController')
 
 
 router.use(cors());
-//取得頁面
+// GET 請求:取得完整頁面
 //http://localhost:8080/schInfo/Info
 router.get("/Info", function (req, res) {
   const options = {
@@ -23,22 +23,27 @@ router.get("/Info", function (req, res) {
   });
 });
 
-//取得景點資料
+// GET 請求:取得所有景點資料
 //http://localhost:8080/schInfo/siteinfo
 router.get('/siteinfo', schInfoController.getSiteInfo);
 
-//取得行程資料
+// GET 請求:取得行程、標籤及內容景點資料
 //http://localhost:8080/schInfo/getsch
 router.get('/getsch', schInfoController.getSch);
 
-//同時取得行程及景點資料
+// GET 請求: 獲取特定ID的行程資料
+// http://localhost:8080/schInfo/schPlanned/id
+router.get("/schPlanned/:id", schInfoController.getScheduleById);
+
+// GET 請求:同時取得會員已編輯的行程及景點資料
 //http://localhost:8080/schInfo/getspot
 router.get('/getspot', schInfoController.getSchedulesAndSites);
-//加入行程至選取日第一位
+
+// POST 請求:加入行程至用戶選取當日的最前面
 //http://localhost:8080/schInfo/getspot/add
 router.post('/getspot/add', schInfoController.addSchedule);
 
-//取得yt及部落格資料
+// GET 請求:取得YTurl及部落格資料
 //http://localhost:8080/schInfo/YtAndBlog
 router.get('/YtAndBlog',schInfoController.getVideoUrl);
 
