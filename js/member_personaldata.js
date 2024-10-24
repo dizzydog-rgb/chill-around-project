@@ -239,10 +239,9 @@ $(document).ready(function () {
 
                 // 獲取表單數據
                 var formData = new FormData($('#form')[0]);
-
                 axios.post('http://localhost:8080/member/update', formData, {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`, // 確保這裡的 token 是正確的
+                        'Authorization': `Bearer ${token}`, // 確保這裡的 token 是正確的
                         'Content-Type': 'multipart/form-data' // 設置內容類型為 multipart/form-data
                     }
                 })
