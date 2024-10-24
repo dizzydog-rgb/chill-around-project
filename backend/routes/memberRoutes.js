@@ -4,7 +4,6 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const memberController = require("../controller/memberController");
 const auth = require('../middleware/authMiddleware');
-var db = require('../config/database');
 
 router.use(bodyParser.json());
 router.use('/images', express.static(__dirname + '/assets/images'));
@@ -49,7 +48,10 @@ router.get("/register", function (req, res) {
 router.post("/register", memberController.registermember);
 
 // 驗證帳密，取得資料庫會員資料
-router.get("/members/user", auth, memberController.getByemail);
+router.get("/members", auth, memberController.getByemail);
+
+// 傳送更新的會員資料
+router.post("/update", memberController.updatemember);
 
 // 個人資訊頁面
 router.get("/personaldata", function (req, res) {
