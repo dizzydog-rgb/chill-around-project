@@ -41,7 +41,14 @@ $(document).ready(function () {
                 <div class="card" style="max-width: 600px;">
                     <div class="row align-items-center g-0">
                         <div class="col-md-4">
-                            <img id="img" src="../assets/images/memberimg/${member.uphoto}">
+                            <div id="photo" class="d-flex justify-content-center align-items-center">
+                                <p>請上傳圖片</p>
+                                <label class="btn btn-info upload">
+                                    <input type="file" name="uphoto" id="uphoto">
+                                    <i class="fa-regular fa-image"></i> 檔案上傳
+                                </label>
+                                <img id="img" src="../assets/images/memberimg/${member.uphoto}">
+                            </div>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -124,6 +131,18 @@ $(document).ready(function () {
         `;
             $('.personaldata').html(personaldataHTML);
 
+            $('#photo p').hide();
+            $('.upload').hide();
+            $('#uphoto').hide();
+            if (member.uphoto == null) {
+                $('#img').hide();
+                $('#photo p').show(); // 未有圖片時顯示
+            }
+
+            if(member.sex == null){
+                $('#sex').val('未填寫');
+            }
+
             let googleid = member.googleid;
             let lineid = member.lineid;
             if (googleid == undefined) {
@@ -154,9 +173,22 @@ $(document).ready(function () {
             $('#selectsex').hide();
             $('#write').hide();
             let datePicker;
+            // 編輯按鈕
             $('.editbtn').click(function () {
                 $('#edit').hide();
-                $('#write').show();
+                $('#write').show(); // 儲存與取消按鈕
+                $('#photo p').hide();
+                $('.upload').show(); // 上傳圖片input
+                // 當有圖片上傳時
+                $('#uphoto').on('change', function () {
+                    $('#img').show();
+                    var readFile = new FileReader();
+                    readFile.readAsDataURL(this.files['0']);
+                    $('#img').val(`${this.files['0'].name}`);
+                    readFile.onload = function () {
+                        $('#img').attr('src', readFile.result);
+                    }
+                })
                 $('#sex').hide();
                 $('#selectsex').show();
                 if (member.sex === '男') {
@@ -173,11 +205,18 @@ $(document).ready(function () {
                 });
             });
 
+            // 取消按鈕
             $('.cancelbtn').click(function () {
                 let msg = "確定取消編輯?";
                 if (!confirm(msg)) return false;
                 $('#edit').show();
                 $('#write').hide();
+                if (member.uphoto == null) {
+                    $('#img').hide();
+                    $('#uphoto').val('');
+                    $('#photo p').show(); // 未有圖片時顯示
+                }
+                $('.upload').hide();
                 $('#sex').show();
                 $('#selectsex').hide();
                 let input = $('.inpwrite');

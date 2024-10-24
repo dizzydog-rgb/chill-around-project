@@ -1,13 +1,13 @@
 import axios from "axios";
 
-console.log("已從 localStorage 取得:", localStorage.getItem("scheduleId"));
+// console.log("已從 localStorage 取得:", localStorage.getItem("scheduleId"));
 const currentScheduleId = localStorage.getItem("scheduleId");
 
 axios
   .get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)
   .then(function (response) {
     const schedules = response.data;
-    console.log("取得資料:", schedules);
+    // console.log("取得資料:", schedules);
     renderEditPlan(schedules);
   })
   .catch(function (error) {
@@ -82,6 +82,10 @@ function switchCurrentDay(i, schedules) {
   const dayListItems = document
     .querySelector(".dayList")
     .getElementsByTagName("li");
+  const todayInfo = document.querySelector(".todayInfo");
+  let startDate = schedules[0].edit_date.slice(0, 10);
+  let currentDate = calculateTodayDate(startDate, i);
+  todayInfo.innerHTML = `<h3>${currentDate}</h3>`;
 
   // 移除所有 class="currentDay"
   for (let i = 0; i < dayListItems.length; i++) {
@@ -102,13 +106,13 @@ function renderDayContent(filteredData) {
   // 清空卡片列表
   cardList.innerHTML = "";
 
-  console.log("當天的資料:", filteredData);
+  // console.log("當天的資料:", filteredData);
   filteredData.forEach((site) => {
     const cardItem = document.createElement("li");
 
     // 建立卡片的 HTML 結構
     cardItem.innerHTML = `
-      <li data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-site-name="${site.sch_spot}" class="siteItem">
+      <li data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-site-name="${site.sch_spot}" data-site-id="${site.detail_id}" data-sch-id="${site.sch_id}" data-site-day="${site.sch_day}" class="siteItem">
         <div class="card">
           <div class="row g-0">
             <div class="col-12 col-md-8">
@@ -133,8 +137,25 @@ function renderDayContent(filteredData) {
     site.addEventListener("click", function (e) {
       let targetElement = e.target.closest("li");
       let currentSiteName = "";
+      let currentModal = document.querySelector(".modal");
+      // console.log(isEditMode);
+      
       if (targetElement) {
         currentSiteName = targetElement.dataset.siteName;
+
+        // 使用 querySelector 來找到 Modal 中的 input，並設置其值
+        const siteNameInput = currentModal.querySelector(
+          'input[name="siteName"]'
+        );
+        const siteParaghTA = currentModal.querySelector(
+          'textarea[name="siteParagh"]'
+        );
+        if (siteNameInput) {
+          siteNameInput.value = currentSiteName;
+          siteParaghTA.value = targetElement.querySelector(
+            "p[class='card-text']"
+          ).innerText;
+        }
       } else {
         console.log("找不到最近的 LI");
       }
@@ -150,30 +171,6 @@ function renderDayContent(filteredData) {
         .catch(function (error) {
           console.log("Error fetching alltags details:", error);
         });
-
-      const tagList = document.querySelector(".taglist");
-      function renderAllTags(alltags) {
-        tagList.innerHTML = "";
-
-        alltags.forEach((tag) => {
-          const tagItem = document.createElement("li");
-
-          // 建立卡片的 HTML 結構
-          tagItem.innerHTML = `
-            <li>
-              <button
-                type="button"
-                class="btn btn-outline-primary toggle-button"
-              >
-                ${tag.tag_name}
-              </button>
-            </li>
-          `;
-
-          // 將卡片加入到 ul 中
-          tagList.appendChild(tagItem);
-        });
-      }
 
       // 根據 currentSiteName 從後端獲取標籤，然後將 Modal 中對應的標籤添加樣式
       axios
@@ -191,51 +188,90 @@ function renderDayContent(filteredData) {
           console.log("Error fetching tags details:", error);
         });
 
+      let selectedTags = [];
       function highlightMatchedTags(siteTags) {
         const allButtons = document.querySelectorAll(".toggle-button");
 
-        let selectedTags = [];
+        // 清空樣式
+        allButtons.forEach(function (button) {
+          button.classList.remove("btnSelected");
+        });
+
+        // 清空 selectedTags
+        selectedTags = [];
+
         // 遍歷所有的標籤按鈕
         allButtons.forEach(function (button) {
           // 獲取按鈕的文字內容，並去除多餘的空白
           const tagName = button.textContent.trim();
+          const tagId = button.dataset.tagId;
+
           // 檢查該標籤是否在 siteTags 中
           for (let i = 0; i < siteTags.length; i++) {
             if (siteTags[i].tag_name === tagName) {
               button.classList.add("btnSelected");
-              selectedTags.push(tagName);
-            } else {
-              button.classList.remove("btnSelected");
+              selectedTags.push(tagId);
             }
           }
         });
 
         // 選取標籤後變更樣式，獲得選取的標籤列表
         allButtons.forEach((button) => {
-          // 獲取按鈕的標籤名稱
+          // 獲取按鈕的標籤ID
           const tagName = button.textContent.trim();
+          const tagId = button.dataset.tagId;
+
           if (siteTags.includes(tagName)) {
             button.classList.add("btnSelected");
-            selectedTags.push(tagName);
+            if (!selectedTags.includes(tagId)) {
+              selectedTags.push(tagId);
+            }
           }
 
           button.addEventListener("click", function () {
             button.classList.toggle("btnSelected");
-            // 如果按鈕有 btnSelected，將標籤名稱添加到 selectedTags 中
+            // 如果按鈕有 btnSelected 樣式，將標籤 ID 添加到 selectedTags 中
             if (button.classList.contains("btnSelected")) {
-              if (!selectedTags.includes(tagName)) {
-                selectedTags.push(tagName);
+              if (!selectedTags.includes(tagId)) {
+                selectedTags.push(tagId);
               }
             } else {
-              // 如果按鈕沒有 btnSelected，從 selectedTags 中移除標籤名稱
-              selectedTags = selectedTags.filter((tag) => tag !== tagName);
+              // 如果按鈕沒有 btnSelected 樣式，從 selectedTags 中移除該標籤 ID
+              selectedTags = selectedTags.filter((id) => id !== tagId);
             }
+            // 將 selectedTags 存入 localStorage
+            localStorage.setItem('selectedTags', JSON.stringify(selectedTags));
 
-            console.log("當前選中的標籤:", selectedTags);
+            // console.log("當前選中的標籤:", selectedTags);
           });
         });
       }
     });
+  });
+}
+
+export function renderAllTags(alltags) {
+  const tagList = document.querySelector(".taglist");
+  tagList.innerHTML = "";
+
+  alltags.forEach((tag) => {
+    const tagItem = document.createElement("li");
+
+    // 建立標籤的 HTML 結構
+    tagItem.innerHTML = `
+      <li>
+        <button
+          type="button"
+          data-tag-id="${tag.tag_id}"
+          class="btn btn-outline-primary toggle-button"
+        >
+          ${tag.tag_name}
+        </button>
+      </li>
+    `;
+    
+    // 將卡片加入到 ul 中
+    tagList.appendChild(tagItem);
   });
 }
 
@@ -246,3 +282,17 @@ function calculateDayDifference(startDate, endDate) {
   const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
   return Math.floor(diffInDays) + 1;
 }
+
+function calculateTodayDate(startDate, i) {
+  const start = new Date(startDate);
+
+  // 計算當天日期
+  const currentDate = new Date(start.getTime() + i * (1000 * 60 * 60 * 24));
+
+  // 格式化為YYYY-MM-DD
+  const formattedDate = currentDate.toISOString().slice(0, 10);
+
+  // 輸出指定日期
+  return formattedDate;
+}
+

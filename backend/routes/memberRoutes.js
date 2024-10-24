@@ -45,6 +45,7 @@ router.get("/register", function (req, res) {
     });
 });
 
+// 傳送註冊資料
 router.post("/register", memberController.registermember);
 
 // 驗證帳密，取得資料庫會員資料
