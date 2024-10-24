@@ -75,7 +75,14 @@ function renderEditPlan(schedules) {
   }
 
   // 預設顯示第一天的資料
-  switchCurrentDay(0, schedules);
+  let currentDay = localStorage.getItem("currentDay");
+  if (!currentDay) {
+    currentDay = 1;
+    localStorage.setItem("currentDay", currentDay); // 初始化為 Day 1
+  }
+
+  // 渲染對應的天數資料
+  switchCurrentDay(currentDay - 1, schedules);
 }
 
 function switchCurrentDay(i, schedules) {
@@ -95,10 +102,15 @@ function switchCurrentDay(i, schedules) {
   // 添加 class="currentDay" 到當前天數
   dayListItems[i].classList.add("currentDay");
 
+  // 將當天天數儲存在 localStorage
+  localStorage.setItem("currentDay", i + 1);
+  let currentDay = localStorage.getItem("currentDay");
+
   // 根據選中的 day 值篩選出對應的資料
   const filteredData = schedules.filter(
     (schedule) => schedule.sch_day === i + 1
   );
+
   renderDayContent(filteredData);
 }
 
@@ -139,7 +151,7 @@ function renderDayContent(filteredData) {
       let currentSiteName = "";
       let currentModal = document.querySelector(".modal");
       // console.log(isEditMode);
-      
+
       if (targetElement) {
         currentSiteName = targetElement.dataset.siteName;
 
@@ -181,10 +193,11 @@ function renderDayContent(filteredData) {
         )
         .then(function (response) {
           const siteTags = response.data;
-          // console.log("siteTags:", siteTags);
+          document.querySelector(".tagBox").style.display = "block";
           highlightMatchedTags(siteTags);
         })
         .catch(function (error) {
+          document.querySelector(".tagBox").style.display = "none";
           console.log("Error fetching tags details:", error);
         });
 
@@ -240,7 +253,7 @@ function renderDayContent(filteredData) {
               selectedTags = selectedTags.filter((id) => id !== tagId);
             }
             // 將 selectedTags 存入 localStorage
-            localStorage.setItem('selectedTags', JSON.stringify(selectedTags));
+            localStorage.setItem("selectedTags", JSON.stringify(selectedTags));
 
             // console.log("當前選中的標籤:", selectedTags);
           });
@@ -269,7 +282,7 @@ export function renderAllTags(alltags) {
         </button>
       </li>
     `;
-    
+
     // 將卡片加入到 ul 中
     tagList.appendChild(tagItem);
   });
@@ -295,4 +308,3 @@ function calculateTodayDate(startDate, i) {
   // 輸出指定日期
   return formattedDate;
 }
-

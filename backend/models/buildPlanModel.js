@@ -6,13 +6,19 @@ exports.findAllSchedule = () => {
     const query = `
     SELECT
     s.*,
-    (
-        SELECT si.photo_one
-        FROM sites si
-        ORDER BY RAND()
-        LIMIT 1
-    ) AS photo_one
-    FROM schedule s;
+    sd.sch_spot,
+    si.photo_one
+    FROM
+        schedule s
+        INNER JOIN schedule_details sd ON s.sch_id = sd.sch_id
+        INNER JOIN sites si ON sd.sch_spot = si.site_name
+    WHERE 
+        sd.detail_id = (
+            SELECT MIN(detail_id) 
+            FROM schedule_details 
+            WHERE sch_id = s.sch_id
+        )
+    ORDER BY s.sch_id;;
     `;
     db.exec(query, [], (error, results, fields) => {
       if (results) {
@@ -25,19 +31,37 @@ exports.findAllSchedule = () => {
   });
 };
 
+// 刪除取特定編號行程的模組函數
+exports.dropScheduleById = (scheduleId) => {
+  return new Promise((resolve, reject) => {
+    const query = `
+      DELETE FROM schedule WHERE sch_id = ?
+    `;
+    db.exec(query, [scheduleId], (error, results, fields) => {
+      if (error) {
+        console.error("Query error:", error);
+        return reject(new Error("Query error"));
+      }
+
+      // 檢查受影響的行數是否大於0
+      if (results.affectedRows > 0) {
+        resolve({ message: "Schedule deleted successfully" });
+      } else {
+        console.error("No schedule deleted");
+        reject(new Error("No schedule found to be deleted"));
+      }
+    });
+  });
+};
+
 // 獲取取特定編號行程的模組函數
 exports.findScheduleById = (id) => {
   return new Promise((resolve, reject) => {
     const query = `
-    SELECT s.*, sd.* ,
-    (
-        SELECT si.photo_one
-        FROM sites si
-        ORDER BY RAND()
-        LIMIT 1
-    ) AS photo_one
+    SELECT s.*, sd.*, si.photo_one
     FROM schedule s
     JOIN schedule_details sd ON s.sch_id = sd.sch_id
+    JOIN sites si ON sd.sch_spot = si.site_name
     WHERE s.sch_id = ?;
   `;
     db.exec(query, [id], (error, results, fields) => {
@@ -205,12 +229,34 @@ exports.addSiteToSchedule = (sch_id, sch_day, sch_spot, sch_paragh) => {
     INSERT INTO schedule_details (sch_id, sch_day, sch_spot, sch_paragh, sch_order)
     VALUES (?, ?, ?, ?, (SELECT COALESCE(MAX(sd.sch_order), 0) + 1 FROM schedule_details AS sd WHERE sd.sch_id = ? AND sd.sch_day = ?));
   `;
-    db.exec(query, [sch_id, sch_day, sch_spot, sch_paragh, sch_id, sch_day], (error, results, fields) => {
+    db.exec(
+      query,
+      [sch_id, sch_day, sch_spot, sch_paragh, sch_id, sch_day],
+      (error, results, fields) => {
+        if (results) {
+          resolve(results);
+        } else {
+          console.error("Insert site fail or query error");
+          reject(new Error("Insert site fail or query error"));
+        }
+      }
+    );
+  });
+};
+
+// 刪除特定景點的資料的模組函數
+exports.dropSiteDetailById = (detail_id) => {
+  return new Promise((resolve, reject) => {
+    const query = `
+      DELETE FROM schedule_details WHERE detail_id = ?
+    `;
+
+    db.exec(query, [detail_id], (error, results, fields) => {
       if (results) {
         resolve(results);
       } else {
-        console.error("Insert site fail or query error");
-        reject(new Error("Insert site fail or query error"));
+        console.error("No site to delete or query error");
+        reject(new Error("No site to delete or query error"));
       }
     });
   });
