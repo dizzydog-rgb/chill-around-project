@@ -3,9 +3,8 @@ import axios from "axios";
 axios
   .get("http://localhost:8080/buildPlan/planList")
   .then(function (response) {
-    // handle success
     const schedules = response.data;
-
+    console.log(schedules);
     renderPlanList(schedules);
   })
   .catch(function (error) {
@@ -40,7 +39,7 @@ function renderPlanList(schedules) {
                         <i class="bi bi-three-dots"></i>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#" id="deletePlan">刪除此計畫</a></li>
+                        <li><a href="" class="dropdown-item" id="deletePlan">刪除此計畫</a></li>
                       </ul>
                     </div>
                   </div>
@@ -68,19 +67,20 @@ function renderPlanList(schedules) {
   });
 
   document.addEventListener("DOMContentLoaded", () => {
-    // 先為所有卡片添加點擊事件處理器
+    // 為所有卡片添加點擊事件處理器
     document.querySelectorAll(".card").forEach((item) => {
       item.addEventListener("click", function () {
         const scheduleId = this.closest("#scheduleItem").dataset.scheduleid;
         console.log("準備跳轉到計畫", scheduleId);
         localStorage.setItem("scheduleId", scheduleId);
         window.location.href = "editPlan.html";
-      });
+      }, { once: true }); // 確保每個事件只會觸發一次
     });
 
     // 添加全局點擊事件處理器，判斷要刪除還是進入計畫
     document.addEventListener("click", (e) => {
-      const scheduleId = e.target.closest("#scheduleItem").dataset.scheduleid;
+      const targetElement = e.target.closest("#scheduleItem");
+      const scheduleId = targetElement.dataset.scheduleid;
 
       // 檢查是否點擊了 bi-three-dots 或 deletePlan
       if (e.target.classList.contains("bi-three-dots")) {
@@ -97,7 +97,7 @@ function renderPlanList(schedules) {
             .delete(`http://localhost:8080/buildPlan/planList/${scheduleId}`)
             .then((response) => {
               console.log("計畫刪除成功", response.data);
-              location.reload(); // 刪除後刷新頁面
+              // location.reload(); // 刪除後刷新頁面
             })
             .catch((error) => {
               console.error("刪除計畫失敗:", error);
@@ -105,5 +105,6 @@ function renderPlanList(schedules) {
         }
       }
     });
-  });
+});
+
 }

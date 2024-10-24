@@ -1,5 +1,60 @@
 const db = require("../config/database");
 
+// 新增旅行計畫和範例景點的模組函數
+exports.addSchedule = (planName, startDate, endDate, emailid) => {
+  return new Promise((resolve, reject) => {
+    // 新增旅行計畫的 SQL 語句
+    const scheduleQuery = `
+      INSERT INTO schedule (sch_name, edit_date, end_date, emailid)
+      VALUES (?, ?, ?, ?);
+    `;
+
+    // 執行插入旅行計畫
+    db.exec(scheduleQuery, [planName, startDate, endDate, emailid], (error, results, fields) => {
+      if (error) {
+        console.error("Cannot add schedule or query error:", error);
+        return reject(new Error("Cannot add schedule or query error"));
+      }
+
+      // 取得新插入的 sch_id
+      const newScheduleId = results.insertId;
+      if (!newScheduleId) {
+        return reject(new Error("No schedule ID returned after insert"));
+      }
+
+      console.log("新增旅行計畫成功，行程 ID:", newScheduleId);
+
+      // 插入範例景點的 SQL 語句
+      const detailQuery = `
+        INSERT INTO schedule_details (emailid, sch_id, sch_day, sch_order, sch_spot, sch_paragh)
+        VALUES (?, ?, ?, ?, ?, ?);
+      `;
+
+      // 預設的範例景點資料
+      const detailValues = [
+        1,                   // emailid 預設為 1，之後帶入登入的會員ID
+        newScheduleId,       // sch_id 等於剛新增的 schedule 的 ID
+        1,                   // sch_day 預設為 1
+        1,                   // sch_order 預設為 1
+        "台北101",           // sch_spot 預設為 "請填入景點名稱"
+        "請填入景點敘述"      // sch_paragh 預設為 "請填入景點敘述"
+      ];
+
+      // 執行插入範例景點
+      db.exec(detailQuery, detailValues, (detailError, detailResults, detailFields) => {
+        if (detailError) {
+          console.error("Cannot add schedule detail or query error:", detailError);
+          return reject(new Error("Cannot add schedule detail or query error"));
+        }
+
+        console.log("範例景點插入成功，行程 ID:", newScheduleId);
+        resolve(newScheduleId);  // 返回插入的 schedule ID
+      });
+    });
+  });
+};
+
+
 // 獲取所有行程的模組函數
 exports.findAllSchedule = () => {
   return new Promise((resolve, reject) => {
@@ -43,8 +98,7 @@ exports.dropScheduleById = (scheduleId) => {
         return reject(new Error("Query error"));
       }
 
-      // 檢查受影響的行數是否大於0
-      if (results.affectedRows > 0) {
+      if (results) {
         resolve({ message: "Schedule deleted successfully" });
       } else {
         console.error("No schedule deleted");
@@ -61,7 +115,7 @@ exports.findScheduleById = (id) => {
     SELECT s.*, sd.*, si.photo_one
     FROM schedule s
     JOIN schedule_details sd ON s.sch_id = sd.sch_id
-    JOIN sites si ON sd.sch_spot = si.site_name
+    LEFT JOIN sites si ON sd.sch_spot = si.site_name
     WHERE s.sch_id = ?;
   `;
     db.exec(query, [id], (error, results, fields) => {
@@ -222,16 +276,17 @@ exports.checkSiteExists = (sch_spot) => {
   });
 };
 
-// 添加景點至特定編號行程的模組函數
+// 新增景點至特定編號行程的模組函數
+// emailid待更新
 exports.addSiteToSchedule = (sch_id, sch_day, sch_spot, sch_paragh) => {
   return new Promise((resolve, reject) => {
     const query = `
-    INSERT INTO schedule_details (sch_id, sch_day, sch_spot, sch_paragh, sch_order)
-    VALUES (?, ?, ?, ?, (SELECT COALESCE(MAX(sd.sch_order), 0) + 1 FROM schedule_details AS sd WHERE sd.sch_id = ? AND sd.sch_day = ?));
+    INSERT INTO schedule_details (emailid, sch_id, sch_day, sch_spot, sch_paragh, sch_order)
+    VALUES (?, ?, ?, ?, ?, (SELECT COALESCE(MAX(sd.sch_order), 0) + 1 FROM schedule_details AS sd WHERE sd.sch_id = ? AND sd.sch_day = ?));
   `;
     db.exec(
       query,
-      [sch_id, sch_day, sch_spot, sch_paragh, sch_id, sch_day],
+      [1, sch_id, sch_day, sch_spot, sch_paragh, sch_id, sch_day],
       (error, results, fields) => {
         if (results) {
           resolve(results);

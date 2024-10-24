@@ -4,6 +4,9 @@ const router = express.Router();
 const buildPlanController = require("../controller/buildPlanController");
 
 // 呼叫controller
+// POST 請求: 新增特定ID行程的景點
+router.post("/buildPlan", buildPlanController.postNewSchedule);
+
 // GET 請求: 獲取所有行程資料
 router.get("/planList", buildPlanController.getAllSchedule);
 

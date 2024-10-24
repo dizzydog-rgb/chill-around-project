@@ -1,5 +1,31 @@
 const buildPlanModel = require("../models/buildPlanModel");
 
+// 新增計畫的控制器
+exports.postNewSchedule = async (req, res) => {
+  try {
+    // 從 URL 參數中提取 ID、景點名稱、及景點說明
+    const { sch_name, start_date, end_date, emailid } = req.body;
+
+    // 調用 model 中的方法新增 旅行計畫
+    const result = await buildPlanModel.addSchedule(
+      sch_name,
+      start_date,
+      end_date,
+      emailid
+    );
+
+    // 成功取得資料後回傳 更新成功 的訊息給前端
+    res.send({
+      message: "更新成功",
+      data: result
+    });
+  } catch (error) {
+    // 錯誤處理
+    console.error("Error adding schedule:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 // 獲取所有旅行計畫資料的控制器
 exports.getAllSchedule = async (req, res) => {
   try {
