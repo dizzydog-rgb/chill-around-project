@@ -8,7 +8,7 @@ $(document).ready(function () {
         return;
     }
 
-    axios.get('http://localhost:8080/member/members/user', {
+    axios.get('http://localhost:8080/member/members', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -139,8 +139,20 @@ $(document).ready(function () {
                 $('#photo p').show(); // 未有圖片時顯示
             }
 
-            if(member.sex == null){
+            if (member.birthday == null) {
+                $('#birthday').val('未填寫');
+            }
+            if (member.sex == null) {
                 $('#sex').val('未填寫');
+            }
+            if (member.address == null) {
+                $('#address').val('未填寫');
+            }
+            if (member.cellphone == null) {
+                $('#cellphonenum').val('未填寫');
+            }
+            if (member.telephone == null) {
+                $('#telephonenum').val('未填寫');
             }
 
             let googleid = member.googleid;
@@ -205,6 +217,13 @@ $(document).ready(function () {
                 });
             });
 
+            // 儲存按鈕
+            $('.storebtn').click(function () {
+                axios.post('http://localhost:8080/member/update', {
+
+                })
+            });
+
             // 取消按鈕
             $('.cancelbtn').click(function () {
                 let msg = "確定取消編輯?";
@@ -217,6 +236,11 @@ $(document).ready(function () {
                     $('#photo p').show(); // 未有圖片時顯示
                 }
                 $('.upload').hide();
+                if (member.birthday == null) {
+                    $('#birthday').val('未填寫');
+                } else {
+                    $('#birthday').val(myBirthday);
+                }
                 $('#sex').show();
                 $('#selectsex').hide();
                 let input = $('.inpwrite');
@@ -225,7 +249,6 @@ $(document).ready(function () {
                 if (datePicker) {
                     datePicker.destroy();
                 }
-                $('#birthday').val(myBirthday);
             });
         })
         .catch(error => {
