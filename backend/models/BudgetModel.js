@@ -195,10 +195,10 @@ exports.userAddBudget = (budgetData) => {
 
 
 // 編輯頁面 - 刪除功能
-exports.userDeleteBudget = (id) => {
+exports.userDeleteBudget = (schId, budgetId) => {
     return new Promise((resolve, reject) => {
         const query = "DELETE FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
-        db.exec(query, [id], (err, result) => {
+        db.exec(query, [schId, budgetId], (err, result) => {
             console.log('崩潰卡比---------------------------------------------------', new Date().toLocaleTimeString());
             if (err) {
                 return reject(err);

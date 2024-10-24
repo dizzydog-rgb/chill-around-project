@@ -4,7 +4,13 @@ import axios from 'axios';
 
 // localStorage.setItem("scheduleId", "3");
 const currentScheduleId = localStorage.getItem("scheduleId");
-console.log("皮卡：目前從 localStorage 取得: ------- ", currentScheduleId);
+console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);
+
+// 新增功能所需的 localstorage
+document.querySelector('.increaseBtn').addEventListener('click', () => {
+    localStorage.setItem('Adding', true);
+    window.location.href = 'Popup_Budget.html';
+});
 
 axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
     .then(function (response) {
@@ -50,9 +56,9 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
 
             // ---------------------------------------------------- 點擊事件 - 進入編輯
             historyContentDiv.addEventListener('click', () => {
-                    const UserChooseDiv = item;
-                    localStorage.setItem("UserChooseDiv", JSON.stringify(UserChooseDiv));
-                    window.location.href = '../pages/Popup_Budget.html';
+                const UserChooseDiv = item;
+                localStorage.setItem("UserChooseDiv", JSON.stringify(UserChooseDiv));
+                window.location.href = '../pages/Popup_Budget.html';
             });
 
             document.querySelector('.increaseBtn').addEventListener('click', () => {
@@ -65,8 +71,6 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
         const TotalAndifPaid = budgetItems[0].TotalAndifPaid;
         console.log("總額、已付和未付資料", TotalAndifPaid);
         // console.log("這是總額", TotalAndifPaid[0].TotalCost)
-        // console.log("這是已付", TotalAndifPaid[0].TotalPaid)
-        // console.log("這是未付錢", TotalAndifPaid[0].TotalUnpaid)
 
         const rightbarDivContainer = document.querySelector('.rightbarDiv');
         rightbarDivContainer.innerHTML = '';

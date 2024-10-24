@@ -1,4 +1,6 @@
 const currentScheduleId = localStorage.getItem("scheduleId");
+const currentAdding = localStorage.getItem("Adding");
+console.log("有取到新增按鈕資料嗎", currentAdding)
 console.log("皮卡：目前從 localStorage 取得: ------- ", currentScheduleId);
 
 import axios from 'axios';
@@ -8,10 +10,9 @@ axios.get('http://localhost:8080/Budget/popupbudget')
     .then(response => {
         // 處理獲取的資料，例如更新 UI
 
-        // 先取 種類 與 細項 的資料
+        // 取 種類 與 細項 的資料
         const Categorydata = response.data.Category;
         const Detailsdata = response.data.Details;
-        // console.log(Categorydata);
 
         // 若 modalContent2 的 '' 放在迴圈裡會每次都執行清空一次，只剩最後一個結果
         const modalContent2 = document.querySelector('.modalContent2');
@@ -21,13 +22,13 @@ axios.get('http://localhost:8080/Budget/popupbudget')
             <div class="topDiv2">
                 <a class="close2" href="#">＜</a>
                 <button class="okBtn">確認</button>
-            </div>
-        `;
-        modalContent2.innerHTML += fixedtop;
-
-        modalContent2.querySelector('.close2').addEventListener('click', () => {
-            closeModal2();
-        });
+                </div>
+                `;
+                modalContent2.innerHTML += fixedtop;
+                
+                modalContent2.querySelector('.close2').addEventListener('click', () => {
+                    closeModal2();
+                });
 
         // 取項目id相對應的細項
         const groupedDetails = Detailsdata.reduce((acc, item) => {
@@ -46,7 +47,6 @@ axios.get('http://localhost:8080/Budget/popupbudget')
         // 開始渲染 itemCategory
         Categorydata.forEach(item => {
             // console.log(item);
-
             const newcategoryDiv = document.createElement('div');
             newcategoryDiv.classList.add('category2');
 
@@ -94,10 +94,10 @@ axios.get('http://localhost:8080/Budget/popupbudget')
         const UserChooseDiv = localStorage.getItem("UserChooseDiv");
         const ParseUserChooseDiv = JSON.parse(UserChooseDiv);
 
-        const CurrentBudget_id = ParseUserChooseDiv.Budget_id;
-        localStorage.setItem('Budget_id', CurrentBudget_id);
-
         if (UserChooseDiv) {
+            const CurrentBudget_id = ParseUserChooseDiv.Budget_id;
+            localStorage.setItem('Budget_id', CurrentBudget_id);
+
             axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}/${CurrentBudget_id}`)
                 .then(function (response) {
                     console.log("抓使用者點選的資料方塊", ParseUserChooseDiv);
@@ -139,7 +139,6 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                             </div>
                     `;
 
-
                     // ---------------------------------------------------- 綁定 value 並實現 post
                     console.log('原本的值', ParseUserChooseDiv.BudgetName)
 
@@ -165,6 +164,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                         WhenUserChooseCategory();
                     });
 
+                    // 綁定確認鍵製作編輯更新功能
                     document.querySelector('.submitBtn').addEventListener('click', () => {
                         const updateData = {
                             BudgetName: userChooseCategory.BudgetName,
@@ -176,7 +176,6 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                             WhoPay: document.getElementById('userWhoPaid').value
                         }
 
-                        // 編輯更新 put
                         axios.put(`http://localhost:8080/budget/UserBudget/${currentScheduleId}/${CurrentBudget_id}`, updateData)
                             .then(postResponse => {
                                 console.log("更新成功 pika", postResponse.data);
@@ -187,9 +186,9 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                                 console.error("Error during budget update:", err);
                                 return res.status(500).send({ message: err.message, error: err });
                             });
-                        // console.log("更改後的資料為", updateData);
                     });
 
+                    // 刪除功能 delete
                     document.getElementById('deleteBtn').addEventListener('click', () => {
                         const DeleteBudget = ParseUserChooseDiv.Budget_id;
                         console.log(DeleteBudget);
@@ -203,9 +202,10 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                                 console.error("更新失敗：", error);
                             });
                     });
-
-
                 });
+        }
+        else if (currentAdding) {
+            console.log('目前大成功......')
         }
     }).catch(error => {
         console.error('無法取得種類:', error);

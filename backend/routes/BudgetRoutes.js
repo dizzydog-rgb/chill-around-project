@@ -19,6 +19,6 @@ router.get("/UserBudget/:id", BudgetController.getUserBudgetID); // 特定使用
 
 router.get("/UserBudget/:id/:detailId", BudgetController.getUserBudgetOneDetails); // 渲染使用者選取的預算資料方塊
 router.put("/UserBudget/:id/:detailId", BudgetController.userEditBudgetController); // 編輯使用者選取的預算資料方塊
-router.delete("/UserBudget/:id/detailId", BudgetController.userDeleteBudgetController); // 特定使用者預算資料
+router.delete("/UserBudget/:id/:detailId", BudgetController.userDeleteBudgetController); // 特定使用者預算資料
 
 module.exports = router;

@@ -80,7 +80,9 @@ exports.userDeleteBudgetController = (req, res) => {
 
 // 增加預算的控制器
 exports.userAddBudgetController = (req, res) => {
-    BudgetModel.userAddBudget(req.body)
+    const schId = req.params.id; // 獲取預算ID
+    const budgetId = req.params.detailId; // 獲取詳細ID
+    BudgetModel.userAddBudget(schId, budgetId)
         .then(message => res.status(201).send(message))
         .catch(err => res.status(500).send(err));
 };
