@@ -4,6 +4,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const memberController = require("../controller/memberController");
 const auth = require('../middleware/authMiddleware');
+const upload = require('../middleware/uploadphoto');
 
 router.use(bodyParser.json());
 router.use('/images', express.static(__dirname + '/assets/images'));
@@ -51,7 +52,7 @@ router.post("/register", memberController.registermember);
 router.get("/members", auth, memberController.getByemail);
 
 // 傳送更新的會員資料
-router.post("/update", memberController.updatemember);
+router.post("/update", auth, upload.single('uphoto'), memberController.updatemember);
 
 // 個人資訊頁面
 router.get("/personaldata", function (req, res) {

@@ -274,7 +274,7 @@
                                 cursor: pointer;
                             }
 
-                            .upload:hover{
+                            .upload:hover {
                                 opacity: 0.2;
                             }
 
@@ -299,41 +299,39 @@
                 .formList {
                     padding: 0 30px;
 
-                    form {
-                        .item {
-                            display: flex;
-                            font-size: 20px;
-                            border-bottom: 1px solid #DEDEDE;
-                            margin-bottom: 10px;
+                    .item {
+                        display: flex;
+                        font-size: 20px;
+                        border-bottom: 1px solid #DEDEDE;
+                        margin-bottom: 10px;
 
-                            .inpwrite {
-                                background: none;
-                                outline: none;
-                                border: none;
-                                border-radius: 5px;
-                            }
-
-                            #address {
-                                width: 65%;
-                            }
+                        .inpwrite {
+                            background: none;
+                            outline: none;
+                            border: none;
+                            border-radius: 5px;
                         }
 
-                        .item:nth-child(2) {
-                            display: flex;
-                            gap: 20px;
-
-                            div {
-                                display: flex;
-                            }
+                        #address {
+                            width: 65%;
                         }
+                    }
 
-                        .item:nth-child(3) {
+                    .item:nth-child(2) {
+                        display: flex;
+                        gap: 20px;
+
+                        div {
                             display: flex;
-                            gap: 20px;
+                        }
+                    }
 
-                            div {
-                                display: flex;
-                            }
+                    .item:nth-child(3) {
+                        display: flex;
+                        gap: 20px;
+
+                        div {
+                            display: flex;
                         }
                     }
 
