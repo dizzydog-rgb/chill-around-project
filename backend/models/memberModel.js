@@ -141,18 +141,34 @@ exports.registerData = async (user) => {
 
 exports.updateData = (userData) => {
     return new Promise((resolve, reject) => {
-        var sql = "UPDATE `member` SET uphoto = ?, uname = ?, email = ?, password = ?, birthday = ?, sex = ?, address = ?, cellphone = ?, telephone = ? WHERE emailid = ?";
-        db.exec(sql, [email], function (error, results, fields) {
+        var sql = "UPDATE `member` SET uname = ?, email = ?, password = ?, birthday = ?, sex = ?, address = ?, cellphone = ?, telephone = ? WHERE emailid = ?";
+        var data = [
+            userData.uname,
+            userData.email,
+            userData.pwd,
+            userData.birthday,
+            userData.sex,
+            userData.address,
+            userData.cellphonenum,
+            userData.telephonenum,
+            userData.emailid
+        ];
+        // 如果 uphoto 存在，則添加到 SQL 語句和數據中
+        if (userData.uphoto !== undefined) {
+            sql = "UPDATE `member` SET uphoto = ?, " + sql.slice(31); // 在 SET 中添加 uphoto
+            data.unshift(userData.uphoto); // 將 uphoto 添加到數據的開頭
+        }
+
+        db.exec(sql, data, function (error, results, fields) {
             if (error) {
                 console.error("錯誤訊息:", error);
                 reject(error);
                 return;
             }
-            if (results) {
-                resolve(results[0]);
+            if (results.affectedRows > 0) { // 確保有行被更新
+                resolve({ success: true }); // 返回成功的結果
             } else {
-                console.error("No results found or query error:" + error);
-                resolve(null);
+                resolve({ error: '資料更新失敗' });
             }
         });
     });
