@@ -2,17 +2,19 @@ import axios from "axios";
 
 // console.log("已從 localStorage 取得:", localStorage.getItem("scheduleId"));
 const currentScheduleId = localStorage.getItem("scheduleId");
+console.log(currentScheduleId);
+
 
 axios
   .get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)
   .then(function (response) {
     const schedules = response.data;
-    // console.log("取得資料:", schedules);
+    console.log("取得資料:", schedules);
     renderEditPlan(schedules);
   })
   .catch(function (error) {
     console.log(error);
-    console.log("請求失敗");
+    console.log("請求行程資料失敗");
   });
 
 const cardList = document.querySelector(".cardList");
@@ -117,9 +119,21 @@ function switchCurrentDay(i, schedules) {
 function renderDayContent(filteredData) {
   // 清空卡片列表
   cardList.innerHTML = "";
-
+  // 根據 sch_order 排序
+  filteredData.sort((a, b) => {
+    return a.sch_order - b.sch_order;
+  });
   // console.log("當天的資料:", filteredData);
+
+  // 沒有圖片就填入色塊
   filteredData.forEach((site) => {
+    let cardImgUrl
+    if (site.photo_one === null) {
+      cardImgUrl = "https://dummyimage.com/600x400/dcab25/dcab25"
+    }else{
+      cardImgUrl = `../assets/images/searchSite/${site.photo_one}`
+    }
+ 
     const cardItem = document.createElement("li");
 
     // 建立卡片的 HTML 結構
@@ -134,7 +148,7 @@ function renderDayContent(filteredData) {
               </div>
             </div>
             <div class="col-12 col-md-4">
-              <img src="../assets/images/searchSite/${site.photo_one}">
+              <img src="${cardImgUrl}">
             </div>
           </div>
         </div>
