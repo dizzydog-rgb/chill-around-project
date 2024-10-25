@@ -9,7 +9,7 @@ app.use(cors());
 // 載入路由區
 const indexRoutes = require("./routes/indexRoutes"); // 引入首頁相關路由
 const buildPlanRoutes = require("./routes/buildPlanRoutes"); // 引入建立計畫相關路由
-const schInfoRoutes = require("./routes/schInfoRoutes");
+const schInfoRoutes = require("./routes/schInfoRoutes");//引入行程資訊相關路由
 
 const siteRoutes = require("./routes/siteRoutes"); // 引入景點資訊相關路由
 const BudgetRoutes = require("./routes/BudgetRoutes"); // 引入預算相關路由

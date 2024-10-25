@@ -1,5 +1,31 @@
 const buildPlanModel = require("../models/buildPlanModel");
 
+// 新增計畫的控制器
+exports.postNewSchedule = async (req, res) => {
+  try {
+    // 從 URL 參數中提取 ID、景點名稱、及景點說明
+    const { sch_name, start_date, end_date, emailid } = req.body;
+
+    // 調用 model 中的方法新增 旅行計畫
+    const result = await buildPlanModel.addSchedule(
+      sch_name,
+      start_date,
+      end_date,
+      emailid
+    );
+
+    // 成功取得資料後回傳 更新成功 的訊息給前端
+    res.send({
+      message: "更新成功",
+      data: result
+    });
+  } catch (error) {
+    // 錯誤處理
+    console.error("Error adding schedule:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 // 獲取所有旅行計畫資料的控制器
 exports.getAllSchedule = async (req, res) => {
   try {
@@ -11,6 +37,24 @@ exports.getAllSchedule = async (req, res) => {
     }
     // 成功取得資料後回傳 JSON 給前端
     res.json(allschedule);
+  } catch (error) {
+    // 錯誤處理
+    console.error("Error fetching site:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// 刪除特定旅行計畫資料的控制器
+exports.deleteScheduleById = async (req, res) => {
+  try {
+    // 從 URL 參數中提取 ID
+    const scheduleId = req.params.id;
+    // 從資料庫刪除特定ID的行程資料
+    const result = await buildPlanModel.dropScheduleById(scheduleId);
+    // 如果找不到資料，回傳 404
+
+    // 成功刪除後回傳 JSON 給前端
+    res.json(result);
   } catch (error) {
     // 錯誤處理
     console.error("Error fetching site:", error);
@@ -116,16 +160,38 @@ exports.postSiteToSchedule = async (req, res) => {
     const sch_day = req.params.day;
     const { sch_spot, sch_paragh } = req.body;
     // console.log("控制器", sch_id, sch_day, sch_spot, sch_paragh );
-    
 
     // 調用 model 中的方法新增 景點資料
-    await buildPlanModel.addSiteToSchedule(sch_id, sch_day, sch_spot, sch_paragh);
+    await buildPlanModel.addSiteToSchedule(
+      sch_id,
+      sch_day,
+      sch_spot,
+      sch_paragh
+    );
 
     // 成功取得資料後回傳 更新成功 的訊息給前端
     res.send({ message: "更新成功" });
   } catch (error) {
     // 錯誤處理
     console.error("Error updating schedule detail:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// 刪除特定景點的控制器
+exports.deleteSiteDetailById = async (req, res) => {
+  try {
+    // 從 URL 參數中提取 ID、景點名稱、及景點說明
+    const detail_id = req.params.id;
+
+    // 調用 model 中的方法更新 景點資料
+    await buildPlanModel.dropSiteDetailById(detail_id);
+
+    // 成功刪除資料後回傳 更新成功 的訊息給前端
+    res.send({ message: "刪除成功" });
+  } catch (error) {
+    // 錯誤處理
+    console.error("Error deleting schedule detail:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };

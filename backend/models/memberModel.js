@@ -11,7 +11,7 @@ if (!SECRET_KEY) {
 
 exports.loginEmail = (member) => {
     return new Promise((resolve, reject) => {
-        var sql = `SELECT * FROM \`member\` WHERE email=?;`;
+        var sql = "SELECT * FROM `member` WHERE email = ?;";
         var data = [member.inputAccount];
         db.exec(sql, data, function (error, results, fields) {
             if (error) {
@@ -23,7 +23,7 @@ exports.loginEmail = (member) => {
                 // 找到了匹配的email，現在檢查密碼
                 if (results[0].password === member.inputPassword) {
                     // 密碼匹配，更新 updated_at 並返回用戶信息
-                    var updateSql = `UPDATE \`member\` SET updated_at=NOW() WHERE emailid=?;`;
+                    var updateSql = "UPDATE `member` SET updated_at=NOW() WHERE emailid = ?;";
                     db.exec(updateSql, [results[0].emailid], function (updateError) {
                         if (updateError) {
                             console.error("更新 updated_at 錯誤:", updateError);
@@ -37,9 +37,7 @@ exports.loginEmail = (member) => {
                             { expiresIn: '1h' }
                         );
                         resolve({
-                            id: results[0].emailid,
                             account: results[0].email,
-                            updated_at: new Date(),
                             token
                         });
                     });
@@ -128,7 +126,6 @@ exports.registerData = async (user) => {
                         );
                         resolve({
                             account: userResults[0].email,
-                            password: userResults[0].password,
                             token
                         });
                     } else {
@@ -137,6 +134,41 @@ exports.registerData = async (user) => {
                 });
             } else {
                 resolve(null); // 如果沒有插入 ID
+            }
+        });
+    });
+}
+
+exports.updateData = (userData) => {
+    return new Promise((resolve, reject) => {
+        var sql = "UPDATE `member` SET uname = ?, email = ?, password = ?, birthday = ?, sex = ?, address = ?, cellphone = ?, telephone = ? WHERE emailid = ?";
+        var data = [
+            userData.uname,
+            userData.email,
+            userData.pwd,
+            userData.birthday,
+            userData.sex,
+            userData.address,
+            userData.cellphonenum,
+            userData.telephonenum,
+            userData.emailid
+        ];
+        // 如果 uphoto 存在，則添加到 SQL 語句和數據中
+        if (userData.uphoto !== undefined) {
+            sql = "UPDATE `member` SET uphoto = ?, " + sql.slice(31); // 在 SET 中添加 uphoto
+            data.unshift(userData.uphoto); // 將 uphoto 添加到數據的開頭
+        }
+
+        db.exec(sql, data, function (error, results, fields) {
+            if (error) {
+                console.error("錯誤訊息:", error);
+                reject(error);
+                return;
+            }
+            if (results.affectedRows > 0) { // 確保有行被更新
+                resolve({ success: true }); // 返回成功的結果
+            } else {
+                resolve({ error: '資料更新失敗' });
             }
         });
     });

@@ -2,17 +2,19 @@ import axios from "axios";
 
 // console.log("已從 localStorage 取得:", localStorage.getItem("scheduleId"));
 const currentScheduleId = localStorage.getItem("scheduleId");
+console.log(currentScheduleId);
+
 
 axios
   .get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)
   .then(function (response) {
     const schedules = response.data;
-    // console.log("取得資料:", schedules);
+    console.log("取得資料:", schedules);
     renderEditPlan(schedules);
   })
   .catch(function (error) {
     console.log(error);
-    console.log("請求失敗");
+    console.log("請求行程資料失敗");
   });
 
 const cardList = document.querySelector(".cardList");
@@ -75,7 +77,14 @@ function renderEditPlan(schedules) {
   }
 
   // 預設顯示第一天的資料
-  switchCurrentDay(0, schedules);
+  let currentDay = localStorage.getItem("currentDay");
+  if (!currentDay) {
+    currentDay = 1;
+    localStorage.setItem("currentDay", currentDay); // 初始化為 Day 1
+  }
+
+  // 渲染對應的天數資料
+  switchCurrentDay(currentDay - 1, schedules);
 }
 
 function switchCurrentDay(i, schedules) {
@@ -95,19 +104,36 @@ function switchCurrentDay(i, schedules) {
   // 添加 class="currentDay" 到當前天數
   dayListItems[i].classList.add("currentDay");
 
+  // 將當天天數儲存在 localStorage
+  localStorage.setItem("currentDay", i + 1);
+  let currentDay = localStorage.getItem("currentDay");
+
   // 根據選中的 day 值篩選出對應的資料
   const filteredData = schedules.filter(
     (schedule) => schedule.sch_day === i + 1
   );
+
   renderDayContent(filteredData);
 }
 
 function renderDayContent(filteredData) {
   // 清空卡片列表
   cardList.innerHTML = "";
-
+  // 根據 sch_order 排序
+  filteredData.sort((a, b) => {
+    return a.sch_order - b.sch_order;
+  });
   // console.log("當天的資料:", filteredData);
+
+  // 沒有圖片就填入色塊
   filteredData.forEach((site) => {
+    let cardImgUrl
+    if (site.photo_one === null) {
+      cardImgUrl = "https://dummyimage.com/600x400/dcab25/dcab25"
+    }else{
+      cardImgUrl = `../assets/images/searchSite/${site.photo_one}`
+    }
+ 
     const cardItem = document.createElement("li");
 
     // 建立卡片的 HTML 結構
@@ -122,7 +148,7 @@ function renderDayContent(filteredData) {
               </div>
             </div>
             <div class="col-12 col-md-4">
-              <img src="../assets/images/searchSite/${site.photo_one}">
+              <img src="${cardImgUrl}">
             </div>
           </div>
         </div>
@@ -139,7 +165,7 @@ function renderDayContent(filteredData) {
       let currentSiteName = "";
       let currentModal = document.querySelector(".modal");
       // console.log(isEditMode);
-      
+
       if (targetElement) {
         currentSiteName = targetElement.dataset.siteName;
 
@@ -181,10 +207,11 @@ function renderDayContent(filteredData) {
         )
         .then(function (response) {
           const siteTags = response.data;
-          // console.log("siteTags:", siteTags);
+          document.querySelector(".tagBox").style.display = "block";
           highlightMatchedTags(siteTags);
         })
         .catch(function (error) {
+          document.querySelector(".tagBox").style.display = "none";
           console.log("Error fetching tags details:", error);
         });
 
@@ -240,7 +267,7 @@ function renderDayContent(filteredData) {
               selectedTags = selectedTags.filter((id) => id !== tagId);
             }
             // 將 selectedTags 存入 localStorage
-            localStorage.setItem('selectedTags', JSON.stringify(selectedTags));
+            localStorage.setItem("selectedTags", JSON.stringify(selectedTags));
 
             // console.log("當前選中的標籤:", selectedTags);
           });
@@ -269,7 +296,7 @@ export function renderAllTags(alltags) {
         </button>
       </li>
     `;
-    
+
     // 將卡片加入到 ul 中
     tagList.appendChild(tagItem);
   });
@@ -295,4 +322,3 @@ function calculateTodayDate(startDate, i) {
   // 輸出指定日期
   return formattedDate;
 }
-
