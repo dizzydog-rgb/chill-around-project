@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.get('http://localhost:8080/Budget/popupbudgets')
+axios.get('http://localhost:8080/item/popupItem')
     .then(response => {
         console.log(response);
     })
@@ -11,7 +11,6 @@ const progress = document.getElementById('progress-bar');
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', updateProgress);
 });
-
 export function updateProgress() {
     const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
     const progressPercentage = (checkedCount / checkboxes.length) * 100;
@@ -45,19 +44,11 @@ export function addItem() {
         alert("您沒有輸入任何文字。");
     }
 }
-
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('leftBtn').addEventListener('click', addItem);
 });
 
 // ------------------ 物品小視窗彈出選擇後，物品大種類增加在畫面上 ------------------
-{/* <div id="selectedItemsDisplay"></div>
-
-<div class="card-body">
-    <span>衣物類</span>
-    <span>5/10</span>
-</div> */}
-
 const categories = [
     "服飾類",
     "藥品類",
