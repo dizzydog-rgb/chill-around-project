@@ -2,14 +2,13 @@ import axios from "axios";
 
 // console.log("已從 localStorage 取得:", localStorage.getItem("scheduleId"));
 const currentScheduleId = localStorage.getItem("scheduleId");
-console.log(currentScheduleId);
-
+// console.log(currentScheduleId);
 
 axios
   .get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)
   .then(function (response) {
     const schedules = response.data;
-    console.log("取得資料:", schedules);
+    // console.log("取得此行程的景點資料:", schedules);
     renderEditPlan(schedules);
   })
   .catch(function (error) {
@@ -45,7 +44,7 @@ function renderEditPlan(schedules) {
           <p>${startDate} to <br> ${endDate}</p>
       </div>
       <div class="budget">
-          <h2>預算: 8,983</h2>
+          <h2>預算: 0</h2>
           <p>NTD</p>
       </div>
   </div>
@@ -55,7 +54,7 @@ function renderEditPlan(schedules) {
   </div>
   `;
 
-  // 天數列表
+  // 建立天數列表的 HTML 結構
   dayList.innerHTML += `<li class="currentDay align-bottom" data-sch-day="1">DAY1</li>`;
   for (let i = 2; i < alreadyEditedDays + 1; i++) {
     dayList.innerHTML += `<li data-sch-day="${i}">DAY${i}</li>`;
@@ -67,6 +66,59 @@ function renderEditPlan(schedules) {
         </div>
     </li>
   `;
+
+  // 獲得本計畫的預算
+
+  axios
+    .get(`http://localhost:8080/buildPlan/editPlan/budget/${currentScheduleId}`)
+    .then(function (response) {
+      const budget = response.data;
+      // console.log("取得此行程的預算資料:", budget);
+      renderBuget(budget);
+    })
+    .catch(function (error) {
+      console.log(error);
+      console.log("請求預算資料失敗");
+    });
+
+  function renderBuget(budget) {
+    let totalBudget = 0;
+    budget.forEach((item) => {
+      totalBudget += item.Cost;
+    });
+
+    document.querySelector(".budget").innerHTML = `
+    <h2>預算: ${totalBudget} </h2>
+    <p>NTD</p>
+    `;
+  }
+
+  // 以後修改 emailid
+  const emailid = 1;
+
+  // 新增一天的邏輯
+  const addDayBtn = document.querySelector(".addDayBtn");
+  addDayBtn.addEventListener("click", () => {
+    const newDay = alreadyEditedDays + 1;
+    if (newDay > diffInDays) {
+      alert("這個行程沒有那麼多天");
+      return;
+    }
+
+    axios
+      .post(`http://localhost:8080/buildPlan/editPlan/addDay`, {
+        sch_id: currentScheduleId,
+        sch_day: newDay,
+        emailid: emailid,
+      })
+      .then(function (response) {
+        console.log("新的一天已新增:", response.data);
+        location.reload(); // 刷新頁面
+      })
+      .catch(function (error) {
+        console.log("新增一天時發生錯誤:", error);
+      });
+  });
 
   // 切換不同的天數
   const dayListItems = dayList.getElementsByTagName("li");
@@ -127,16 +179,16 @@ function renderDayContent(filteredData) {
 
   // 沒有圖片就填入色塊
   filteredData.forEach((site) => {
-    let cardImgUrl
+    let cardImgUrl;
     if (site.photo_one === null) {
-      cardImgUrl = "https://dummyimage.com/600x400/dcab25/dcab25"
-    }else{
-      cardImgUrl = `../assets/images/searchSite/${site.photo_one}`
+      cardImgUrl = "https://dummyimage.com/600x400/dcab25/dcab25";
+    } else {
+      cardImgUrl = `../assets/images/searchSite/${site.photo_one}`;
     }
- 
+
     const cardItem = document.createElement("li");
 
-    // 建立卡片的 HTML 結構
+    // 建立景點卡片的 HTML 結構
     cardItem.innerHTML = `
       <li data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-site-name="${site.sch_spot}" data-site-id="${site.detail_id}" data-sch-id="${site.sch_id}" data-site-day="${site.sch_day}" class="siteItem">
         <div class="card">

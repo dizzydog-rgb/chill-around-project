@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // 綁定 PUT/POST 事件至 Modal 中的完成按鈕
-  document.getElementById("save-site").addEventListener("click", function () {
+  document.getElementById("save-site").addEventListener("click", () => {
     const siteName = currentModal.querySelector('input[name="siteName"]').value;
     const siteDescription = currentModal.querySelector(
       'textarea[name="siteParagh"]'
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // 綁定 DELETE 事件至 Modal 中的完成按鈕
-  document.getElementById("delete-site").addEventListener("click", function () {
+  document.getElementById("delete-site").addEventListener("click", () => {
     axios
       .delete(
         `http://localhost:8080/buildPlan/editPlan/sites/${currentSiteId}`,

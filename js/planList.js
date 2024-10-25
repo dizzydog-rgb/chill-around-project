@@ -4,7 +4,7 @@ axios
   .get("http://localhost:8080/buildPlan/planList")
   .then(function (response) {
     const schedules = response.data;
-    console.log(schedules);
+    // console.log(schedules);
     renderPlanList(schedules);
   })
   .catch(function (error) {
@@ -69,12 +69,16 @@ function renderPlanList(schedules) {
   document.addEventListener("DOMContentLoaded", () => {
     // 為所有卡片添加點擊事件處理器
     document.querySelectorAll(".card").forEach((item) => {
-      item.addEventListener("click", function () {
-        const scheduleId = this.closest("#scheduleItem").dataset.scheduleid;
-        console.log("準備跳轉到計畫", scheduleId);
-        localStorage.setItem("scheduleId", scheduleId);
-        window.location.href = "editPlan.html";
-      }, { once: true }); // 確保每個事件只會觸發一次
+      item.addEventListener(
+        "click",
+        function () {
+          const scheduleId = this.closest("#scheduleItem").dataset.scheduleid;
+          console.log("準備跳轉到計畫", scheduleId);
+          localStorage.setItem("scheduleId", scheduleId);
+          window.location.href = "editPlan.html";
+        },
+        { once: true }
+      ); // 確保每個事件只會觸發一次
     });
 
     // 添加全局點擊事件處理器，判斷要刪除還是進入計畫
@@ -105,6 +109,5 @@ function renderPlanList(schedules) {
         }
       }
     });
-});
-
+  });
 }

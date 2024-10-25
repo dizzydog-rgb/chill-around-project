@@ -34,4 +34,10 @@ router.post("/editPlan/sites/:id/:day", buildPlanController.postSiteToSchedule);
 // DELETE 請求: 刪除特定ID景點
 router.delete("/editPlan/sites/:id", buildPlanController.deleteSiteDetailById);
 
+// POST 請求: 新增新的一天
+router.post("/editPlan/addDay", buildPlanController.postNewDayToSchedule);
+
+// GET 請求: 取得特定ID行程的預算
+router.get("/editPlan/budget/:id", buildPlanController.getBudget);
+
 module.exports = router;
