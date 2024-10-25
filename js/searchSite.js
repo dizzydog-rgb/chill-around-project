@@ -28,40 +28,44 @@ document.getElementById("searchButton").addEventListener("click", function(){
 //    });
 });
 
-// 引入 Axios
-// const selectedCity = '指定的城市'; // 使用者選擇的城市
-// const selectedTag = '指定的標籤'; // 使用者選擇的標籤
+// 上方三張大圖
+axios.get('http://localhost:8080/site/allsite')
+.then(response =>{
+    const data =  response.data;
+    const siteData = data.filter(data => data.photo_three != '').slice(15,18)
+    console.log(siteData);
+    // 使用 map 提取每個點的 photo_three 屬性
+    const siteImages = siteData.map(site => site.photo_three);
+    // 輸出圖片陣列
+    console.log(siteImages);
 
-// axios.get(`/searchsite/search`, {
-//   params: {
-//     city: selectedCity,
-//     tag: selectedTag
-//   }
-// })
-// .then(response => {
-//   // 處理返回的資料
-//   console.log(response.data);
-// })
-// .catch(error => {
-//   console.error('Error:', error);
-// });
+    const heroImage = document.getElementById('hero-image');
+    heroImage.innerHTML='';
 
+    const allImage = document.createElement("div");
+    allImage.classList.add("row", "no-gutters" ,"ms-0", "me-0");
+    allImage.innerHTML = `
+    <div id="image1" class="col-md-4 ps-0 pe-0">
+        <a href="/chill-around-project/pages/siteInfo.html?id=${siteData[0].site_id}">
+            <img src="../assets/images/searchSite/${siteImages[0]}" alt="Image 1">
+        </a>    
+    </div>
+    <div id="image2" class="col-md-4 ps-0 pe-0">
+        <a href="/chill-around-project/pages/siteInfo.html?id=${siteData[1].site_id}">
+            <img src="../assets/images/searchSite/${siteImages[1]}" alt="Image 2">
+        </a> 
+    </div>
+    <div id="image3" class="col-md-4 ps-0 pe-0">
+        <a href="/chill-around-project/pages/siteInfo.html?id=${siteData[2].site_id}">
+            <img src="../assets/images/searchSite/${siteImages[2]}" alt="Image 3">
+        </a> 
+    </div>
+    
+    `;
+    heroImage.appendChild(allImage);
 
-// 處理表單提交
-// document.getElementById('searchForm').addEventListener('submit', function(event) {
-//     event.preventDefault(); // 防止默认的表单提交行为
-
-//     // 获取选择的值
-//     const selectedRegion = document.getElementById('region').value;
-//     const selectedTag = document.getElementById('tag').value;
-
-//     // 跳转到搜索结果页面并传递查询参数
-//     window.location.href = `results.html?site_city=${selectedRegion}&tag_id=${selectedTag}`;
-// });
-
- // 創建卡片
-
-
+})
+ // 創建景點卡片
  function createCard(attraction) {
     console.log(attraction); //確認有叫出點擊的卡片資訊
     
@@ -76,7 +80,7 @@ document.getElementById("searchButton").addEventListener("click", function(){
             </div>
             <div class="cardOverlay">
                 <h5 class="card-title ">${attraction.site_name}</h5>
-                <p class="card-subtitle">${attraction.site_city}</p>
+                <p class="card-subtitle">${attraction.short_add}</p>
             </div>
             <div class="btnOverlay">
                 <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -92,6 +96,44 @@ document.getElementById("searchButton").addEventListener("click", function(){
     };
     
     sitecardBox.appendChild(siteCard);
+};
+// 生成美食卡片
+function createFoodCard(attraction) {
+    console.log("美食卡片："+attraction); //確認有叫出的卡片資訊
+    
+    const foodCardBox = document.getElementById('foodcardBox');
+    const foodCard = document.createElement("div");
+    foodCard.classList.add("col-md-3", "p-0", "m-0");
+
+    foodCard.innerHTML = `
+                <div id="foodCard" class="allCard  card bg-primary">
+            <div id="foodImage" class="cardImage">
+                <img src="${attraction.photo_two}" alt="">
+            </div>
+            <div class="cardOverlay">
+                <h5 class="card-title ">${attraction.store_name}</h5>
+                <p class="card-subtitle">${attraction.short_city}</p>
+            </div>
+            <div class="btnOverlay">
+                <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    加入行程
+                </button>
+            </div>
+        </div>`;
+    console.log(foodCardBox);
+    const placeId = attraction.store_id;
+    console.log("地點ＩＤ："+placeId);
+    
+    //用 onclick 導向到詳細資訊頁面
+    foodCard.onclick = function (){
+        console.log("地點ＩＤ："+placeId);
+        localStorage.setItem('selectedPlaceId', placeId);
+
+        // 跳轉到地圖頁面
+         window.location.href = '/chill-around-project/pages/foodMap.html?place_id=' + placeId;
+    }
+    
+    foodCardBox.appendChild(foodCard);
 };
 
 // 生成隨機的景點卡片
@@ -111,11 +153,45 @@ function showRandomAttractions() {
         });
    
 }
+// 生成隨機的美食店家卡片
+function showFoodStore() {
+    return axios.get(`http://localhost:8080/site/allfood`) // 注意確保後端可接受的 URL 和查詢參數
+        .then(response => {
+            console.log("取得資料"+response.data);
+            console.log(response.data);
+            const randomFood = response.data;
+            randomFood.forEach(attraction => {
+                createFoodCard(attraction);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching random attractions:', error);
+        });
+   
+}
 
+//  取至行程推薦頁
+const itinerarySelect = document.querySelector('#itinerarySelect');
+const daySelectContainer = document.querySelector('#daySelectContainer');
+
+itinerarySelect.addEventListener('change', function () {
+    if (itinerarySelect.value) {
+        daySelectContainer.style.display = 'block';
+    } else {
+        daySelectContainer.style.display = 'none';
+    }
+});
+const exampleModal = document.querySelector('#exampleModal');
+exampleModal.addEventListener('hide.bs.modal', function () {
+    daySelectContainer.style.display = 'none';
+    itinerarySelect.value = '';
+    document.querySelector('#daySelect').value = '';
+});
 
 // 在 DOM 內容加載完成時調用隨機函數
 document.addEventListener('DOMContentLoaded', () => {
     showRandomAttractions(); // 顯示隨機的景點
+    showFoodStore();
 });
 
 

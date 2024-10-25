@@ -59,8 +59,7 @@ function updateCards() {
     const selectedTags = Array.from(document.querySelectorAll('.tagCheckbox:checked')).map(checkbox => checkbox.value).join(',');
     console.log(`Selected regions: ${selectedRegions}, selected tags: ${selectedTags}`); // 確認選��的地��和標��
     if(!selectedRegions && !selectedTags){
-        // const sitecardBox = document.getElementById('sitecardBox');
-        // sitecardBox.innerHTML = ''; // 清空目前顯示的卡片
+       
         document.addEventListener('DOMContentLoaded', () => {
             showRandomAttractions(); // 顯示隨機的景點
         });

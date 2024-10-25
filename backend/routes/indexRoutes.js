@@ -23,7 +23,9 @@ router.get("/", function (req, res) {
   });
 });
 
+// 取得輪播圖
 router.get('/heroCarousel',indexContronller.getHeroImg);
+// 取得tag
 router.get('/herotag',indexContronller.getHeroTag);
 
 

@@ -10,6 +10,12 @@ const siteController = require("../controller/siteController");
 
 // 使用 CORS
 router.use(cors());
+
+// GET 請求: 取得所有景點資料
+router.get("/allsite", siteController.getAllSite);
+// GET 請求: 取得所有食物店家資料
+router.get("/allfood", siteController.getAllFood);
+
 // GET 請求: 取得景點詳細資訊頁面
 router.get("/siteinfo/:id", siteController.getSiteById);
 
@@ -26,6 +32,7 @@ router.get("/searchSite/randomSite", siteController.getRandomCard );
 
 router.get('/searchsite/search?', siteController.getsearchSite);
 
+router.post('/foodmap/add', siteController.addFoodSite);
 
 router.get("/foodmap", function (req, res) {
     // res.send("成功呼叫")
