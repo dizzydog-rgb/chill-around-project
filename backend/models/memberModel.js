@@ -191,28 +191,5 @@ exports.updateData = (userData) => {
                 }
             });
         });
-
-        // let sql;
-        // let data;
-
-        // // 如果 uphoto 存在，則只更新 uphoto
-        // if (userData.uphoto !== undefined) {
-        //     sql = "UPDATE `member` SET uphoto = ? WHERE emailid = ?";
-        //     data = [userData.uphoto, userData.emailid];
-        // } else {
-        //     // 如果沒有 uphoto，則更新其他字段
-        //     sql = "UPDATE `member` SET uname = ?, email = ?, password = ?, birthday = ?, sex = ?, address = ?, cellphone = ?, telephone = ? WHERE emailid = ?";
-        //     data = [
-        //         userData.uname,
-        //         userData.email,
-        //         userData.pwd,
-        //         userData.birthday,
-        //         userData.sex,
-        //         userData.address,
-        //         userData.cellphonenum,
-        //         userData.telephonenum,
-        //         userData.emailid
-        //     ];
-        // }
     });
 }
