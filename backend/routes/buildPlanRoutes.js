@@ -4,8 +4,14 @@ const router = express.Router();
 const buildPlanController = require("../controller/buildPlanController");
 
 // 呼叫controller
+// POST 請求: 新增特定ID行程的景點
+router.post("/buildPlan", buildPlanController.postNewSchedule);
+
 // GET 請求: 獲取所有行程資料
 router.get("/planList", buildPlanController.getAllSchedule);
+
+// DELETE 請求:  刪除特定ID的行程資料
+router.delete("/planList/:id", buildPlanController.deleteScheduleById);
 
 // GET 請求: 獲取特定ID的行程資料
 router.get("/editPlan/:id", buildPlanController.getScheduleById);
@@ -19,10 +25,13 @@ router.get(
   buildPlanController.getSiteTags
 );
 
-// POST 請求: 新增特定ID行程的景點
-router.post("/editPlan/sites/:id", buildPlanController.postSiteToSchedule);
+// PUT 請求: 修改特定ID景點
+router.put("/editPlan/sites/:id", buildPlanController.putSiteDetailById);
 
-// PUT 請求: 修改特定ID行程
-// router.put("/editPlan/:id", buildPlanController.getScheduleById);
+// POST 請求: 新增特定ID行程的景點
+router.post("/editPlan/sites/:id/:day", buildPlanController.postSiteToSchedule);
+
+// DELETE 請求: 刪除特定ID景點
+router.delete("/editPlan/sites/:id", buildPlanController.deleteSiteDetailById);
 
 module.exports = router;

@@ -1,6 +1,10 @@
-// <---------------------- get popupbudget 預算種類渲染及點擊事件 ---------------------->
+const currentScheduleId = localStorage.getItem("scheduleId");
+console.log("皮卡：目前從 localStorage 取得: ------- ", currentScheduleId);
+
 import axios from 'axios';
+
 axios.get('http://localhost:8080/Budget/popupbudget')
+    // -------------------------------------------------- PopupBudget 預算種類渲染及點擊事件
     .then(response => {
         // 處理獲取的資料，例如更新 UI
 
@@ -34,7 +38,6 @@ axios.get('http://localhost:8080/Budget/popupbudget')
             return acc;
         }, {});
 
-
         // 開始渲染 itemCategory
         Categorydata.forEach(item => {
             // console.log(item);
@@ -60,7 +63,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                 optionsDiv.id = `options${item.Bcategory_id}`; // 設置唯一的 ID
                 optionsDiv.style.display = 'none'; // 初始隱藏
 
-                // 使用 innerHTML 來生成子分類的 HTML 結構
+                // 用 innerHTML 來生成子分類的 HTML 結構
                 optionsDiv.innerHTML = groupedDetails[item.Bcategory_id].map(subItem => `
                     <div class="option" data-option="${subItem.BudgetDetails}">${subItem.BudgetDetails}</div>
                     `).join(''); // 將陣列轉換為字串並加入到 optionsDiv
@@ -76,17 +79,91 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                     });
                 });
             }
-
             modalContent2.appendChild(newcategoryDiv);
-
         });
-    })
 
-    .catch(error => {
+
+        // ------------------------------ 若點選歷史方塊，有 UserChooseDiv 紀錄的編輯頁面 
+        const UserChooseDiv = localStorage.getItem("UserChooseDiv");
+        const ParseUserChooseDiv = JSON.parse(UserChooseDiv);
+
+        // console.log("QQQQQQQQQQQ", response.data)
+        if (UserChooseDiv) {
+
+            axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
+                .then(function (response) {
+                    console.log("抓到總數沒", ParseUserChooseDiv);
+                    console.log("抓到沒", ParseUserChooseDiv.Budget_id);
+
+                    const itemDate = ParseUserChooseDiv.BudgetDate.substring(0, 10)
+
+                    const topDivContainer = document.querySelector('.topDiv');
+                    topDivContainer.innerHTML = '';
+                    topDivContainer.innerHTML = `
+                                <a class="category" href="#modal2" id="open-modal2">${ParseUserChooseDiv.BudgetName}</a>
+                                <input class="date" type="date" value="${itemDate}"></input>
+                                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
+                            `;
+                    document.getElementById('open-modal2').addEventListener('click', () => {
+                        document.getElementById('overlay2').classList.add('active');
+                        document.getElementById('modal2').classList.add('active');
+                    });
+
+                    const formContainer = document.querySelector('.middleForm');
+                    formContainer.innerHTML = '';
+                    // --------------> 這個資料庫更新後，內容那行記得替換
+                    // <input id="userContent" type="text" placeholder="輸入內容" value="${ParseUserChooseDiv.BudgetContent}"><br><br>
+                    formContainer.innerHTML = `
+                            <div>
+                                <span>金額</span>
+                                <input id="userMoney" type="text" placeholder="輸入金額" required value="${ParseUserChooseDiv.Cost}"><br><br>
+                            </div>
+                            <div>
+                                <span>內容</span>
+                                <input id="userContent" type="text" placeholder="輸入內容"><br><br>
+                            </div>
+                            <div>
+                                <span>已付</span>
+                                <input id="userCheck" type="checkbox" class="checkBox" ${ParseUserChooseDiv.PaidStatus === 1 ? 'checked' : ''}>
+                            </div>
+                            <div>
+                                <span>付款人</span>
+                                <input id="userWhoPaid" type="text" placeholder="輸入付款人" required value="${ParseUserChooseDiv.WhoPay}"><br><br>
+                            </div>
+                    `;
+
+                    // ---------------------------------------------------- 綁定 value 並實現 post
+                    document.querySelector('.submitBtn').addEventListener('click', () => {
+                        const updateData = {
+                            Cost: document.getElementById('userMoney').value,
+                            // BudgetContent: document.getElementById('userContent').value,
+                            PaidStatus: document.getElementById('userCheck').checked ? 1 : 0,
+                            WhoPay: document.getElementById('userWhoPaid').value
+                        };
+                        // const testData = {
+                        //     WhoPay: "Jenny"
+                        // };
+
+                        axios.put(`http://localhost:8080/budget/UserBudget/${currentScheduleId}/${ParseUserChooseDiv.Budget_id}`, updateData)
+                            .then(postResponse => {
+                                console.log('皮卡卡卡卡');
+                                console.log("更新成功：", postResponse.data);
+                            }).catch(error => {
+                                console.error("更新失敗：", error);
+                            });
+                    });
+                });
+
+        }
+
+
+
+    }).catch(error => {
         console.error('無法取得種類:', error);
     });
 
-    
+
+
 // <---------------------- Modal 1 ---------------------->
 function openModal() {
     document.getElementById('overlay').style.display = 'block';
@@ -148,24 +225,3 @@ function selectOption(option, event) {
     const selectedOption = event.currentTarget; // 獲取被點擊的選項
     selectedOption.classList.add('active');
 };
-
-
-
-// function init() {
-//     const titles = document.querySelectorAll('.tiTle');
-
-//     titles.forEach((title, index) => {
-//         // 為每個 .tiTle 綁定 click 事件
-//         title.addEventListener('click', () => {
-//             toggleOptions(`options${index}`); // 使用 index 來獲取對應的 options
-//         });
-
-//         // 獲取對應的 options 和 option 元素
-//         const optionElements = title.nextElementSibling.querySelectorAll('.option');
-//         optionElements.forEach(option => {
-//             option.addEventListener('click', (event) => {
-//                 selectOption(option.getAttribute('data-option'), event);
-//             });
-//         });
-//     });
-// }

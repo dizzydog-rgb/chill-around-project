@@ -122,9 +122,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     // 存儲 sch_id 到 localStorage
                     localStorage.setItem('selectedSchId', schId);
                     console.log(schId);
-                    
-                    
-                    
+
+
+
                     // 跳轉到新頁面
                     window.location.href = "schCom.html";
                 });
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('無法取得卡片的資料:', error);
         });
 
-        
+
 
     var swiper = new Swiper(".mySwiper_1", {
         spaceBetween: 0,
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
         },
     });
-   //獲取行程資料 with like
+    //獲取行程資料 with like
     axios.get('http://localhost:8080/buildPlan/planList')
         .then(response => {
             const dataSite = response.data; // 獲取資料
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const schId = event.currentTarget.getAttribute('data-sch-id');
                     localStorage.setItem('selectedSchId', schId); // 儲存 sch_id 到 localStorage
                     console.log(schId);
-                    
+
 
                     // 跳轉到 schCom.html
                     window.location.href = "schCom.html";
@@ -406,7 +406,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 await axios.post('http://localhost:8080/schInfo/getspot/add', dataToSave);
                 alert('行程保存成功');
                 console.log('Data to Save:', dataToSave);
-                hideModal();
+                // 使用 jQuery 來隱藏模態框
+                $('#exampleModal').modal('hide');
             } catch (error) {
                 alert('保存行程失敗');
                 console.error('保存行程失敗', error);
@@ -422,13 +423,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.add('modal-open');
     }
 
-    // 隱藏 modal
-    function hideModal() {
-        const modal = document.getElementById('exampleModal');
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-        document.body.classList.remove('modal-open');
-    }
 
 
     //這是影片的資料

@@ -8,221 +8,213 @@
 //     }
 
 // }
-.foodMap{
-    #map {
-        height: 100vh;
-        width: 100vw;
+.foodMap {
+  #map {
+    height: 100vh;
+    width: 100vw;
+  }
+  .d-none {
+    display: none !important;
+  }
+  // 卡片背景
+  .foodcardBox {
+    position: absolute;
+    top: 200px;
+    left: 20px;
+    z-index: 10; /* 使側邊欄位於地圖之上 */
+    margin-bottom: 15px; /* 卡片與底部元素間的間距 */
+    background-color: rgba(255, 255, 255, 0.6); /* 設置透明背景 */
+    border-radius: 10px; /* 圓角 */
+    padding: 15px; /* 增加內邊距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
+    transition: all 0.3s ease;
+    width: 350px;
+    height: 70vh;
+    overflow-y: auto;
+    flex-direction: column;
+    .card-title {
+      font-size: 18px;
+      display: -webkit-box; /* 使用 Flexbox */
+      -webkit-box-orient: vertical; /* 垂直方向排列 */
+      -webkit-line-clamp: 2; /* 限制顯示兩行 */
+      overflow: hidden; /* 隱藏超出部分 */
+      text-overflow: ellipsis; /* 在結尾處使用省略號 */
     }
-    .d-none{
-      display: none !important;
-    }
-    // 卡片背景
-    .foodcardBox {
-        position: absolute;
-        top: 200px;
-        left: 20px;
-        z-index: 10; /* 使側邊欄位於地圖之上 */
-        margin-bottom: 15px; /* 卡片與底部元素間的間距 */
-        background-color: rgba(255, 255, 255, 0.6); /* 設置透明背景 */
-        border-radius: 10px;  /* 圓角 */
-        padding: 15px; /* 增加內邊距 */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
-        transition: all 0.3s ease;
-        width: 350px;
-        height: 70vh;
-        overflow-y: auto;
-        flex-direction: column;
-        .card-title {
-          font-size: 18px;
-          display: -webkit-box; /* 使用 Flexbox */
-          -webkit-box-orient: vertical; /* 垂直方向排列 */
-          -webkit-line-clamp: 2; /* 限制顯示兩行 */
-          overflow: hidden; /* 隱藏超出部分 */
-          text-overflow: ellipsis; /* 在結尾處使用省略號 */
-      }
-         // 卡片本體
-         .foodCard{
-            // position: relative;
-            width: 100%;
-            overflow: hidden;
-            border: 1px solid $danger;
-            margin-bottom: 15px;
-            // 卡片照片
-            .foodImage{
-                width: 150px; /* 設定圖片的固定寬度 */
-                height: 150px;
-                overflow: hidden;
-                // background-color: #E7BA48;
-                img{
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-            }
-            .card-body {
-              width: 200px; /* 設定卡片內容的固定寬度 */
-              overflow: hidden;
-          }
-            .btnOverlay{
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                margin: 30px;
-                button{
-                    color: white;
-                    border-radius: 25px;
-                }
-            }
+    // 卡片本體
+    .foodCard {
+      // position: relative;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid $danger;
+      margin-bottom: 15px;
+      // 卡片照片
+      .foodImage {
+        width: 150px; /* 設定圖片的固定寬度 */
+        height: 150px;
+        overflow: hidden;
+        // background-color: #E7BA48;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
-    }
-  
-    
-   // 搜尋欄
-.searchOverlay {
-    margin: 10px auto;  /* 在手機版上增加上下邊距 */
-    padding: 10px;    /* 增加內邊距 */
-    border-radius: 5px; /* 添加圓角 */
-   .selectItem{
-    margin: 10px;
-   }
-      #regionLabel,
-      #categoryLabel {
-        margin-right: 10px;
-        font-size: 18px;
-        color: $primary;
       }
-      // 下拉選擇框
-      .custom-select {
-        // background-color: #4a2e2e;
-        width: 10vw;
-        color: #909090;
-        border: 1px solid $primary;
-        // margin-bottom: 10px;
+      .card-body {
+        width: 200px; /* 設定卡片內容的固定寬度 */
+        overflow: hidden;
       }
-      // 搜尋欄搜尋按鈕
-      .input-group-append {
-        margin: 5px;
+      .btnOverlay {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 30px;
         button {
-          background-color: #e7ba48;
           color: white;
           border-radius: 25px;
-          &:hover {
-            background-color: $secondary;
-            color: white;
-          }
         }
       }
     }
-    .mapBox {
-        position: relative;
-        // top: 90px;
-        overflow: hidden;
-    }
+  }
 
-    // 跳出視窗
-    .modalFullscreen {
-        max-width: 800px; /* 調整模態框大小 */
-        width: 100%;
-        height: auto;
-        // 輪播圖
-        .foodStoreItem{
-            width: 100%;
-            height: 60vh;
-            img{
-            height: 100%; /* 使圖片的高度適應父容器 */
-            width: 100%; /* 使圖片的寬度適應父容器 */
-            object-fit: cover; /* 保持圖片比例並填滿容器 */
-            }
-        }
-        .modal-content{
-            position: relative;
-        }
-        .foodModalContent{
-            // height: 60vh;; /* 自定義內容的高度 */
-            /* 調整關閉按鈕的位置 */
-            .closeBtn {
-                position: absolute;
-                z-index: 1000;
-                top: 10px;
-                right: 10px;
-                font-size: 18px;
-                border: none;
-                cursor: pointer;
-                // background-color: transparent; /* 透明背景 */
-                color: rgb(0, 0, 0); /* 關閉按鈕顏色 */
-            }   
-        }
-        .infoTitle{
-            padding-top: 20px;
-            padding-bottom: 20px;
-            h2{
-                font-size: 26px;
-            }
-        }
-        .customIcon{
-            color: $secondary;
-        }
-        .btnOverlay {
-           margin-top: 30px;
-            text-align: end;
-            button {
-              border: 1px solid $secondary;  
-              color: $secondary;
-              border-radius: 25px;
-              &:hover{
-                background-color: $secondary;
-                color: white;
-              }
-            }
-        }
-
-        
+  // 搜尋欄
+  .searchOverlay {
+    background-color: white;
+    
+    margin: 10px auto; /* 在手機版上增加上下邊距 */
+    padding: 10px; /* 增加內邊距 */
+    .selectItem {
+      margin: 10px;
     }
-    
-    
-    @media (max-width: 768px) {
-        /* 手機版樣式 */
-        .searchOverlay{
-            position: relative;
-            top: 90px;
-          .custom-select{
-            width: 20vw;
-          }
-          .modalFullscreen{
-            max-width: 100%;
-            height: 100%;
-            border-radius: 0; /* 去除邊角的圓角 */
-          }
+    #regionLabel,
+    #categoryLabel {
+      margin-right: 10px;
+      font-size: 18px;
+      color: $primary;
+    }
+    // 下拉選擇框
+    .custom-select {
+      // background-color: #4a2e2e;
+      width: 10vw;
+      color: #909090;
+      border: 1px solid $primary;
+      // margin-bottom: 10px;
+    }
+    // 搜尋欄搜尋按鈕
+    .input-group-append {
+      margin: 5px;
+      button {
+        background-color: #e7ba48;
+        color: white;
+        border-radius: 25px;
+        &:hover {
+          background-color: $secondary;
+          color: white;
         }
       }
-      @media (min-width: 769px){
-        // 大於手機版樣式
-        .searchOverlay {
-          position: absolute;
-          z-index: 10;
-          top: 150px;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 45%;
-          background-color: white;
-          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-          border: 2px solid $primary;
-          padding: 10px;
-          
-          // border-radius: 5px;
-        }
     }
-    
-    
-    
-    
-    @media (max-width: 992px) {
-        .search-overlay{
-            width: 90%;
-        }
+  }
+  .mapBox {
+    // position: relative;
+    // top: 90px;
+    overflow: hidden;
+  }
+
+  // 跳出視窗
+  .modalFullscreen {
+    max-width: 800px; /* 調整模態框大小 */
+    width: 100%;
+    height: auto;
+    // 輪播圖
+    .foodStoreItem {
+      width: 100%;
+      height: 60vh;
+      img {
+        height: 100%; /* 使圖片的高度適應父容器 */
+        width: 100%; /* 使圖片的寬度適應父容器 */
+        object-fit: cover; /* 保持圖片比例並填滿容器 */
+      }
     }
+    .modal-content {
+      position: relative;
+    }
+    .foodModalContent {
+      // height: 60vh;; /* 自定義內容的高度 */
+      /* 調整關閉按鈕的位置 */
+      .closeBtn {
+        position: absolute;
+        z-index: 1000;
+        top: 10px;
+        right: 10px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        // background-color: transparent; /* 透明背景 */
+        color: rgb(0, 0, 0); /* 關閉按鈕顏色 */
+      }
+    }
+    .infoTitle {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      h2 {
+        font-size: 26px;
+      }
+    }
+    .customIcon {
+      color: $secondary;
+    }
+    .btnOverlay {
+      margin-top: 30px;
+      text-align: end;
+      button {
+        border: 1px solid $secondary;
+        color: $secondary;
+        border-radius: 25px;
+        &:hover {
+          background-color: $secondary;
+          color: white;
+        }
+      }
+    }
+  }
 
+  @media (max-width: 768px) {
+    /* 手機版樣式 */
+    .searchOverlay {
+      z-index: 1000;
+      position: relative;
+      top: 90px;
+      .custom-select {
+        width: 20vw;
+      }
+      .modalFullscreen {
+        max-width: 100%;
+        height: 100%;
+        border-radius: 0; /* 去除邊角的圓角 */
+      }
+    }
+  }
+  @media (min-width: 769px) {
+    // 大於手機版樣式
+    .searchOverlay {
+      position: absolute;
+      z-index: 1000;
+      top: 150px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 45%;
+      background-color: white;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+      border: 2px solid $primary;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  }
 
+  @media (max-width: 992px) {
+    .search-overlay {
+      width: 90%;
+    }
+  }
 }
 // @media (max-width: 768px) {
 //     .search-overlay{

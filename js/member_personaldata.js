@@ -8,7 +8,7 @@ $(document).ready(function () {
         return;
     }
 
-    axios.get('http://localhost:8080/member/members/user', {
+    axios.get('http://localhost:8080/member/members', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -37,24 +37,31 @@ $(document).ready(function () {
                     取消
                 </button>
             </div>
-            <div class="mb-5">
-                <div class="card" style="max-width: 600px;">
-                    <div class="row align-items-center g-0">
-                        <div class="col-md-4">
-                            <img id="img" src="../assets/images/memberimg/${member.uphoto}">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <p class="card-text ms-2">
-                                    歡迎! <span id="uname">${member.uname}</span>
-                                </p>
+            <form id="form">
+                <div class="mb-5">
+                    <div class="card" style="max-width: 600px;">
+                        <div class="row align-items-center g-0">
+                            <div class="col-md-4">
+                                <div id="photo" class="d-flex justify-content-center align-items-center">
+                                    <p>請上傳圖片</p>
+                                    <label class="btn btn-info upload">
+                                        <input type="file" name="uphoto" id="uphoto" value="${member.uphoto}">
+                                        <i class="fa-regular fa-image"></i> 檔案上傳
+                                    </label>
+                                    <img id="img" src="../assets/images/memberimg/${member.uphoto}">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <p class="card-text ms-2">
+                                        歡迎! <span id="uname">${member.uname}</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="formList">
-                <form>
+                <div class="formList">
                     <div class="item">
                         <label class="col-form-label">姓名：</label>
                         <input type="text" name="uname" id="uname1" class="inpwrite" value="${member.uname}" placeholder="請輸入姓名" readonly>
@@ -106,23 +113,47 @@ $(document).ready(function () {
                         <input type="text" name="telephonenum" id="telephonenum" class="inpwrite" value="${member.telephone}"
                             placeholder="請輸入市內電話" readonly>
                     </div>
-                </form>
-                <div class="bindaccount">
-                    <div class="title">綁定帳戶：</div>
-                    <div class="googleline">
-                        <div class="item">
-                            <img src="../assets/images/memberimg/logo_google_g_icon.png" id="googleimg">
-                            <div id="google"></div>
-                        </div>
-                        <div class="item">
-                            <img src="../assets/images/memberimg/btn_base.png" id="lineimg">
-                            <div id="line"></div>
+                    <div class="bindaccount">
+                        <div class="title">綁定帳戶：</div>
+                        <div class="googleline">
+                            <div class="item">
+                                <img src="../assets/images/memberimg/logo_google_g_icon.png" id="googleimg">
+                                <div id="google"></div>
+                            </div>
+                            <div class="item">
+                                <img src="../assets/images/memberimg/btn_base.png" id="lineimg">
+                                <div id="line"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        `;
+            </form>
+            `;
             $('.personaldata').html(personaldataHTML);
+
+            $('#photo p').hide();
+            $('.upload').hide();
+            $('#uphoto').hide();
+            if (member.uphoto == null) {
+                $('#img').hide();
+                $('#photo p').show(); // 未有圖片時顯示
+            }
+
+            if (member.birthday == null) {
+                $('#birthday').val('未填寫');
+            }
+            if (member.sex == null) {
+                $('#sex').val('未填寫');
+            }
+            if (member.address == null) {
+                $('#address').val('未填寫');
+            }
+            if (member.cellphone == null) {
+                $('#cellphonenum').val('未填寫');
+            }
+            if (member.telephone == null) {
+                $('#telephonenum').val('未填寫');
+            }
 
             let googleid = member.googleid;
             let lineid = member.lineid;
@@ -154,9 +185,37 @@ $(document).ready(function () {
             $('#selectsex').hide();
             $('#write').hide();
             let datePicker;
+            // 編輯按鈕
             $('.editbtn').click(function () {
                 $('#edit').hide();
-                $('#write').show();
+                $('#write').show(); // 儲存與取消按鈕
+                if (member.birthday == null) {
+                    $('#birthday').val('');
+                }
+                if (member.sex == null) {
+                    $('#sex').val('');
+                }
+                if (member.address == null) {
+                    $('#address').val('');
+                }
+                if (member.cellphone == null) {
+                    $('#cellphonenum').val('');
+                }
+                if (member.telephone == null) {
+                    $('#telephonenum').val('');
+                }
+                $('#photo p').hide();
+                $('.upload').show(); // 上傳圖片input
+                // 當有圖片上傳時
+                $('#uphoto').on('change', function () {
+                    $('#img').show();
+                    var readFile = new FileReader();
+                    readFile.readAsDataURL(this.files['0']);
+                    $('#img').val(`${this.files['0'].name}`);
+                    readFile.onload = function () {
+                        $('#img').attr('src', readFile.result);
+                    }
+                })
                 $('#sex').hide();
                 $('#selectsex').show();
                 if (member.sex === '男') {
@@ -173,11 +232,52 @@ $(document).ready(function () {
                 });
             });
 
+            // 儲存按鈕
+            $('.storebtn').click(function () {
+                let msg = "確定儲存?";
+                if (!confirm(msg)) return false;
+
+                // 獲取表單數據
+                var formData = new FormData($('#form')[0]);
+                axios.post('http://localhost:8080/member/update', formData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`, // 確保這裡的 token 是正確的
+                        'Content-Type': 'multipart/form-data' // 設置內容類型為 multipart/form-data
+                    }
+                })
+
+                    .then(response => {
+                        if (response.data) {
+                            alert(response.data.message);
+                            window.location.href = 'member_personaldata.html';
+                        }
+                    })
+                    .catch(error => {
+                        if (error.response && error.response.data) {
+                            alert(error.response.data.message); // 顯示後端返回的錯誤消息
+                        } else {
+                            alert('更新失敗，請稍後再試。');
+                        }
+                    });
+            });
+
+            // 取消按鈕
             $('.cancelbtn').click(function () {
                 let msg = "確定取消編輯?";
                 if (!confirm(msg)) return false;
                 $('#edit').show();
                 $('#write').hide();
+                if (member.uphoto == null) {
+                    $('#img').hide();
+                    $('#uphoto').val('');
+                    $('#photo p').show(); // 未有圖片時顯示
+                }
+                $('.upload').hide();
+                if (member.birthday == null) {
+                    $('#birthday').val('未填寫');
+                } else {
+                    $('#birthday').val(myBirthday);
+                }
                 $('#sex').show();
                 $('#selectsex').hide();
                 let input = $('.inpwrite');
@@ -186,7 +286,7 @@ $(document).ready(function () {
                 if (datePicker) {
                     datePicker.destroy();
                 }
-                $('#birthday').val(myBirthday);
+                window.location.href = 'member_personaldata.html';
             });
         })
         .catch(error => {
@@ -205,4 +305,12 @@ $(document).ready(function () {
             window.location.href = 'login.html';
         }
     });
+
+    // 將表單數據轉換為 JSON 對象的函數
+    function serializeToJSON(data) {
+        return data.reduce((acc, { name, value }) => {
+            acc[name] = value;
+            return acc;
+        }, {});
+    }
 });

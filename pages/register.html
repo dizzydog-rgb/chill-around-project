@@ -4,22 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>會員註冊</title>
 </head>
 
 <body class="register">
     <div class="container-fluid">
         <div class="mycard">
-            <form>
+            <form id="form">
                 <h3 class="title text-center">會員註冊</h3>
                 <label class="col-form-label">姓名:</label>
-                <input type="text" name="uname" id="uname" class="form-control" placeholder="請輸入姓名">
+                <input type="text" name="uname" id="uname" class="form-control" placeholder="請輸入姓名" required
+                autofocus>
                 <label class="col-form-label">帳號:</label>
-                <input type="text" name="email" id="email" class="form-control" placeholder="請輸入電子信箱">
+                <input type="email" name="email" id="email" class="form-control" placeholder="請輸入電子信箱" required>
                 <label class="col-form-label">密碼:</label>
-                <input type="text" name="pw1" id="pw1" class="form-control" placeholder="請輸入密碼">
+                <input type="password" name="pw1" id="pw1" class="form-control" placeholder="請輸入密碼" minlength="6" required>
                 <label class="col-form-label">確認密碼:</label>
-                <input type="text" name="pw2" id="pw2" class="form-control" placeholder="請再次輸入密碼">
+                <input type="password" name="pw2" id="pw2" class="form-control" placeholder="請再次輸入密碼" minlength="6" required>
                 <div class="text-center my-3">
                     <button type="submit" class="btn subbtn text-white">確認註冊</button>
                 </div>
@@ -43,9 +45,7 @@
     </div>
     <script src="https://accounts.google.com/gsi/client" async></script>
     <script type="module" src="/main.js"></script>
-    <script>
-        
-    </script>
+    <script type="module" src="../js/register.js"></script>
 </body>
 
 </html>
