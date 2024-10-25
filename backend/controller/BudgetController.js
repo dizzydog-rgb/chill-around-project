@@ -1,5 +1,5 @@
 const BudgetModel = require("../models/BudgetModel");
-// 獲得全部種類的控制器
+// 獲得全部預算種類的控制器
 exports.getBudgetCategory = async (req, res) => {
     try {
         const popupBudgets = await BudgetModel.findBudgetCategory();
@@ -60,9 +60,18 @@ exports.getUserBudgetOneDetails = async (req, res) => {
 
 // 編輯預算的控制器
 exports.userEditBudgetController = (req, res) => {
-    const schId = req.params.id; // 獲取預算ID
-    const budgetId = req.params.detailId; // 獲取詳細ID
-    const budgetData = req.body; // 獲取更新的數據
+    const schId = req.params.id; // 提取 schId
+    const budgetId = req.params.detailId; // 提取 budgetId
+
+    const budgetData = {
+        BudgetDate: req.body.BudgetDate,
+        BudgetDetails: req.body.BudgetDetails,
+        BudgetName: req.body.BudgetName,
+        BudgetContent: req.body.BudgetContent,
+        Cost: req.body.Cost,
+        PaidStatus: req.body.PaidStatus,
+        WhoPay: req.body.WhoPay,
+    };
 
     BudgetModel.userEditBudget(schId, budgetId, budgetData)
         .then(message => res.send(message))
@@ -81,8 +90,17 @@ exports.userDeleteBudgetController = (req, res) => {
 // 增加預算的控制器
 exports.userAddBudgetController = (req, res) => {
     const schId = req.params.id; // 獲取預算ID
-    const budgetId = req.params.detailId; // 獲取詳細ID
-    BudgetModel.userAddBudget(schId, budgetId)
+
+    const budgetData = {
+        BudgetDate: req.body.BudgetDate,
+        BudgetDetails: req.body.BudgetDetails,
+        BudgetName: req.body.BudgetName,
+        BudgetContent: req.body.BudgetContent,
+        Cost: req.body.Cost,
+        PaidStatus: req.body.PaidStatus,
+        WhoPay: req.body.WhoPay,
+    };
+    BudgetModel.userAddBudget(schId, budgetData)
         .then(message => res.status(201).send(message))
         .catch(err => res.status(500).send(err));
 };

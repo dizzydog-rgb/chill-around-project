@@ -22,39 +22,6 @@ exports.findUserBudgetId = (id) => {
                 });
             });
         });
-
-
-        // db.exec(query1, [id], (err1, results1) => {
-        //     if (err1) {
-        //         console.error("Query error:", err1);
-        //         return reject(err1); // 錯誤處理
-        //     }
-        //     if (results1 && results1.length > 0) {
-        //         resolve(results1[0]); // 返回所有查詢結果
-        //     } else {
-        //         console.error("No results found");
-        //         reject(new Error("No results found")); // 處理無結果的情況
-        //     }
-        // });
-
-        // 抓旅遊編輯的版本，跑得出資料，GPT不推薦
-        // db.exec(query1, [id], (results1, fields) => {
-        //     if (results1) {
-        //       resolve(results1);
-        //     } else {
-        //       console.error("No results found or query error");
-        //       reject(new Error("No results found or query error"));
-        //     }
-        //   }); 
-
-        // 原版
-        // db.exec(query1, [id], (err1, results1) => {
-        //     if (err1) {
-        //         return reject(err1);
-        //     }
-        //     
-        //     resolve(results1);
-        // });
     });
 };
 
@@ -105,11 +72,13 @@ exports.userEditBudget = (schId, budgetId, budgetData) => {
             console.log('Error:', err);
             console.log('崩潰卡比---------------------------------------------------', new Date().toLocaleTimeString())
             console.log('Current Budget:', currentBudget);
+            // console.log('schId', schId);
+            // console.log('budgetId', budgetId);
 
             if (err) {
                 return reject(err);
             }
-            if (currentBudget.length === 0) {
+            if (!currentBudget || currentBudget.length === 0) {
                 return reject(new Error('Budget not found.'));
             }
 
@@ -152,15 +121,23 @@ exports.userEditBudget = (schId, budgetId, budgetData) => {
                 values.push(budgetData.BudgetContent);
             }
 
+            if (fieldsToUpdate.length === 0) {
+                return reject(new Error('No fields to update.'));
+            }
+
+            console.log('我在這 -------------------------------------------------------------')
+            console.log("Values:", values);
+
             // 添加 sch_id、Budget_id 到查詢參數
-            values.push(schId);
-            values.push(budgetId);
+            values.push(schId, budgetId);
 
             // 建構更新查询
             const updateQuery = `UPDATE userbudget SET ${fieldsToUpdate.join(", ")} WHERE sch_id = ? AND Budget_id = ?`;
+            console.log("Updating query:", values);
+            console.log("Updating query:", updateQuery);
 
             db.exec(updateQuery, [...values, schId, budgetId], (err, result) => { // 傳遞 sch_id、budgetId
-                console.log("Updating query:", values);
+                console.log("Updating values 和 schId, budgetId:", [...values, schId, budgetId]);
                 if (err) {
                     return reject(err);
                 }
@@ -181,17 +158,52 @@ exports.userEditBudget = (schId, budgetId, budgetData) => {
 
 
 // 編輯頁面 - 新增功能
-exports.userAddBudget = (budgetData) => {
+exports.userAddBudget = (schId, data) => {
     return new Promise((resolve, reject) => {
-        const query = "INSERT INTO userbudget (BudgetDate, BudgetDetails, BudgetName, Cost, PaidStatus, WhoPay) VALUES (?, ?, ?, ?, ?, ?)";
-        db.exec(query, [budgetData.BudgetDate, budgetData.BudgetDetails, budgetData.BudgetName, budgetData.Cost, budgetData.PaidStatus, budgetData.WhoPay], (err, result) => {
+        console.log("Data received in userAddBudget:", data); // 檢查接收到的資料
+
+        // 首先查詢 Bcategory_id
+        const categoryQuery = "SELECT Bcategory_id FROM budgetcategory WHERE BudgetName = ?";
+        db.exec(categoryQuery, [data.BudgetName], (err, categoryResult) => {
             if (err) {
                 return reject(err);
             }
-            resolve('Budget added!');
+
+            console.log("BudgetName to query:", data.BudgetName);
+
+            // 確保找到了對應的 Bcategory_id
+            if (categoryResult.length === 0) {
+                return reject(new Error('No matching category found'));
+            }
+
+            const Bcategory_id = categoryResult[0].Bcategory_id;
+
+            // 準備插入預算資料
+            const budgetData = {
+                sch_id: schId,
+                BudgetDate: data.BudgetDate,
+                BudgetDetails: data.BudgetDetails,
+                BudgetContent: data.BudgetContent,
+                BudgetName: data.BudgetName,
+                Cost: data.Cost,
+                PaidStatus: data.PaidStatus,
+                WhoPay: data.WhoPay,
+                Bcategory_id: Bcategory_id,
+            };
+
+            // 插入資料
+            const query = "INSERT INTO userbudget (sch_id, BudgetDate, BudgetDetails, BudgetContent, BudgetName, Cost, PaidStatus, WhoPay, Bcategory_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            db.exec(query, [budgetData.sch_id, budgetData.BudgetDate, budgetData.BudgetDetails, budgetData.BudgetContent, budgetData.BudgetName, budgetData.Cost, budgetData.PaidStatus, budgetData.WhoPay, budgetData.Bcategory_id], (insertErr, result) => {
+                if (insertErr) {
+                    return reject(insertErr);
+                }
+                resolve('Budget added!');
+            });
         });
     });
 };
+
+
 
 
 // 編輯頁面 - 刪除功能

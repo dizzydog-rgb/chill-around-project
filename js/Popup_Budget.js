@@ -24,11 +24,11 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                 <button class="okBtn">確認</button>
                 </div>
                 `;
-                modalContent2.innerHTML += fixedtop;
-                
-                modalContent2.querySelector('.close2').addEventListener('click', () => {
-                    closeModal2();
-                });
+        modalContent2.innerHTML += fixedtop;
+
+        modalContent2.querySelector('.close2').addEventListener('click', () => {
+            closeModal2();
+        });
 
         // 取項目id相對應的細項
         const groupedDetails = Detailsdata.reduce((acc, item) => {
@@ -103,13 +103,17 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                     console.log("抓使用者點選的資料方塊", ParseUserChooseDiv);
                     console.log("這裡是最近預算資料方塊ID", ParseUserChooseDiv.Budget_id);
 
-                    const itemDate = ParseUserChooseDiv.BudgetDate.substring(0, 10)
+                    // const itemDate = ParseUserChooseDiv.BudgetDate.substring(0, 10) // 原本格式顯示會往前跑一天
+
+                    const itemDate = new Date(ParseUserChooseDiv.BudgetDate); // 獲取完整日期對象
+                    // 使用 toLocaleDateString 並指定格式
+                    const formattedDate = itemDate.toLocaleDateString('sv-SE'); // 'sv-SE' 格式會是 YYYY-MM-DD
 
                     const topDivContainer = document.querySelector('.topDiv');
                     topDivContainer.innerHTML = '';
                     topDivContainer.innerHTML = `
                                 <a class="category" href="#modal2" id="open-modal2">${ParseUserChooseDiv.BudgetName}</a>
-                                <input class="date" type="date" value="${itemDate}"></input>
+                                <input class="date" id="userChooseDate" type="date" value="${formattedDate}"></input>
                                 <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
                             `;
 
@@ -139,18 +143,19 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                             </div>
                     `;
 
-                    // ---------------------------------------------------- 綁定 value 並實現 post
+                    // ---------------------------------------------------- 綁定 value 並實現編輯 post
                     console.log('原本的值', ParseUserChooseDiv.BudgetName)
 
+                    // 改變種類後種類框文字改變選染
                     function WhenUserChooseCategory() {
                         document.querySelector('.okBtn').addEventListener('click', () => {
                             const categoryModal = document.getElementById('modal2');
                             if (userChooseCategory) {
-                                ParseUserChooseDiv.BudgetName = userChooseCategory.BudgetName;
+                                // ParseUserChooseDiv.BudgetName = userChooseCategory.BudgetName;
                                 // console.log('現在的值!!!', ParseUserChooseDiv.BudgetName)
                                 topDivContainer.innerHTML = `
-                                <a class="category" href="#modal2" id="open-modal2">${ParseUserChooseDiv.BudgetName}</a>
-                                <input class="date" type="date" value="${itemDate}"></input>
+                                <a class="category" href="#modal2" id="open-modal2">${userChooseCategory.BudgetName}</a>
+                                <input class="date" id="userChooseDate" type="date" value="${itemDate}"></input>
                                 <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
                             `;
                             }
@@ -158,7 +163,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                         });
                     };
 
-                    // 進去選擇種類
+                    // 進去編輯選擇種類後，種類框文字改變
                     document.getElementById('open-modal2').addEventListener('click', () => {
                         openModal2();
                         WhenUserChooseCategory();
@@ -167,13 +172,15 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                     // 綁定確認鍵製作編輯更新功能
                     document.querySelector('.submitBtn').addEventListener('click', () => {
                         const updateData = {
-                            BudgetName: userChooseCategory.BudgetName,
-                            BudgetDetails: userChooseCategory.BudgetDetails,
+                            sch_id: currentScheduleId,
+                            // Budget_id: ParseUserChooseDiv.Budget_id,
+                            BudgetName: userChooseCategory.BudgetName || '',
+                            BudgetDetails: userChooseCategory.BudgetDetails || '',
                             BudgetDate: document.querySelector('.date').value,
-                            Cost: document.getElementById('userMoney').value,
-                            BudgetContent: document.getElementById('userContent').value,
+                            Cost: document.getElementById('userMoney').value || 0,
+                            BudgetContent: document.getElementById('userContent').value || '',
                             PaidStatus: document.getElementById('userCheck').checked ? 1 : 0,
-                            WhoPay: document.getElementById('userWhoPaid').value
+                            WhoPay: document.getElementById('userWhoPaid').value || '',
                         }
 
                         axios.put(`http://localhost:8080/budget/UserBudget/${currentScheduleId}/${CurrentBudget_id}`, updateData)
@@ -197,21 +204,63 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                             .then(postResponse => {
                                 console.log("更新成功 pika", postResponse.data);
                                 window.location.href = '../pages/Budget.html';
-
                             }).catch(error => {
                                 console.error("更新失敗：", error);
                             });
                     });
                 });
         }
-        else if (currentAdding) {
-            console.log('目前大成功......')
+        if (currentAdding) {
+            console.log('目前沒有存到資料區塊的資料 大成功......');
+            console.log(userChooseCategory);
+
+            // 點選完的topDiv渲染
+            function WhenUserChooseCategory() {
+                document.querySelector('.okBtn').addEventListener('click', () => {
+                    const categoryModal = document.getElementById('modal2');
+                    const topDivContainer = document.querySelector('.topDiv');
+                    topDivContainer.innerHTML = '';
+                    if (userChooseCategory) {
+                        topDivContainer.innerHTML = `
+                                <a class="category" href="#modal2" id="open-modal2">${userChooseCategory.BudgetName}</a>
+                                <input id="userChooseDate" class="date" type="date"></input>
+                                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
+                            `;
+                    }
+                    closeModal2(categoryModal);
+                });
+            };
+            document.getElementById('open-modal2').addEventListener('click', () => {
+                openModal2();
+                WhenUserChooseCategory();
+            });
+
+            document.querySelector('.submitBtn').addEventListener('click', () => {
+                const updateData = {
+                    sch_id: currentScheduleId,
+                    BudgetName: userChooseCategory.BudgetName,
+                    BudgetDetails: userChooseCategory.BudgetDetails,
+                    BudgetDate: document.querySelector('.date').value,
+                    Cost: document.getElementById('userMoney').value,
+                    BudgetContent: document.getElementById('userContent').value,
+                    PaidStatus: document.getElementById('userCheck').checked ? 1 : 0,
+                    WhoPay: document.getElementById('userWhoPaid').value
+                }
+
+                console.log(updateData);
+
+                axios.post(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`, updateData)
+                    .then(Response => {
+                        console.log('新增成功');
+                        window.location.href = '../pages/Budget.html';
+                    }).catch(error => {
+                        console.error("更新失敗：", error);
+                    })
+            })
         }
     }).catch(error => {
         console.error('無法取得種類:', error);
     });
-
-
 
 // <---------------------- Modal 1 ---------------------->
 function openModal() {
