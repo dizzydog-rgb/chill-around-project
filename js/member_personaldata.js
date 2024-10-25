@@ -74,7 +74,7 @@ $(document).ready(function () {
                         </div>
                         <div>
                             <label class="col-form-label">密碼：</label>
-                            <input type="text" name="pwd" id="pwd" class="inpwrite" value="${member.password}" placeholder="請輸入密碼" readonly>
+                            <input type="text" name="pwd" id="pwd" class="inpwrite" value="${member.password}"  minlength="6" placeholder="請輸入密碼" readonly>
                         </div>
                     </div>
                     <div class="item">
@@ -139,6 +139,9 @@ $(document).ready(function () {
                 $('#photo p').show(); // 未有圖片時顯示
             }
 
+            if (member.password == null) {
+                $('#pwd').val('未填寫');
+            }
             if (member.birthday == null) {
                 $('#birthday').val('未填寫');
             }
@@ -171,7 +174,7 @@ $(document).ready(function () {
 
             function inputSize(input) {
                 var minSize = 10;
-                input.attr('size', input.val().length)
+                input.attr('size', input.val().length + 1)
             }
 
             $('.inpwrite').each(function () {
@@ -189,6 +192,9 @@ $(document).ready(function () {
             $('.editbtn').click(function () {
                 $('#edit').hide();
                 $('#write').show(); // 儲存與取消按鈕
+                if (member.password == null) {
+                    $('#pwd').val('');
+                }
                 if (member.birthday == null) {
                     $('#birthday').val('');
                 }
@@ -245,7 +251,6 @@ $(document).ready(function () {
                         'Content-Type': 'multipart/form-data' // 設置內容類型為 multipart/form-data
                     }
                 })
-
                     .then(response => {
                         if (response.data) {
                             alert(response.data.message);

@@ -39,8 +39,8 @@ exports.registermember = async (req, res) => {
 
 exports.getByemail = async (req, res) => {
     try {
-        const email = req.currentUser.email;
-        const user = await memberModel.findEmail(email);
+        const emailid = req.currentUser.id;
+        const user = await memberModel.findEmail(emailid);
         if (!user) {
             return res.status(404).json({ message: "未找到該會員。" });
         } else {
@@ -58,18 +58,23 @@ exports.updatemember = async (req, res) => {
         const userdata = {
             ...req.body,
             emailid,
-            sex: req.body.sex[0],
+            sex: req.body.sex[1],
             uphoto: req.file ? req.file.filename : undefined // 如果沒有上傳檔案，設置為 undefined
         }; // 將 emailid 添加到 userdata 中
-        const result = await memberModel.updateData(userdata);
 
+        const result = await memberModel.updateData(userdata);
         if (result.error) {
             return res.status(400).json({ message: result.error }); // 返回錯誤消息
         }
-        res.json({ message: "會員資料更新成功!" });
+
+        // 使用 emailid 查詢最新的用戶資料
+        const updatedUser = await memberModel.findEmail(emailid);
+        if (!updatedUser) {
+            return res.status(404).json({ message: "未找到該會員。" });
+        }
+        res.json({ message: "會員資料更新成功!"}); // 返回更新後的用戶資料
     } catch (error) {
         console.error("更新錯誤:", error);
         res.status(500).json({ message: "更新錯誤" });
     }
 };
-
