@@ -374,3 +374,7 @@ function calculateTodayDate(startDate, i) {
   // 輸出指定日期
   return formattedDate;
 }
+
+document.querySelector("#arrangeSite").addEventListener("click", (e) => {
+  console.log(e.target);
+});

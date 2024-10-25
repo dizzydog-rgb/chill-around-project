@@ -102,6 +102,9 @@
       display: flex;
       justify-content: space-between;
       margin: 20px;
+      .dropdown {
+        margin: 0;
+      }
       .btn {
         border: none;
         padding: 0;
@@ -112,6 +115,18 @@
       .bi {
         font-size: 60px;
         border: none;
+      }
+      .dropdown-toggle::after {
+        display: none;
+      }
+      .dropdown-item {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        color: $danger;
+      }
+      .dropdown-item:active {
+        background-color: #ffffff;
       }
     }
     .dayList {

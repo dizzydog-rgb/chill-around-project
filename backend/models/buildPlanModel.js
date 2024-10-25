@@ -40,7 +40,7 @@ exports.addSchedule = (planName, startDate, endDate, emailid) => {
           1, // sch_day 預設為 1
           1, // sch_order 預設為 1
           "台北101", // sch_spot 預設為 "請填入景點名稱"
-          "請填入景點敘述", // sch_paragh 預設為 "請填入景點敘述"
+          "點擊卡片輸入你的目的地，分享你對這個景點的期待或想像！", // sch_paragh 預設為 "請填入景點敘述"
         ];
 
         // 執行插入範例景點
@@ -344,8 +344,8 @@ exports.addNewDay = (sch_id, sch_day, emailid) => {
       sch_id, // sch_id 為前端傳輸的 當前計畫的ID
       sch_day, // sch_day 為前端傳輸的 要新增的天數
       1, // sch_order 預設為 1
-      "請填入景點名稱", // sch_spot 預設為 "請填入景點名稱"
-      "請填入景點敘述", // sch_paragh 預設為 "請填入景點敘述"
+      "點擊卡片輸入景點名稱", // sch_spot 預設為 "請填入景點名稱"
+      "讓大家知道你計畫的目的地，分享你對這個景點的期待或想像！", // sch_paragh 預設為 "請填入景點敘述"
     ];
 
     // 執行插入範例景點
@@ -362,7 +362,7 @@ exports.addNewDay = (sch_id, sch_day, emailid) => {
   });
 };
 
-// 獲取取特定編號行程的模組函數
+// 獲取取特定編號行程的預算的模組函數
 exports.findBudgetyId = (id) => {
   return new Promise((resolve, reject) => {
     const query = `
@@ -372,6 +372,7 @@ exports.findBudgetyId = (id) => {
     db.exec(query, [id], (error, results, fields) => {
       if (results) {
         resolve(results);
+        // console.log(results);
       } else {
         console.error("No budget found or query error");
         reject(new Error("No budget found or query error"));
