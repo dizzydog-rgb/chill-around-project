@@ -146,8 +146,89 @@ html {
 #SchRecommendCards {
 
 
-    //景點卡片
+    //行程卡片
     .SchCard {
+        cursor: pointer;
+        position: relative;
+        overflow: visible;
+        width: 100%;
+        height: 80vh;
+        border: 0px; // 消除預設白框
+        border-radius: 0px;
+        // background-color: #f8f9fa;
+
+        .SchcardImage {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+        }
+
+        &:hover img {
+            transform: scale(1.1);
+
+        }
+
+        .cardOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); //半透明背景
+            color: white;
+            padding: 30px;
+        }
+
+        .btnOverlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .bi-heart {
+                color: $light;
+                margin: 0;
+                padding: 0 1rem;
+                font-size: 1.5rem;
+            }
+
+            .bi-heart-fill {
+                color: $danger;
+                margin: 0;
+                padding: 0 1rem;
+                font-size: 1.5rem;
+            }
+
+            &:hover .bi-heart {
+                color: $danger;
+
+            }
+
+
+
+            button {
+                color: white;
+                border-radius: 25px;
+            }
+        }
+    }
+}
+
+#SchRecommendCards2 {
+
+
+    //行程卡片
+    .SiteCard {
         cursor: pointer;
         position: relative;
         overflow: visible;
