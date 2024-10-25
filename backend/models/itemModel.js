@@ -1,10 +1,11 @@
 const db = require("../config/database");
+
 // 獲取特定使用者的物品頁面的模組函數
-exports.findUserBudgetId = (id) => {
+exports.findUseritemListId  = (id) => {
     return new Promise((resolve, reject) => {
         const query1 = "SELECT * FROM useritemlist WHERE sch_id = ?";
-        const query2 = "SELECT SUM(CASE WHEN PrepareStatus = 1 THEN Total ELSE 0 END) AS TotalPrepared FROM useritemlist WHERE sch_id = ? ";
-        const query3 = "SELECT BudgetName, SUM(Cost) AS TotalByBudgetName FROM userbudget WHERE sch_id = ? GROUP BY BudgetName;"
+        const query2 = "SELECT ItemName, SUM(Quantity) AS CategoryPrepared FROM useritemlist WHERE sch_id = ? AND PrepareStatus = 1 GROUP BY ItemName;";
+        const query3 = "SELECT ItemName, SUM(Quantity) AS TotalByitemName FROM useritemlist WHERE sch_id = ? GROUP BY itemName;";
 
         db.exec(query1, [id], (err1, results1) => {
             if (err1) {
@@ -18,7 +19,16 @@ exports.findUserBudgetId = (id) => {
                     if (err3) {
                         return reject(err3);
                     }
-                    resolve({ UserBudget: results1, TotalAndifPaid: results2, CategoryCost: results3 });
+
+                    // 組織數據，顯示每個 ItemName 及其總數
+                    const formattedResults = results2.map(item => {
+                        return {
+                            ItemName: item.ItemName,
+                            PreparedTotalQuantity: item.CategoryPrepared
+                        };
+                    });
+
+                    resolve({ UseritemList: results1, CategoryPreparedTotal: formattedResults, CategoryTotal: results3 });
                 });
             });
         });

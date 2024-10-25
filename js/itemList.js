@@ -1,7 +1,76 @@
 import axios from "axios";
-axios.get('http://localhost:8080/item/popupItem')
+localStorage.setItem("scheduleId", "2");
+const currentScheduleId = localStorage.getItem("scheduleId");
+console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);
+
+axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
     .then(response => {
-        console.log(response);
+        console.log(response.data.UseritemList);
+        const ItemName = response.data.CategoryPreparedTotal.map(item => item.ItemName);
+        // console.log(ItemName);
+        const PreparedTotalQuantity = response.data.CategoryPreparedTotal.map(item => item.PreparedTotalQuantity);
+        // console.log(PreparedTotalQuantity);
+        const TotalByitemName = response.data.CategoryTotal.map(item => item.TotalByitemName);
+        // console.log(TotalByitemName);
+
+        // ------------------ 物品大種類增渲染 ------------------
+        const cardContainer = document.querySelector('.cardRow');
+        cardContainer.innerHTML = "";
+        // 迴圈生成卡片
+        ItemName.forEach((ItemName, index) => {
+            console.log(ItemName)
+
+            // 創建 .col-md-4 和 .cardOut 容器
+            const cardOut = document.createElement('div');
+            cardOut.classList.add('col-md-4', 'col-4', 'mb-3', 'cardOut');
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            // 設置卡片內容
+            card.innerHTML = `
+            <button class="rightDelete">–</button>
+            <img src="../assets/images/Budget_Item/Items/clothes.png" class="cardImg" alt="卡片圖片">
+            <div class="card-body" data-item-name="${ItemName}">
+                <span>${ItemName}</span>
+                <span>${PreparedTotalQuantity[index] || 0} / ${TotalByitemName[index] || 0}</span>
+            </div>
+    `
+            // 將卡片添加到容器中
+            cardOut.appendChild(card);
+            cardContainer.appendChild(cardOut);
+
+            // ------------------ 物品細項渲染 ------------------
+            card.addEventListener('click', () => {
+                // 獲取所有對應 itemName 的 ItemDetails
+                const details = response.data.UseritemList
+                    .filter(i => i.ItemName === ItemName) // ItemName 是否與當前的 itemName，取得點擊的那個
+                    .map(i => i.ItemDetails);
+
+                const Quantity = response.data.UseritemList
+                    .filter(i => i.Quantity === Quantity) // ItemName 是否與當前的 itemName，取得點擊的那個
+                    .map(i => i.Quantity);
+
+                // console.log(Quantity);
+                // console.log(`ItemDetails for ${ItemName}:`, details);
+
+                const categoryContainer = document.querySelector('.categoryContainer'); // 確保這裡選擇正確的容器
+                categoryContainer.innerHTML = ''; // 清空內容
+
+                details.forEach(detail => {
+                    const detailElement = document.createElement('div');
+                    detailElement.classList.add('categoryContent'); // 確保每個細節都有類別
+                    detailElement.innerHTML = `
+                        <input type="checkbox" class="checkBOX left">
+                        <span class="itemContent left">${detail}</span>
+                        <input type="number" class="itemQuantity right" min="1" value="1">
+                        <button class="leftDelete right">–</button>
+    `;
+                    categoryContainer.appendChild(detailElement); // 將新的細節元素添加到容器中
+                });
+            });
+        })
+    }).catch(error => {
+        console.error("Error fetching data:", error);
     })
 
 // ------------------ 進度條勾選 ------------------
@@ -47,44 +116,3 @@ export function addItem() {
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('leftBtn').addEventListener('click', addItem);
 });
-
-// ------------------ 物品小視窗彈出選擇後，物品大種類增加在畫面上 ------------------
-const categories = [
-    "服飾類",
-    "藥品類",
-    "衛生類",
-    "電子產品",
-    "護照類",
-    "食品類",
-    "飲水器具",
-];
-
-const cardContainer = document.querySelector('.cardRow');
-
-// 迴圈生成卡片
-categories.forEach((category, index) => {
-
-    // 創建 .col-md-4 和 .cardOut 容器
-    const cardOut = document.createElement('div');
-    cardOut.classList.add('col-md-4', 'col-4', 'mb-3', 'cardOut');
-
-    // 創建卡片元素
-    const card = document.createElement('div');
-    card.classList.add('card');
-
-    // 設置卡片內容
-    card.innerHTML = `
-            <button class="rightDelete">–</button>
-            <img src="../assets/images/Budget_Item/Items/clothes.png" class="cardImg" alt="卡片圖片">
-            <div class="card-body">
-                <span>${category}</span>
-                <span>1/10</span>
-            </div>
-    `
-
-    // 將卡片添加到容器中
-    cardOut.appendChild(card);
-
-    // 將 .cardOut 添加到 cardContainer 中
-    cardContainer.appendChild(cardOut);
-})

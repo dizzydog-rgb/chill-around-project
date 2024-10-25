@@ -12,31 +12,30 @@ exports.getItemCategory = async (req, res) => {
 };
 
 // // 獲取使用者預算的控制器
-// exports.getUserBudgetID = async (req, res) => {
-//     try {
-//         // 從 URL 參數中提取 ID
-//         // const UserBudgetId = parseInt(req.params.id, 10);
-//         const UserBudgetId = req.params.id;
-//         console.log("Fetching Budget with ID:", UserBudgetId);
+exports.getUseritemListId = async (req, res) => {
+    try {
+        // 從 URL 參數中提取 ID
+        const UseritemListId = req.params.id;
+        console.log("Fetching Budget with ID:", UseritemListId);
 
-//         // 從資料庫取得特定 ID 的景點資料
-//         const UserBudget = await BudgetModel.findUserBudgetId(UserBudgetId);
-//         console.log("UserBudgets data fetched:", UserBudget);
-//         // 如果找不到資料，回傳 404
-//         if (!UserBudget) {
-//             return res.status(404).json({ message: "UserBudgets not found" });
-//         }
-//         // 成功取得資料後回傳 JSON 給前端
-//         // console.log("PopupBudget data to send:", UserBudget);
-//         // res.json({ data: UserBudget });
-//         res.json(UserBudget);
-//     } catch (error) {
-//         // 錯誤處理
-//         // console.error("Error fetching PopupBudget:", error);
-//         // res.status(500).json({ message: "Server Error" });
-//         res.status(500).json({ message: "Server Error", error: error.message });
-//     }
-// };
+        // 從資料庫取得特定 ID 的景點資料
+        const UseritemList = await itemModel.findUseritemListId(UseritemListId);
+        console.log("UseritemList data fetched:", UseritemList);
+        // 如果找不到資料，回傳 404
+        if (!UseritemList) {
+            return res.status(404).json({ message: "UseritemList not found" });
+        }
+        // 成功取得資料後回傳 JSON 給前端
+        console.log("PopupBudget data to send:", UseritemList);
+        // res.json({ data: UseritemList });
+        res.json(UseritemList);
+    } catch (error) {
+        // 錯誤處理
+        // console.error("Error fetching PopupBudget:", error);
+        // res.status(500).json({ message: "Server Error" });
+        res.status(500).json({ message: "Server Error", error: error.message });
+    }
+};
 
 // // 取得使用者選取的預算資料方塊（編輯頁）的控制器
 // exports.getUserBudgetOneDetails = async (req, res) => {

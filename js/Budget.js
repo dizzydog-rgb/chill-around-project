@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-// localStorage.setItem("scheduleId", "3");
+localStorage.setItem("scheduleId", "3");
 const currentScheduleId = localStorage.getItem("scheduleId");
 console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);
 
