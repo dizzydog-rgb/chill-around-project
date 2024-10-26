@@ -55,14 +55,19 @@
 
                     li {
                         margin-right: 26px;
+                        color: #78aec6;
+                        
+                    }
+                    li:hover{
+                        cursor: pointer;
+                    }
+                    .currentDay {
+                        font-size: 26px;
                         color: $primary;
                     }
                 }
 
-                .currentDay {
-                    font-size: 26px;
-                    color: $primary;
-                }
+         
 
             }
 

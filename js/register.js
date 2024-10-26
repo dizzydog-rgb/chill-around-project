@@ -9,7 +9,7 @@ $('#form').submit(function (e) {
         .then(response => {
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
-                alert("註冊成功!");
+                alert("註冊成功!請更新會員資料。");
                 window.location.href = 'member_personaldata.html';
             }
         })

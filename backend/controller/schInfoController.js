@@ -71,6 +71,24 @@ exports.getSchedulesAndSites = async (req, res) => {
     }
 };
 
+
+exports.addSchToLike = async (req, res) => {
+    const { sch_id } = req.body; // 獲取 sch_id
+    try {
+      await schInfoModel.addScheduleId(sch_id); // 只傳入 sch_id
+      res.send('資料保存成功'); // 可以加上其他成功訊息或數據
+    } catch (err) {
+      console.error('新增行程資料失敗:', err);
+      res.status(500).send('資料新增失敗');
+    }
+  };
+  
+
+
+
+
+
+
 //景點post
 exports.addSchedule = async (req, res) => {
     const { sch_id, sch_day, sch_order, sch_spot } = req.body;
