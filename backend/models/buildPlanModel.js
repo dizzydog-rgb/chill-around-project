@@ -112,7 +112,7 @@ exports.dropScheduleById = (scheduleId) => {
 exports.findScheduleById = (id) => {
   return new Promise((resolve, reject) => {
     const query = `
-    SELECT s.*, sd.*, si.photo_one
+    SELECT s.*, sd.*, si.photo_one,si.site_id
     FROM schedule s
     JOIN schedule_details sd ON s.sch_id = sd.sch_id
     LEFT JOIN sites si ON sd.sch_spot = si.site_name
