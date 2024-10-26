@@ -43,64 +43,76 @@
             </div>
             <div class="col-md-10 mytrip">
                 <div class="text-end mb-3">
-                    <button type="button" class="btn btn-primary editbtn text-white">
+                    <a href="buildPlan.html" class="btn btn-primary editbtn text-white">
                         新增 <b>＋</b>
-                    </button>
-                    <button type="button" class="btn btn-primary editbtn text-white">
+                    </a>
+                    <button id="deletebtn" type="button" class="btn btn-primary editbtn text-white">
                         刪除 <b>－</b>
                     </button>
                 </div>
                 <form>
                     <div class="mb-3">
-                        <a href="#">
-                            <div class="card mb-5">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4">
-                                        <img src="../assets/images/memberimg/註冊背景圖.jpg" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-8 text-center">
-                                        <div class="card-body">
-                                            <p class="card-text title ms-2">
-                                                旅遊計畫名稱
-                                            </p>
-                                            <p class="card-text">
-                                                <small class="text-body-secondary">行程期間：XXXX - XX - XX ~ XXXX - XX -
-                                                    XX</small>
-                                            </p>
-                                            <p class="card-text text-end">
-                                                <small class="text-body-secondary">參與編輯者:XXX,XXX</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="card mb-5">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4">
-                                        <img src="../assets/images/memberimg/註冊背景圖.jpg" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-8 text-center">
-                                        <div class="card-body">
-                                            <p class="card-text title ms-2">
-                                                旅遊計畫名稱
-                                            </p>
-                                            <p class="card-text">
-                                                <small class="text-body-secondary">行程期間：XXXX - XX - XX ~ XXXX - XX -
-                                                    XX</small>
-                                            </p>
-                                            <p class="card-text text-end">
-                                                <small class="text-body-secondary">參與編輯者:XXX,XXX</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
                         <div class="checkcard mb-5">
-                            <label>
-                                <input type="checkbox" name="" id="">
+                            <label class="checkbox">
+                                <input type="checkbox" name="checkplan" id="checkplan">
+                                <span></span>
+                            </label>
+                            <a href="#">
+                                <div class="card">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <img src="../assets/images/memberimg/註冊背景圖.jpg" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-8 text-center">
+                                            <div class="card-body">
+                                                <p class="card-text title ms-2">
+                                                    旅遊計畫名稱
+                                                </p>
+                                                <p class="card-text">
+                                                    <small class="text-body-secondary">行程期間：XXXX - XX - XX ~ XXXX - XX -
+                                                        XX</small>
+                                                </p>
+                                                <p class="card-text text-end">
+                                                    <small class="text-body-secondary">參與編輯者:XXX,XXX</small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="checkcard mb-5">
+                            <label class="checkbox">
+                                <input type="checkbox" name="checkplan" id="checkplan">
+                                <span></span>
+                            </label>
+                            <a href="#">
+                                <div class="card">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <img src="../assets/images/memberimg/註冊背景圖.jpg" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-8 text-center">
+                                            <div class="card-body">
+                                                <p class="card-text title ms-2">
+                                                    旅遊計畫名稱
+                                                </p>
+                                                <p class="card-text">
+                                                    <small class="text-body-secondary">行程期間：XXXX - XX - XX ~ XXXX - XX -
+                                                        XX</small>
+                                                </p>
+                                                <p class="card-text text-end">
+                                                    <small class="text-body-secondary">參與編輯者:XXX,XXX</small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="checkcard mb-5">
+                            <label class="checkbox">
+                                <input type="checkbox" name="checkplan" id="checkplan">
                                 <span></span>
                             </label>
                             <a href="#">
@@ -153,11 +165,11 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="text-end">
-                        <button type="button" class="btn footerbtn text-white">
+                    <div id="choose" class="text-end">
+                        <button id="delbtn" type="button" class="btn footerbtn text-white">
                             確定刪除
                         </button>
-                        <button type="button" class="btn footerbtn text-white">
+                        <button id="cancelbtn" type="button" class="btn footerbtn text-white">
                             取消
                         </button>
                     </div>
@@ -174,6 +186,18 @@
                 window.location.href = 'login.html';
                 return;
             }
+
+            $('.checkbox').hide();
+            $('#choose').hide();
+            $('#deletebtn').click(function () {
+                $('.checkbox').show();
+                $('#choose').show();
+            });
+
+            $('#cancelbtn').click(function () {
+                $('.checkbox').hide();
+                $('#choose').hide();
+            });
 
             $('#logoutbtn').click(function () {
                 if (confirm('您確定要登出嗎？')) {
