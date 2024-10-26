@@ -112,20 +112,20 @@ h1 {
         color: white;
         padding: 30px;
     }
-    
-}
-.siteCardOut{
-    position: relative;
-    .btnOverlay{
+    .btnOverlay {
         position: absolute;
         bottom: 0;
         right: 0;
         margin: 30px;
-        button{
-            color: white;
-            border-radius: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        button {
+          color: white;
+          border-radius: 25px;
         }
-    }
+      }
 }
 
 

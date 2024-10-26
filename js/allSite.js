@@ -17,6 +17,7 @@ function showRandomAttractions() {
             randomCity.forEach(attraction => {
                 createCard(attraction);
             });
+            siteCardClickEvents()
             // siteData[cityName] = response.data; // 將資料儲存到 siteData 中
         })
         .catch(error => {
@@ -63,6 +64,7 @@ function updateCards() {
         document.addEventListener('DOMContentLoaded', () => {
             showRandomAttractions(); // 顯示隨機的景點
         });
+        siteCardClickEvents()
     }else{
         axios.get('http://localhost:8080/site/allsite/select', {
             params: {
@@ -82,6 +84,8 @@ function updateCards() {
             attractions.forEach(attraction => {
                 createCard(attraction);
             });
+            siteCardClickEvents()
+
         })
         .catch(error => {
             console.error('Error fetching attractions:', error);
@@ -98,32 +102,56 @@ function createCard(attraction) {
     
     const sitecardBox = document.getElementById('sitecardBox');
     const siteCard = document.createElement("div");
-    siteCard.className = "col-md-4 p-0 m-0";
+    siteCard.classList.add("col-md-3", "p-0", "m-0");
     siteCard.innerHTML = `
-                <div id="siteCard" class="allCard card bg-primary m-0">
-                    <div class="cardImage">
-                        <img src="../assets/images/searchSite/${attraction.photo_one}" alt="">
-                    </div>
-                    <div class="cardOverlay">
-                        <h5 class="card-title">${attraction.site_name}</h5>
-                        <p class="card-subtitle">${attraction.short_add}</p>
-                    </div>
-                    <div class="btnOverlay">
-                        <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <div id="siteCard" class="siteCard allCard card bg-primary" data-site-id="${attraction.site_id}">
+            <div class="cardImage">
+                <img src="../assets/images/searchSite/${attraction.photo_two}" alt="">
+            </div>
+            <div class="cardOverlay">
+                <h5 class="card-title ">${attraction.site_name}</h5>
+                <p class="card-subtitle">${attraction.short_add}</p>
+            </div>
+            <div id="addBtn" class="btnOverlay">   
+                        <button type="button" class="addBtn btn btn-primary loadSchedule" 
+                            data-site-id="${attraction.site_id}" 
+                            data-site-name="${attraction.site_name}" 
+                            data-site-add="${attraction.short_site_add}"
+                            data-site-info="${attraction.site_info}"
+                            data-site-img="${attraction.photo_one}"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#exampleModal">
                             加入行程
-                        </button>
-                    </div>
-                </div>`;
+                        </button> 
+            </div>
+        </div>
+                `;
     console.log(sitecardBox);
 
     // 用 onclick 導向到詳細資訊頁面
-    siteCard.onclick = function() {
-        window.location.href = `/chill-around-project/pages/siteInfo.html?id=${attraction.site_id}`;
-    };
+    // siteCard.onclick = function() {
+    //     window.location.href = `/chill-around-project/pages/siteInfo.html?id=${attraction.site_id}`;
+    // };
     
     sitecardBox.appendChild(siteCard);
 }
+// 綁定景點卡片點擊事件
+function siteCardClickEvents() {
+    const siteCards = document.querySelectorAll('.siteCard'); 
+    console.log(siteCards);
+       
+    siteCards.forEach(card => {
+        card.onclick = function (event) {
+            // 阻止按鈕點擊時觸發卡片事件
+            if (event.target.tagName === 'BUTTON') return;
 
+            const siteId = this.getAttribute('data-site-id');
+            console.log(siteId);
+            
+            window.location.href = `/chill-around-project/pages/siteInfo.html?id=${siteId}`;
+        };
+    });
+}
 // 綁定事件
 document.querySelectorAll('.cityCheckbox').forEach(checkbox => {
     checkbox.addEventListener('change', updateCards);
