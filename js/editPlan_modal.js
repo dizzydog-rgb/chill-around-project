@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // 清空 modal
       currentModal.querySelector('input[name="siteName"]').value = "";
       currentModal.querySelector('textarea[name="siteParagh"]').value = "";
+      // 不顯示標籤列表
+      document.querySelector(".tagBox").style.display = "none";
 
       // 發送請求獲取標籤數據
       axios
