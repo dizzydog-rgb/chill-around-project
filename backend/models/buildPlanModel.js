@@ -311,6 +311,33 @@ exports.addSiteToSchedule = (sch_id, sch_day, sch_spot, sch_paragh) => {
   });
 };
 
+// 更新特定編號行程的特定天數的景點順序的模組函數
+exports.updateSiteOrder = (sch_id, sch_day, sch_order_array) => {
+  return new Promise((resolve, reject) => {
+    // 動態產生 SQL 查詢，使用 CASE 語句批量更新
+    const cases = sch_order_array
+      .map((order, index) => `WHEN sch_order = ${index + 1} THEN ${order}`)
+      .join(" ");
+      
+    const query = `
+      UPDATE schedule_details
+      SET sch_order = CASE ${cases} END
+      WHERE sch_id = ? AND sch_day = ? AND sch_order IN (${sch_order_array.map((_, i) => i + 1).join(",")});
+    `;
+
+    db.exec(query, [sch_id, sch_day], (error, results) => {
+      if (results) {
+        resolve(results);
+      } else {
+        console.error("Update site order failed or query error");
+        reject(new Error("Update site order failed or query error"));
+      }
+    });
+  });
+};
+
+
+
 // 刪除特定景點的資料的模組函數
 exports.dropSiteDetailById = (detail_id) => {
   return new Promise((resolve, reject) => {

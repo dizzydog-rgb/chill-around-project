@@ -155,7 +155,7 @@ exports.putSiteDetailById = async (req, res) => {
 // 新增景點的控制器
 exports.postSiteToSchedule = async (req, res) => {
   try {
-    // 從 URL 參數中提取 ID、景點名稱、及景點說明
+    // 從 URL 參數中提取 ID、第幾天、景點名稱、及景點說明
     const sch_id = req.params.id;
     const sch_day = req.params.day;
     const { sch_spot, sch_paragh } = req.body;
@@ -174,6 +174,26 @@ exports.postSiteToSchedule = async (req, res) => {
   } catch (error) {
     // 錯誤處理
     console.error("Error updating schedule detail:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// 編輯特定天數的景點順序的控制器
+exports.putSiteOrder = async (req, res) => {
+  try {
+    // 從 URL 參數中提取 行程ID、第幾天、及景點順序
+    const sch_id = req.params.id;
+    const sch_day = req.params.day;
+    const { sch_order_array } = req.body;
+
+    // 調用 model 中的方法更新 景點資料
+    await buildPlanModel.updateSiteOrder(sch_id, sch_day, sch_order_array);
+
+    // 成功取得資料後回傳 更新成功 的訊息給前端
+    res.send({ message: "景點順序更新成功" });
+  } catch (error) {
+    // 錯誤處理
+    console.error("Error updating site oreder:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };

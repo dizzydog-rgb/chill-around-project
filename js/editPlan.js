@@ -190,7 +190,8 @@ function renderDayContent(filteredData) {
 
     // 建立景點卡片的 HTML 結構
     cardItem.innerHTML = `
-      <li data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-site-name="${site.sch_spot}" data-site-id="${site.detail_id}" data-sch-id="${site.sch_id}" data-site-day="${site.sch_day}" class="siteItem">
+    <div id="arrangeItem" >
+      <li data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-site-name="${site.sch_spot}" data-site-id="${site.detail_id}" data-sch-id="${site.sch_id}" data-site-day="${site.sch_day}" data-site-order="${site.sch_order}"  class="siteItem">
         <div class="card">
           <div class="row g-0">
             <div class="col-12 col-md-8">
@@ -205,6 +206,7 @@ function renderDayContent(filteredData) {
           </div>
         </div>
       </li>
+    <div>
     `;
 
     // 將卡片加入到 ul 中
@@ -374,7 +376,3 @@ function calculateTodayDate(startDate, i) {
   // 輸出指定日期
   return formattedDate;
 }
-
-document.querySelector("#arrangeSite").addEventListener("click", (e) => {
-  console.log(e.target);
-});
