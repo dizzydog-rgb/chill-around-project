@@ -8,7 +8,7 @@ document.querySelector(".btn-complete").addEventListener("click", function () {
   // 取得結束日期
   const endDate = document.querySelector("#endDate").value;
   // 取得會員id
-  const emailid = 1
+  const emailid = 1;
 
   // POST 請求 (新增旅行計畫)
   axios
@@ -16,12 +16,12 @@ document.querySelector(".btn-complete").addEventListener("click", function () {
       sch_name: planName,
       start_date: startDate,
       end_date: endDate,
-      emailid: emailid
+      emailid: emailid,
     })
     .then(function (response) {
       console.log("旅行計畫已新增:", response.data);
-      localStorage.setItem("scheduleId", response.data.data)
-      
+      localStorage.setItem("scheduleId", response.data.data);
+
       window.location.href = "editPlan.html";
     })
     .catch(function (error) {

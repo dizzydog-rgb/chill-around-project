@@ -3,7 +3,7 @@ const buildPlanModel = require("../models/buildPlanModel");
 // 新增計畫的控制器
 exports.postNewSchedule = async (req, res) => {
   try {
-    // 從 URL 參數中提取 ID、景點名稱、及景點說明
+    // 從 req.body 中提取 計畫名稱、開始日期、及結束日期、email ID
     const { sch_name, start_date, end_date, emailid } = req.body;
 
     // 調用 model 中的方法新增 旅行計畫
@@ -16,8 +16,8 @@ exports.postNewSchedule = async (req, res) => {
 
     // 成功取得資料後回傳 更新成功 的訊息給前端
     res.send({
-      message: "更新成功",
-      data: result
+      message: "新增計畫成功",
+      data: result,
     });
   } catch (error) {
     // 錯誤處理
@@ -155,7 +155,7 @@ exports.putSiteDetailById = async (req, res) => {
 // 新增景點的控制器
 exports.postSiteToSchedule = async (req, res) => {
   try {
-    // 從 URL 參數中提取 ID、景點名稱、及景點說明
+    // 從 URL 參數中提取 ID、第幾天、景點名稱、及景點說明
     const sch_id = req.params.id;
     const sch_day = req.params.day;
     const { sch_spot, sch_paragh } = req.body;
@@ -178,6 +178,26 @@ exports.postSiteToSchedule = async (req, res) => {
   }
 };
 
+// 編輯特定天數的景點順序的控制器
+exports.putSiteOrder = async (req, res) => {
+  try {
+    // 從 URL 參數中提取 行程ID、第幾天、及景點順序
+    const sch_id = req.params.id;
+    const sch_day = req.params.day;
+    const { sch_order_array } = req.body;
+
+    // 調用 model 中的方法更新 景點資料
+    await buildPlanModel.updateSiteOrder(sch_id, sch_day, sch_order_array);
+
+    // 成功取得資料後回傳 更新成功 的訊息給前端
+    res.send({ message: "景點順序更新成功" });
+  } catch (error) {
+    // 錯誤處理
+    console.error("Error updating site oreder:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 // 刪除特定景點的控制器
 exports.deleteSiteDetailById = async (req, res) => {
   try {
@@ -192,6 +212,48 @@ exports.deleteSiteDetailById = async (req, res) => {
   } catch (error) {
     // 錯誤處理
     console.error("Error deleting schedule detail:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// 新增新的一天的控制器
+exports.postNewDayToSchedule = async (req, res) => {
+  try {
+    // 從 URL 參數中提取 ID、景點名稱、及景點說明
+    const { sch_id, sch_day, emailid } = req.body;
+
+    // 調用 model 中的方法新增 旅行計畫
+    const result = await buildPlanModel.addNewDay(sch_id, sch_day, emailid);
+
+    // 成功取得資料後回傳 更新成功 的訊息給前端
+    res.send({
+      message: "新增新的一天成功",
+      data: result,
+    });
+  } catch (error) {
+    // 錯誤處理
+    console.error("Error adding new day:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// 獲取特定旅行計畫資料的控制器
+exports.getBudget = async (req, res) => {
+  try {
+    // 從 URL 參數中提取 ID
+    const scheduleId = req.params.id;
+    // 從資料庫取得所有的行程資料
+    const budget = await buildPlanModel.findBudgetyId(scheduleId);
+    // 如果找不到資料，回傳 404
+    if (!budget || budget.length === 0) {
+      return res.status(404).json({ message: "budget not found" });
+    }
+    // 成功取得資料後回傳 JSON 給前端
+    // console.log("成功取得資料");
+    res.json(budget);
+  } catch (error) {
+    // 錯誤處理
+    console.error("Error fetching budget:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
