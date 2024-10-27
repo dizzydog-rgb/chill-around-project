@@ -168,6 +168,25 @@ document.addEventListener('DOMContentLoaded', function () {
             },
         },
     });
+
+    document.getElementById("searchButton").addEventListener("click", function(){
+        // 取城市和標籤選項
+        const selectedCity = document.getElementById('citySelect').value;
+        const selectedTag = document.getElementById('tagSelect').value;
+        
+        console.log(selectedCity); // 確認有選到
+        console.log(selectedTag);
+        console.log("---------------");
+    
+        // 將選項儲存到 localStorage
+        localStorage.setItem('selectedCity', selectedCity);
+        localStorage.setItem('selectedTag', selectedTag);
+    
+        // 跳轉到 schMore.html
+        window.location.href = "/chill-around-project/pages/schMore.html";
+    });
+    
+
     //獲取行程資料 with like
     axios.get('http://localhost:8080/buildPlan/planList')
         .then(response => {
