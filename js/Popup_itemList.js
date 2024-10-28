@@ -51,8 +51,9 @@ axios.get('http://localhost:8080/item/popupItem')
 
         // ------------------ 種類點擊事件 ------------------
         // 選擇項目數組
-        const selectedItems = [];
-        const selectedDetails = [];
+        let selectedItemsId = [];
+        let selectedItemName = '';
+        let selectedDetails = [];
 
         // 獲取所有類別
         const categories = document.querySelectorAll('.category');
@@ -60,59 +61,62 @@ axios.get('http://localhost:8080/item/popupItem')
         categories.forEach(category => {
             category.addEventListener('click', () => {
                 const categoryValue = category.getAttribute('data-value');
-                const details = category.getAttribute('data-details'); // 獲取對應的 itemDetails
+                const details = JSON.parse(category.getAttribute('data-details')); // 獲取並解析 itemDetails
+                // 獲取對應的 itemDetails
                 console.log('Category Value:', categoryValue);
                 console.log('Item Details:', details);
 
                 // 添加或移除選擇
                 const itemName = category.textContent;
-                if (selectedItems.includes(itemName)) {
-                    selectedItems.splice(selectedItems.indexOf(itemName), 1);
-                    selectedDetails.splice(selectedItems.indexOf(itemName), 1);
+                if (selectedItemsId.includes(itemName)) {
+                    selectedItemsId.splice(selectedItemsId.indexOf(itemName), 1);
+                    selectedDetails.splice(selectedItemsId.indexOf(itemName), 1);
                     category.classList.remove('selected'); // 移除選擇樣式
                 } else {
-                    selectedItems.push(itemName);
+                    selectedItemsId.push(itemName);
                     selectedDetails.push(details);
                     category.classList.add('selected'); // 添加選擇樣式
+                    selectedItemName = itemName;
                     alert('選取' + itemName);
                 }
             });
         });
 
+
+        const sendData = () => {
+            console.log(selectedDetails);
+            selectedDetails.forEach((detailArray, index) => { // detailArray 是每個選中的選項詳數組
+                console.log(`Detail Array ${index}:`, detailArray);
+
+                detailArray.forEach(detail => {
+                    console.log(detail)
+
+                    const updateData = {
+                        sch_id: currentScheduleId,
+                        ItemName: selectedItemName,
+                        ItemDetails: [detail], // 單個 ItemDetail
+                        PrepareStatus: '0'
+                    };
+                    console.log('Update Data:', updateData);
+
+                    axios.post(`http://localhost:8080/item/Useritem/${currentScheduleId}`, updateData)
+                        .then(Response => {
+                            console.log('新增成功', updateData);
+                        }).catch(error => {
+                            console.error("更新失敗：", error);
+                        })
+                });
+            });
+        };
+
         // 確認按鈕事件
         document.getElementById('okBtn').addEventListener('click', () => {
-            localStorage.setItem('selectedItems', JSON.stringify(selectedItems)); // 儲存選擇的項目
-            // console.log(selectedItems);
-
-            // window.location.href = './itemList.html'; // 跳轉到另一個頁面
-            const selectedItems = []; // 這裡假設只有一個類別值 11
-            const selectedDetails = [];
-
-            const sendData = () => {
-                selectedDetails.forEach(detail => {
-                    const updateData = {
-                        ItemName: selectedItems, // 每個請求的 ItemName
-                        ItemDetails: detail, // 單個 ItemDetail
-                        PrepareStatus: '0'
-                    }
-                })
-            };
-
-            console.log(sendData)
-
-            // const updateData = {
-            //     ItemName: selectedItems,
-            //     ItemDetails: selectedDetails,
-            //     PrepareStatus: '0'
-            // }
-
-            // axios.post(`http://localhost:8080/item/Useritem/${currentScheduleId}`, updateData)
-            //     .then(Response => {
-            //         console.log('新增成功', updateData);
-            //     }).catch(error => {
-            //         console.error("更新失敗：", error);
-            //     })
-
+            localStorage.setItem('selectedItemsId', JSON.stringify(selectedItemsId)); // 儲存選擇的項目
+            localStorage.setItem('selectedItemName', JSON.stringify(selectedItemName)); // 儲存選擇的項目
+            localStorage.setItem('selectedDetails', JSON.stringify(selectedDetails)); // 儲存選擇的項目
+            sendData();
+            window.location.href = './itemList.html'; // 跳轉到另一個頁面
+            // console.log(sendData);
         });
     });
 

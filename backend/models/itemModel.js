@@ -174,7 +174,7 @@ exports.userAdditemCategory = (schId, data) => {
         console.log("Data received in userAdditemCategory:", data);
 
         // 查詢所有匹配的 Icategory_id
-        const categoryQuery = "SELECT Icategory_id FROM itemcategory WHERE ItemName IN (?)";
+        const categoryQuery = "SELECT Icategory_id FROM itemcategory WHERE ItemName = ?";
         db.exec(categoryQuery, [data.ItemName], (err, categoryResult) => {
             if (err) {
                 return reject(err);
@@ -186,64 +186,65 @@ exports.userAdditemCategory = (schId, data) => {
 
             const Icategory_ids = categoryResult.map(row => row.Icategory_id);
 
-            // 檢查 ItemDetails 是否存在
-            const itemDetailsArray = data.ItemDetails;
+            // 確保 ItemDetails 是數組
+            const itemDetailsArray = Array.isArray(data.ItemDetails) ? data.ItemDetails : [];
+            
+            // 檢查 ItemDetails 是否為空
+            if (itemDetailsArray.length === 0) {
+                return reject(new Error('ItemDetails must be an array and cannot be empty'));
+            }
+
+            console.log("ItemDetails Array:", itemDetailsArray);
+
             const detailsCheckQuery = "SELECT ItemDetails FROM itemdetails WHERE ItemDetails IN (?)";
             db.exec(detailsCheckQuery, [itemDetailsArray], (checkErr, detailsResult) => {
                 if (checkErr) {
                     return reject(checkErr);
                 }
 
-                // 找出不存在的 ItemDetails
                 const existingDetails = detailsResult.map(row => row.ItemDetails);
                 const newDetails = itemDetailsArray.filter(detail => !existingDetails.includes(detail));
 
                 // 如果有新 ItemDetails，則先插入到 itemdetails
                 const insertDetailsPromises = newDetails.map(detail => {
                     return new Promise((resolveDetail, rejectDetail) => {
-                        // 確保 Icategory_id 存在
-                        const checkCategoryQuery = "SELECT Icategory_id FROM itemcategory WHERE Icategory_id IN (?)";
-                        db.exec(checkCategoryQuery, [Icategory_ids], (checkErr, checkResult) => {
-                            if (checkErr) {
-                                return rejectDetail(checkErr);
+                        const insertDetailQuery = "INSERT INTO itemdetails (ItemDetails, Icategory_id) VALUES (?, ?)";
+                        db.exec(insertDetailQuery, [detail, Icategory_ids[0]], (insertErr) => {
+                            if (insertErr) {
+                                return rejectDetail(insertErr);
                             }
-                            
-                            // 如果不存在，拒絕操作
-                            if (checkResult.length === 0) {
-                                return rejectDetail(new Error('Related category not found for ItemDetails.'));
-                            }
-
-                            // 進行插入操作
-                            const insertDetailQuery = "INSERT INTO itemdetails (ItemDetails, Icategory_id) VALUES (?, ?)";
-                            db.exec(insertDetailQuery, [detail, Icategory_ids[0]], (insertErr) => {
-                                if (insertErr) {
-                                    return rejectDetail(insertErr);
-                                }
-                                resolveDetail();
-                            });
+                            resolveDetail();
                         });
                     });
                 });
 
                 Promise.all(insertDetailsPromises)
                     .then(() => {
-                        // 再次查詢以獲取所有 ItemDetails 的 ID
                         const allDetailsQuery = "SELECT ItemDetails FROM itemdetails WHERE ItemDetails IN (?)";
                         db.exec(allDetailsQuery, [itemDetailsArray], (allDetailsErr, allDetailsResult) => {
                             if (allDetailsErr) {
                                 return reject(allDetailsErr);
                             }
 
-                            const finalItemDetails = allDetailsResult.map(row => row.ItemDetails).join(', ');
-
-                            // 插入到 useritemlist
-                            const query = "INSERT INTO useritemlist (sch_id, ItemDetails, ItemName, PrepareStatus, Icategory_id) VALUES (?, ?, ?, ?, ?)";
-                            db.exec(query, [schId, finalItemDetails, data.ItemName.join(', '), data.PrepareStatus, Icategory_ids.join(', ')], (insertErr, result) => {
-                                if (insertErr) {
-                                    return reject(insertErr);
-                                }
-                                resolve({ message: 'Item added!', Icategory_id: Icategory_ids });
+                            // 插入每個 ItemDetails 到 useritemlist
+                            const insertPromises = allDetailsResult.map(row => {
+                                return new Promise((resolveInsert, rejectInsert) => {
+                                    const query = "INSERT INTO useritemlist (sch_id, ItemDetails, ItemName, PrepareStatus, Icategory_id) VALUES (?, ?, ?, ?, ?)";
+                                    db.exec(query, [schId, row.ItemDetails, data.ItemName, data.PrepareStatus, Icategory_ids[0]], (insertErr) => {
+                                        if (insertErr) {
+                                            return rejectInsert(insertErr);
+                                        }
+                                        resolveInsert();
+                                    });
+                                });
                             });
+
+                            // 等待所有插入完成
+                            Promise.all(insertPromises)
+                                .then(() => {
+                                    resolve({ message: 'Items added!', Icategory_id: Icategory_ids });
+                                })
+                                .catch(reject);
                         });
                     })
                     .catch(reject);
@@ -251,6 +252,8 @@ exports.userAdditemCategory = (schId, data) => {
         });
     });
 };
+
+
 
 
 
