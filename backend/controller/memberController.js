@@ -8,7 +8,7 @@ exports.login = async (req, res) => {
             res.json({
                 token: result.token,
                 account: result.account,
-                emailid: result.id
+                emailid: result.emailid
             });
         } else {
             res.status(401).json({ message: result.error });
