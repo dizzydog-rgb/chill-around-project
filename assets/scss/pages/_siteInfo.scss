@@ -100,6 +100,12 @@
             border-radius: 25px;
             border: 1px solid $danger;
         }
+        .infoWeb{
+            a{
+                word-wrap: break-word;//用於網址換行
+                overflow-wrap: break-word; 
+            }
+        }
         .addBtn {
             margin-top: 20px;
             button {
