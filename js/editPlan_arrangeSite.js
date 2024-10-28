@@ -18,7 +18,7 @@ document.querySelector("#arrangeSite").addEventListener("click", () => {
         item.addEventListener("dragstart", dragStart);
         item.addEventListener("dragover", dragOver);
         item.addEventListener("drop", drop);
-        item.classList.add("animate__animated", "animate__pulse", "animate__infinite")
+        item.classList.add("animate__animated", "animate__pulse", "animate__infinite", "animate__slower")
     })
     document.querySelector(".editBtn").innerHTML = `
     <div>
@@ -40,7 +40,7 @@ document.querySelector("#arrangeSite").addEventListener("click", () => {
 
     document.querySelector(".completeArrangeBtn").addEventListener("click", () => {
         // console.log("調整順序完成");
-        // console.log(order);
+        console.log(order);
         const siteItem = document.querySelector(".siteItem");
         let currentSchId = siteItem.dataset.schId;
         let currentSchDay = siteItem.dataset.siteDay;

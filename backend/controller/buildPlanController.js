@@ -194,7 +194,7 @@ exports.putSiteOrder = async (req, res) => {
     res.send({ message: "景點順序更新成功" });
   } catch (error) {
     // 錯誤處理
-    console.error("Error updating site oreder:", error);
+    console.error("Error updating site order:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };

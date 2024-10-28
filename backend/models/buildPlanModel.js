@@ -313,6 +313,13 @@ exports.addSiteToSchedule = (sch_id, sch_day, sch_spot, sch_paragh) => {
 // 更新特定編號行程的特定天數的景點順序的模組函數
 exports.updateSiteOrder = (sch_id, sch_day, sch_order_array) => {
   return new Promise((resolve, reject) => {
+    if (sch_order_array.length === 0) {
+      // 當沒有調整順序的情況
+      console.log('order array為空，順序未變更');
+      resolve('順序未變更');
+      return;
+    }
+
     // 動態產生 SQL 查詢，使用 CASE 語句批量更新
     const cases = sch_order_array
       .map((order, index) => `WHEN sch_order = ${index + 1} THEN ${order}`)
