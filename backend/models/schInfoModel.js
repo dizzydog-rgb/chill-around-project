@@ -61,19 +61,21 @@ exports.getScheduleCardData = (regions, tags) => {
     let whereClauses = []; // 儲存 WHERE 條件
 
     // 地區篩選
-    if (regions) {
-      const regionArray = regions.split(',');
-      whereClauses.push(`(si.site_city IN (?) OR ? IS NULL)`); // 允許 null
-      parameters.push(regionArray, regions); // 傳遞地區
-    }
+   // 地區篩選
+if (regions && regions.trim()) {
+  const regionArray = regions.split(',');
+  whereClauses.push(`si.site_city IN (?)`);
+  parameters.push(regionArray);
+}
 
-    // 標籤篩選
-    if (tags) {
-      const tagArray = tags.split(',');
-      const tagConditions = tagArray.map(() => 't.tag_id = ?').join(' OR ');
-      whereClauses.push(`(${tagConditions} OR ? IS NULL)`); // 允許 null
-      parameters.push(...tagArray, tags); // 傳遞標籤
-    }
+// 標籤篩選
+if (tags && tags.trim()) {
+  const tagArray = tags.split(',');
+  const tagConditions = tagArray.map(() => 't.tag_id = ?').join(' OR ');
+  whereClauses.push(`(${tagConditions})`);
+  parameters.push(...tagArray);
+}
+
 
     // 如果有 WHERE 條件
     if (whereClauses.length > 0) {

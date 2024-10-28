@@ -22,21 +22,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const cityCheckboxes = document.querySelectorAll('.cityCheckbox');
     const tagCheckboxes = document.querySelectorAll('.tagCheckbox');
 
-    // 設置核取方塊狀態並綁定事件
-    cityCheckboxes.forEach(checkbox => {
-        checkbox.checked = (selectSiteCity === checkbox.value);
-        checkbox.addEventListener('change', updateCards);
-    });
+    // // 設置核取方塊狀態並綁定事件
+    // cityCheckboxes.forEach(checkbox => {
+    //     checkbox.checked = (selectSiteCity === checkbox.value);
+    //     checkbox.addEventListener('change', updateCards);
+    // });
 
-    tagCheckboxes.forEach(checkbox => {
-        checkbox.checked = (selectTagId === checkbox.value);
-        checkbox.addEventListener('change', updateCards);
-    });
+    // tagCheckboxes.forEach(checkbox => {
+    //     checkbox.checked = (selectTagId === checkbox.value);
+    //     checkbox.addEventListener('change', updateCards);
+    // });
 
     // 初始渲染卡片
-    if(selectSiteCity && selectTagId) {
+    if (selectSiteCity && selectTagId) {
         // 根據 URL 中的參數設置核取方塊的狀態
-        cityCheckboxes.forEach(checkbox=>{
+        cityCheckboxes.forEach(checkbox => {
             checkbox.checked = (selectSiteCity === checkbox.value); // 設置核取方塊狀態
         })
         tagCheckboxes.forEach(checkbox => {
@@ -60,36 +60,38 @@ function updateCards() {
     console.log("選擇的地區:", selectedRegions);
     console.log("選擇的標籤:", selectedTags);
 
-
+    // 檢查篩選條件並更新顯示
+    if (!selectedRegions && !selectedTags) {
+        renderRandomCards(); // 如果沒有篩選條件，顯示隨機卡片
+    } else {
         axios.get('http://localhost:8080/schInfo/getsch', {
-            
             params: {
-                regions:selectedRegions, // 轉換為用逗號分隔的字串
-                tags:selectedTags
+                regions: selectedRegions, // 轉換為用逗號分隔的字串
+                tags: selectedTags
             }
-            
-            
-        })
-      
-        .then(response => {
-            const attractions = response.data;
-            // console.log("API 返回的景點:", attractions);
 
-            const sitecardBox = document.getElementById('sitecardBox');
-            sitecardBox.innerHTML = ''; // 清空目前顯示的卡片
-            
-            if (attractions.length === 0) {
-                sitecardBox.innerHTML = '<p>沒有符合條件的景點。</p>';
-            }
-            attractions.forEach(attraction => {
-                renderCards(attraction);
-            });
+
         })
-        .catch(error => {
-            console.error('Error fetching attractions:', error);
-            console.log('無法獲取資料，請稍後再試。');
-        });
-   
+
+            .then(response => {
+                const attractions = response.data;
+                console.log("API 返回的景點:", attractions);
+
+                const sitecardBox = document.getElementById('sitecardBox');
+                sitecardBox.innerHTML = ''; // 清空目前顯示的卡片
+
+                if (attractions.length === 0) {
+                    sitecardBox.innerHTML = '<p>沒有符合條件的景點。</p>';
+                }
+                // attractions.forEach(attraction => {
+                //     renderCards(attraction);
+                // });
+            })
+            .catch(error => {
+                console.error('Error fetching attractions:', error);
+                alert('無法獲取資料，請稍後再試。');
+            });
+    }
 }
 
 
@@ -101,7 +103,7 @@ function renderRandomCards() {
             const attraction = response.data;
             const randomSchData = getRandomData(attraction, 12);
             renderCards(randomSchData);
-           
+
         })
         .catch(error => {
             console.error('Error fetching random attractions:', error);
@@ -135,7 +137,7 @@ function renderCards(attraction) {
                 </div>
             </div>
         `;
-      
+
         sitecardBox.appendChild(siteCard);
     });
 
