@@ -9,6 +9,7 @@ if (!SECRET_KEY) {
     process.exit(1); // 退出程序
 }
 
+// 會員登入的模組函數
 exports.loginEmail = (member) => {
     return new Promise((resolve, reject) => {
         var sql = "SELECT * FROM `member` WHERE email = ?;";
@@ -55,6 +56,7 @@ exports.loginEmail = (member) => {
     });
 }
 
+// 獲取會員資料的模組函數
 exports.findEmail = (emailid) => {
     return new Promise((resolve, reject) => {
         var sql = "SELECT * FROM `member` WHERE emailid = ?";
@@ -75,6 +77,7 @@ exports.findEmail = (emailid) => {
     });
 }
 
+// 查詢是否有該會員的模組函數
 exports.emailExists = (email) => {
     return new Promise((resolve, reject) => {
         var sql = "SELECT * FROM `member` WHERE email = ?";
@@ -89,6 +92,7 @@ exports.emailExists = (email) => {
     });
 };
 
+// 註冊會員的模組函數
 exports.registerData = async (user) => {
     // 檢查密碼是否一致
     if (user.pw1 !== user.pw2) {
@@ -142,6 +146,7 @@ exports.registerData = async (user) => {
     });
 }
 
+// 更新會員資料的模組函數
 exports.updateData = (userData) => {
     return new Promise((resolve, reject) => {
         var sql = "SELECT * FROM `member` WHERE emailid = ?";
@@ -193,3 +198,36 @@ exports.updateData = (userData) => {
         });
     });
 }
+
+// 獲取所有行程的模組函數
+exports.findAllSchedule = () => {
+    return new Promise((resolve, reject) => {
+        const sql = `
+        SELECT
+            s.*,
+            m.uname,
+            sd.sch_spot,
+            si.photo_one
+        FROM
+            schedule s
+            INNER JOIN schedule_details sd ON s.sch_id = sd.sch_id
+            INNER JOIN sites si ON sd.sch_spot = si.site_name
+            INNER JOIN \`member\` m ON s.emailid = m.emailid
+        WHERE
+        sd.detail_id = (
+            SELECT MIN(detail_id)
+            FROM schedule_details
+            WHERE sch_id = s.sch_id
+        ) AND s.emailid = 1
+        ORDER BY s.sch_id
+        `;
+        db.exec(sql, [], (error, results, fields) => {
+            if (results) {
+                resolve(results);
+            } else {
+                console.error("No results found or query error");
+                reject(new Error("No results found or query error"));
+            }
+        });
+    });
+};
