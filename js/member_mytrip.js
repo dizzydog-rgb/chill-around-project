@@ -7,7 +7,11 @@ $(document).ready(function () {
         return;
     }
 
-    axios.get("http://localhost:8080/member/planList")
+    // 獲取當前頁數，默認為 1
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentPage = parseInt(urlParams.get('page')) || 1; // 如果沒有頁數參數，則默認為 1
+
+    axios.get(`http://localhost:8080/member/planList/${currentPage}`)
         .then(function (response) {
             const schedules = response.data;
             console.log(schedules);
@@ -75,25 +79,25 @@ $(document).ready(function () {
                     <div class="jumpbox mb-3">
                         <ul class="jump_bef">
                             <li>
-                                <a href="#" title="最前一頁"><i class="icon-chevrons-left"></i></a>
+                                <a href="?page=${currentPage - 1}" title="最前一頁"><i class="icon-chevrons-left"></i></a>
                             </li>
                             <li>
-                                <a href="#" title="上一頁"><i class="icon-chevron-left"></i></a>
+                                <a href="?page=${currentPage - 1}" title="上一頁"><i class="icon-chevron-left"></i></a>
                             </li>
                         </ul>
                         <ul class="jump_btn">
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
+                            <li class="active"><a href="?page=${currentPage}">${currentPage}</a></li>
+                            <li><a href="?page=${currentPage + 1}">${currentPage + 1}</a></li>
+                            <li><a href="?page=${currentPage + 2}">${currentPage + 2}</a></li>
+                            <li><a href="?page=${currentPage + 3}">${currentPage + 3}</a></li>
+                            <li><a href="?page=${currentPage + 4}">${currentPage + 4}</a></li>
                         </ul>
                         <ul class="jump_aft">
                             <li>
-                                <a href="#" title="下一頁"><i class="icon-chevron-right"></i></a>
+                                <a href="?page=${currentPage + 1}" title="下一頁"><i class="icon-chevron-right"></i></a>
                             </li>
                             <li>
-                                <a href="#" title="最後一頁"><i class="icon-chevrons-right"></i></a>
+                                <a href="?page=${currentPage + 1}" title="最後一頁"><i class="icon-chevrons-right"></i></a>
                             </li>
                         </ul>
                     </div>

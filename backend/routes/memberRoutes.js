@@ -21,7 +21,11 @@ router.get("/members", auth, memberController.getByemail);
 // POST 傳送更新的會員資料
 router.post("/update", auth, upload.single('uphoto'), memberController.updatemember);
 
+// 跳轉到第一個頁面
+router.get("/planList/", function(req, res){
+    res.redirect('/planList/1');
+});
 // GET請求: 獲取當前會員行程資料
-router.get("/planList", memberController.getuserSchedule);
+router.get("/planList/:page([0-9]+)", memberController.getuserSchedule);
 
 module.exports = router;
