@@ -4,7 +4,7 @@ axios
   .get("http://localhost:8080/buildPlan/planList")
   .then(function (response) {
     const schedules = response.data;
-    console.log(schedules);
+    // console.log(schedules);
     renderPlanList(schedules);
   })
   .catch(function (error) {
@@ -66,45 +66,53 @@ function renderPlanList(schedules) {
     cardList.appendChild(cardItem);
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
-    // 為所有卡片添加點擊事件處理器
-    document.querySelectorAll(".card").forEach((item) => {
-      item.addEventListener("click", function () {
+  // 為所有卡片添加點擊事件處理器
+  document.querySelectorAll(".card").forEach((item) => {
+    item.addEventListener(
+      "click",
+      function (e) {
+        // 檢查是否點擊到 bi-three-dots 或 deletePlan，避免觸發跳轉
+        if (
+          e.target.classList.contains("bi-three-dots") ||
+          e.target.id === "deletePlan"
+        ) {
+          e.stopPropagation();
+          return;
+        }
+
+        // 如果不是點擊 bi-three-dots，執行跳轉邏輯
         const scheduleId = this.closest("#scheduleItem").dataset.scheduleid;
-        console.log("準備跳轉到計畫", scheduleId);
+        // console.log("準備跳轉到計畫", scheduleId);
         localStorage.setItem("scheduleId", scheduleId);
         window.location.href = "editPlan.html";
-      }, { once: true }); // 確保每個事件只會觸發一次
-    });
+      },
+      { once: true } // 確保每個事件只會觸發一次
+    );
+  });
 
-    // 添加全局點擊事件處理器，判斷要刪除還是進入計畫
-    document.addEventListener("click", (e) => {
-      const targetElement = e.target.closest("#scheduleItem");
-      const scheduleId = targetElement.dataset.scheduleid;
+  // 添加全局點擊事件處理器，判斷要刪除還是進入計畫
+  document.addEventListener("click", (e) => {
+    const targetElement = e.target.closest("#scheduleItem");
+    const scheduleId = targetElement.dataset.scheduleid;
 
-      // 檢查是否點擊了 bi-three-dots 或 deletePlan
-      if (e.target.classList.contains("bi-three-dots")) {
-        // console.log("開始刪除");
-        e.stopPropagation(); // 防止點擊事件冒泡
-      } else if (e.target.id === "deletePlan") {
-        // console.log("繼續刪除");
-        const confirmation = confirm("確定要刪除此計畫嗎？");
+    // 檢查是否點擊了 bi-three-dots 或 deletePlan
+    if (e.target.classList.contains("bi-three-dots")) {
+      // 開始刪除邏輯
+      e.stopPropagation(); // 防止點擊事件冒泡
+    } else if (e.target.id === "deletePlan") {
+      const confirmation = confirm("確定要刪除此計畫嗎？");
 
-        if (confirmation) {
-          // console.log("刪除成功", scheduleId);
-
-          axios
-            .delete(`http://localhost:8080/buildPlan/planList/${scheduleId}`)
-            .then((response) => {
-              console.log("計畫刪除成功", response.data);
-              // location.reload(); // 刪除後刷新頁面
-            })
-            .catch((error) => {
-              console.error("刪除計畫失敗:", error);
-            });
-        }
+      if (confirmation) {
+        axios
+          .delete(`http://localhost:8080/buildPlan/planList/${scheduleId}`)
+          .then((response) => {
+            console.log("計畫刪除成功", response.data);
+            location.reload(); // 刪除後刷新頁面
+          })
+          .catch((error) => {
+            console.error("刪除計畫失敗:", error);
+          });
       }
-    });
-});
-
+    }
+  });
 }

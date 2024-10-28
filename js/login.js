@@ -9,7 +9,8 @@ $('#form').submit(function (e) {
     .then(response => {
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
-            alert("登入成功!請更新會員資料。");
+            localStorage.setItem('emailid', response.data.emailid);
+            alert("登入成功!");
             window.location.href = 'member_personaldata.html';
         }
     })

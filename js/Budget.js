@@ -33,7 +33,6 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
     .then(function (response) {
         console.log("總資料:", response.data);
 
-
         // ---------------------------------------------------- 渲染歷史紀錄區
         const historyContainer = document.querySelector('.historyDiv');
         historyContainer.innerHTML = ''; // 清空歷史紀錄

@@ -2,111 +2,138 @@ import axios from 'axios';
 
 
 document.addEventListener('DOMContentLoaded', function () {
+
     //這是頁首的輪播卡片
-    // axios.get('http://localhost:8080/schInfo/siteinfo')
-
+    // axios.get('http://localhost:8080/schInfo/getsch')
     //     .then(response => {
-    //         const dataSite = response.data; // 獲取資料
-    //         console.log(response.data);
+    //         const dataSite = response.data[0]; // 獲取資料
+    //         console.log("獲取到的資料:", dataSite[0]);
 
-    //         dataSite.forEach(function (data) {
+    //         // 設定顯示卡片的最大數量
+    //         const maxCards = 10;
+    //         let cardCount = 0;
 
-    //             let topPage = `
-    //     <div class="swiper-slide">
-    //         <div id="siteCard" class="TopCard card bg-primary ">
-    //             <div class="TopcardImage">
-    //                 <img src="../assets/images/searchSite/${data.photo_one}" alt="">
-    //             </div>
-    //             <div class="TopcardOverlay">
-    //                 <h5 class="card-title ">${data.site_name}</h5>
-    //                 <p class="card-subtitle">${data.short_site_add}</p>
-    //             </div>
-    //         </div>
-    //     </div>`;
-    //             document.querySelector(".mySwiper_1 .swiper-wrapper").insertAdjacentHTML('beforeend', topPage);
+    //         // 過濾出符合條件的景點
+    //         const filteredSites = dataSite.filter(data => data.sch_day === 1 && data.sch_order === 1);
+    //         console.log("過濾後的景點:", filteredSites);
+
+
+    //         // 隨機排列 filteredSites 陣列
+    //         const shuffledSites = filteredSites.sort(() => 0.5 - Math.random());
+
+    //         // 使用物件來儲存已添加的項目，以避免重複
+    //         const addedItems = {};
+
+    //         shuffledSites.forEach(function (data) {
+    //             if (cardCount >= maxCards) return; // 當顯示的卡片數達到 maxCards 時停止
+
+    //             // 使用 site_name 作為唯一標識
+    //             const uniqueKey = `${data.sch_id}-${data.sch_name}`; // 使用 sch_id 和 site_name 組合成唯一鍵
+
+    //             // 格式化 edit_date
+    //             const editDate = new Date(data.edit_date);
+    //             const formattedEditDate = `${editDate.getFullYear()}-${String(editDate.getMonth() + 1).padStart(2, '0')}-${String(editDate.getDate()).padStart(2, '0')}`;
+
+
+    //             // 檢查是否已經添加過該項目
+    //             if (!addedItems[uniqueKey]) {
+    //                 // 創建卡片 HTML
+    //                 let topPage = `
+
+    //                     <div class="swiper-slide">
+    //                <div id="siteCard" class="TopCard card bg-primary ">
+    //                    <div class="TopcardImage">
+    //                        <img src="../assets/images/searchSite/${data.photo_one}" alt="">
+    //                    </div>
+    //                    <div class="TopcardOverlay">
+    //                        <h5 class="card-title ">${data.sch_name}</h5>
+    //                        <p class="card-subtitle">${formattedEditDate}</p>
+    //                    </div>
+    //                </div>
+    //            </div>`;
+
+    //                 // 將卡片插入到 DOM
+    //                 document.querySelector(".mySwiper_1 .swiper-wrapper").insertAdjacentHTML('beforeend', topPage);
+
+    //                 // 將該項目添加到 addedItems 物件中，以避免重複
+    //                 addedItems[uniqueKey] = true;
+    //                 console.log(`添加名稱: ${data.site_name}, ID: ${data.sch_id}`);
+    //                 cardCount++; // 增加計數
+    //             } else {
+    //                 console.log(`重複名稱或 ID: ${data.site_name} (${data.sch_id})`);
+    //             }
     //         });
+
+    //         console.log("最終添加的項目:", Object.keys(addedItems));
     //     })
     //     .catch(error => {
-    //         console.error('無法取得的資料:', error);
+    //         console.error('無法取得卡片的資料:', error);
     //     });
 
 
-    //這是頁首的輪播卡片
-    axios.get('http://localhost:8080/schInfo/getsch')
+    //獲取行程資料 without like
+    axios.get('http://localhost:8080/buildPlan/planList')
         .then(response => {
-            const dataSite = response.data[0]; // 獲取資料
-            console.log("獲取到的資料:", dataSite[0]);
+            const dataSite = response.data; // 獲取資料
+            console.log("獲取到的資料:", dataSite);
 
             // 設定顯示卡片的最大數量
             const maxCards = 10;
             let cardCount = 0;
 
-            // 過濾出符合條件的景點
-            const filteredSites = dataSite.filter(data => data.sch_day === 1 && data.sch_order === 1);
-            console.log("過濾後的景點:", filteredSites);
-
-
             // 隨機排列 filteredSites 陣列
-            const shuffledSites = filteredSites.sort(() => 0.5 - Math.random());
-
-            // 使用物件來儲存已添加的項目，以避免重複
-            const addedItems = {};
+            const shuffledSites = dataSite.sort(() => 0.5 - Math.random());
 
             shuffledSites.forEach(function (data) {
                 if (cardCount >= maxCards) return; // 當顯示的卡片數達到 maxCards 時停止
+                let startDate = data.edit_date.slice(0, 10);
+                // let endDate = data.end_date.slice(5, 10);
 
-                // 使用 site_name 作為唯一標識
-                const uniqueKey = `${data.sch_id}-${data.sch_name}`; // 使用 sch_id 和 site_name 組合成唯一鍵
+                // // 格式化 edit_date
+                // const editDate = new Date(data.edit_date);
+                // const formattedEditDate = `${editDate.getFullYear()}-${String(editDate.getMonth() + 1).padStart(2, '0')}-${String(editDate.getDate()).padStart(2, '0')}`;
 
-                // 格式化 edit_date
-                const editDate = new Date(data.edit_date);
-                const formattedEditDate = `${editDate.getFullYear()}-${String(editDate.getMonth() + 1).padStart(2, '0')}-${String(editDate.getDate()).padStart(2, '0')}`;
+                // 創建卡片 HTML
+                let topPage = `
+                    <div class="swiper-slide">
+                        <div id="siteCard" class="TopCard card bg-primary" data-sch-id="${data.sch_id}">
+                            <div class="TopcardImage">
+                                <img src="../assets/images/searchSite/${data.photo_one}" alt="">
+                            </div>
+                            <div class="TopcardOverlay">
+                                <h5 class="card-title ">${data.sch_name}</h5>
+                                <p class="card-subtitle">${startDate} </p>
+                            </div>
+                        </div>
+                    </div>`;
 
+                // 將卡片插入到 DOM
+                document.querySelector(".mySwiper_1 .swiper-wrapper").insertAdjacentHTML('beforeend', topPage);
+                cardCount++; // 增加計數
 
-                // 檢查是否已經添加過該項目
-                if (!addedItems[uniqueKey]) {
-                    // 創建卡片 HTML
-                    let topPage = `
-       
-                        <div class="swiper-slide">
-                   <div id="siteCard" class="TopCard card bg-primary ">
-                       <div class="TopcardImage">
-                           <img src="../assets/images/searchSite/${data.photo_one}" alt="">
-                       </div>
-                       <div class="TopcardOverlay">
-                           <h5 class="card-title ">${data.sch_name}</h5>
-                           <p class="card-subtitle">${formattedEditDate}</p>
-                       </div>
-                   </div>
-               </div>`;
-
-                    // 將卡片插入到 DOM
-                    document.querySelector(".mySwiper_1 .swiper-wrapper").insertAdjacentHTML('beforeend', topPage);
-
-                    // 將該項目添加到 addedItems 物件中，以避免重複
-                    addedItems[uniqueKey] = true;
-                    console.log(`添加名稱: ${data.site_name}, ID: ${data.sch_id}`);
-                    cardCount++; // 增加計數
-                } else {
-                    console.log(`重複名稱或 ID: ${data.site_name} (${data.sch_id})`);
-                }
             });
 
-            console.log("最終添加的項目:", Object.keys(addedItems));
+            // 為每個卡片添加點擊事件
+            let cardItems = document.querySelectorAll(".TopCard");
+            cardItems.forEach((card) => {
+                card.addEventListener("click", (event) => {
+                    const schId = event.currentTarget.getAttribute('data-sch-id');
+
+                    // 存儲 sch_id 到 localStorage
+                    localStorage.setItem('selectedSchId', schId);
+                    console.log(schId);
+
+
+
+                    // 跳轉到新頁面
+                    window.location.href = "schCom.html";
+                });
+            });
+
         })
         .catch(error => {
             console.error('無法取得卡片的資料:', error);
         });
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -141,33 +168,24 @@ document.addEventListener('DOMContentLoaded', function () {
             },
         },
     });
-
-
-    //行程卡片
-    axios.get('http://localhost:8080/schInfo/getsch')
+    //獲取行程資料 with like
+    axios.get('http://localhost:8080/buildPlan/planList')
         .then(response => {
-            const dataSite = response.data[0]; // 獲取資料
-            console.log("獲取到的資料:", dataSite[0]);
+            const dataSite = response.data; // 獲取資料
+            console.log("獲取到的資料:", dataSite);
 
             const maxCards = 8;
             let cardCount = 0;
 
-            const filteredSites = dataSite.filter(data => data.sch_day === 1 && data.sch_order === 1);
-            console.log("過濾後的景點:", filteredSites);
-
-            const shuffledSites = filteredSites.sort(() => 0.5 - Math.random());
-
-            const addedItems = {};
+            const shuffledSites = dataSite.sort(() => 0.5 - Math.random());
 
             shuffledSites.forEach(function (data) {
                 if (cardCount >= maxCards) return;
 
-                const uniqueKey = `${data.sch_id}-${data.sch_name}`;
-                const editDate = new Date(data.edit_date);
-                const formattedEditDate = `${editDate.getFullYear()}-${String(editDate.getMonth() + 1).padStart(2, '0')}-${String(editDate.getDate()).padStart(2, '0')}`;
+                let startDate = data.edit_date.slice(0, 10);
+                let endDate = data.end_date.slice(5, 10);
 
-                if (!addedItems[uniqueKey]) {
-                    let SchCard = `
+                let SchCard = `
                 <div class="col-md-3 p-0 m-0">
                     <div id="SchCard" class="SchCard card bg-primary" data-sch-id="${data.sch_id}">
                         <div class="SchcardImage">
@@ -175,41 +193,66 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                         <div class="cardOverlay">
                             <h5 class="card-title">${data.sch_name}</h5>
-                            <p class="card-subtitle">${formattedEditDate}</p>
+                            <p class="card-subtitle">${startDate}</p>
                         </div>
                         <div class="btnOverlay">
-                            <a id="likeBtn" class="bi bi-heart"></a>
+                            <a id="likeBtn" class="bi bi-heart" data-sch-id="${data.sch_id}"></a>
                         </div>
                     </div>
                 </div>`;
 
-                    document.querySelector("#SchcardBox").insertAdjacentHTML('beforeend', SchCard);
-
-                    addedItems[uniqueKey] = true;
-                    cardCount++;
-                }
+                document.querySelector("#SchcardBox").insertAdjacentHTML('beforeend', SchCard);
+                cardCount++;
             });
 
-            // 添加點擊事件，將 sch_id 儲存在 localStorage
+            // 點擊卡片時，將 sch_id 儲存在 localStorage
             let cardItems = document.querySelectorAll(".SchCard");
             cardItems.forEach((sch) => {
                 sch.addEventListener("click", (event) => {
                     const schId = event.currentTarget.getAttribute('data-sch-id');
+                    localStorage.setItem('selectedSchId', schId); // 儲存 sch_id 到 localStorage
+                    console.log(schId);
 
-                    // 使用 sch_id 作為 query string，跳轉到新頁面
-                    window.location.href = `schCom.html?id=${schId}`;
+
+                    // 跳轉到 schCom.html
+                    window.location.href = "schCom.html";
                 });
             });
 
-            console.log("最終添加的項目:", Object.keys(addedItems));
+            // 點擊 "likeBtn" 時，切換樣式並發送資料到後端
+            document.querySelectorAll('.bi-heart').forEach((likeBtn) => {
+                likeBtn.addEventListener('click', function (e) {
+                    e.stopPropagation(); // 防止冒泡影響到其他點擊事件
+
+                    e.target.classList.toggle('bi-heart');
+                    e.target.classList.toggle('bi-heart-fill');
+
+                    // 取得卡片的 sch_id
+                    const schId = e.target.getAttribute('data-sch-id');
+
+                    // 模擬要 post 的資料，包含 sch_id 和其他相關資料
+                    const postData = {
+                        // email_id: userId, // 會員編號 (可替換為實際資料)
+                        sch_id: schId     // 景點 ID
+                    };
+
+                    // 使用 axios 進行 POST 請求，將資料發送到後端
+                    axios.post('http://localhost:8080/schInfo/getToLike', postData)
+                        .then(response => {
+                            console.log('資料已成功發送:', response.data);
+                            alert("加入成功")
+                        })
+                        .catch(error => {
+                            alert("加入失敗")
+                            console.error('無法發送資料:', error);
+                        });
+                });
+            });
+
         })
         .catch(error => {
             console.error('無法取得卡片的資料:', error);
         });
-
-
-
-
 
 
 
@@ -363,7 +406,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 await axios.post('http://localhost:8080/schInfo/getspot/add', dataToSave);
                 alert('行程保存成功');
                 console.log('Data to Save:', dataToSave);
-                hideModal();
+                // 使用 jQuery 來隱藏模態框
+                $('#exampleModal').modal('hide');
             } catch (error) {
                 alert('保存行程失敗');
                 console.error('保存行程失敗', error);
@@ -378,17 +422,6 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = 'block';
         document.body.classList.add('modal-open');
     }
-
-    // 隱藏 modal
-    function hideModal() {
-        const modal = document.getElementById('exampleModal');
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-        document.body.classList.remove('modal-open');
-    }
-
-
-
 
 
 
@@ -511,14 +544,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-});
-
-
-
-
-document.querySelector('#SchcardBox').addEventListener('click', function (e) {
-    if (e.target && e.target.id === 'likeBtn') {
-        e.target.classList.toggle('bi-heart');
-        e.target.classList.toggle('bi-heart-fill');
-    }
 });

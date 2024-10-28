@@ -9,6 +9,7 @@ if (!SECRET_KEY) {
     process.exit(1); // 退出程序
 }
 
+// 會員登入的模組函數
 exports.loginEmail = (member) => {
     return new Promise((resolve, reject) => {
         var sql = "SELECT * FROM `member` WHERE email = ?;";
@@ -27,6 +28,8 @@ exports.loginEmail = (member) => {
                     db.exec(updateSql, [results[0].emailid], function (updateError) {
                         if (updateError) {
                             console.error("更新 updated_at 錯誤:", updateError);
+                            reject({ error: "更新時間失敗" }); // 返回錯誤
+                            return;
                         }
                         const token = jwt.sign(
                             {
@@ -38,7 +41,8 @@ exports.loginEmail = (member) => {
                         );
                         resolve({
                             account: results[0].email,
-                            token
+                            token,
+                            emailid: results[0].emailid
                         });
                     });
                 } else {
@@ -53,15 +57,17 @@ exports.loginEmail = (member) => {
     });
 }
 
-exports.findEmail = (email) => {
+// 獲取會員資料的模組函數
+exports.findEmail = (emailid) => {
     return new Promise((resolve, reject) => {
-        var sql = "SELECT * FROM `member` WHERE email = ?";
-        db.exec(sql, [email], function (error, results, fields) {
+        var sql = "SELECT * FROM `member` WHERE emailid = ?";
+        db.exec(sql, [emailid], function (error, results, fields) {
             if (error) {
                 console.error("錯誤訊息:", error);
                 reject(error);
                 return;
             }
+
             if (results) {
                 resolve(results[0]);
             } else {
@@ -72,6 +78,7 @@ exports.findEmail = (email) => {
     });
 }
 
+// 查詢是否有該會員的模組函數
 exports.emailExists = (email) => {
     return new Promise((resolve, reject) => {
         var sql = "SELECT * FROM `member` WHERE email = ?";
@@ -86,6 +93,7 @@ exports.emailExists = (email) => {
     });
 };
 
+// 註冊會員的模組函數
 exports.registerData = async (user) => {
     // 檢查密碼是否一致
     if (user.pw1 !== user.pw2) {
@@ -139,37 +147,123 @@ exports.registerData = async (user) => {
     });
 }
 
+// 更新會員資料的模組函數
 exports.updateData = (userData) => {
     return new Promise((resolve, reject) => {
-        var sql = "UPDATE `member` SET uname = ?, email = ?, password = ?, birthday = ?, sex = ?, address = ?, cellphone = ?, telephone = ? WHERE emailid = ?";
-        var data = [
-            userData.uname,
-            userData.email,
-            userData.pwd,
-            userData.birthday,
-            userData.sex,
-            userData.address,
-            userData.cellphonenum,
-            userData.telephonenum,
-            userData.emailid
-        ];
-        // 如果 uphoto 存在，則添加到 SQL 語句和數據中
-        if (userData.uphoto !== undefined) {
-            sql = "UPDATE `member` SET uphoto = ?, " + sql.slice(31); // 在 SET 中添加 uphoto
-            data.unshift(userData.uphoto); // 將 uphoto 添加到數據的開頭
-        }
-
-        db.exec(sql, data, function (error, results, fields) {
+        var sql = "SELECT * FROM `member` WHERE emailid = ?";
+        var id = userData.emailid
+        var uphoto;
+        db.exec(sql, [id], function (error, results, fields) {
             if (error) {
                 console.error("錯誤訊息:", error);
                 reject(error);
                 return;
             }
-            if (results.affectedRows > 0) { // 確保有行被更新
-                resolve({ success: true }); // 返回成功的結果
-            } else {
-                resolve({ error: '資料更新失敗' });
+
+            // 確保查詢結果存在
+            if (results.length === 0) {
+                return resolve({ error: '未找到該會員' });
             }
+
+            if (userData.uphoto == undefined) {
+                uphoto = results[0].uphoto;
+            } else {
+                uphoto = userData.uphoto;
+            }
+
+            sql = "UPDATE `member` SET uphoto = ?, uname = ?, email = ?, password = ?, birthday = ?, sex = ?, address = ?, cellphone = ?, telephone = ? WHERE emailid = ?";
+            const data = [
+                uphoto,
+                userData.uname,
+                userData.email,
+                userData.pwd,
+                userData.birthday,
+                userData.sex,
+                userData.address,
+                userData.cellphonenum,
+                userData.telephonenum,
+                userData.emailid
+            ];
+            db.exec(sql, data, function (error, results, fields) {
+                if (error) {
+                    console.error("錯誤訊息:", error);
+                    reject(error);
+                    return;
+                }
+                if (results.affectedRows > 0) { // 確保有行被更新
+                    resolve({ success: true }); // 返回成功的結果
+                } else {
+                    resolve({ error: '資料更新失敗' });
+                }
+            });
         });
     });
 }
+
+// 獲取所有行程的模組函數
+exports.findAllSchedule = (pagedata) => {
+    return new Promise((resolve, reject) => {
+        const sql = `
+        SELECT
+            s.*,
+            m.uname,
+            sd.sch_spot,
+            si.photo_one
+        FROM
+            schedule s
+            INNER JOIN schedule_details sd ON s.sch_id = sd.sch_id
+            INNER JOIN sites si ON sd.sch_spot = si.site_name
+            INNER JOIN \`member\` m ON s.emailid = m.emailid
+        WHERE
+        sd.detail_id = (
+            SELECT MIN(detail_id)
+            FROM schedule_details
+            WHERE sch_id = s.sch_id
+        ) AND s.emailid = ?
+        ORDER BY s.sch_id
+        LIMIT ?, ?
+        `;
+
+        const pageData = [pagedata.emailid, pagedata.offset, pagedata.nums_per_page];
+
+        db.exec(sql, pageData, (error, data, fields) => {
+            if (error) {
+                console.error("SQL Error:", error); // 輸出 SQL 錯誤
+                reject(error);
+                return;
+            }
+            sql = `
+            SELECT
+                COUNT(*) AS COUNT
+            FROM
+                schedule s
+                INNER JOIN schedule_details sd ON s.sch_id = sd.sch_id
+                INNER JOIN sites si ON sd.sch_spot = si.site_name
+                INNER JOIN \`member\` m ON s.emailid = m.emailid
+            WHERE
+            sd.detail_id = (
+                SELECT MIN(detail_id)
+                FROM schedule_details
+                WHERE sch_id = s.sch_id
+            ) AND s.emailid = ?
+            `;
+            db.exec(sql, [pagedata.emailid], (error, nums, fields) => {
+                if (error) {
+                    console.error("錯誤訊息:", error);
+                    reject(error);
+                    return;
+                }
+                if (nums) {
+                    var last_page = Math.ceil(nums[0].COUNT / pagedata.nums_per_page);
+
+                    //避免請求超過最大頁數
+                    if (pagedata.page > last_page) {
+                        resolve({ message: "No more pages" });
+                        return;
+                    }
+                }
+                resolve(data); // 返回查詢結果
+            });
+        });
+    });
+};

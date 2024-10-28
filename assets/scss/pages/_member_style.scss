@@ -381,7 +381,8 @@
                 .card {
                     border: none;
                     border-radius: 20px;
-                    box-shadow: 5px 10px 30px 0px rgba(0, 0, 0, 0.25);
+                    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
+                    transition: .5s;
 
                     img {
                         border-radius: 20px 0 0 20px;
@@ -390,6 +391,10 @@
                     .title {
                         font-size: 26px;
                     }
+                }
+
+                .card:hover {
+                    box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.5);
                 }
 
                 .checkcard {
