@@ -22,6 +22,6 @@ router.get("/members", auth, memberController.getByemail);
 router.post("/update", auth, upload.single('uphoto'), memberController.updatemember);
 
 // GET請求: 獲取當前會員行程資料
-router.get("/planList/:page[0-9]+", memberController.getuserSchedule);
+router.get("/planList", memberController.getuserSchedule);
 
 module.exports = router;

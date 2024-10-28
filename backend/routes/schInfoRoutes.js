@@ -43,6 +43,11 @@ router.get('/getspot', schInfoController.getSchedulesAndSites);
 //http://localhost:8080/schInfo/getspot/add
 router.post('/getspot/add', schInfoController.addSchedule);
 
+// POST 請求:加入行程至用戶我的最愛
+//http://localhost:8080/schInfo/getToLike
+router.post('/getToLike', schInfoController.addSchToLike);
+
+
 // GET 請求:取得YTurl及部落格資料
 //http://localhost:8080/schInfo/YtAndBlog
 router.get('/YtAndBlog',schInfoController.getVideoUrl);

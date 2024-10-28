@@ -122,6 +122,8 @@ exports.getSiteData = () => {
     });
   });
 };
+
+
 //加入至行程資料庫
 exports.addScheduleDetail = (sch_id, sch_day, sch_order, sch_spot) => {
   return new Promise((resolve, reject) => {
@@ -154,6 +156,28 @@ exports.addScheduleDetail = (sch_id, sch_day, sch_order, sch_spot) => {
     });
   });
 };
+
+
+
+
+//加入行程至我的最愛
+
+
+exports.addScheduleId = (sch_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'INSERT INTO member_like (sch_id) VALUES (?)'; // 修正 SQL 語句
+
+    db.exec(sql, [sch_id], (err, result) => {
+      if (err) {
+        console.error('插入失敗:', err);
+        reject(err); // 拒絕 Promise
+      } else {
+        resolve(result); // 成功時解析 Promise
+      }
+    });
+  });
+};
+
 
 //影片連結
 exports.findVideo = (yt) => {

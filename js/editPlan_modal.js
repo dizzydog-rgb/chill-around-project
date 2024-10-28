@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // 清空 modal
       currentModal.querySelector('input[name="siteName"]').value = "";
       currentModal.querySelector('textarea[name="siteParagh"]').value = "";
+      // 不顯示標籤列表
+      document.querySelector(".tagBox").style.display = "none";
 
       // 發送請求獲取標籤數據
       axios
@@ -53,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // 綁定 PUT/POST 事件至 Modal 中的完成按鈕
-  document.getElementById("save-site").addEventListener("click", function () {
+  document.getElementById("save-site").addEventListener("click", () => {
     const siteName = currentModal.querySelector('input[name="siteName"]').value;
     const siteDescription = currentModal.querySelector(
       'textarea[name="siteParagh"]'
@@ -103,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // 綁定 DELETE 事件至 Modal 中的完成按鈕
-  document.getElementById("delete-site").addEventListener("click", function () {
+  document.getElementById("delete-site").addEventListener("click", () => {
     axios
       .delete(
         `http://localhost:8080/buildPlan/editPlan/sites/${currentSiteId}`,
