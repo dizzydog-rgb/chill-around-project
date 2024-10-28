@@ -3,15 +3,15 @@ const itemModel = require("../models/itemModel");
 // 獲得全部預算種類的控制器
 exports.getItemCategory = async (req, res) => {
     try {
-        const popupItems = await itemModel.findItemCategory();
-        res.json(popupItems);
+        const { itemCategories, itemdetails } = await itemModel.findItemCategory();
+        res.json({ itemCategories, itemdetails });
     } catch (error) {
         console.error("Error fetching popupItems:", error);
         res.status(500).json({ message: "getItemCategory Server Error" });
     }
 };
 
-// // 獲取使用者預算的控制器
+// // 獲取使用者物品的控制器
 exports.getUseritemListId = async (req, res) => {
     try {
         // 從 URL 參數中提取 ID
@@ -86,20 +86,17 @@ exports.getUseritemListId = async (req, res) => {
 //         .catch(err => res.status(500).send(err));
 // };
 
-// // 增加預算的控制器
-// exports.userAddBudgetController = (req, res) => {
-//     const schId = req.params.id; // 獲取預算ID
+// 增加物品大種類的控制器
+exports.userAdditemController = (req, res) => {
+    const schId = req.params.id; // 獲取預算ID
 
-//     const budgetData = {
-//         BudgetDate: req.body.BudgetDate,
-//         BudgetDetails: req.body.BudgetDetails,
-//         BudgetName: req.body.BudgetName,
-//         BudgetContent: req.body.BudgetContent,
-//         Cost: req.body.Cost,
-//         PaidStatus: req.body.PaidStatus,
-//         WhoPay: req.body.WhoPay,
-//     };
-//     BudgetModel.userAddBudget(schId, budgetData)
-//         .then(message => res.status(201).send(message))
-//         .catch(err => res.status(500).send(err));
-// };
+    const itemData = {
+        ItemDetails : req.body.ItemDetails ,
+        ItemName: req.body.ItemName,
+        PrepareStatus: req.body.PrepareStatus,
+    };
+
+    itemModel.userAdditemCategory(schId, itemData)
+        .then(message => res.status(201).send(message))
+        .catch(err => res.status(500).send(err));
+};

@@ -11,7 +11,7 @@ router.get("/popupItem", itemController.getItemCategory); // 渲染物品種類�
 
 // 之後新增.post、刪除.delete功能也要接這個路由
 router.get("/Useritem/:id", itemController.getUseritemListId); // 特定使用者預算資料
-// router.post("/UserBudget/:id", itemController.userAddBudgetController); // 新增使用者預算資料
+router.post("/Useritem/:id", itemController.userAdditemController); // 新增使用者預算資料
 
 // router.get("/UserBudget/:id/:detailId", itemController.getUserBudgetOneDetails); // 渲染使用者選取的預算資料方塊
 // router.put("/UserBudget/:id/:detailId", itemController.userEditBudgetController); // 編輯使用者選取的預算資料方塊
