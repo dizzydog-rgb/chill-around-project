@@ -10,50 +10,62 @@ exports.addSchedule = (planName, startDate, endDate, emailid) => {
     `;
 
     // 執行插入旅行計畫
-    db.exec(scheduleQuery, [planName, startDate, endDate, emailid], (error, results, fields) => {
-      if (error) {
-        console.error("Cannot add schedule or query error:", error);
-        return reject(new Error("Cannot add schedule or query error"));
-      }
+    db.exec(
+      scheduleQuery,
+      [planName, startDate, endDate, emailid],
+      (error, results, fields) => {
+        if (error) {
+          console.error("Cannot add schedule or query error:", error);
+          return reject(new Error("Cannot add schedule or query error"));
+        }
 
-      // 取得新插入的 sch_id
-      const newScheduleId = results.insertId;
-      if (!newScheduleId) {
-        return reject(new Error("No schedule ID returned after insert"));
-      }
+        // 取得新插入的 sch_id
+        const newScheduleId = results.insertId;
+        if (!newScheduleId) {
+          return reject(new Error("No schedule ID returned after insert"));
+        }
 
-      console.log("新增旅行計畫成功，行程 ID:", newScheduleId);
+        console.log("新增旅行計畫成功，行程 ID:", newScheduleId);
 
-      // 插入範例景點的 SQL 語句
-      const detailQuery = `
+        // 插入範例景點的 SQL 語句
+        const detailQuery = `
         INSERT INTO schedule_details (emailid, sch_id, sch_day, sch_order, sch_spot, sch_paragh)
         VALUES (?, ?, ?, ?, ?, ?);
       `;
 
-      // 預設的範例景點資料
-      const detailValues = [
-        1,                   // emailid 預設為 1，之後帶入登入的會員ID
-        newScheduleId,       // sch_id 等於剛新增的 schedule 的 ID
-        1,                   // sch_day 預設為 1
-        1,                   // sch_order 預設為 1
-        "台北101",           // sch_spot 預設為 "請填入景點名稱"
-        "請填入景點敘述"      // sch_paragh 預設為 "請填入景點敘述"
-      ];
+        // 預設的範例景點資料
+        const detailValues = [
+          1, // emailid 預設為 1，之後帶入登入的會員ID
+          newScheduleId, // sch_id 等於剛新增的 schedule 的 ID
+          1, // sch_day 預設為 1
+          1, // sch_order 預設為 1
+          "台北101", // sch_spot 預設為 "請填入景點名稱"
+          "點擊卡片輸入你的目的地，分享你對這個景點的期待或想像！", // sch_paragh 預設為 "請填入景點敘述"
+        ];
 
-      // 執行插入範例景點
-      db.exec(detailQuery, detailValues, (detailError, detailResults, detailFields) => {
-        if (detailError) {
-          console.error("Cannot add schedule detail or query error:", detailError);
-          return reject(new Error("Cannot add schedule detail or query error"));
-        }
+        // 執行插入範例景點
+        db.exec(
+          detailQuery,
+          detailValues,
+          (detailError, detailResults, detailFields) => {
+            if (detailError) {
+              console.error(
+                "Cannot add schedule detail or query error:",
+                detailError
+              );
+              return reject(
+                new Error("Cannot add schedule detail or query error")
+              );
+            }
 
-        console.log("範例景點插入成功，行程 ID:", newScheduleId);
-        resolve(newScheduleId);  // 返回插入的 schedule ID
-      });
-    });
+            console.log("範例景點插入成功，行程 ID:", newScheduleId);
+            resolve(newScheduleId); // 返回插入的 schedule ID
+          }
+        );
+      }
+    );
   });
 };
-
 
 // 獲取所有行程的模組函數
 exports.findAllSchedule = () => {
@@ -299,6 +311,33 @@ exports.addSiteToSchedule = (sch_id, sch_day, sch_spot, sch_paragh) => {
   });
 };
 
+// 更新特定編號行程的特定天數的景點順序的模組函數
+exports.updateSiteOrder = (sch_id, sch_day, sch_order_array) => {
+  return new Promise((resolve, reject) => {
+    // 動態產生 SQL 查詢，使用 CASE 語句批量更新
+    const cases = sch_order_array
+      .map((order, index) => `WHEN sch_order = ${index + 1} THEN ${order}`)
+      .join(" ");
+      
+    const query = `
+      UPDATE schedule_details
+      SET sch_order = CASE ${cases} END
+      WHERE sch_id = ? AND sch_day = ? AND sch_order IN (${sch_order_array.map((_, i) => i + 1).join(",")});
+    `;
+
+    db.exec(query, [sch_id, sch_day], (error, results) => {
+      if (results) {
+        resolve(results);
+      } else {
+        console.error("Update site order failed or query error");
+        reject(new Error("Update site order failed or query error"));
+      }
+    });
+  });
+};
+
+
+
 // 刪除特定景點的資料的模組函數
 exports.dropSiteDetailById = (detail_id) => {
   return new Promise((resolve, reject) => {
@@ -312,6 +351,58 @@ exports.dropSiteDetailById = (detail_id) => {
       } else {
         console.error("No site to delete or query error");
         reject(new Error("No site to delete or query error"));
+      }
+    });
+  });
+};
+
+// 新增新的一天和範例景點的模組函數
+exports.addNewDay = (sch_id, sch_day, emailid) => {
+  return new Promise((resolve, reject) => {
+    // 插入範例景點(同時新增新的一天)的 SQL 語句
+    const query = `
+        INSERT INTO schedule_details (emailid, sch_id, sch_day, sch_order, sch_spot, sch_paragh)
+        VALUES (?, ?, ?, ?, ?, ?);
+      `;
+
+    // 預設的範例景點資料
+    const detailValues = [
+      emailid, // emailid 預設為 1，之後帶入登入的會員ID
+      sch_id, // sch_id 為前端傳輸的 當前計畫的ID
+      sch_day, // sch_day 為前端傳輸的 要新增的天數
+      1, // sch_order 預設為 1
+      "點擊卡片輸入景點名稱", // sch_spot 預設為 "請填入景點名稱"
+      "讓大家知道你計畫的目的地，分享你對這個景點的期待或想像！", // sch_paragh 預設為 "請填入景點敘述"
+    ];
+
+    // 執行插入範例景點
+    db.exec(query, detailValues, (error, results, fields) => {
+      if (results) {
+        resolve(results);
+      } else {
+        console.error("Cannot add new day or query error");
+        reject(new Error("Cannot add new day or query error"));
+      }
+    });
+
+    console.log("又是新的一天，行程 ID:", sch_day);
+  });
+};
+
+// 獲取取特定編號行程的預算的模組函數
+exports.findBudgetyId = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = `
+    SELECT * FROM userbudget
+    WHERE sch_id = ?;
+  `;
+    db.exec(query, [id], (error, results, fields) => {
+      if (results) {
+        resolve(results);
+        // console.log(results);
+      } else {
+        console.error("No budget found or query error");
+        reject(new Error("No budget found or query error"));
       }
     });
   });

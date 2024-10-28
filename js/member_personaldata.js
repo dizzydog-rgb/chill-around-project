@@ -74,7 +74,7 @@ $(document).ready(function () {
                         </div>
                         <div>
                             <label class="col-form-label">密碼：</label>
-                            <input type="text" name="pwd" id="pwd" class="inpwrite" value="${member.password}" placeholder="請輸入密碼" readonly>
+                            <input type="text" name="pwd" id="pwd" class="inpwrite" value="${member.password}"  minlength="6" placeholder="請輸入密碼" readonly>
                         </div>
                     </div>
                     <div class="item">
@@ -106,12 +106,12 @@ $(document).ready(function () {
                     <div class="item">
                         <label class="col-form-label">手機號碼：</label>
                         <input type="text" name="cellphonenum" id="cellphonenum" class="inpwrite" value="${member.cellphone}"
-                            placeholder="請輸入手機號碼" readonly>
+                            placeholder="請輸入手機號碼" pattern="09[0-9]{8}" readonly>
                     </div>
                     <div class="item">
                         <label class="col-form-label">市內電話：</label>
                         <input type="text" name="telephonenum" id="telephonenum" class="inpwrite" value="${member.telephone}"
-                            placeholder="請輸入市內電話" readonly>
+                            placeholder="請輸入市內電話" pattern="0[2-8]{1}[0-9]{8}" readonly>
                     </div>
                     <div class="bindaccount">
                         <div class="title">綁定帳戶：</div>
@@ -139,6 +139,9 @@ $(document).ready(function () {
                 $('#photo p').show(); // 未有圖片時顯示
             }
 
+            if (member.password == null) {
+                $('#pwd').val('未填寫');
+            }
             if (member.birthday == null) {
                 $('#birthday').val('未填寫');
             }
@@ -171,7 +174,7 @@ $(document).ready(function () {
 
             function inputSize(input) {
                 var minSize = 10;
-                input.attr('size', input.val().length)
+                input.attr('size', input.val().length + 1)
             }
 
             $('.inpwrite').each(function () {
@@ -189,6 +192,9 @@ $(document).ready(function () {
             $('.editbtn').click(function () {
                 $('#edit').hide();
                 $('#write').show(); // 儲存與取消按鈕
+                if (member.password == null) {
+                    $('#pwd').val('');
+                }
                 if (member.birthday == null) {
                     $('#birthday').val('');
                 }
@@ -237,28 +243,47 @@ $(document).ready(function () {
                 let msg = "確定儲存?";
                 if (!confirm(msg)) return false;
 
-                // 獲取表單數據
-                var formData = new FormData($('#form')[0]);
-                axios.post('http://localhost:8080/member/update', formData, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`, // 確保這裡的 token 是正確的
-                        'Content-Type': 'multipart/form-data' // 設置內容類型為 multipart/form-data
-                    }
-                })
+                const cellphonePattern = $('#cellphonenum').attr('pattern'); // 讀取手機欄位的 pattern
+                const isValid1 = new RegExp(cellphonePattern).test($('#cellphonenum').val()); // 驗證手機號碼是否符合 pattern
+                const cellphoneInput = document.getElementById('cellphonenum');
+                const telephonePattern = $('#telephonenum').attr('pattern'); // 讀取市話欄位的 pattern
+                const isValid2 = new RegExp(telephonePattern).test($('#telephonenum').val()); // 驗證市話號碼是否符合 pattern
+                const telephoneInput = document.getElementById('telephonenum');
 
-                    .then(response => {
-                        if (response.data) {
-                            alert(response.data.message);
-                            window.location.href = 'member_personaldata.html';
+                if (!isValid1) {
+                    cellphoneInput.setCustomValidity("格式錯誤");
+                    cellphoneInput.reportValidity();
+                } else if (!isValid2) {
+                    telephoneInput.setCustomValidity("格式錯誤");
+                    telephoneInput.reportValidity();
+                } else {
+                    cellphoneInput.setCustomValidity("");
+                    cellphoneInput.reportValidity();
+                    telephoneInput.setCustomValidity("");
+                    telephoneInput.reportValidity();
+
+                    // 獲取表單數據
+                    var formData = new FormData($('#form')[0]);
+                    axios.post('http://localhost:8080/member/update', formData, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`, // 確保這裡的 token 是正確的
+                            'Content-Type': 'multipart/form-data' // 設置內容類型為 multipart/form-data
                         }
                     })
-                    .catch(error => {
-                        if (error.response && error.response.data) {
-                            alert(error.response.data.message); // 顯示後端返回的錯誤消息
-                        } else {
-                            alert('更新失敗，請稍後再試。');
-                        }
-                    });
+                        .then(response => {
+                            if (response.data) {
+                                alert(response.data.message);
+                                window.location.href = 'member_personaldata.html';
+                            }
+                        })
+                        .catch(error => {
+                            if (error.response && error.response.data) {
+                                alert(error.response.data.message); // 顯示後端返回的錯誤消息
+                            } else {
+                                alert('更新失敗，請稍後再試。');
+                            }
+                        });
+                }
             });
 
             // 取消按鈕

@@ -27,6 +27,8 @@ exports.loginEmail = (member) => {
                     db.exec(updateSql, [results[0].emailid], function (updateError) {
                         if (updateError) {
                             console.error("更新 updated_at 錯誤:", updateError);
+                            reject({ error: "更新時間失敗" }); // 返回錯誤
+                            return;
                         }
                         const token = jwt.sign(
                             {
@@ -53,15 +55,16 @@ exports.loginEmail = (member) => {
     });
 }
 
-exports.findEmail = (email) => {
+exports.findEmail = (emailid) => {
     return new Promise((resolve, reject) => {
-        var sql = "SELECT * FROM `member` WHERE email = ?";
-        db.exec(sql, [email], function (error, results, fields) {
+        var sql = "SELECT * FROM `member` WHERE emailid = ?";
+        db.exec(sql, [emailid], function (error, results, fields) {
             if (error) {
                 console.error("錯誤訊息:", error);
                 reject(error);
                 return;
             }
+
             if (results) {
                 resolve(results[0]);
             } else {
@@ -141,35 +144,52 @@ exports.registerData = async (user) => {
 
 exports.updateData = (userData) => {
     return new Promise((resolve, reject) => {
-        var sql = "UPDATE `member` SET uname = ?, email = ?, password = ?, birthday = ?, sex = ?, address = ?, cellphone = ?, telephone = ? WHERE emailid = ?";
-        var data = [
-            userData.uname,
-            userData.email,
-            userData.pwd,
-            userData.birthday,
-            userData.sex,
-            userData.address,
-            userData.cellphonenum,
-            userData.telephonenum,
-            userData.emailid
-        ];
-        // 如果 uphoto 存在，則添加到 SQL 語句和數據中
-        if (userData.uphoto !== undefined) {
-            sql = "UPDATE `member` SET uphoto = ?, " + sql.slice(31); // 在 SET 中添加 uphoto
-            data.unshift(userData.uphoto); // 將 uphoto 添加到數據的開頭
-        }
-
-        db.exec(sql, data, function (error, results, fields) {
+        var sql = "SELECT * FROM `member` WHERE emailid = ?";
+        var id = userData.emailid
+        var uphoto;
+        db.exec(sql, [id], function (error, results, fields) {
             if (error) {
                 console.error("錯誤訊息:", error);
                 reject(error);
                 return;
             }
-            if (results.affectedRows > 0) { // 確保有行被更新
-                resolve({ success: true }); // 返回成功的結果
-            } else {
-                resolve({ error: '資料更新失敗' });
+
+            // 確保查詢結果存在
+            if (results.length === 0) {
+                return resolve({ error: '未找到該會員' });
             }
+
+            if (userData.uphoto == undefined) {
+                uphoto = results[0].uphoto;
+            } else {
+                uphoto = userData.uphoto;
+            }
+
+            sql = "UPDATE `member` SET uphoto = ?, uname = ?, email = ?, password = ?, birthday = ?, sex = ?, address = ?, cellphone = ?, telephone = ? WHERE emailid = ?";
+            const data = [
+                uphoto,
+                userData.uname,
+                userData.email,
+                userData.pwd,
+                userData.birthday,
+                userData.sex,
+                userData.address,
+                userData.cellphonenum,
+                userData.telephonenum,
+                userData.emailid
+            ];
+            db.exec(sql, data, function (error, results, fields) {
+                if (error) {
+                    console.error("錯誤訊息:", error);
+                    reject(error);
+                    return;
+                }
+                if (results.affectedRows > 0) { // 確保有行被更新
+                    resolve({ success: true }); // 返回成功的結果
+                } else {
+                    resolve({ error: '資料更新失敗' });
+                }
+            });
         });
     });
 }

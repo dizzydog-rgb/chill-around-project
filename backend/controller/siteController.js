@@ -81,7 +81,7 @@ exports.getRandomCard = async (req, res) => {
     
   };
 
-  // 根據使用者選取的內容撈資料
+// 根據使用者選取的內容撈資料
 exports.getSiteTag = async (req, res) => {
     const regions = req.query.site_city; // 提取城市參數
     const tags = req.query.tag_id; // 提取標籤 ID 參數
@@ -158,3 +158,28 @@ exports.addFoodSite = async(req,res) =>{
     }
 
 }
+
+//景點加入行程
+exports.getSchedulesAndSites = async (req, res) => {
+    try {
+        const [schedules, sites] = await Promise.all([
+            schInfoModel.getScheduleData(),
+            schInfoModel.getSiteData()
+        ]);
+        res.json({ schedules, sites });
+    } catch (err) {
+        console.error('景點查詢失敗:', err);
+        res.status(500).send('景點查詢失敗');
+    }
+};
+//景點post
+exports.addSchedule = async (req, res) => {
+    const { sch_id, sch_day, sch_order, sch_spot } = req.body;
+    try {
+        await schInfoModel.addScheduleDetail(sch_id, sch_day, sch_order, sch_spot);
+        res.send('資料保存成功');
+    } catch (err) {
+        console.error('新增行程資料失敗:', err);
+        res.status(500).send('資料新增失敗');
+    }
+};

@@ -100,8 +100,11 @@
 
     .editBtn {
       display: flex;
-      justify-content: space-between;
+      justify-content: end;
       margin: 20px;
+      .dropdown {
+        margin: 0;
+      }
       .btn {
         border: none;
         padding: 0;
@@ -112,6 +115,24 @@
       .bi {
         font-size: 60px;
         border: none;
+      }
+      .dropdown-toggle::after {
+        display: none;
+      }
+      .dropdown-item, .completeArrangeBtn{
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        color: $danger;
+      }
+      .completeArrangeBtn{
+        color: #ffffff;
+      }
+      .completeArrangeBtn:hover {
+        color: #ffffff;
+      }
+      .dropdown-item:active {
+        background-color: #ffffff;
       }
     }
     .dayList {
@@ -170,9 +191,17 @@
       }
     }
     .cardList {
+      // border: 5px solid red;
       display: flex;
       flex-direction: column;
-      gap: 64px;
+      // gap: 64px;
+      #arrangeItem{
+        // border: 5px solid green;
+        padding-bottom: 64px;
+      }
+      .siteItem{
+        // border: 5px solid blue;
+      }
       .card {
         border: 1px solid $danger;
         .card-body {
@@ -472,4 +501,23 @@
       }
     }
   }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); // 半透明黑色背景
+    z-index: 999;
+  }
+  .goToFront {
+    position: relative;
+    z-index: 10000; /* 確保在遮罩層之上 */
+  }
+  // animate.style
+  .animate__animated.animate__bounce {
+    --animate-duration: 2s;
+  }
 }
+  
+
