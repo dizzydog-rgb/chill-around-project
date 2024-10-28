@@ -22,8 +22,7 @@ $(document).ready(function () {
                 day: '2-digit'
             }).replace(/\//g, '-');
 
-            var personaldataHTML = '';
-            personaldataHTML += `
+            var personaldataHTML = `
             <div id="edit" class="text-end mb-3">
                 <button type="button" class="btn btn-primary editbtn text-white">
                     <i class="fa-solid fa-pencil me-1"></i>編輯
