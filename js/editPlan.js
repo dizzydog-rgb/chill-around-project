@@ -27,8 +27,24 @@ function renderEditPlan(schedules) {
   dayList.innerHTML = "";
   cardList.innerHTML = "";
 
-  let startDate = schedules[0].edit_date.slice(0, 10);
-  let endDate = schedules[0].end_date.slice(0, 10);
+  // let startDate = schedules[0].edit_date.slice(0, 10);
+  // let endDate = schedules[0].end_date.slice(0, 10);
+  let startDate = new Date(schedules[0].edit_date)
+    .toLocaleDateString("zh-TW", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replace(/\//g, "-");
+
+  let endDate = new Date(schedules[0].end_date)
+    .toLocaleDateString("zh-TW", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replace(/\//g, "-");
+
   let diffInDays = calculateDayDifference(
     schedules[0].edit_date,
     schedules[0].end_date
@@ -144,7 +160,15 @@ function switchCurrentDay(i, schedules) {
     .querySelector(".dayList")
     .getElementsByTagName("li");
   const todayInfo = document.querySelector(".todayInfo");
-  let startDate = schedules[0].edit_date.slice(0, 10);
+  // let startDate = schedules[0].edit_date.slice(0, 10);
+  let startDate = new Date(schedules[0].edit_date)
+    .toLocaleDateString("zh-TW", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replace(/\//g, "-");
+
   let currentDate = calculateTodayDate(startDate, i);
   todayInfo.innerHTML = `<h3>${currentDate}</h3>`;
 
@@ -377,3 +401,16 @@ function calculateTodayDate(startDate, i) {
   // 輸出指定日期
   return formattedDate;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  // 延遲驗證 token，以確保頁面完全渲染
+  setTimeout(() => {
+    const token = localStorage.getItem("token");
+    console.log("TOKEN:", token);
+
+    if (!token) {
+      alert("請先登入會員");
+      window.location.href = "login.html";
+    }
+  }, 100); // 延遲100毫秒
+});

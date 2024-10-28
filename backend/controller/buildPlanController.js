@@ -33,13 +33,15 @@ exports.getAllSchedule = async (req, res) => {
     const allschedule = await buildPlanModel.findAllSchedule();
     // 如果找不到資料，回傳 404
     if (!allschedule || allschedule.length === 0) {
+      console.log(allschedule);
+
       return res.status(404).json({ message: "schedule not found" });
     }
     // 成功取得資料後回傳 JSON 給前端
     res.json(allschedule);
   } catch (error) {
     // 錯誤處理
-    console.error("Error fetching site:", error);
+    console.error("Error fetching schedule list:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };

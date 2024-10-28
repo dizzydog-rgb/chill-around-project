@@ -85,13 +85,13 @@ exports.findAllSchedule = () => {
             FROM schedule_details 
             WHERE sch_id = s.sch_id
         )
-    ORDER BY s.sch_id;;
+    ORDER BY s.sch_id;
     `;
     db.exec(query, [], (error, results, fields) => {
       if (results) {
         resolve(results);
       } else {
-        console.error("No results found or query error");
+        console.error("No shcedules list results found or query error");
         reject(new Error("No results found or query error"));
       }
     });

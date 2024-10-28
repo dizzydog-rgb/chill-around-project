@@ -25,8 +25,24 @@ function renderPlanList(schedules) {
   // 為每個計畫建立卡片
   schedules.forEach((schedule) => {
     const cardItem = document.createElement("li");
-    let startDate = schedule.edit_date.slice(0, 10);
-    let endDate = schedule.end_date.slice(0, 10);
+    // let startDate = schedule.edit_date.slice(0, 10);
+    // let endDate = schedule.end_date.slice(0, 10);
+
+    let startDate = new Date(schedule.edit_date)
+      .toLocaleDateString("zh-TW", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replace(/\//g, "-");
+
+    let endDate = new Date(schedule.end_date)
+      .toLocaleDateString("zh-TW", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replace(/\//g, "-");
 
     // 建立卡片的 HTML 結構
     cardItem.innerHTML = `
@@ -116,3 +132,16 @@ function renderPlanList(schedules) {
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  // 延遲驗證 token，以確保頁面完全渲染
+  setTimeout(() => {
+    const token = localStorage.getItem("token");
+    console.log("TOKEN:", token);
+
+    if (!token) {
+      alert("請先登入會員");
+      window.location.href = "login.html";
+    }
+  }, 100); // 延遲100毫秒
+});

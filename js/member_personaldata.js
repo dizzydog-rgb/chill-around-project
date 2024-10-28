@@ -4,7 +4,7 @@ $(document).ready(function () {
   const token = localStorage.getItem("token");
   if (!token) {
     alert("請先登入");
-    window.location.href = "./index.html";
+    window.location.href = "login.html";
     return;
   }
 
@@ -25,12 +25,7 @@ $(document).ready(function () {
         })
         .replace(/\//g, "-");
 
-<<<<<<< HEAD
-      var personaldataHTML = "";
-      personaldataHTML += `
-=======
-            var personaldataHTML = `
->>>>>>> 0086298eaefe780ae6949d70d61db806fe10e4c0
+      var personaldataHTML = `
             <div id="edit" class="text-end mb-3">
                 <button type="button" class="btn btn-primary editbtn text-white">
                     <i class="fa-solid fa-pencil me-1"></i>編輯
