@@ -1,5 +1,6 @@
 const memberModel = require("../models/memberModel");
 
+// 會員登入控制器
 exports.login = async (req, res) => {
     try {
         const result = await memberModel.loginEmail(req.body);
@@ -17,6 +18,7 @@ exports.login = async (req, res) => {
     }
 };
 
+// 傳送註冊資料控制器
 exports.registermember = async (req, res) => {
     try {
         const result = await memberModel.registerData(req.body);
@@ -37,6 +39,7 @@ exports.registermember = async (req, res) => {
     }
 };
 
+// 獲取會員資料控制器
 exports.getByemail = async (req, res) => {
     try {
         const emailid = req.currentUser.id;
@@ -52,6 +55,7 @@ exports.getByemail = async (req, res) => {
     }
 };
 
+// 更新會員資料控制器
 exports.updatemember = async (req, res) => {
     try {
         const emailid = req.currentUser.id; // 獲取當前用戶的 emailid
@@ -78,3 +82,21 @@ exports.updatemember = async (req, res) => {
         res.status(500).json({ message: "更新錯誤" });
     }
 };
+
+// 獲取使用者所有旅行計畫資料的控制器
+exports.getuserSchedule = async (req, res) => {
+    try {
+      // 從資料庫取得所有的行程資料
+      const allschedule = await memberModel.findAllSchedule();
+      // 如果找不到資料，回傳 404
+      if (!allschedule || allschedule.length === 0) {
+        return res.status(404).json({ message: "schedule not found" });
+      }
+      // 成功取得資料後回傳 JSON 給前端
+      res.json(allschedule);
+    } catch (error) {
+      // 錯誤處理
+      console.error("Error fetching site:", error);
+      res.status(500).json({ message: "Server Error" });
+    }
+  };

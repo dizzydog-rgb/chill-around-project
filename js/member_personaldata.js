@@ -25,8 +25,12 @@ $(document).ready(function () {
         })
         .replace(/\//g, "-");
 
+<<<<<<< HEAD
       var personaldataHTML = "";
       personaldataHTML += `
+=======
+            var personaldataHTML = `
+>>>>>>> 0086298eaefe780ae6949d70d61db806fe10e4c0
             <div id="edit" class="text-end mb-3">
                 <button type="button" class="btn btn-primary editbtn text-white">
                     <i class="fa-solid fa-pencil me-1"></i>編輯
