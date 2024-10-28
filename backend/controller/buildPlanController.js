@@ -26,15 +26,14 @@ exports.postNewSchedule = async (req, res) => {
   }
 };
 
-// 獲取所有旅行計畫資料的控制器
+// 獲取會員的所有旅行計畫資料的控制器
 exports.getAllSchedule = async (req, res) => {
   try {
+    const emailId = req.params.id;
     // 從資料庫取得所有的行程資料
-    const allschedule = await buildPlanModel.findAllSchedule();
+    const allschedule = await buildPlanModel.findAllSchedule(emailId);
     // 如果找不到資料，回傳 404
     if (!allschedule || allschedule.length === 0) {
-      console.log(allschedule);
-
       return res.status(404).json({ message: "schedule not found" });
     }
     // 成功取得資料後回傳 JSON 給前端
@@ -222,10 +221,10 @@ exports.deleteSiteDetailById = async (req, res) => {
 exports.postNewDayToSchedule = async (req, res) => {
   try {
     // 從 URL 參數中提取 ID、景點名稱、及景點說明
-    const { sch_id, sch_day, emailid } = req.body;
+    const { sch_id, sch_day } = req.body;
 
     // 調用 model 中的方法新增 旅行計畫
-    const result = await buildPlanModel.addNewDay(sch_id, sch_day, emailid);
+    const result = await buildPlanModel.addNewDay(sch_id, sch_day);
 
     // 成功取得資料後回傳 更新成功 的訊息給前端
     res.send({

@@ -25,17 +25,16 @@ exports.addSchedule = (planName, startDate, endDate, emailid) => {
           return reject(new Error("No schedule ID returned after insert"));
         }
 
-        console.log("新增旅行計畫成功，行程 ID:", newScheduleId);
+        console.log("新增旅行計畫成功，行程 ID:", newScheduleId, emailid);
 
         // 插入範例景點的 SQL 語句
         const detailQuery = `
-        INSERT INTO schedule_details (emailid, sch_id, sch_day, sch_order, sch_spot, sch_paragh)
-        VALUES (?, ?, ?, ?, ?, ?);
+        INSERT INTO schedule_details (sch_id, sch_day, sch_order, sch_spot, sch_paragh)
+        VALUES (?, ?, ?, ?, ?);
       `;
 
         // 預設的範例景點資料
         const detailValues = [
-          1, // emailid 預設為 1，之後帶入登入的會員ID
           newScheduleId, // sch_id 等於剛新增的 schedule 的 ID
           1, // sch_day 預設為 1
           1, // sch_order 預設為 1
@@ -67,8 +66,8 @@ exports.addSchedule = (planName, startDate, endDate, emailid) => {
   });
 };
 
-// 獲取所有行程的模組函數
-exports.findAllSchedule = () => {
+// 獲取會員的所有行程的模組函數
+exports.findAllSchedule = (emailid) => {
   return new Promise((resolve, reject) => {
     const query = `
     SELECT
@@ -79,15 +78,16 @@ exports.findAllSchedule = () => {
         schedule s
         INNER JOIN schedule_details sd ON s.sch_id = sd.sch_id
         INNER JOIN sites si ON sd.sch_spot = si.site_name
-    WHERE 
-        sd.detail_id = (
+    WHERE
+        s.emailid = ?
+        AND sd.detail_id = (
             SELECT MIN(detail_id) 
             FROM schedule_details 
             WHERE sch_id = s.sch_id
         )
     ORDER BY s.sch_id;
     `;
-    db.exec(query, [], (error, results, fields) => {
+    db.exec(query, [emailid], (error, results, fields) => {
       if (results) {
         resolve(results);
       } else {
@@ -289,16 +289,15 @@ exports.checkSiteExists = (sch_spot) => {
 };
 
 // 新增景點至特定編號行程的模組函數
-// emailid待更新
 exports.addSiteToSchedule = (sch_id, sch_day, sch_spot, sch_paragh) => {
   return new Promise((resolve, reject) => {
     const query = `
-    INSERT INTO schedule_details (emailid, sch_id, sch_day, sch_spot, sch_paragh, sch_order)
-    VALUES (?, ?, ?, ?, ?, (SELECT COALESCE(MAX(sd.sch_order), 0) + 1 FROM schedule_details AS sd WHERE sd.sch_id = ? AND sd.sch_day = ?));
+    INSERT INTO schedule_details (sch_id, sch_day, sch_spot, sch_paragh, sch_order)
+    VALUES (?, ?, ?, ?, (SELECT COALESCE(MAX(sd.sch_order), 0) + 1 FROM schedule_details AS sd WHERE sd.sch_id = ? AND sd.sch_day = ?));
   `;
     db.exec(
       query,
-      [1, sch_id, sch_day, sch_spot, sch_paragh, sch_id, sch_day],
+      [sch_id, sch_day, sch_spot, sch_paragh, sch_id, sch_day],
       (error, results, fields) => {
         if (results) {
           resolve(results);
@@ -357,17 +356,16 @@ exports.dropSiteDetailById = (detail_id) => {
 };
 
 // 新增新的一天和範例景點的模組函數
-exports.addNewDay = (sch_id, sch_day, emailid) => {
+exports.addNewDay = (sch_id, sch_day) => {
   return new Promise((resolve, reject) => {
     // 插入範例景點(同時新增新的一天)的 SQL 語句
     const query = `
-        INSERT INTO schedule_details (emailid, sch_id, sch_day, sch_order, sch_spot, sch_paragh)
-        VALUES (?, ?, ?, ?, ?, ?);
+        INSERT INTO schedule_details (sch_id, sch_day, sch_order, sch_spot, sch_paragh)
+        VALUES (?, ?, ?, ?, ?);
       `;
 
     // 預設的範例景點資料
     const detailValues = [
-      emailid, // emailid 預設為 1，之後帶入登入的會員ID
       sch_id, // sch_id 為前端傳輸的 當前計畫的ID
       sch_day, // sch_day 為前端傳輸的 要新增的天數
       1, // sch_order 預設為 1

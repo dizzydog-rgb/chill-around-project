@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const emailid = localStorage.getItem("emailid");
+
 axios
-  .get("http://localhost:8080/buildPlan/planList")
+  .get(`http://localhost:8080/buildPlan/planList/${emailid}`)
   .then(function (response) {
     const schedules = response.data;
     // console.log(schedules);
@@ -133,15 +135,13 @@ function renderPlanList(schedules) {
   });
 }
 
+// 驗證是否已登入
 document.addEventListener("DOMContentLoaded", function () {
-  // 延遲驗證 token，以確保頁面完全渲染
-  setTimeout(() => {
-    const token = localStorage.getItem("token");
-    console.log("TOKEN:", token);
+  const token = localStorage.getItem("token");
+  // console.log("TOKEN:", token);
 
-    if (!token) {
-      alert("請先登入會員");
-      window.location.href = "login.html";
-    }
-  }, 100); // 延遲100毫秒
+  if (!token) {
+    alert("請先登入會員");
+    window.location.href = "login.html";
+  }
 });

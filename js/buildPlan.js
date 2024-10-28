@@ -7,8 +7,6 @@ document.querySelector(".btn-complete").addEventListener("click", function () {
   const startDate = document.querySelector("#startDate").value;
   // 取得結束日期
   const endDate = document.querySelector("#endDate").value;
-  // 取得會員id
-  const emailid = 1;
 
   // POST 請求 (新增旅行計畫)
   axios
@@ -16,7 +14,6 @@ document.querySelector(".btn-complete").addEventListener("click", function () {
       sch_name: planName,
       start_date: startDate,
       end_date: endDate,
-      emailid: emailid,
     })
     .then(function (response) {
       console.log("旅行計畫已新增:", response.data);
@@ -29,11 +26,12 @@ document.querySelector(".btn-complete").addEventListener("click", function () {
     });
 });
 
+// 驗證是否已登入
 document.addEventListener("DOMContentLoaded", function () {
   // 延遲驗證 token，以確保頁面完全渲染
   setTimeout(() => {
     const token = localStorage.getItem("token");
-    console.log("TOKEN:", token);
+    // console.log("TOKEN:", token);
 
     if (!token) {
       alert("請先登入會員");

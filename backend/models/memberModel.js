@@ -41,7 +41,8 @@ exports.loginEmail = (member) => {
                         );
                         resolve({
                             account: results[0].email,
-                            token
+                            token,
+                            emailid: results[0].emailid
                         });
                     });
                 } else {

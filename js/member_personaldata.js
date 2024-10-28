@@ -2,11 +2,14 @@ import axios from "axios";
 
 $(document).ready(function () {
   const token = localStorage.getItem("token");
+  const emailid = localStorage.getItem("emailid");
   if (!token) {
     alert("請先登入");
     window.location.href = "login.html";
     return;
   }
+
+  console.log("用戶 ID:", emailid);
 
   axios
     .get("http://localhost:8080/member/members", {

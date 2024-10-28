@@ -109,9 +109,6 @@ function renderEditPlan(schedules) {
     `;
   }
 
-  // 以後修改 emailid
-  const emailid = 1;
-
   // 新增一天的邏輯
   const addDayBtn = document.querySelector(".addDayBtn");
   addDayBtn.addEventListener("click", () => {
@@ -125,7 +122,6 @@ function renderEditPlan(schedules) {
       .post(`http://localhost:8080/buildPlan/editPlan/addDay`, {
         sch_id: currentScheduleId,
         sch_day: newDay,
-        emailid: emailid,
       })
       .then(function (response) {
         console.log("新的一天已新增:", response.data);
@@ -402,15 +398,13 @@ function calculateTodayDate(startDate, i) {
   return formattedDate;
 }
 
+// 驗證是否已登入
 document.addEventListener("DOMContentLoaded", function () {
-  // 延遲驗證 token，以確保頁面完全渲染
-  setTimeout(() => {
-    const token = localStorage.getItem("token");
-    console.log("TOKEN:", token);
+  const token = localStorage.getItem("token");
+  // console.log("TOKEN:", token);
 
-    if (!token) {
-      alert("請先登入會員");
-      window.location.href = "login.html";
-    }
-  }, 100); // 延遲100毫秒
+  if (!token) {
+    alert("請先登入會員");
+    window.location.href = "login.html";
+  }
 });

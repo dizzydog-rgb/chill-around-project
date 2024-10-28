@@ -7,8 +7,8 @@ const buildPlanController = require("../controller/buildPlanController");
 // POST 請求: 新增特定ID行程的景點
 router.post("/buildPlan", buildPlanController.postNewSchedule);
 
-// GET 請求: 獲取所有行程資料
-router.get("/planList", buildPlanController.getAllSchedule);
+// GET 請求: 獲取會員的所有行程資料
+router.get("/planList/:id", buildPlanController.getAllSchedule);
 
 // DELETE 請求:  刪除特定ID的行程資料
 router.delete("/planList/:id", buildPlanController.deleteScheduleById);

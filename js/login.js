@@ -9,7 +9,7 @@ $('#form').submit(function (e) {
     .then(response => {
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('emailId', response.data.emailId);
+            localStorage.setItem('emailid', response.data.emailid);
             alert("登入成功!");
             window.location.href = 'member_personaldata.html';
         }
