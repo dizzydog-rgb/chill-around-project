@@ -200,7 +200,7 @@ exports.updateData = (userData) => {
 }
 
 // 獲取所有行程的模組函數
-exports.findAllSchedule = () => {
+exports.findAllSchedule = (pagedata) => {
     return new Promise((resolve, reject) => {
         const sql = `
         SELECT
@@ -218,16 +218,51 @@ exports.findAllSchedule = () => {
             SELECT MIN(detail_id)
             FROM schedule_details
             WHERE sch_id = s.sch_id
-        ) AND s.emailid = 1
+        ) AND s.emailid = ?
         ORDER BY s.sch_id
+        LIMIT ?, ?
         `;
-        db.exec(sql, [], (error, results, fields) => {
-            if (results) {
-                resolve(results);
-            } else {
-                console.error("No results found or query error");
-                reject(new Error("No results found or query error"));
+
+        const pageData = [pagedata.emailid, pagedata.offset, pagedata.nums_per_page];
+
+        db.exec(sql, pageData, (error, data, fields) => {
+            if (error) {
+                console.error("SQL Error:", error); // 輸出 SQL 錯誤
+                reject(error);
+                return;
             }
+            sql = `
+            SELECT
+                COUNT(*) AS COUNT
+            FROM
+                schedule s
+                INNER JOIN schedule_details sd ON s.sch_id = sd.sch_id
+                INNER JOIN sites si ON sd.sch_spot = si.site_name
+                INNER JOIN \`member\` m ON s.emailid = m.emailid
+            WHERE
+            sd.detail_id = (
+                SELECT MIN(detail_id)
+                FROM schedule_details
+                WHERE sch_id = s.sch_id
+            ) AND s.emailid = ?
+            `;
+            db.exec(sql, [pagedata.emailid], (error, nums, fields) => {
+                if (error) {
+                    console.error("錯誤訊息:", error);
+                    reject(error);
+                    return;
+                }
+                if (nums) {
+                    var last_page = Math.ceil(nums[0].COUNT / pagedata.nums_per_page);
+
+                    //避免請求超過最大頁數
+                    if (pagedata.page > last_page) {
+                        resolve({ message: "No more pages" });
+                        return;
+                    }
+                }
+                resolve(data); // 返回查詢結果
+            });
         });
     });
 };
