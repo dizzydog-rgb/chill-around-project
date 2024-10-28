@@ -262,7 +262,7 @@ function renderDayContent(filteredData) {
         .then(function (response) {
           const siteTags = response.data;
           document.querySelector(".tagBox").style.display = "block";
-          
+
           highlightMatchedTags(siteTags);
         })
         .catch(function (error) {

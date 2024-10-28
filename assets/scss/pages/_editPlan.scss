@@ -14,7 +14,7 @@
 
     border: 1px solid $primary;
     box-shadow: 1px 1px 1px 1px #909090;
-    padding-bottom: 400px;
+    padding-bottom: 120px;
 
     .planInfo {
       padding: 20px 20px;
@@ -119,13 +119,14 @@
       .dropdown-toggle::after {
         display: none;
       }
-      .dropdown-item, .completeArrangeBtn{
+      .dropdown-item,
+      .completeArrangeBtn {
         font-size: 20px;
         font-weight: bold;
         text-align: center;
         color: $danger;
       }
-      .completeArrangeBtn{
+      .completeArrangeBtn {
         color: #ffffff;
       }
       .completeArrangeBtn:hover {
@@ -195,11 +196,11 @@
       display: flex;
       flex-direction: column;
       // gap: 64px;
-      #arrangeItem{
+      #arrangeItem {
         // border: 5px solid green;
         padding-bottom: 64px;
       }
-      .siteItem{
+      .siteItem {
         // border: 5px solid blue;
       }
       .card {
@@ -519,5 +520,3 @@
     --animate-duration: 2s;
   }
 }
-  
-

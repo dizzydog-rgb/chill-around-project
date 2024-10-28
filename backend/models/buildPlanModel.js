@@ -318,11 +318,13 @@ exports.updateSiteOrder = (sch_id, sch_day, sch_order_array) => {
     const cases = sch_order_array
       .map((order, index) => `WHEN sch_order = ${index + 1} THEN ${order}`)
       .join(" ");
-      
+
     const query = `
       UPDATE schedule_details
       SET sch_order = CASE ${cases} END
-      WHERE sch_id = ? AND sch_day = ? AND sch_order IN (${sch_order_array.map((_, i) => i + 1).join(",")});
+      WHERE sch_id = ? AND sch_day = ? AND sch_order IN (${sch_order_array
+        .map((_, i) => i + 1)
+        .join(",")});
     `;
 
     db.exec(query, [sch_id, sch_day], (error, results) => {
@@ -335,8 +337,6 @@ exports.updateSiteOrder = (sch_id, sch_day, sch_order_array) => {
     });
   });
 };
-
-
 
 // 刪除特定景點的資料的模組函數
 exports.dropSiteDetailById = (detail_id) => {
@@ -371,8 +371,8 @@ exports.addNewDay = (sch_id, sch_day, emailid) => {
       sch_id, // sch_id 為前端傳輸的 當前計畫的ID
       sch_day, // sch_day 為前端傳輸的 要新增的天數
       1, // sch_order 預設為 1
-      "點擊卡片輸入景點名稱", // sch_spot 預設為 "請填入景點名稱"
-      "讓大家知道你計畫的目的地，分享你對這個景點的期待或想像！", // sch_paragh 預設為 "請填入景點敘述"
+      "點擊卡片輸入景點名稱", // sch_spot 預設為 "點擊卡片輸入景點名稱"
+      "讓大家知道你計畫的目的地，分享你對這個景點的期待或想像！", // sch_paragh 預設為 "讓大家知道你計畫的目的地，分享你對這個景點的期待或想像！"
     ];
 
     // 執行插入範例景點

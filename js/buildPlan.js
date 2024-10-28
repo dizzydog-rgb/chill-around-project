@@ -1,5 +1,14 @@
 import axios from "axios";
 
+const token = localStorage.getItem("token");
+console.log("TOKEN:", token);
+
+// if (!token) {
+//   alert("請先登入會員");
+//   window.location.href = "index.html";
+//   return;
+// }
+
 document.querySelector(".btn-complete").addEventListener("click", function () {
   // 取得旅行計畫名稱
   const planName = document.querySelector("#planName").value;
