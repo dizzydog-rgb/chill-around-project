@@ -185,6 +185,7 @@ function switchCurrentDay(i, schedules) {
     (schedule) => schedule.sch_day === i + 1
   );
 
+  // 更新當天景點
   renderDayContent(filteredData);
 }
 
