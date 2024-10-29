@@ -1,5 +1,4 @@
 // <---------------------- Get userbudget ---------------------->
-
 import axios from 'axios';
 
 // localStorage.setItem("scheduleId", "3");
@@ -64,6 +63,7 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
             }
 
             const logoPath = logoMapping[item.BudgetName];
+            console.log('在這!!!!!!!!',logoPath)
             const historyContentDiv = document.createElement('div');
             historyContentDiv.className = 'historyContent';
             historyContentDiv.setAttribute('data-budget-id', item.Budget_id);

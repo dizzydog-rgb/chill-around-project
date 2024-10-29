@@ -40,16 +40,14 @@ exports.getScheduleById = async (req, res) => {
 
 //已建立好的行程資料
 exports.getSch = async (req, res) => {
+    const regions = req.query.site_city; // 提取城市參數
+    const tags = req.query.tag_id; // 提取標籤 ID 參數
+
+
     try {
-        const sch = req.params.yt
-        const mySch = await schInfoModel.getScheduleCardData(sch);
-        // 如果找不到資料，回傳 404
-        if (!mySch) {
-            return res.status(404).json({ message: "video not found" });
-        }
-        // 成功取得資料後回傳 JSON 給前端
-        res.json(mySch);
-    } catch (error) {
+        const attractions = await schInfoModel.getScheduleCardData(regions, tags);
+        res.json(attractions);
+    } catch (err) {
         console.error('會員行程查詢失敗:', err);
         res.status(500).send('會員行程查詢失敗');
     }
