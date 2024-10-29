@@ -171,18 +171,18 @@ $(document).ready(function () {
                 let msg = "確定要刪除?";
                 if (!confirm(msg)) return false;
 
-                const selectedIds = [];
+                const selectschIds = [];
 
                 $('input[name="checkplan"]:checked').each(function () {
-                    selectedIds.push($(this).val());
+                    selectschIds.push($(this).val());
                 });
                 
-                if (selectedIds.length === 0) {
+                if (selectschIds.length === 0) {
                     alert("請選擇要刪除的行程！");
                     return;
                 }
 
-                const ids = selectedIds.join(','); // 用逗號分隔多個 ID
+                const ids = selectschIds.join(','); // 用逗號分隔多個 ID
 
                 axios.delete(`http://localhost:8080/member/delPlanList/${ids}`)
                     .then(response => {

@@ -24,9 +24,13 @@ router.post("/update", auth, upload.single('uphoto'), memberController.updatemem
 // GET請求: 獲取會員行程資料
 router.get("/planList/:page([0-9]+)", auth, memberController.getuserSchedule);
 
+// DELETE 請求: 刪除多筆行程資料
+router.delete("/delPlanList/:ids", memberController.deluserSchByIds);
+
 // GET請求: 獲取會員收藏的行程資料
 router.get("/myLikeSch/:page([0-9]+)", auth, memberController.getLikeSch);
 
-// DELETE 請求: 刪除多筆ID的行程資料
-router.delete("/delPlanList/:ids", memberController.deluserSchByIds);
+// DELETE 請求: 刪除多筆收藏的行程資料
+router.delete("/delmyLikeSch/:ids", memberController.delmyLikeSchByIds);
+
 module.exports = router;

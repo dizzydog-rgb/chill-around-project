@@ -286,8 +286,7 @@ $(document).ready(function () {
                     telephoneInput.setCustomValidity("");
                     telephoneInput.reportValidity();
 
-                    // 獲取表單數據
-                    var formData = new FormData($('#form')[0]);
+                    var formData = new FormData($('#form')[0]); // 獲取表單數據
                     axios.post('http://localhost:8080/member/update', formData, {
                         headers: {
                             'Authorization': `Bearer ${token}`, // 確保這裡的 token 是正確的
