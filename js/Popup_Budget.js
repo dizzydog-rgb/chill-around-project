@@ -20,7 +20,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
 
         const fixedtop = `
             <div class="topDiv2">
-                <a class="close2" href="#">＜</a>
+                <a class="close2" href="#"><</a>
                 <button class="okBtn">確認</button>
                 </div>
                 `;
@@ -52,7 +52,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
 
             newcategoryDiv.innerHTML = `
                 <div class="tiTle" data-id="${item.Bcategory_id}">
-                    ${item.BudgetName} <a>V</a>
+                    ${item.BudgetName} <a>···</a>
                 </div>
                 `;
 
