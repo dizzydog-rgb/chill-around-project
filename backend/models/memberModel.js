@@ -329,12 +329,35 @@ exports.findLikeSch = (pagedata) => {
     });
 };
 
-// 刪除多筆編號行程的模組函數
+// 刪除多筆行程編號的模組函數
 exports.dropScheduleByIds = (scheduleIds) => {
     return new Promise((resolve, reject) => {
         // 使用多個 `?` 來對應每個 `scheduleId` 的占位符
         const placeholders = scheduleIds.map(() => '?').join(',');
         const sql = `DELETE FROM schedule WHERE sch_id IN (${placeholders})`;
+
+        db.exec(sql, scheduleIds, (error, results, fields) => {
+            if (error) {
+                console.error("刪除行程錯誤:", error);
+                return reject(new Error("刪除行程錯誤"));
+            }
+
+            if (results.affectedRows > 0) {
+                resolve({ message: "行程成功刪除", affectedRows: results.affectedRows });
+            } else {
+                console.error("沒有找到行程可以刪除");
+                reject(new Error("找不到行程可刪除"));
+            }
+        });
+    });
+};
+
+// 刪除多筆收藏行程編號的模組函數
+exports.dropmyLikeSchByIds = (scheduleIds) => {
+    return new Promise((resolve, reject) => {
+        // 使用多個 `?` 來對應每個 `scheduleId` 的占位符
+        const placeholders = scheduleIds.map(() => '?').join(',');
+        const sql = `DELETE FROM member_like WHERE sch_id IN (${placeholders})`;
 
         db.exec(sql, scheduleIds, (error, results, fields) => {
             if (error) {

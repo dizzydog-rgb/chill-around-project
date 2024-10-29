@@ -11,7 +11,7 @@ $('#form').submit(function (e) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('emailid', response.data.emailid);
             alert("登入成功!");
-            window.location.href = 'member_personaldata.html';
+            location.reload();
         }
     })
     .catch(error => {

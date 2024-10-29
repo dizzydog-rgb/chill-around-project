@@ -286,8 +286,7 @@ $(document).ready(function () {
                     telephoneInput.setCustomValidity("");
                     telephoneInput.reportValidity();
 
-                    // 獲取表單數據
-                    var formData = new FormData($('#form')[0]);
+                    var formData = new FormData($('#form')[0]); // 獲取表單數據
                     axios.post('http://localhost:8080/member/update', formData, {
                         headers: {
                             'Authorization': `Bearer ${token}`, // 確保這裡的 token 是正確的
@@ -342,7 +341,7 @@ $(document).ready(function () {
             if (error.response && error.response.status === 401) {
                 alert('登入已過期，請重新登入');
                 localStorage.removeItem('token');
-                window.location.href = 'login.html';
+                window.location.href = 'index.html';
             } else {
                 alert('無法讀取會員資料:' + error);
             }
@@ -351,7 +350,7 @@ $(document).ready(function () {
     $('#logoutbtn').click(function () {
         if (confirm('您確定要登出嗎？')) {
             localStorage.removeItem('token');
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }
     });
 

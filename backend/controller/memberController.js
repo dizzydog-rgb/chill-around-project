@@ -196,3 +196,20 @@ exports.deluserSchByIds = async (req, res) => {
       res.status(500).json({ message: "刪除失敗" });
     }
   };
+
+  // 刪除使用者收藏行程的控制器
+exports.delmyLikeSchByIds = async (req, res) => {
+    try {
+      // 將 `ids` 字串轉為陣列
+      const scheduleIds = req.params.ids.split(',').map(id => parseInt(id, 10));
+      // 從資料庫刪除特定ID的行程資料
+      const result = await memberModel.dropmyLikeSchByIds(scheduleIds);
+
+      // 成功刪除後回傳 JSON 給前端
+      res.json({ message: "刪除成功", affectedRows: result.affectedRows });
+    } catch (error) {
+      // 錯誤處理
+      console.error("Error fetching site:", error);
+      res.status(500).json({ message: "刪除失敗" });
+    }
+  };
