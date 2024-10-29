@@ -232,7 +232,7 @@ exports.findAllSchedule = (pagedata) => {
                 reject(error);
                 return;
             }
-            sql = `
+            const countSql = `
             SELECT
                 COUNT(*) AS COUNT
             FROM
@@ -247,7 +247,7 @@ exports.findAllSchedule = (pagedata) => {
                 WHERE sch_id = s.sch_id
             ) AND s.emailid = ?
             `;
-            db.exec(sql, [pagedata.emailid], (error, nums, fields) => {
+            db.exec(countSql, [pagedata.emailid], (error, nums, fields) => {
                 if (error) {
                     console.error("錯誤訊息:", error);
                     reject(error);
@@ -257,7 +257,12 @@ exports.findAllSchedule = (pagedata) => {
                     const totalCount = nums[0].COUNT;
                     const lastPage = Math.ceil(nums[0].COUNT / pagedata.nums_per_page);
 
-                    resolve({ data, totalCount, lastPage });
+                    resolve({
+                        data: data,
+                        page: pagedata.page,
+                        totalCount: totalCount,
+                        lastPage: lastPage
+                    });
                 } else {
                     resolve({ data, totalCount: 0, lastPage: 0 }); // 如果沒有資料
                 }

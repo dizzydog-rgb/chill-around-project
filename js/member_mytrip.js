@@ -19,7 +19,6 @@ $(document).ready(function () {
         })
         .then(function (response) {
             const schedules = response.data.data; // 獲取行程資料
-            const totalCount = response.data.totalCount; // 獲取總筆數
             const lastPage = response.data.lastPage; // 獲取最後一頁
 
             var cardList = `
@@ -83,12 +82,25 @@ $(document).ready(function () {
             });
 
             // 生成分頁按鈕
-            let paginationButtons = '';
-            for (let i = 0; i < 5; i++) {
-                let pageNum = currentPage + i; // 當前頁數加上迴圈索引
-                if (pageNum <= lastPage) { // 確保不超過最後一頁
-                    paginationButtons += `<li><a href="?page=${pageNum}">${pageNum}</a></li>`;
+            let pageButtons = '';
+            for (let i = 1; i <= lastPage; i++) {
+                if (i == currentPage) {
+                    pageButtons += `<li class="active"><a href="?page=${i}">${i}</a></li>`;
+                }else{
+                    pageButtons += `<li><a href="?page=${i}">${i}</a></li>`;
                 }
+            }
+
+            let previousPage = currentPage - 1;
+            let innerpreviousPage = `<a href="?page=${previousPage}" title="上一頁"><i class="icon-chevron-left"></i></a>`;
+            if (previousPage <= 0) {
+                innerpreviousPage = '<a href="#" title="上一頁"><i class="icon-chevron-left"></i></a>';
+            }
+
+            let nextPage = currentPage + 1;
+            let innernextPage = `<a href="?page=${nextPage}" title="下一頁"><i class="icon-chevron-right"></i></a>`;
+            if (nextPage > lastPage) {
+                innernextPage = '<a href="#" title="下一頁"><i class="icon-chevron-right"></i></a>';
             }
 
             cardList += `
@@ -98,15 +110,15 @@ $(document).ready(function () {
                                 <a href="?page=1" title="最前一頁"><i class="icon-chevrons-left"></i></a>
                             </li>
                             <li>
-                                <a href="?page=${currentPage - 1}" title="上一頁"><i class="icon-chevron-left"></i></a>
+                                ${innerpreviousPage}
                             </li>
                         </ul>
                         <ul class="jump_btn">
-                            ${paginationButtons}
+                            ${pageButtons}
                         </ul>
                         <ul class="jump_aft">
                             <li>
-                                <a href="?page=${currentPage + 1}" title="下一頁"><i class="icon-chevron-right"></i></a>
+                                ${innernextPage}
                             </li>
                             <li>
                                 <a href="?page=${lastPage}" title="最後一頁"><i class="icon-chevrons-right"></i></a>
