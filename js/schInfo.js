@@ -3,76 +3,9 @@ import axios from 'axios';
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    //這是頁首的輪播卡片
-    // axios.get('http://localhost:8080/schInfo/getsch')
-    //     .then(response => {
-    //         const dataSite = response.data[0]; // 獲取資料
-    //         console.log("獲取到的資料:", dataSite[0]);
-
-    //         // 設定顯示卡片的最大數量
-    //         const maxCards = 10;
-    //         let cardCount = 0;
-
-    //         // 過濾出符合條件的景點
-    //         const filteredSites = dataSite.filter(data => data.sch_day === 1 && data.sch_order === 1);
-    //         console.log("過濾後的景點:", filteredSites);
-
-
-    //         // 隨機排列 filteredSites 陣列
-    //         const shuffledSites = filteredSites.sort(() => 0.5 - Math.random());
-
-    //         // 使用物件來儲存已添加的項目，以避免重複
-    //         const addedItems = {};
-
-    //         shuffledSites.forEach(function (data) {
-    //             if (cardCount >= maxCards) return; // 當顯示的卡片數達到 maxCards 時停止
-
-    //             // 使用 site_name 作為唯一標識
-    //             const uniqueKey = `${data.sch_id}-${data.sch_name}`; // 使用 sch_id 和 site_name 組合成唯一鍵
-
-    //             // 格式化 edit_date
-    //             const editDate = new Date(data.edit_date);
-    //             const formattedEditDate = `${editDate.getFullYear()}-${String(editDate.getMonth() + 1).padStart(2, '0')}-${String(editDate.getDate()).padStart(2, '0')}`;
-
-
-    //             // 檢查是否已經添加過該項目
-    //             if (!addedItems[uniqueKey]) {
-    //                 // 創建卡片 HTML
-    //                 let topPage = `
-
-    //                     <div class="swiper-slide">
-    //                <div id="siteCard" class="TopCard card bg-primary ">
-    //                    <div class="TopcardImage">
-    //                        <img src="../assets/images/searchSite/${data.photo_one}" alt="">
-    //                    </div>
-    //                    <div class="TopcardOverlay">
-    //                        <h5 class="card-title ">${data.sch_name}</h5>
-    //                        <p class="card-subtitle">${formattedEditDate}</p>
-    //                    </div>
-    //                </div>
-    //            </div>`;
-
-    //                 // 將卡片插入到 DOM
-    //                 document.querySelector(".mySwiper_1 .swiper-wrapper").insertAdjacentHTML('beforeend', topPage);
-
-    //                 // 將該項目添加到 addedItems 物件中，以避免重複
-    //                 addedItems[uniqueKey] = true;
-    //                 console.log(`添加名稱: ${data.site_name}, ID: ${data.sch_id}`);
-    //                 cardCount++; // 增加計數
-    //             } else {
-    //                 console.log(`重複名稱或 ID: ${data.site_name} (${data.sch_id})`);
-    //             }
-    //         });
-
-    //         console.log("最終添加的項目:", Object.keys(addedItems));
-    //     })
-    //     .catch(error => {
-    //         console.error('無法取得卡片的資料:', error);
-    //     });
-
-
     //獲取行程資料 without like
-    axios.get('http://localhost:8080/buildPlan/planList')
+    //http://localhost:8080/buildPlan/planList
+    axios.get('http://localhost:8080/schInfo/getsch')
         .then(response => {
             const dataSite = response.data; // 獲取資料
             console.log("獲取到的資料:", dataSite);
@@ -96,7 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 創建卡片 HTML
                 let topPage = `
                     <div class="swiper-slide">
-                        <div id="siteCard" class="TopCard card bg-primary" data-sch-id="${data.sch_id}">
+                        <div id="siteCard" class="TopCard card bg-primary" data-sch-id="${data.sch_id}
+                        ">
                             <div class="TopcardImage">
                                 <img src="../assets/images/searchSite/${data.photo_one}" alt="">
                             </div>
@@ -169,31 +103,89 @@ document.addEventListener('DOMContentLoaded', function () {
         },
     });
 
-    document.getElementById("searchButton").addEventListener("click", function(){
+
+    //搜尋標籤
+    document.getElementById("searchButton").addEventListener("click", function () {
         // 取城市和標籤選項
         const selectedCity = document.getElementById('citySelect').value;
         const selectedTag = document.getElementById('tagSelect').value;
-        
+
         console.log(selectedCity); // 確認有選到
         console.log(selectedTag);
         console.log("---------------");
-    
+
         // // 將選項儲存到 localStorage
         // localStorage.setItem('selectedCity', selectedCity);
         // localStorage.setItem('selectedTag', selectedTag);
-    
+
         // // 跳轉到 schMore.html
         // window.location.href = "/chill-around-project/pages/schMore.html";
         window.location.href = `/chill-around-project/pages/schMore.html?site_city=${encodeURIComponent(selectedCity)}&tag_id=${encodeURIComponent(selectedTag)}`;
     });
-    
 
-    //獲取行程資料 with like
-    axios.get('http://localhost:8080/buildPlan/planList')
-        .then(response => {
-            const dataSite = response.data; // 獲取資料
-            console.log("獲取到的資料:", dataSite);
 
+
+    // 初始化加載喜好項目
+    function loadLikedItems() {
+        return axios.get('http://localhost:8080/schInfo/getLikedItems')
+            .then(response => response.data); // 返回已加 Like 的 sch_id 列表
+    }
+
+
+
+    function handleLikeButtonClick(event) {
+        event.stopPropagation(); // 防止冒泡影響到其他點擊事件
+
+        const likeBtn = event.target;
+        const schId = likeBtn.getAttribute('data-sch-id');
+        const userId = likeBtn.getAttribute('data-email-id');
+        console.log("User ID:", userId, "Sch ID:", schId);
+
+        // 準備資料
+        const postData = {
+            emailid: userId, // 會員編號
+            sch_id: schId    // 景點 ID
+        };
+
+        // 判斷目前是加 like 還是取消 like
+        if (likeBtn.classList.contains('bi-heart')) {
+            // 如果是 bi-heart，則進行加入請求
+            axios.post('http://localhost:8080/schInfo/getToLike', postData)
+                .then(response => {
+                    console.log('資料已成功發送:', postData);
+                    alert("加入成功");
+                    // 切換樣式為已加 like
+                    likeBtn.classList.toggle('bi-heart');
+                    likeBtn.classList.toggle('bi-heart-fill');
+                })
+                .catch(error => {
+                    alert("加入失敗");
+                    console.error('無法發送資料:', error);
+                });
+        } else {
+            // 如果是 bi-heart-fill，則進行刪除請求
+            axios.delete('http://localhost:8080/schInfo/removeLike', { data: postData })
+                .then(response => {
+                    console.log('資料已成功刪除:', postData);
+                    alert("已取消");
+                    // 切換樣式為取消 like
+                    likeBtn.classList.toggle('bi-heart');
+                    likeBtn.classList.toggle('bi-heart-fill');
+                })
+                .catch(error => {
+                    alert("取消失敗");
+                    console.error('無法刪除資料:', error);
+                });
+        }
+    }
+
+    //渲染卡片
+    // 加載卡片列表並設置已加到我的最愛的項目
+    async function loadAndRenderCards() {
+        try {
+            const likedItems = await loadLikedItems(); // 拿到已加 Like 的 sch_id 列表
+            const response = await axios.get('http://localhost:8080/schInfo/getsch');
+            const dataSite = response.data;
             const maxCards = 8;
             let cardCount = 0;
 
@@ -203,11 +195,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (cardCount >= maxCards) return;
 
                 let startDate = data.edit_date.slice(0, 10);
-                let endDate = data.end_date.slice(5, 10);
+                const isLiked = likedItems.includes(data.sch_id); // 檢查是否已加到我的最愛
+                const heartClass = isLiked ? 'bi-heart-fill' : 'bi-heart'; // 如果已加到最愛則填滿紅心
 
                 let SchCard = `
                 <div class="col-md-3 p-0 m-0">
-                    <div id="SchCard" class="SchCard card bg-primary" data-sch-id="${data.sch_id}">
+                    <div id="SchCard" class="SchCard card bg-primary" 
+                    data-sch-id="${data.sch_id}">
                         <div class="SchcardImage">
                             <img src="../assets/images/searchSite/${data.photo_one}" alt="">
                         </div>
@@ -216,7 +210,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             <p class="card-subtitle">${startDate}</p>
                         </div>
                         <div class="btnOverlay">
-                            <a id="likeBtn" class="bi bi-heart" data-sch-id="${data.sch_id}"></a>
+                             <a id="likeBtn" class="bi ${heartClass}" 
+                                data-sch-id="${data.sch_id}"
+                                data-email-id="${data.emailid}">
+                             </a>
                         </div>
                     </div>
                 </div>`;
@@ -226,57 +223,29 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             // 點擊卡片時，將 sch_id 儲存在 localStorage
-            let cardItems = document.querySelectorAll(".SchCard");
-            cardItems.forEach((sch) => {
+            document.querySelectorAll(".SchCard").forEach((sch) => {
                 sch.addEventListener("click", (event) => {
                     const schId = event.currentTarget.getAttribute('data-sch-id');
                     localStorage.setItem('selectedSchId', schId); // 儲存 sch_id 到 localStorage
-                    console.log(schId);
-
-
-                    // 跳轉到 schCom.html
-                    window.location.href = "schCom.html";
+                    window.location.href = "schCom.html"; // 跳轉到 schCom.html 行程詳細頁
                 });
             });
 
-            // 點擊 "likeBtn" 時，切換樣式並發送資料到後端
-            document.querySelectorAll('.bi-heart').forEach((likeBtn) => {
-                likeBtn.addEventListener('click', function (e) {
-                    e.stopPropagation(); // 防止冒泡影響到其他點擊事件
-
-                    e.target.classList.toggle('bi-heart');
-                    e.target.classList.toggle('bi-heart-fill');
-
-                    // 取得卡片的 sch_id
-                    const schId = e.target.getAttribute('data-sch-id');
-
-                    // 模擬要 post 的資料，包含 sch_id 和其他相關資料
-                    const postData = {
-                        // email_id: userId, // 會員編號 (可替換為實際資料)
-                        sch_id: schId     // 景點 ID
-                    };
-
-                    // 使用 axios 進行 POST 請求，將資料發送到後端
-                    axios.post('http://localhost:8080/schInfo/getToLike', postData)
-                        .then(response => {
-                            console.log('資料已成功發送:', response.data);
-                            alert("加入成功")
-                        })
-                        .catch(error => {
-                            alert("加入失敗")
-                            console.error('無法發送資料:', error);
-                        });
-                });
+            // 為每個 like 按鈕添加點擊事件處理程序
+            document.querySelectorAll('.bi-heart, .bi-heart-fill').forEach((likeBtn) => {
+                likeBtn.addEventListener('click', handleLikeButtonClick);
             });
-
-        })
-        .catch(error => {
+        } catch (error) {
             console.error('無法取得卡片的資料:', error);
-        });
+        }
+    }
+
+    // 初始化呼叫
+    loadAndRenderCards();
 
 
 
-    //獲取景點資料
+    //獲取景點資料--------------------------------------
     axios.get('http://localhost:8080/schInfo/siteinfo')
         .then(response => {
             const dataSite = response.data;
@@ -293,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('無法取得卡片的資料:', error);
         });
 
-    // 渲染卡片
+    // 景點渲染卡片
     function renderSiteCards(dataSite, maxCards) {
         let cardCount = 0;
         dataSite.forEach(function (data) {

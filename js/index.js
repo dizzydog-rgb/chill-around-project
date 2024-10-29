@@ -74,14 +74,31 @@ axios.get('http://localhost:8080/herotag')
         // 生成按鈕 HTML
         data.forEach(tag => {
             buttonsHTML += `
-              <button type="button" class="IndexBtn btn btn-outline-primary btn-sm mx-2">
+              <button type="button" class="IndexBtn btn btn-outline-primary btn-sm mx-2" 
+              data-tag-id="${tag.tag_id}" >
                 ${tag.tag_name}
               </button>`;
         });
-
+        
         // 將內容加入 DOM
         tagContainer.innerHTML = buttonsHTML;
     })
     .catch(error => {
         console.error('無法獲取標籤資料:', error);
     });
+
+    document.getElementById('tag-container').addEventListener('click', (event) => {
+      if (event.target.classList.contains('IndexBtn')) {
+          const tagId = event.target.getAttribute('data-tag-id');
+         
+          console.log(tagId);
+
+          window.location.href = `/chill-around-project/pages/schMore.html?site_city=${encodeURIComponent}&tag_id=${encodeURIComponent(tagId)}`;
+
+          // /chill-around-project/pages/schMore.html?site_city=Taipei&tag_id=2
+          
+          // // 構建目標 URL 並導向
+          // window.location.href = `/chill-around-project/pages/schMore.html?site_city=${encodeURIComponent(siteCity)}&tag_id=${encodeURIComponent(tagId)}`;
+      }
+  });
+  
