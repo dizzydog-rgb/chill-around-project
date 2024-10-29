@@ -168,9 +168,13 @@ $(document).ready(function () {
             });
         })
         .catch(function (error) {
-            // handle error
-            console.log(error);
-            alert("資料接收失敗");
+            if (error.response && error.response.status === 401) {
+                alert('登入已過期，請重新登入');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            } else {
+                alert('無法讀取會員資料:' + error);
+            }
         });
 
     $('#logoutbtn').click(function () {
