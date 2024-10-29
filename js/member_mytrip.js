@@ -183,7 +183,6 @@ $(document).ready(function () {
                 }
 
                 const ids = selectedIds.join(','); // 用逗號分隔多個 ID
-                console.log('刪除的資料' + ids);
 
                 axios.delete(`http://localhost:8080/member/delPlanList/${ids}`)
                     .then(response => {
