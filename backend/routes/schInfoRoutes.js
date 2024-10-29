@@ -46,6 +46,12 @@ router.post('/getspot/add', schInfoController.addSchedule);
 // POST 請求:加入行程至用戶我的最愛
 //http://localhost:8080/schInfo/getToLike
 router.post('/getToLike', schInfoController.addSchToLike);
+//DELETE 請求:刪除用戶我的最愛的行程
+//http://localhost:8080/schInfo/removeLike
+router.delete('/removeLike', schInfoController.removeSchFromLike);
+//GET 請求:獲取用戶已加 Like 的行程
+// http://localhost:8080//schInfo/getLikedItems
+router.get('/getLikedItems', schInfoController.getLikedItems);
 
 
 // GET 請求:取得YTurl及部落格資料
