@@ -65,8 +65,8 @@ $(document).ready(function () {
 
                     cardList += `
                         <div class="checkcard mb-5">
-                            <label class="checkbox">
-                                <input type="checkbox" name="checkplan" id="checkplan">
+                            <label for="checkplan${schedule.sch_id}" class="checkbox">
+                                <input type="checkbox" name="checkplan" id="checkplan${schedule.sch_id}" value="${schedule.sch_id}">
                                 <span></span>
                             </label>
                             <div class="card" id="scheduleCard" data-scheduleId="${schedule.sch_id}">
@@ -138,7 +138,7 @@ $(document).ready(function () {
                             </ul>
                         </div>
                         <div id="choose" class="text-end">
-                            <button id="delbtn" type="submit" class="btn footerbtn text-white">
+                            <button id="delbtn" type="button" class="btn footerbtn text-white">
                                 確定刪除
                             </button>
                             <button id="cancelbtn" type="button" class="btn footerbtn text-white">
@@ -165,6 +165,35 @@ $(document).ready(function () {
                 $('.checkbox').show();
                 $('#choose').show();
                 $('.card').off('click');
+            });
+
+            $('#delbtn').click(function () {
+                let msg = "確定要刪除?";
+                if (!confirm(msg)) return false;
+
+                const selectedIds = [];
+
+                $('input[name="checkplan"]:checked').each(function () {
+                    selectedIds.push($(this).val());
+                });
+                
+                if (selectedIds.length === 0) {
+                    alert("請選擇要刪除的行程！");
+                    return;
+                }
+
+                const ids = selectedIds.join(','); // 用逗號分隔多個 ID
+                console.log('刪除的資料' + ids);
+
+                axios.delete(`http://localhost:8080/member/delPlanList/${ids}`)
+                    .then(response => {
+                        alert("行程刪除成功！");
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error("刪除行程失敗:", error);
+                        alert("刪除行程失敗！");
+                    });
             });
 
             $('#cancelbtn').click(function () {

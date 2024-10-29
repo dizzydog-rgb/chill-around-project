@@ -297,7 +297,7 @@ $(document).ready(function () {
                         .then(response => {
                             if (response.data) {
                                 alert(response.data.message);
-                                window.location.href = 'member_personaldata.html';
+                                location.reload();
                             }
                         })
                         .catch(error => {
