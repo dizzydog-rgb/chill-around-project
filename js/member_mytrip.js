@@ -33,109 +33,117 @@ $(document).ready(function () {
             <form>
                 <div class="mb-3">
             `;
-
-            schedules.forEach((schedule) => {
-                let startDate = new Date(schedule.edit_date);
-                let stDate = startDate.toLocaleDateString('zh-TW', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                }).replace(/\//g, '-');
-
-                let endDate = new Date(schedule.end_date);
-                let edDate = endDate.toLocaleDateString('zh-TW', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                }).replace(/\//g, '-');
-
+            if (response.data.data[0] == undefined) {
                 cardList += `
-                    <div class="checkcard mb-5">
-                        <label class="checkbox">
-                            <input type="checkbox" name="checkplan" id="checkplan">
-                            <span></span>
-                        </label>
-                        <a href="editPlan.html">
-                            <div class="card">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4">
-                                        <img src="../assets/images/searchSite/${schedule.photo_one}" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-8 text-center">
-                                        <div class="card-body">
-                                            <p class="card-text title ms-2">
-                                                ${schedule.sch_name}
-                                            </p>
-                                            <p class="card-text">
-                                                <small class="text-body-secondary">行程期間：${stDate} - ${edDate}</small>
-                                            </p>
-                                            <p class="card-text text-end">
-                                                <small class="text-body-secondary">參與編輯者:${schedule.uname}</small>
-                                            </p>
+                    <div class="alert alert-info" role="alert">
+                        目前沒有任何的行程。
+                    </div>
+                </div>`;
+            } else {
+                schedules.forEach((schedule) => {
+                    let startDate = new Date(schedule.edit_date);
+                    let stDate = startDate.toLocaleDateString('zh-TW', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit'
+                    }).replace(/\//g, '-');
+
+                    let endDate = new Date(schedule.end_date);
+                    let edDate = endDate.toLocaleDateString('zh-TW', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit'
+                    }).replace(/\//g, '-');
+
+                    cardList += `
+                        <div class="checkcard mb-5">
+                            <label class="checkbox">
+                                <input type="checkbox" name="checkplan" id="checkplan">
+                                <span></span>
+                            </label>
+                            <a href="editPlan.html">
+                                <div class="card">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <img src="../assets/images/searchSite/${schedule.photo_one}" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-8 text-center">
+                                            <div class="card-body">
+                                                <p class="card-text title ms-2">
+                                                    ${schedule.sch_name}
+                                                </p>
+                                                <p class="card-text">
+                                                    <small class="text-body-secondary">行程期間：${stDate} - ${edDate}</small>
+                                                </p>
+                                                <p class="card-text text-end">
+                                                    <small class="text-body-secondary">參與編輯者:${schedule.uname}</small>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-            `;
-            });
+                            </a>
+                        </div>
+                `;
+                });
 
-            // 生成分頁按鈕
-            let pageButtons = '';
-            for (let i = 1; i <= lastPage; i++) {
-                if (i == currentPage) {
-                    pageButtons += `<li class="active"><a href="?page=${i}">${i}</a></li>`;
-                }else{
-                    pageButtons += `<li><a href="?page=${i}">${i}</a></li>`;
+                // 生成分頁按鈕
+                let pageButtons = '';
+                for (let i = 1; i <= lastPage; i++) {
+                    if (i == currentPage) {
+                        pageButtons += `<li class="active"><a href="?page=${i}">${i}</a></li>`;
+                    } else {
+                        pageButtons += `<li><a href="?page=${i}">${i}</a></li>`;
+                    }
                 }
+
+                let previousPage = currentPage - 1;
+                let innerpreviousPage = `<a href="?page=${previousPage}" title="上一頁"><i class="icon-chevron-left"></i></a>`;
+                if (previousPage <= 0) {
+                    innerpreviousPage = '<a href="#" title="上一頁"><i class="icon-chevron-left"></i></a>';
+                }
+
+                let nextPage = currentPage + 1;
+                let innernextPage = `<a href="?page=${nextPage}" title="下一頁"><i class="icon-chevron-right"></i></a>`;
+                if (nextPage > lastPage) {
+                    innernextPage = '<a href="#" title="下一頁"><i class="icon-chevron-right"></i></a>';
+                }
+
+                cardList += `
+                        <div class="jumpbox mb-3">
+                            <ul class="jump_bef">
+                                <li>
+                                    <a href="?page=1" title="最前一頁"><i class="icon-chevrons-left"></i></a>
+                                </li>
+                                <li>
+                                    ${innerpreviousPage}
+                                </li>
+                            </ul>
+                            <ul class="jump_btn">
+                                ${pageButtons}
+                            </ul>
+                            <ul class="jump_aft">
+                                <li>
+                                    ${innernextPage}
+                                </li>
+                                <li>
+                                    <a href="?page=${lastPage}" title="最後一頁"><i class="icon-chevrons-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="choose" class="text-end">
+                            <button id="delbtn" type="button" class="btn footerbtn text-white">
+                                確定刪除
+                            </button>
+                            <button id="cancelbtn" type="button" class="btn footerbtn text-white">
+                                取消
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                `;
             }
 
-            let previousPage = currentPage - 1;
-            let innerpreviousPage = `<a href="?page=${previousPage}" title="上一頁"><i class="icon-chevron-left"></i></a>`;
-            if (previousPage <= 0) {
-                innerpreviousPage = '<a href="#" title="上一頁"><i class="icon-chevron-left"></i></a>';
-            }
-
-            let nextPage = currentPage + 1;
-            let innernextPage = `<a href="?page=${nextPage}" title="下一頁"><i class="icon-chevron-right"></i></a>`;
-            if (nextPage > lastPage) {
-                innernextPage = '<a href="#" title="下一頁"><i class="icon-chevron-right"></i></a>';
-            }
-
-            cardList += `
-                    <div class="jumpbox mb-3">
-                        <ul class="jump_bef">
-                            <li>
-                                <a href="?page=1" title="最前一頁"><i class="icon-chevrons-left"></i></a>
-                            </li>
-                            <li>
-                                ${innerpreviousPage}
-                            </li>
-                        </ul>
-                        <ul class="jump_btn">
-                            ${pageButtons}
-                        </ul>
-                        <ul class="jump_aft">
-                            <li>
-                                ${innernextPage}
-                            </li>
-                            <li>
-                                <a href="?page=${lastPage}" title="最後一頁"><i class="icon-chevrons-right"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="choose" class="text-end">
-                        <button id="delbtn" type="button" class="btn footerbtn text-white">
-                            確定刪除
-                        </button>
-                        <button id="cancelbtn" type="button" class="btn footerbtn text-white">
-                            取消
-                        </button>
-                    </div>
-                </form>
-            </div>
-            `;
             $('.mytrip').html(cardList);
 
             $('.checkbox').hide();
