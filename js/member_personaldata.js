@@ -5,7 +5,7 @@ $(document).ready(function () {
     const emailid = localStorage.getItem('emailid');
     if (!token) {
         alert("請先登入");
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
 
@@ -342,7 +342,7 @@ $(document).ready(function () {
             if (error.response && error.response.status === 401) {
                 alert('登入已過期，請重新登入');
                 localStorage.removeItem('token');
-                window.location.href = 'login.html';
+                window.location.href = 'index.html';
             } else {
                 alert('無法讀取會員資料:' + error);
             }
@@ -351,15 +351,15 @@ $(document).ready(function () {
     $('#logoutbtn').click(function () {
         if (confirm('您確定要登出嗎？')) {
             localStorage.removeItem('token');
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }
     });
 
     // 將表單數據轉換為 JSON 對象的函數
-    function serializeToJSON(data) {
-        return data.reduce((acc, { name, value }) => {
-            acc[name] = value;
-            return acc;
-        }, {});
-    }
+    // function serializeToJSON(data) {
+    //     return data.reduce((acc, { name, value }) => {
+    //         acc[name] = value;
+    //         return acc;
+    //     }, {});
+    // }
 });
