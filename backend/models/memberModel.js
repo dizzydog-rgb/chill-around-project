@@ -232,7 +232,7 @@ exports.findAllSchedule = (pagedata) => {
                 reject(error);
                 return;
             }
-            sql = `
+            const countSql = `
             SELECT
                 COUNT(*) AS COUNT
             FROM
@@ -247,22 +247,25 @@ exports.findAllSchedule = (pagedata) => {
                 WHERE sch_id = s.sch_id
             ) AND s.emailid = ?
             `;
-            db.exec(sql, [pagedata.emailid], (error, nums, fields) => {
+            db.exec(countSql, [pagedata.emailid], (error, nums, fields) => {
                 if (error) {
                     console.error("錯誤訊息:", error);
                     reject(error);
                     return;
                 }
-                if (nums) {
-                    var last_page = Math.ceil(nums[0].COUNT / pagedata.nums_per_page);
+                if (nums && nums.length > 0) {
+                    const totalCount = nums[0].COUNT;
+                    const lastPage = Math.ceil(nums[0].COUNT / pagedata.nums_per_page);
 
-                    //避免請求超過最大頁數
-                    if (pagedata.page > last_page) {
-                        resolve({ message: "No more pages" });
-                        return;
-                    }
+                    resolve({
+                        data: data,
+                        page: pagedata.page,
+                        totalCount: totalCount,
+                        lastPage: lastPage
+                    });
+                } else {
+                    resolve({ data, totalCount: 0, lastPage: 0 }); // 如果沒有資料
                 }
-                resolve(data); // 返回查詢結果
             });
         });
     });

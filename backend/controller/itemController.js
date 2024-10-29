@@ -3,40 +3,39 @@ const itemModel = require("../models/itemModel");
 // 獲得全部預算種類的控制器
 exports.getItemCategory = async (req, res) => {
     try {
-        const popupItems = await itemModel.findItemCategory();
-        res.json(popupItems);
+        const { itemCategories, itemdetails } = await itemModel.findItemCategory();
+        res.json({ itemCategories, itemdetails });
     } catch (error) {
         console.error("Error fetching popupItems:", error);
         res.status(500).json({ message: "getItemCategory Server Error" });
     }
 };
 
-// // 獲取使用者預算的控制器
-// exports.getUserBudgetID = async (req, res) => {
-//     try {
-//         // 從 URL 參數中提取 ID
-//         // const UserBudgetId = parseInt(req.params.id, 10);
-//         const UserBudgetId = req.params.id;
-//         console.log("Fetching Budget with ID:", UserBudgetId);
+// // 獲取使用者物品的控制器
+exports.getUseritemListId = async (req, res) => {
+    try {
+        // 從 URL 參數中提取 ID
+        const UseritemListId = req.params.id;
+        console.log("Fetching Budget with ID:", UseritemListId);
 
-//         // 從資料庫取得特定 ID 的景點資料
-//         const UserBudget = await BudgetModel.findUserBudgetId(UserBudgetId);
-//         console.log("UserBudgets data fetched:", UserBudget);
-//         // 如果找不到資料，回傳 404
-//         if (!UserBudget) {
-//             return res.status(404).json({ message: "UserBudgets not found" });
-//         }
-//         // 成功取得資料後回傳 JSON 給前端
-//         // console.log("PopupBudget data to send:", UserBudget);
-//         // res.json({ data: UserBudget });
-//         res.json(UserBudget);
-//     } catch (error) {
-//         // 錯誤處理
-//         // console.error("Error fetching PopupBudget:", error);
-//         // res.status(500).json({ message: "Server Error" });
-//         res.status(500).json({ message: "Server Error", error: error.message });
-//     }
-// };
+        // 從資料庫取得特定 ID 的景點資料
+        const UseritemList = await itemModel.findUseritemListId(UseritemListId);
+        console.log("UseritemList data fetched:", UseritemList);
+        // 如果找不到資料，回傳 404
+        if (!UseritemList) {
+            return res.status(404).json({ message: "UseritemList not found" });
+        }
+        // 成功取得資料後回傳 JSON 給前端
+        console.log("PopupBudget data to send:", UseritemList);
+        // res.json({ data: UseritemList });
+        res.json(UseritemList);
+    } catch (error) {
+        // 錯誤處理
+        // console.error("Error fetching PopupBudget:", error);
+        // res.status(500).json({ message: "Server Error" });
+        res.status(500).json({ message: "Server Error", error: error.message });
+    }
+};
 
 // // 取得使用者選取的預算資料方塊（編輯頁）的控制器
 // exports.getUserBudgetOneDetails = async (req, res) => {
@@ -87,20 +86,17 @@ exports.getItemCategory = async (req, res) => {
 //         .catch(err => res.status(500).send(err));
 // };
 
-// // 增加預算的控制器
-// exports.userAddBudgetController = (req, res) => {
-//     const schId = req.params.id; // 獲取預算ID
+// 增加物品大種類的控制器
+exports.userAdditemController = (req, res) => {
+    const schId = req.params.id; // 獲取預算ID
 
-//     const budgetData = {
-//         BudgetDate: req.body.BudgetDate,
-//         BudgetDetails: req.body.BudgetDetails,
-//         BudgetName: req.body.BudgetName,
-//         BudgetContent: req.body.BudgetContent,
-//         Cost: req.body.Cost,
-//         PaidStatus: req.body.PaidStatus,
-//         WhoPay: req.body.WhoPay,
-//     };
-//     BudgetModel.userAddBudget(schId, budgetData)
-//         .then(message => res.status(201).send(message))
-//         .catch(err => res.status(500).send(err));
-// };
+    const itemData = {
+        ItemDetails : req.body.ItemDetails ,
+        ItemName: req.body.ItemName,
+        PrepareStatus: req.body.PrepareStatus,
+    };
+
+    itemModel.userAdditemCategory(schId, itemData)
+        .then(message => res.status(201).send(message))
+        .catch(err => res.status(500).send(err));
+};
