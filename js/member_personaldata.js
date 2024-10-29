@@ -351,7 +351,7 @@ $(document).ready(function () {
     $('#logoutbtn').click(function () {
         if (confirm('您確定要登出嗎？')) {
             localStorage.removeItem('token');
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }
     });
 
