@@ -1,5 +1,4 @@
 // <---------------------- Get userbudget ---------------------->
-
 import axios from 'axios';
 
 // localStorage.setItem("scheduleId", "3");
@@ -33,7 +32,6 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
     .then(function (response) {
         console.log("總資料:", response.data);
 
-
         // ---------------------------------------------------- 渲染歷史紀錄區
         const historyContainer = document.querySelector('.historyDiv');
         historyContainer.innerHTML = ''; // 清空歷史紀錄
@@ -65,6 +63,7 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
             }
 
             const logoPath = logoMapping[item.BudgetName];
+            console.log('在這!!!!!!!!',logoPath)
             const historyContentDiv = document.createElement('div');
             historyContentDiv.className = 'historyContent';
             historyContentDiv.setAttribute('data-budget-id', item.Budget_id);

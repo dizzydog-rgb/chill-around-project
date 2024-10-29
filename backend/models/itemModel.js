@@ -1,10 +1,10 @@
 const db = require("../config/database");
 // 獲取特定使用者的物品頁面的模組函數
-exports.findUserBudgetId = (id) => {
+exports.findUseritemListId = (id) => {
     return new Promise((resolve, reject) => {
         const query1 = "SELECT * FROM useritemlist WHERE sch_id = ?";
-        const query2 = "SELECT SUM(CASE WHEN PrepareStatus = 1 THEN Total ELSE 0 END) AS TotalPrepared FROM useritemlist WHERE sch_id = ? ";
-        const query3 = "SELECT BudgetName, SUM(Cost) AS TotalByBudgetName FROM userbudget WHERE sch_id = ? GROUP BY BudgetName;"
+        const query2 = "SELECT ItemName, SUM(Quantity) AS CategoryPrepared FROM useritemlist WHERE sch_id = ? AND PrepareStatus = 1 GROUP BY ItemName;";
+        const query3 = "SELECT ItemName, SUM(Quantity) AS TotalByitemName FROM useritemlist WHERE sch_id = ? GROUP BY itemName;";
 
         db.exec(query1, [id], (err1, results1) => {
             if (err1) {
@@ -18,30 +18,46 @@ exports.findUserBudgetId = (id) => {
                     if (err3) {
                         return reject(err3);
                     }
-                    resolve({ UserBudget: results1, TotalAndifPaid: results2, CategoryCost: results3 });
+
+                    // 組織數據，顯示每個 ItemName 及其總數
+                    const formattedResults = results2.map(item => {
+                        return {
+                            ItemName: item.ItemName,
+                            PreparedTotalQuantity: item.CategoryPrepared
+                        };
+                    });
+
+                    resolve({ UseritemList: results1, CategoryPreparedTotal: formattedResults, CategoryTotal: results3 });
                 });
             });
         });
     });
 };
 
+
 // 獲取全部物品種類 TEST
 exports.findItemCategory = () => {
     return new Promise((resolve, reject) => {
         const query1 = "SELECT * FROM itemcategory ORDER BY Icategory_id ASC";
-        // const query2 = "SELECT * FROM itemdetails";
-        // console.log(query1);
+        const query2 = "SELECT * FROM itemdetails ORDER BY Icategory_id ASC";
 
         db.exec(query1, (err1, results1) => {
             if (err1) {
                 return reject(err1);
             }
+            db.exec(query2, (err2, results2) => {
+                if (err2) {
+                    return reject(err2);
+                }
 
-
-                resolve( results1 );
+                resolve({
+                    itemCategories: results1,
+                    itemdetails: results2
+                });
             });
         });
-    };
+    });
+};
 
 // // 使用者選取的資料區塊
 // exports.findUserBudgetOneDetails = (schId, DetailId) => {
@@ -152,51 +168,93 @@ exports.findItemCategory = () => {
 // };
 
 
-// // 編輯頁面 - 新增功能
-// exports.userAddBudget = (schId, data) => {
-//     return new Promise((resolve, reject) => {
-//         console.log("Data received in userAddBudget:", data); // 檢查接收到的資料
+// 編輯頁面 - 新增功能
+exports.userAdditemCategory = (schId, data) => {
+    return new Promise((resolve, reject) => {
+        console.log("Data received in userAdditemCategory:", data);
 
-//         // 首先查詢 Bcategory_id
-//         const categoryQuery = "SELECT Bcategory_id FROM budgetcategory WHERE BudgetName = ?";
-//         db.exec(categoryQuery, [data.BudgetName], (err, categoryResult) => {
-//             if (err) {
-//                 return reject(err);
-//             }
+        // 查詢所有匹配的 Icategory_id
+        const categoryQuery = "SELECT Icategory_id FROM itemcategory WHERE ItemName = ?";
+        db.exec(categoryQuery, [data.ItemName], (err, categoryResult) => {
+            if (err) {
+                return reject(err);
+            }
 
-//             console.log("BudgetName to query:", data.BudgetName);
+            if (categoryResult.length === 0) {
+                return reject(new Error('No matching category found'));
+            }
 
-//             // 確保找到了對應的 Bcategory_id
-//             if (categoryResult.length === 0) {
-//                 return reject(new Error('No matching category found'));
-//             }
+            const Icategory_ids = categoryResult.map(row => row.Icategory_id);
 
-//             const Bcategory_id = categoryResult[0].Bcategory_id;
+            // 確保 ItemDetails 是數組
+            const itemDetailsArray = Array.isArray(data.ItemDetails) ? data.ItemDetails : [];
+            
+            // 檢查 ItemDetails 是否為空
+            if (itemDetailsArray.length === 0) {
+                return reject(new Error('ItemDetails must be an array and cannot be empty'));
+            }
 
-//             // 準備插入預算資料
-//             const budgetData = {
-//                 sch_id: schId,
-//                 BudgetDate: data.BudgetDate,
-//                 BudgetDetails: data.BudgetDetails,
-//                 BudgetContent: data.BudgetContent,
-//                 BudgetName: data.BudgetName,
-//                 Cost: data.Cost,
-//                 PaidStatus: data.PaidStatus,
-//                 WhoPay: data.WhoPay,
-//                 Bcategory_id: Bcategory_id,
-//             };
+            console.log("ItemDetails Array:", itemDetailsArray);
 
-//             // 插入資料
-//             const query = "INSERT INTO userbudget (sch_id, BudgetDate, BudgetDetails, BudgetContent, BudgetName, Cost, PaidStatus, WhoPay, Bcategory_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//             db.exec(query, [budgetData.sch_id, budgetData.BudgetDate, budgetData.BudgetDetails, budgetData.BudgetContent, budgetData.BudgetName, budgetData.Cost, budgetData.PaidStatus, budgetData.WhoPay, budgetData.Bcategory_id], (insertErr, result) => {
-//                 if (insertErr) {
-//                     return reject(insertErr);
-//                 }
-//                 resolve('Budget added!');
-//             });
-//         });
-//     });
-// };
+            const detailsCheckQuery = "SELECT ItemDetails FROM itemdetails WHERE ItemDetails IN (?)";
+            db.exec(detailsCheckQuery, [itemDetailsArray], (checkErr, detailsResult) => {
+                if (checkErr) {
+                    return reject(checkErr);
+                }
+
+                const existingDetails = detailsResult.map(row => row.ItemDetails);
+                const newDetails = itemDetailsArray.filter(detail => !existingDetails.includes(detail));
+
+                // 如果有新 ItemDetails，則先插入到 itemdetails
+                const insertDetailsPromises = newDetails.map(detail => {
+                    return new Promise((resolveDetail, rejectDetail) => {
+                        const insertDetailQuery = "INSERT INTO itemdetails (ItemDetails, Icategory_id) VALUES (?, ?)";
+                        db.exec(insertDetailQuery, [detail, Icategory_ids[0]], (insertErr) => {
+                            if (insertErr) {
+                                return rejectDetail(insertErr);
+                            }
+                            resolveDetail();
+                        });
+                    });
+                });
+
+                Promise.all(insertDetailsPromises)
+                    .then(() => {
+                        const allDetailsQuery = "SELECT ItemDetails FROM itemdetails WHERE ItemDetails IN (?)";
+                        db.exec(allDetailsQuery, [itemDetailsArray], (allDetailsErr, allDetailsResult) => {
+                            if (allDetailsErr) {
+                                return reject(allDetailsErr);
+                            }
+
+                            // 插入每個 ItemDetails 到 useritemlist
+                            const insertPromises = allDetailsResult.map(row => {
+                                return new Promise((resolveInsert, rejectInsert) => {
+                                    const query = "INSERT INTO useritemlist (sch_id, ItemDetails, ItemName, PrepareStatus, Icategory_id) VALUES (?, ?, ?, ?, ?)";
+                                    db.exec(query, [schId, row.ItemDetails, data.ItemName, data.PrepareStatus, Icategory_ids[0]], (insertErr) => {
+                                        if (insertErr) {
+                                            return rejectInsert(insertErr);
+                                        }
+                                        resolveInsert();
+                                    });
+                                });
+                            });
+
+                            // 等待所有插入完成
+                            Promise.all(insertPromises)
+                                .then(() => {
+                                    resolve({ message: 'Items added!', Icategory_id: Icategory_ids });
+                                })
+                                .catch(reject);
+                        });
+                    })
+                    .catch(reject);
+            });
+        });
+    });
+};
+
+
+
 
 
 // // 編輯頁面 - 刪除功能

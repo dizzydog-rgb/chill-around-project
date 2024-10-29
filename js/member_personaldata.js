@@ -2,11 +2,14 @@ import axios from 'axios';
 
 $(document).ready(function () {
     const token = localStorage.getItem('token');
+    const emailid = localStorage.getItem('emailid');
     if (!token) {
         alert("請先登入");
         window.location.href = 'login.html';
         return;
     }
+
+    console.log('用戶 ID:', emailid);
 
     axios.get('http://localhost:8080/member/members', {
         headers: {
@@ -22,15 +25,14 @@ $(document).ready(function () {
                 day: '2-digit'
             }).replace(/\//g, '-');
 
-            var personaldataHTML = '';
-            personaldataHTML += `
+            var personaldataHTML = `
             <div id="edit" class="text-end mb-3">
                 <button type="button" class="btn btn-primary editbtn text-white">
                     <i class="fa-solid fa-pencil me-1"></i>編輯
                 </button>
             </div>
             <div id="write" class="text-end mb-3">
-                <button type="button" class="btn btn-secondary storebtn text-white">
+                <button type="submit" class="btn btn-secondary storebtn text-white">
                     儲存
                 </button>
                 <button type="button" class="btn btn-secondary cancelbtn text-white">
@@ -69,12 +71,12 @@ $(document).ready(function () {
                     <div class="item">
                         <div>
                             <label class="col-form-label">電子信箱：</label>
-                            <input type="text" name="email" id="email" class="inpwrite" value="${member.email}" placeholder="請輸入電子信箱"
+                            <input type="email" name="email" id="email" class="inpwrite" value="${member.email}" placeholder="請輸入電子信箱"
                                 readonly>
                         </div>
                         <div>
                             <label class="col-form-label">密碼：</label>
-                            <input type="text" name="pwd" id="pwd" class="inpwrite" value="${member.password}"  minlength="6" placeholder="請輸入密碼" readonly>
+                            <input type="text" name="pwd" id="pwd" class="inpwrite" value="${member.password}" minlength="6" placeholder="請輸入密碼" readonly>
                         </div>
                     </div>
                     <div class="item">
@@ -192,6 +194,7 @@ $(document).ready(function () {
             $('.editbtn').click(function () {
                 $('#edit').hide();
                 $('#write').show(); // 儲存與取消按鈕
+                $('#uname1').focus();
                 if (member.password == null) {
                     $('#pwd').val('');
                 }
@@ -243,6 +246,27 @@ $(document).ready(function () {
                 let msg = "確定儲存?";
                 if (!confirm(msg)) return false;
 
+                $('#email')[0].setCustomValidity("");
+                $('#pwd')[0].setCustomValidity("");
+
+                // 顯示 email 欄位的 required 錯誤訊息
+                const emailInput = document.getElementById('email');
+                if (!emailInput.checkValidity()) {
+                    emailInput.setCustomValidity("請輸入有效的電子信箱");
+                    emailInput.reportValidity();
+                    emailInput.focus(); // 將焦點移至 email 欄位
+                    return false;
+                }
+
+                // 顯示 pwd 密碼欄位的長度不足錯誤訊息
+                const pwdInput = document.getElementById('pwd');
+                if (pwdInput.value.length < 6) {
+                    pwdInput.setCustomValidity("密碼長度至少為 6 個字元");
+                    pwdInput.reportValidity();
+                    pwdInput.focus(); // 將焦點移至 pwd 欄位
+                    return false;
+                }
+
                 const cellphonePattern = $('#cellphonenum').attr('pattern'); // 讀取手機欄位的 pattern
                 const isValid1 = new RegExp(cellphonePattern).test($('#cellphonenum').val()); // 驗證手機號碼是否符合 pattern
                 const cellphoneInput = document.getElementById('cellphonenum');
@@ -251,10 +275,10 @@ $(document).ready(function () {
                 const telephoneInput = document.getElementById('telephonenum');
 
                 if (!isValid1) {
-                    cellphoneInput.setCustomValidity("格式錯誤");
+                    cellphoneInput.setCustomValidity("手機號碼格式錯誤");
                     cellphoneInput.reportValidity();
                 } else if (!isValid2) {
-                    telephoneInput.setCustomValidity("格式錯誤");
+                    telephoneInput.setCustomValidity("市內電話格式錯誤");
                     telephoneInput.reportValidity();
                 } else {
                     cellphoneInput.setCustomValidity("");
