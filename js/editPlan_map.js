@@ -25,6 +25,7 @@ async function init() {
   // 儲存多個標記的陣列
   let markers = [];
   let places = [];
+  let lines = [];
 
   function handlePlaceChange() {
     const place = placePicker.value;
@@ -37,15 +38,18 @@ async function init() {
       return;
     }
 
-    // 先清空標記
+    // 先清空標記以及線條
     markers.forEach((marker) => {
       marker.setMap(null);
+    });
+    lines.forEach((arc) => {
+      arc.setMap(null);
     });
 
     updateMap([place]);
   }
 
-  function handleSiteChangeByDay() {
+  async function handleSiteChangeByDay() {
     // 取得當天的景點名稱
     let currentSites = document.querySelectorAll(".siteItem");
     let currentSitesNameArr = [];
@@ -56,6 +60,7 @@ async function init() {
 
     // 清除舊的標記
     markers.forEach((marker) => marker.setMap(null));
+    lines.forEach((arc) => arc.setMap(null));
     markers = []; // 清空標記陣列
     places = []; // 清空地點陣列
 
@@ -63,7 +68,7 @@ async function init() {
     const bounds = new google.maps.LatLngBounds();
 
     // 使用 Places Service 進行搜索
-    currentSitesNameArr.forEach((siteName) => {
+    await currentSitesNameArr.forEach((siteName) => {
       service.textSearch({ query: siteName }, (results, status) => {
         if (
           status === google.maps.places.PlacesServiceStatus.OK &&
@@ -90,6 +95,7 @@ async function init() {
   function updateMap(places) {
     markers.forEach((marker) => marker.setMap(null));
     markers = [];
+    let currentInfoWindow = null;
 
     // 為每個地方創建標記
     places.forEach((place) => {
@@ -103,11 +109,17 @@ async function init() {
       newMarker.addListener("gmp-click", () => {
         const infoWindow = new google.maps.InfoWindow();
 
-        infoWindow.close();
+        if (currentInfoWindow) {
+          currentInfoWindow.close();
+        }
+
         infoWindow.setContent(
           `<strong style="font-size: 26px; color: #4A859F">${newMarker.title}</strong>`
         );
         infoWindow.open(newMarker.map, newMarker);
+
+        // 更新當前的InfoWindow
+        currentInfoWindow = infoWindow;
       });
 
       // 儲存每個標記
@@ -124,6 +136,31 @@ async function init() {
       });
       markers[i].appendChild(pin.element);
     }
+
+    // 清除之前的線條，重新繪製連接兩兩標記之間的線
+    // lines.forEach((arc) => arc.setMap(null));
+    // lines = [];
+
+    // for (let i = 0; i < markers.length - 1; i++) {
+    //   const start = markers[i].position;
+    //   const end = markers[i + 1].position;
+    //   // const controlPoint = calculateControlPoint(start, end);
+    //   // const path = generateArcPath(start, end, controlPoint);
+
+    //   // 創建新的 Polyline 以連接相鄰的標記
+    //   const arc = new google.maps.Polyline({
+    //     path: [start, end],
+    //     geodesic: true,
+    //     strokeColor: "#A35840",
+    //     strokeOpacity: 0.8,
+    //     strokeWeight: 5,
+    //     map: map.innerMap,
+    //   });
+
+    //   // 將線條添加到陣列，以便之後可以控制
+    //   lines.push(arc);
+    //   arc.setMap(map.innerMap); // 將線條添加到地圖上
+    // }
   }
 
   // 初始化後先顯示當天的標記
@@ -132,14 +169,41 @@ async function init() {
 
 document.addEventListener("DOMContentLoaded", init);
 
-// for (let i = 0; i < markers.length - 1; i++) {
-//   // 創建線條
-//   const line = new google.maps.Polyline({
-//     path: [markers[i].position, markers[i + 1].position],
-//     strokeColor: "#FF0000",
-//     strokeOpacity: 0.8,
-//     strokeWeight: 2,
-//   });
-//   // 將線條添加至地圖上
-//   line.setMap(map);
+// function calculateControlPoint(start, end) {
+//   const latOffset = 0.005; // 調整此偏移量以改變弧度
+//   const lngOffset = 0.005;
+
+//   // 計算中點，並在緯度或經度上添加偏移來形成弧線
+//   const midLat = (start.lat + end.lat) / 2 + latOffset;
+//   const midLng = (start.lng + end.lng) / 2 + lngOffset;
+
+//   return new google.maps.LatLng(midLat, midLng);
+// }
+
+// function generateArcPath(start, end, control, numPoints = 50) {
+//   const path = [];
+//   // 確保 start、end 和 control 是 LatLng 對象
+//   start =
+//     start instanceof google.maps.LatLng ? start : new google.maps.LatLng(start);
+//   end = end instanceof google.maps.LatLng ? end : new google.maps.LatLng(end);
+//   control =
+//     control instanceof google.maps.LatLng
+//       ? control
+//       : new google.maps.LatLng(control);
+
+//   // 使用貝塞爾曲線生成多個中間點
+//   for (let i = 0; i <= numPoints; i++) {
+//     const t = i / numPoints;
+//     const lat =
+//       (1 - t) * (1 - t) * start.lat() +
+//       2 * (1 - t) * t * control.lat() +
+//       t * t * end.lat();
+//     const lng =
+//       (1 - t) * (1 - t) * start.lng() +
+//       2 * (1 - t) * t * control.lng() +
+//       t * t * end.lng();
+//     path.push(new google.maps.LatLng(lat, lng));
+//   }
+
+//   return path;
 // }
