@@ -7,6 +7,7 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap");
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
       function changeImage(image) {
         console.log(image);
@@ -177,55 +178,51 @@
             <p>隨著時代變遷，及因應台中市都市計劃規劃發展之需，台中酒廠於1998年搬遷到台中工業區新廠，留下大片工業遺址與歷史建築。2002年7月台中市政府將全區主要建物登錄為歷史建築，舊酒廠得以完整保留。現發展成為文化部五大文化創意產業園區之。舊台中酒廠從此由製酒工業遺址活化新生，蛻變成文化創意產業的推展基地。</p>
           </div>
         </section>
-         <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 w-100">
-                    <label for="itinerarySelect" class="form-label">選擇行程</label>
-                    <select class="form-select" id="itinerarySelect">
-                        <option value="" selected>請選擇行程</option>
-                        <option value="itinerary1">行程 1</option>
-                        <option value="itinerary2">行程 2</option>
-                        <option value="itinerary3">行程 3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
-                    <label for="daySelect" class="form-label">選擇天數</label>
-                    <select class="form-select" id="daySelect">
-                        <option value="" selected>請選擇天數</option>
-                        <option value="day1">第 1 天</option>
-                        <option value="day2">第 2 天</option>
-                        <option value="day3">第 3 天</option>
-                    </select>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary">保存選擇</button>
-            </div>
-        </div>
-   </div>
-  </div>
-
+     <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+ aria-hidden="true">
+ <div class="modal-dialog">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal"
+                 aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+             <div class="mb-3 w-100">
+                 <label for="itinerarySelect" class="form-label">選擇行程</label>
+                 <select class="form-select" id="itinerarySelect">
+                     <option value="" selected>請選擇行程</option>
+                     <option value="itinerary1">行程 1</option>
+                     <option value="itinerary2">行程 2</option>
+                     <option value="itinerary3">行程 3</option>
+                 </select>
+             </div>
+         </div>
+         <div class="modal-body">
+             <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                 <label for="daySelect" class="form-label">選擇天數</label>
+                 <select class="form-select" id="daySelect">
+                     <option value="" selected>請選擇天數</option>
+                     <option value="day1">第 1 天</option>
+                     <option value="day2">第 2 天</option>
+                     <option value="day3">第 3 天</option>
+                 </select>
+             </div>
+         </div>
+         <div class="modal-footer">
+             <button type="button" class="btn btn-secondary Close"
+                 data-bs-dismiss="modal">關閉</button>
+             <button type="button" class="btn btn-primary Save">保存選擇</button>
+         </div>
+     </div>
+ </div>
+</div>
     <!-- footer -->
     <%- include('./layout/footer'); -%>
   </div>
   <script type="module" src="/main.js"></script>
   <script type="module" src="../js/siteInfo.js">
-      
-
-
       //  function changeImage(image) {
       //   document.getElementById("mainImage").src = image;
       // }
@@ -247,11 +244,6 @@
       //           $('#itinerarySelect').val(''); // 重置行程選擇
       //           $('#daySelect').val(''); // 重置天數選擇
       //       });
-
-      
-
-
-
       // });
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -18,8 +18,9 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
     console.log('景點資料:', response.data);
     // 這裡可以進一步處理獲取的資料，例如更新 UI
     // 假設 response.data 有 title, startDate 和 endDate 屬性
-    const { site_name,site_phone,site_add , site_opentime, site_web,site_info,photo_one,photo_two,photo_three,photo_four } = response.data;
+    const { site_id , site_name,site_phone,site_add , site_opentime, site_web,site_info,photo_one,photo_two,photo_three,photo_four } = response.data;
     console.log(photo_one);
+    console.log(site_name);
     
     // 更新 UI，顯示資料
     document.getElementById('topImage').innerHTML = `
@@ -155,14 +156,23 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
                     
                 </div>
             </div>
-            <p>官方網址：
+            <div class="infoWeb">
+            <p>官方網址：</p>
             <a href=" ${site_web}" target="_blank"> ${site_web}</a>
-            </p>
+            </div>
+            
           </div>
-          <div class="addBtn text-end" >
-              <button type="button" class="addBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  加入行程
-              </button>
+          <div class="addBtn text-end" id= >
+              <button type="button" class="addBtn btn btn-primary loadSchedule" 
+                            data-site-id="${site_id}" 
+                            data-site-name="${site_name}" 
+                            data-site-add="${site_add}"
+                            data-site-info="${site_info}"
+                            data-site-img="${photo_one}"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#exampleModal">
+                            加入行程
+                        </button> 
               </div>
         </div>
           <!-- 下方解說 -->
@@ -171,6 +181,8 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
             <p class="detailsInfo">${site_info}</p>
           </div>
     `;
+    bindLoadScheduleEvents()
+
     function changeImage(image) {
         console.log(image);
         
@@ -180,28 +192,112 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
   .catch(error => {
     console.error('無法取得景點資料:', error);
   });
+// 綁定 "加入行程" 按鈕點擊事件
+function bindLoadScheduleEvents() {
+    let selectedSchID;
+    let selectedSiteData;
+    const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
+    loadScheduleButtons.forEach(button => {
+        button.addEventListener('click', async (event) => {
+            if (!token) {
+                event.preventDefault(); 
+                event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
+                alert("請先登入");
+                window.location.href = 'index.html';
+                return;
+            }
 
+            event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
-  $(document).ready(function() {
-    //modal
-        // 當選擇行程時，顯示天數選擇
-        $('#itinerarySelect').change(function () {
-            if ($(this).val()) {
-                $('#daySelectContainer').show(); // 顯示天數選擇
-            } else {
-                $('#daySelectContainer').hide(); // 隱藏天數選擇
+            const siteId = button.getAttribute('data-site-id');
+            const siteName = button.getAttribute('data-site-name');
+            const siteAdd = button.getAttribute('data-site-add');
+            const siteInfo = button.getAttribute('data-site-info');
+            const siteImg = button.getAttribute('data-site-img');
+
+            selectedSiteData = {
+                site_id: siteId,
+                site_name: siteName,
+                site_add: siteAdd,
+                site_info: siteInfo,
+                site_img: siteImg
+            };
+
+            console.log(selectedSiteData);
+
+            try {
+                const { data } = await axios.get('http://localhost:8080/schInfo/getspot');
+                console.log('獲取的行程資料:', data);
+
+                const selectElement = document.getElementById('itinerarySelect');
+                selectElement.innerHTML = '<option value="" selected>請選擇行程</option>';
+                const optionsHTML = data.schedules.map(schedule => {
+                    return `<option value="${schedule.sch_name}" data-schedule-id="${schedule.sch_id}" data-days="${schedule.days}">${schedule.sch_name}</option>`;
+                }).join('');
+                selectElement.innerHTML += optionsHTML;
+
+                showModal();
+            } catch (error) {
+                console.error('獲取行程資料失敗', error);
             }
         });
+    });
 
-        // 確保關閉模態框時，隱藏天數選擇
-        $('#exampleModal').on('hide.bs.modal', function () {
-            $('#daySelectContainer').hide(); // 隱藏天數選擇
-            $('#itinerarySelect').val(''); // 重置行程選擇
-            $('#daySelect').val(''); // 重置天數選擇
-        });
+    // 行程選擇變更事件
+    document.getElementById('itinerarySelect').addEventListener('change', () => {
+        const selectedOption = document.querySelector('#itinerarySelect :checked');
+        const days = Number(selectedOption.dataset.days) + 1;
+        selectedSchID = selectedOption.dataset.scheduleId;
 
-  
+        const daySelectContainer = document.getElementById('daySelectContainer');
+        const daySelectElement = document.getElementById('daySelect');
+        daySelectElement.innerHTML = '';
 
+        if (days) {
+            daySelectContainer.style.display = 'block';
+            console.log('選取的天數:', days);
 
+            const dayOptionsHTML = Array.from({ length: days }, (_, i) =>
+                `<option value="${i + 1}">第 ${i + 1} 天</option>`
+            ).join('');
+            daySelectElement.innerHTML += dayOptionsHTML;
+        } else {
+            daySelectContainer.style.display = 'none';
+            daySelectElement.innerHTML = '<option value="">請先選擇行程</option>';
+        }
+    });
 
-  });
+    // 保存行程事件
+    document.querySelector('.Save').addEventListener('click', async () => {
+        const dayNumber = Number(document.getElementById('daySelect').value);
+
+        const dataToSave = {
+            sch_id: selectedSchID,
+            sch_day: dayNumber,
+            sch_order: "1",  // 將順序設為 1
+            sch_spot: selectedSiteData.site_name,
+            sch_info: selectedSiteData.site_info,
+            sch_img: selectedSiteData.site_img
+        };
+
+        try {
+            await axios.post('http://localhost:8080/schInfo/getspot/add', dataToSave);
+            alert('行程保存成功');
+            console.log('Data to Save:', dataToSave);
+            // 使用 jQuery 來隱藏模態框
+            $('#exampleModal').modal('hide');
+        } catch (error) {
+            alert('保存行程失敗');
+            console.error('保存行程失敗', error);
+        }
+    });
+}
+
+// 顯示 modal
+function showModal() {
+    const modal = document.getElementById('exampleModal');
+    modal.classList.add('show');
+    modal.style.display = 'block';
+    document.body.classList.add('modal-open');
+}
+document.getElementById

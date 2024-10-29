@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 綁定 PUT/POST 事件至 Modal 中的完成按鈕
   document.getElementById("save-site").addEventListener("click", () => {
+    // 取得會員id
     const siteName = currentModal.querySelector('input[name="siteName"]').value;
     const siteDescription = currentModal.querySelector(
       'textarea[name="siteParagh"]'

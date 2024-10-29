@@ -26,10 +26,10 @@
                 </ul>
                 <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
                     <li class="nav-item d-flex p-2">
-                        <span id="welcomeMessage" class="me-3"></span>
+                        <button id="logoutBtn" class="btn" type="button" class="btn text-white loginbtn" 
+                                style="display: none;">會員登出</button>
                     </li>
                     <li class="nav-item d-flex p-2">
-                
                         <button id="loginBtn" class="btn" type="button" class="btn text-white loginbtn" data-bs-toggle="modal"
                         data-bs-target="#loginModal">登入</button>
                     </li>
@@ -41,6 +41,7 @@
         </div>
     </nav>
 </header>
+
 <!--login modal -->
 <div class="modal fade login" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -49,18 +50,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="form">
                     <h3 class="mb-3 text-center">會員登入</h3>
                     <div class="mb-3">
                         <label for="inputAccount" class="col-form-label">帳號:</label>
-                        <input type="text" class="form-control" id="inputAccount" name="inputAccount">
+                        <input type="email" class="form-control" id="inputAccount" name="inputAccount" required
+                            autofocus>
                     </div>
                     <div class="mb-3">
                         <label for="inputPassword" class="col-form-label">密碼:</label>
-                        <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+                        <input type="password" class="form-control" id="inputPassword" name="inputPassword"
+                            required>
                     </div>
                     <div class="mb-3 text-center">
-                        <button type="submit" class="btn signinbtn text-white me-3">登入</button>
+                        <button id="loginbtn" type="submit" class="btn signinbtn text-white me-3">登入</button>
                         <a href="register.html" class="btn registerbtn text-white">會員註冊</a>
                     </div>
                 </form>
@@ -83,28 +86,50 @@
         </div>
     </div>
 </div>
+
+
 <script src="https://accounts.google.com/gsi/client" async></script>
+<script type="module" src="../js/login.js"></script>
 <script>
-    // // 假設用戶已登入的狀態
-    // let isLoggedIn = false;
+// 假設用戶已登入的狀態
+const token = localStorage.getItem('token'); // 獲取 token
+console.log(token);
+let isLoggedIn = false;
 
-    // // 取得按鈕和歡迎訊息元素
-    // const loginButton = document.getElementById('loginBtn');
-    // const welcomeMessage = document.getElementById('welcomeMessage');
+// 取得按鈕
+const loginButton = document.getElementById('loginBtn');
+const logoutButton = document.getElementById('logoutBtn');
 
-    // // 點擊按鈕的事件處理
-    // loginButton.addEventListener('click', function () {
-    //     if (isLoggedIn) {
-    //         // 如果已登入，執行登出操作
-    //         isLoggedIn = false;
-    //         loginButton.innerText = '登入';
-    //         welcomeMessage.innerText = '';
-    //     } else {
-    //         // 如果未登入，執行登入操作
-    //         isLoggedIn = true;
-    //         loginButton.innerText = '登出';
-    //         welcomeMessage.innerText = 'Hi，使用者名稱';  // 可以加入用戶名的邏輯
-    //     }
-    // });
+if (token) {
+    isLoggedIn = true; // 登錄狀態更新
+    loginButton.style.display = 'none'; // 隱藏登入按鈕
+    logoutButton.style.display = 'block'; // 顯示登出按鈕
+    
+    // 獲取導航菜單元素
+    const navList = document.querySelector('.offcanvas-body .navbar-nav');
+    
+    // 創建新的 li 元素
+    const memberCenterItem = document.createElement('li');
+    memberCenterItem.className = 'nav-item my-2';
+    memberCenterItem.innerHTML = '<a href="member_personaldata.html" class="nav-link">會員中心</a>'; // 更改 href 到正確的會員中心頁面
+    
+    // 將新的 li 插入到導航菜單的末尾
+    navList.appendChild(memberCenterItem);
+}
+// 點擊登出按鈕事件處理
+logoutButton.addEventListener('click', function () {
+        if (isLoggedIn) {
+            // 如果已登入，執行登出操作
+            if (confirm('您確定要登出嗎？')) {
+                localStorage.removeItem('token');
+                alert("登出成功!");
+               
+                isLoggedIn = false; // 更新登入狀態
+                logoutButton.style.display = 'none'; // 隱藏登出按鈕
+                loginButton.style.display = 'block'; // 顯示登入按鈕
 
+                window.location.href = 'index.html'; // 跳轉到首頁
+            }
+        } 
+    });
 </script>
