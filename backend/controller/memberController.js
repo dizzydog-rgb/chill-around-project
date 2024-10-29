@@ -136,6 +136,7 @@ exports.getuserSchedule = async (req, res) => {
     }
 };
 
+// 獲取使用者收藏的旅行計畫資料的控制器
 exports.getLikeSch = async (req, res) => {
     try {
         // 沒接收到前用戶的 emailid
@@ -178,3 +179,20 @@ exports.getLikeSch = async (req, res) => {
         res.status(500).json({ message: "Server Error" });
     }
 };
+
+// 刪除使用者旅行計畫資料的控制器
+exports.deluserSchByIds = async (req, res) => {
+    try {
+      // 將 `ids` 字串轉為陣列
+      const scheduleIds = req.params.ids.split(',').map(id => parseInt(id, 10));
+      // 從資料庫刪除特定ID的行程資料
+      const result = await memberModel.dropScheduleByIds(scheduleIds);
+
+      // 成功刪除後回傳 JSON 給前端
+      res.json({ message: "刪除成功", affectedRows: result.affectedRows });
+    } catch (error) {
+      // 錯誤處理
+      console.error("Error fetching site:", error);
+      res.status(500).json({ message: "刪除失敗" });
+    }
+  };
