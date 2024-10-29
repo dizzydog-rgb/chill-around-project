@@ -1,4 +1,9 @@
 import axios from "axios";
+// 在 DOM 內容加載完成時調用隨機函數
+document.addEventListener('DOMContentLoaded', () => {
+    showRandomAttractions(); // 顯示隨機的景點
+    showFoodStore();
+});
 
 document.getElementById("searchButton").addEventListener("click", function(){
     // this.alert('Search');
@@ -182,7 +187,7 @@ function showFoodStore() {
                 createFoodCard(attraction);
             });
             siteCardClickEvents()
-            bindLoadScheduleEvents()
+            bindLoadScheduleEventsFood()
 
         })
         .catch(error => {
@@ -215,8 +220,6 @@ function siteCardClickEvents() {
     });
 }
 
-
-
  // 綁定 "加入行程" 按鈕點擊事件
  function bindLoadScheduleEvents() {
     let selectedSchID;
@@ -224,6 +227,14 @@ function siteCardClickEvents() {
     const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
     loadScheduleButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
+            if (!token) {
+                event.preventDefault(); 
+                event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
+                alert("請先登入");
+                window.location.href = 'index.html';
+                return;
+            }
+
             event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
             const siteId = button.getAttribute('data-site-id');
@@ -309,13 +320,21 @@ function siteCardClickEvents() {
         }
     });
 }
- // 綁定美食地圖 "加入行程" 按鈕點擊事件
- function bindLoadScheduleEventsA() {
+ // 綁定 "加入行程" 按鈕點擊事件
+ function bindLoadScheduleEventsFood() {
     let selectedSchID;
     let selectedSiteData;
     const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
     loadScheduleButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
+            if (!token) {
+                event.preventDefault(); 
+                event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
+                alert("請先登入");
+                window.location.href = 'index.html';
+                return;
+            }
+
             event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
             const siteId = button.getAttribute('data-site-id');
@@ -401,6 +420,7 @@ function siteCardClickEvents() {
         }
     });
 }
+
 
 // 顯示 modal
 function showModal() {
@@ -411,10 +431,6 @@ function showModal() {
 }
 
 
-// 在 DOM 內容加載完成時調用隨機函數
-document.addEventListener('DOMContentLoaded', () => {
-    showRandomAttractions(); // 顯示隨機的景點
-    showFoodStore();
-});
+
 
 
