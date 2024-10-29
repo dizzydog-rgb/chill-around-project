@@ -342,7 +342,7 @@ $(document).ready(function () {
             if (error.response && error.response.status === 401) {
                 alert('登入已過期，請重新登入');
                 localStorage.removeItem('token');
-                window.location.href = 'login.html';
+                window.location.href = 'index.html';
             } else {
                 alert('無法讀取會員資料:' + error);
             }
