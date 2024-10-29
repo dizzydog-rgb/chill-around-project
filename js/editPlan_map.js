@@ -95,6 +95,7 @@ async function init() {
   function updateMap(places) {
     markers.forEach((marker) => marker.setMap(null));
     markers = [];
+    // 儲存當前開啟的 infoWindow
     let currentInfoWindow = null;
 
     // 為每個地方創建標記
