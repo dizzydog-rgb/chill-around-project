@@ -57,9 +57,10 @@ exports.getSch = async (req, res) => {
 
 //景點加入行程
 exports.getSchedulesAndSites = async (req, res) => {
+    const emailid = req.params.emailid; // 確保你從請求中獲取 emailid
     try {
         const [schedules, sites] = await Promise.all([
-            schInfoModel.getScheduleData(),
+            schInfoModel.getScheduleData(emailid), // 將 emailid 傳遞給該函數
             schInfoModel.getSiteData()
         ]);
         res.json({ schedules, sites });
@@ -68,6 +69,7 @@ exports.getSchedulesAndSites = async (req, res) => {
         res.status(500).send('景點查詢失敗');
     }
 };
+
 
 //加入我的最愛
 exports.addSchToLike = async (req, res) => {

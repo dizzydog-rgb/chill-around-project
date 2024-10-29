@@ -37,7 +37,7 @@ router.get("/schPlanned/:id", schInfoController.getScheduleById);
 
 // GET 請求:同時取得會員已編輯的行程及景點資料
 //http://localhost:8080/schInfo/getspot
-router.get('/getspot', schInfoController.getSchedulesAndSites);
+router.get('/getspot/:emailid', schInfoController.getSchedulesAndSites);
 
 // POST 請求:加入行程至用戶選取當日的最前面
 //http://localhost:8080/schInfo/getspot/add
@@ -51,7 +51,7 @@ router.post('/getToLike', schInfoController.addSchToLike);
 router.delete('/removeLike', schInfoController.removeSchFromLike);
 //GET 請求:獲取用戶已加 Like 的行程
 // http://localhost:8080//schInfo/getLikedItems
-router.get('/getLikedItems', schInfoController.getLikedItems);
+router.get('/getLikedItems/:emailid', schInfoController.getLikedItems);
 
 
 // GET 請求:取得YTurl及部落格資料

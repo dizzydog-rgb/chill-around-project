@@ -130,23 +130,43 @@ exports.findSite = () => {
 // SELECT s.sch_id, s.sch_name, s.edit_date, s.end_date, DATEDIFF(s.end_date, s.edit_date) AS days, MAX(sd.sch_order) AS max_sch_order, sd.sch_day FROM schedule s LEFT JOIN schedule_details sd ON s.sch_id = sd.sch_id GROUP BY s.sch_id, s.sch_name, s.edit_date, s.end_date, sd.sch_day;
 
 //取得行程資料
-exports.getScheduleData = () => {
+exports.getScheduleData = (emailid) => {
   return new Promise((resolve, reject) => {
-    const query =
-      `SELECT DISTINCT sch_id, sch_name, edit_date, end_date, 
-       DATEDIFF(end_date, edit_date) AS days FROM schedule`;
+    // 修改查詢語句以篩選特定 emailid
+    const query = `
+      SELECT DISTINCT emailid, sch_id, sch_name, edit_date, end_date, 
+      DATEDIFF(end_date, edit_date) AS days 
+      FROM schedule 
+      WHERE emailid = ?`; // 使用 ? 佔位符以避免 SQL 注入
 
     console.log("觀看這行" + db); // 在此行查看 db 的內容
-    db.exec(query, [], (err, results) => {
+    db.exec(query, [emailid], (err, results) => { // 將 emailid 作為查詢參數傳入
       if (err) {
         return reject(err);
       }
-      // 如果查詢結果有資料，返回第一筆
-      //   resolve(results[0]);
+      // 返回查詢結果
       resolve(results);
     });
   });
 };
+
+// exports.getScheduleData = () => {
+//   return new Promise((resolve, reject) => {
+//     const query =
+//       `SELECT DISTINCT emailid, sch_id, sch_name, edit_date, end_date, 
+//        DATEDIFF(end_date, edit_date) AS days FROM schedule`;
+
+//     console.log("觀看這行" + db); // 在此行查看 db 的內容
+//     db.exec(query, [], (err, results) => {
+//       if (err) {
+//         return reject(err);
+//       }
+//       // 如果查詢結果有資料，返回第一筆
+//       //   resolve(results[0]);
+//       resolve(results);
+//     });
+//   });
+// };
 
 //得到點擊card的資料
 exports.getSiteData = () => {
@@ -243,17 +263,33 @@ exports.deleteScheduleId = (emailid, sch_id) => {
 // 獲取用戶已加 Like 的行程 ID
 exports.getLikedItems = (emailid) => {
   return new Promise((resolve, reject) => {
-      const sql = 'SELECT sch_id FROM member_like ';
+      const sql = 'SELECT sch_id FROM member_like WHERE emailid = 1';
+      console.log('執行的 SQL 查詢:', sql, '參數:', emailid);
       db.exec(sql, [emailid], (err, result) => {
           if (err) {
               console.error('查詢失敗:', err);
               return reject(err);
           }
-          // 返回 sch_id 陣列
+          console.log('查詢結果:', result);
           resolve(result.map(row => row.sch_id));
       });
   });
 };
+
+
+// exports.getLikedItems = (emailid) => {
+//   return new Promise((resolve, reject) => {
+//       const sql = 'SELECT sch_id FROM member_like ';
+//       db.exec(sql, [emailid], (err, result) => {
+//           if (err) {
+//               console.error('查詢失敗:', err);
+//               return reject(err);
+//           }
+//           // 返回 sch_id 陣列
+//           resolve(result.map(row => row.sch_id));
+//       });
+//   });
+// };
 
 
 //影片連結
