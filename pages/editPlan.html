@@ -8,8 +8,8 @@
       src="https://unpkg.com/@googlemaps/extended-component-library@0.6"
     ></script>
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
     <title>Find Some Fun !</title>
   </head>
@@ -137,7 +137,7 @@
               </div>
             </div>
 
-            <!-- 添加行程的modal -->
+            <!-- 添加景點的modal -->
             <div
               class="modal modal-lg fade"
               id="staticBackdrop"
@@ -161,25 +161,25 @@
                   </div>
                   <div class="modal-body">
                     <div class="inputBox">
-                      <h3>行程名稱</h3>
+                      <h3>景點名稱</h3>
                       <input
                         class="p-2"
                         type="text"
-                        placeholder="請輸入此行程的名稱"
+                        placeholder="輸入景點名稱"
                         name="siteName"
                       />
                     </div>
                     <div class="inputBox">
-                      <h3>行程說明</h3>
+                      <h3>景點說明</h3>
                       <textarea
                         class="p-2 description"
                         type="text"
-                        placeholder="請輸入此行程的說明"
+                        placeholder="讓大家知道你計畫的目的地，分享你對這個景點的期待或想像！"
                         name="siteParagh"
                       ></textarea>
                     </div>
                     <div class="inputBox tagBox">
-                      <h3>關於此行程</h3>
+                      <h3>關於此景點</h3>
                       <ul class="taglist d-flex flex-wrap"></ul>
                     </div>
                   </div>
@@ -239,7 +239,7 @@
             >
               <gmpx-place-picker
                 placeholder="Enter an address"
-                class=""
+                class="d-none"
               ></gmpx-place-picker>
             </div>
             <gmp-advanced-marker></gmp-advanced-marker>

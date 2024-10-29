@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 $(document).ready(function () {
     const token = localStorage.getItem('token');
@@ -9,23 +9,27 @@ $(document).ready(function () {
         return;
     }
 
-    console.log('用戶 ID:', emailid);
 
-    axios.get('http://localhost:8080/member/members', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
+  console.log("用戶 ID:", emailid);
+
+  axios
+    .get("http://localhost:8080/member/members", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
-        .then(response => {
-            const member = response.data;
-            let birthday = new Date(member.birthday);
-            let myBirthday = birthday.toLocaleDateString('zh-TW', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit'
-            }).replace(/\//g, '-');
+    .then((response) => {
+      const member = response.data;
+      let birthday = new Date(member.birthday);
+      let myBirthday = birthday
+        .toLocaleDateString("zh-TW", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        })
+        .replace(/\//g, "-");
 
-            var personaldataHTML = `
+      var personaldataHTML = `
             <div id="edit" class="text-end mb-3">
                 <button type="button" class="btn btn-primary editbtn text-white">
                     <i class="fa-solid fa-pencil me-1"></i>編輯
@@ -131,212 +135,188 @@ $(document).ready(function () {
                 </div>
             </form>
             `;
-            $('.personaldata').html(personaldataHTML);
+      $(".personaldata").html(personaldataHTML);
 
-            $('#photo p').hide();
-            $('.upload').hide();
-            $('#uphoto').hide();
-            if (member.uphoto == null) {
-                $('#img').hide();
-                $('#photo p').show(); // 未有圖片時顯示
-            }
+      $("#photo p").hide();
+      $(".upload").hide();
+      $("#uphoto").hide();
+      if (member.uphoto == null) {
+        $("#img").hide();
+        $("#photo p").show(); // 未有圖片時顯示
+      }
 
-            if (member.password == null) {
-                $('#pwd').val('未填寫');
-            }
-            if (member.birthday == null) {
-                $('#birthday').val('未填寫');
-            }
-            if (member.sex == null) {
-                $('#sex').val('未填寫');
-            }
-            if (member.address == null) {
-                $('#address').val('未填寫');
-            }
-            if (member.cellphone == null) {
-                $('#cellphonenum').val('未填寫');
-            }
-            if (member.telephone == null) {
-                $('#telephonenum').val('未填寫');
-            }
+      if (member.password == null) {
+        $("#pwd").val("未填寫");
+      }
+      if (member.birthday == null) {
+        $("#birthday").val("未填寫");
+      }
+      if (member.sex == null) {
+        $("#sex").val("未填寫");
+      }
+      if (member.address == null) {
+        $("#address").val("未填寫");
+      }
+      if (member.cellphone == null) {
+        $("#cellphonenum").val("未填寫");
+      }
+      if (member.telephone == null) {
+        $("#telephonenum").val("未填寫");
+      }
 
-            let googleid = member.googleid;
-            let lineid = member.lineid;
-            if (googleid == undefined) {
-                $('#google').text('未綁定');
-            } else {
-                $('#google').text('已綁定');
-            }
+      let googleid = member.googleid;
+      let lineid = member.lineid;
+      if (googleid == undefined) {
+        $("#google").text("未綁定");
+      } else {
+        $("#google").text("已綁定");
+      }
 
-            if (lineid == undefined) {
-                $('#line').text('未綁定');
-            } else {
-                $('#line').text('已綁定');
-            }
+      if (lineid == undefined) {
+        $("#line").text("未綁定");
+      } else {
+        $("#line").text("已綁定");
+      }
 
-            function inputSize(input) {
-                var minSize = 10;
-                input.attr('size', input.val().length + 1)
-            }
+      function inputSize(input) {
+        var minSize = 10;
+        input.attr("size", input.val().length + 1);
+      }
 
-            $('.inpwrite').each(function () {
-                inputSize($(this)); // 調整初始大小
+      $(".inpwrite").each(function () {
+        inputSize($(this)); // 調整初始大小
+      });
+
+      $(".inpwrite").on("input", function () {
+        inputSize($(this));
+      });
+
+      $("#selectsex").hide();
+      $("#write").hide();
+      let datePicker;
+      // 編輯按鈕
+      $(".editbtn").click(function () {
+        $("#edit").hide();
+        $("#write").show(); // 儲存與取消按鈕
+        $("#uname1").focus();
+        if (member.password == null) {
+          $("#pwd").val("");
+        }
+        if (member.birthday == null) {
+          $("#birthday").val("");
+        }
+        if (member.sex == null) {
+          $("#sex").val("");
+        }
+        if (member.address == null) {
+          $("#address").val("");
+        }
+        if (member.cellphone == null) {
+          $("#cellphonenum").val("");
+        }
+        if (member.telephone == null) {
+          $("#telephonenum").val("");
+        }
+        $("#photo p").hide();
+        $(".upload").show(); // 上傳圖片input
+        // 當有圖片上傳時
+        $("#uphoto").on("change", function () {
+          $("#img").show();
+          var readFile = new FileReader();
+          readFile.readAsDataURL(this.files["0"]);
+          $("#img").val(`${this.files["0"].name}`);
+          readFile.onload = function () {
+            $("#img").attr("src", readFile.result);
+          };
+        });
+        $("#sex").hide();
+        $("#selectsex").show();
+        if (member.sex === "男") {
+          $("#boy").prop("checked", true);
+        } else if (member.sex === "女") {
+          $("#girl").prop("checked", true);
+        }
+        let input = $(".inpwrite");
+        input.css({ border: "1px solid #d2d2d2" }, { outline: "solid thin" });
+        input.prop("readonly", false); // 切換 readonly 屬性
+        datePicker = flatpickr("#birthday", {
+          dateFormat: "Y-m-d",
+          allowInput: true,
+        });
+      });
+
+      // 儲存按鈕
+      $(".storebtn").click(function () {
+        let msg = "確定儲存?";
+        if (!confirm(msg)) return false;
+
+        $("#email")[0].setCustomValidity("");
+        $("#pwd")[0].setCustomValidity("");
+
+        // 顯示 email 欄位的 required 錯誤訊息
+        const emailInput = document.getElementById("email");
+        if (!emailInput.checkValidity()) {
+          emailInput.setCustomValidity("請輸入有效的電子信箱");
+          emailInput.reportValidity();
+          emailInput.focus(); // 將焦點移至 email 欄位
+          return false;
+        }
+
+        // 顯示 pwd 密碼欄位的長度不足錯誤訊息
+        const pwdInput = document.getElementById("pwd");
+        if (pwdInput.value.length < 6) {
+          pwdInput.setCustomValidity("密碼長度至少為 6 個字元");
+          pwdInput.reportValidity();
+          pwdInput.focus(); // 將焦點移至 pwd 欄位
+          return false;
+        }
+
+        const cellphonePattern = $("#cellphonenum").attr("pattern"); // 讀取手機欄位的 pattern
+        const isValid1 = new RegExp(cellphonePattern).test(
+          $("#cellphonenum").val()
+        ); // 驗證手機號碼是否符合 pattern
+        const cellphoneInput = document.getElementById("cellphonenum");
+        const telephonePattern = $("#telephonenum").attr("pattern"); // 讀取市話欄位的 pattern
+        const isValid2 = new RegExp(telephonePattern).test(
+          $("#telephonenum").val()
+        ); // 驗證市話號碼是否符合 pattern
+        const telephoneInput = document.getElementById("telephonenum");
+
+        if (!isValid1) {
+          cellphoneInput.setCustomValidity("手機號碼格式錯誤");
+          cellphoneInput.reportValidity();
+        } else if (!isValid2) {
+          telephoneInput.setCustomValidity("市內電話格式錯誤");
+          telephoneInput.reportValidity();
+        } else {
+          cellphoneInput.setCustomValidity("");
+          cellphoneInput.reportValidity();
+          telephoneInput.setCustomValidity("");
+          telephoneInput.reportValidity();
+
+          // 獲取表單數據
+          var formData = new FormData($("#form")[0]);
+          axios
+            .post("http://localhost:8080/member/update", formData, {
+              headers: {
+                Authorization: `Bearer ${token}`, // 確保這裡的 token 是正確的
+                "Content-Type": "multipart/form-data", // 設置內容類型為 multipart/form-data
+              },
+            })
+            .then((response) => {
+              if (response.data) {
+                alert(response.data.message);
+                window.location.href = "member_personaldata.html";
+              }
+            })
+            .catch((error) => {
+              if (error.response && error.response.data) {
+                alert(error.response.data.message); // 顯示後端返回的錯誤消息
+              } else {
+                alert("更新失敗，請稍後再試。");
+              }
             });
 
-            $('.inpwrite').on('input', function () {
-                inputSize($(this));
-            });
-
-            $('#selectsex').hide();
-            $('#write').hide();
-            let datePicker;
-            // 編輯按鈕
-            $('.editbtn').click(function () {
-                $('#edit').hide();
-                $('#write').show(); // 儲存與取消按鈕
-                $('#uname1').focus();
-                if (member.password == null) {
-                    $('#pwd').val('');
-                }
-                if (member.birthday == null) {
-                    $('#birthday').val('');
-                }
-                if (member.sex == null) {
-                    $('#sex').val('');
-                }
-                if (member.address == null) {
-                    $('#address').val('');
-                }
-                if (member.cellphone == null) {
-                    $('#cellphonenum').val('');
-                }
-                if (member.telephone == null) {
-                    $('#telephonenum').val('');
-                }
-                $('#photo p').hide();
-                $('.upload').show(); // 上傳圖片input
-                // 當有圖片上傳時
-                $('#uphoto').on('change', function () {
-                    $('#img').show();
-                    var readFile = new FileReader();
-                    readFile.readAsDataURL(this.files['0']);
-                    $('#img').val(`${this.files['0'].name}`);
-                    readFile.onload = function () {
-                        $('#img').attr('src', readFile.result);
-                    }
-                })
-                $('#sex').hide();
-                $('#selectsex').show();
-                if (member.sex === '男') {
-                    $('#boy').prop('checked', true);
-                } else if (member.sex === '女') {
-                    $('#girl').prop('checked', true);
-                }
-                let input = $('.inpwrite');
-                input.css({ 'border': '1px solid #d2d2d2' }, { 'outline': 'solid thin' });
-                input.prop('readonly', false); // 切換 readonly 屬性
-                datePicker = flatpickr("#birthday", {
-                    dateFormat: "Y-m-d",
-                    allowInput: true
-                });
-            });
-
-            // 儲存按鈕
-            $('.storebtn').click(function () {
-                let msg = "確定儲存?";
-                if (!confirm(msg)) return false;
-
-                $('#email')[0].setCustomValidity("");
-                $('#pwd')[0].setCustomValidity("");
-
-                // 顯示 email 欄位的 required 錯誤訊息
-                const emailInput = document.getElementById('email');
-                if (!emailInput.checkValidity()) {
-                    emailInput.setCustomValidity("請輸入有效的電子信箱");
-                    emailInput.reportValidity();
-                    emailInput.focus(); // 將焦點移至 email 欄位
-                    return false;
-                }
-
-                // 顯示 pwd 密碼欄位的長度不足錯誤訊息
-                const pwdInput = document.getElementById('pwd');
-                if (pwdInput.value.length < 6) {
-                    pwdInput.setCustomValidity("密碼長度至少為 6 個字元");
-                    pwdInput.reportValidity();
-                    pwdInput.focus(); // 將焦點移至 pwd 欄位
-                    return false;
-                }
-
-                const cellphonePattern = $('#cellphonenum').attr('pattern'); // 讀取手機欄位的 pattern
-                const isValid1 = new RegExp(cellphonePattern).test($('#cellphonenum').val()); // 驗證手機號碼是否符合 pattern
-                const cellphoneInput = document.getElementById('cellphonenum');
-                const telephonePattern = $('#telephonenum').attr('pattern'); // 讀取市話欄位的 pattern
-                const isValid2 = new RegExp(telephonePattern).test($('#telephonenum').val()); // 驗證市話號碼是否符合 pattern
-                const telephoneInput = document.getElementById('telephonenum');
-
-                if (!isValid1) {
-                    cellphoneInput.setCustomValidity("手機號碼格式錯誤");
-                    cellphoneInput.reportValidity();
-                } else if (!isValid2) {
-                    telephoneInput.setCustomValidity("市內電話格式錯誤");
-                    telephoneInput.reportValidity();
-                } else {
-                    cellphoneInput.setCustomValidity("");
-                    cellphoneInput.reportValidity();
-                    telephoneInput.setCustomValidity("");
-                    telephoneInput.reportValidity();
-
-                    // 獲取表單數據
-                    var formData = new FormData($('#form')[0]);
-                    axios.post('http://localhost:8080/member/update', formData, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`, // 確保這裡的 token 是正確的
-                            'Content-Type': 'multipart/form-data' // 設置內容類型為 multipart/form-data
-                        }
-                    })
-                        .then(response => {
-                            if (response.data) {
-                                alert(response.data.message);
-                                window.location.href = 'member_personaldata.html';
-                            }
-                        })
-                        .catch(error => {
-                            if (error.response && error.response.data) {
-                                alert(error.response.data.message); // 顯示後端返回的錯誤消息
-                            } else {
-                                alert('更新失敗，請稍後再試。');
-                            }
-                        });
-                }
-            });
-
-            // 取消按鈕
-            $('.cancelbtn').click(function () {
-                let msg = "確定取消編輯?";
-                if (!confirm(msg)) return false;
-                $('#edit').show();
-                $('#write').hide();
-                if (member.uphoto == null) {
-                    $('#img').hide();
-                    $('#uphoto').val('');
-                    $('#photo p').show(); // 未有圖片時顯示
-                }
-                $('.upload').hide();
-                if (member.birthday == null) {
-                    $('#birthday').val('未填寫');
-                } else {
-                    $('#birthday').val(myBirthday);
-                }
-                $('#sex').show();
-                $('#selectsex').hide();
-                let input = $('.inpwrite');
-                input.css({ 'border': 'none' }, { 'outline': 'none' });
-                input.prop('readonly', true); // 切換 readonly 屬性
-                if (datePicker) {
-                    datePicker.destroy();
-                }
-                window.location.href = 'member_personaldata.html';
-            });
         })
         .catch(error => {
             if (error.response && error.response.status === 401) {
@@ -353,6 +333,25 @@ $(document).ready(function () {
             localStorage.removeItem('token');
             window.location.href = 'index.html';
         }
+        $("#sex").show();
+        $("#selectsex").hide();
+        let input = $(".inpwrite");
+        input.css({ border: "none" }, { outline: "none" });
+        input.prop("readonly", true); // 切換 readonly 屬性
+        if (datePicker) {
+          datePicker.destroy();
+        }
+        window.location.href = "member_personaldata.html";
+      });
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 401) {
+        alert("登入已過期，請重新登入");
+        localStorage.removeItem("token");
+        window.location.href = "login.html";
+      } else {
+        alert("無法讀取會員資料:" + error);
+      }
     });
 
     // 將表單數據轉換為 JSON 對象的函數
@@ -363,3 +362,4 @@ $(document).ready(function () {
     //     }, {});
     // }
 });
+
