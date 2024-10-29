@@ -20,7 +20,7 @@ $(document).ready(function () {
         .then(function (response) {
             const schedules = response.data.data; // 獲取行程資料
             const lastPage = response.data.lastPage; // 獲取最後一頁
-            console.log(response.data.data[0]);
+
             var cardList = `
             <div class="text-end mb-3">
                 <a href="buildPlan.html" class="btn btn-primary editbtn text-white">
