@@ -58,38 +58,11 @@
                 </div>
             </div>
             <div class="col-md-10 TaiwanEx">
-                <%- include('./layout/Taiwanmap'); -%>
-                <div class="sharedownld text-end">
-                    <a href="#">分享</a>
-                    <span></span>
-                    <button id="saveAs" class="ms-1">下載</button>
-                </div>
-                <!-- Google Tag Manager (noscript) -->
-                <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P4F6BQZ" height="0" width="0"
-                        style="display:none;visibility:hidden"></iframe></noscript>
-                <!-- End Google Tag Manager (noscript) -->
             </div>
         </div>
     </div>
     <script type="module" src="/main.js"></script>
-    <script type="module" src="../js/taiwanmap.js"></script>
-    <script>
-        $(document).ready(function () {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                alert("請先登入");
-                window.location.href = 'login.html';
-                return;
-            }
-
-            $('#logoutbtn').click(function () {
-                if (confirm('您確定要登出嗎？')) {
-                    localStorage.removeItem('token');
-                    window.location.href = 'index.html';
-                }
-            });
-        })
-    </script>
+    <script type="module" src="../js/TaiwanEx.js"></script>
 </body>
 
 </html>

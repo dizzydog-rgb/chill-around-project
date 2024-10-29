@@ -15,7 +15,7 @@ $(document).ready(function () {
         currentPage = 1;
     }
 
-    axios.get(`http://localhost:8080/member/planList/${currentPage}`,
+    axios.get(`http://localhost:8080/member/myLikeSch/${currentPage}`,
         {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -26,16 +26,16 @@ $(document).ready(function () {
             const lastPage = response.data.lastPage; // 獲取最後一頁
 
             var cardList = `
-            <div class="text-end mb-3">
-                <a href="buildPlan.html" class="btn btn-primary editbtn text-white">
-                    新增 <b>＋</b>
-                </a>
+                <div class="text-end mb-3">
+                    <a href="schInfo.html" class="btn btn-primary editbtn text-white">
+                        新增 <b>＋</b>
+                    </a>
             `;
             if (response.data.data[0] == undefined) {
                 cardList += `
                     </div>
                     <div class="alert alert-info" role="alert">
-                        目前沒有任何的行程。
+                        目前沒有收藏任何的行程。
                     </div>
                 `;
             } else {
@@ -62,7 +62,6 @@ $(document).ready(function () {
                         month: '2-digit',
                         day: '2-digit'
                     }).replace(/\//g, '-');
-
                     cardList += `
                         <div class="checkcard mb-5">
                             <label class="checkbox">
@@ -82,9 +81,6 @@ $(document).ready(function () {
                                             <p class="card-text">
                                                 <small class="text-body-secondary">行程期間：${stDate} - ${edDate}</small>
                                             </p>
-                                            <!-- <p class="card-text text-end">
-                                                <small class="text-body-secondary">參與編輯者:${schedule.uname}</small>
-                                            </p> -->
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +88,6 @@ $(document).ready(function () {
                         </div>
                     `;
                 });
-
                 // 生成分頁按鈕
                 let pageButtons = '';
                 for (let i = 1; i <= lastPage; i++) {
@@ -149,16 +144,16 @@ $(document).ready(function () {
                 </div>
                 `;
             }
-            $('.mytrip').html(cardList);
+            $('.mycollection').html(cardList);
 
             $('.checkbox').hide();
             $('#choose').hide();
 
             $('.card').click(function () {
-                const scheduleId = this.closest("#scheduleCard").dataset.scheduleid;
+                const schId = this.closest("#scheduleCard").dataset.scheduleid;
                 // 傳送行程計畫 id
-                localStorage.setItem("scheduleId", scheduleId);
-                window.location.href = "editPlan.html";
+                localStorage.setItem("selectedSchId", schId);
+                window.location.href = "schCom.html";
             });
 
             $('#deletebtn').click(function () {

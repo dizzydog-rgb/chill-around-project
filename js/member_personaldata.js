@@ -1,13 +1,14 @@
 import axios from "axios";
 
 $(document).ready(function () {
-  const token = localStorage.getItem("token");
-  const emailid = localStorage.getItem("emailid");
-  if (!token) {
-    alert("請先登入");
-    window.location.href = "login.html";
-    return;
-  }
+    const token = localStorage.getItem('token');
+    const emailid = localStorage.getItem('emailid');
+    if (!token) {
+        alert("請先登入");
+        window.location.href = 'index.html';
+        return;
+    }
+
 
   console.log("用戶 ID:", emailid);
 
@@ -315,25 +316,22 @@ $(document).ready(function () {
                 alert("更新失敗，請稍後再試。");
               }
             });
-        }
-      });
 
-      // 取消按鈕
-      $(".cancelbtn").click(function () {
-        let msg = "確定取消編輯?";
-        if (!confirm(msg)) return false;
-        $("#edit").show();
-        $("#write").hide();
-        if (member.uphoto == null) {
-          $("#img").hide();
-          $("#uphoto").val("");
-          $("#photo p").show(); // 未有圖片時顯示
-        }
-        $(".upload").hide();
-        if (member.birthday == null) {
-          $("#birthday").val("未填寫");
-        } else {
-          $("#birthday").val(myBirthday);
+        })
+        .catch(error => {
+            if (error.response && error.response.status === 401) {
+                alert('登入已過期，請重新登入');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            } else {
+                alert('無法讀取會員資料:' + error);
+            }
+        });
+
+    $('#logoutbtn').click(function () {
+        if (confirm('您確定要登出嗎？')) {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
         }
         $("#sex").show();
         $("#selectsex").hide();
@@ -356,18 +354,12 @@ $(document).ready(function () {
       }
     });
 
-  $("#logoutbtn").click(function () {
-    if (confirm("您確定要登出嗎？")) {
-      localStorage.removeItem("token");
-      window.location.href = "login.html";
-    }
-  });
-
-  // 將表單數據轉換為 JSON 對象的函數
-  function serializeToJSON(data) {
-    return data.reduce((acc, { name, value }) => {
-      acc[name] = value;
-      return acc;
-    }, {});
-  }
+    // 將表單數據轉換為 JSON 對象的函數
+    // function serializeToJSON(data) {
+    //     return data.reduce((acc, { name, value }) => {
+    //         acc[name] = value;
+    //         return acc;
+    //     }, {});
+    // }
 });
+
