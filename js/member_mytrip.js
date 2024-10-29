@@ -3,13 +3,17 @@ $(document).ready(function () {
     const token = localStorage.getItem('token');
     if (!token) {
         alert("請先登入");
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
 
     // 獲取當前頁數，默認為 1
     const urlParams = new URLSearchParams(window.location.search);
     let currentPage = parseInt(urlParams.get('page')) || 1; // 如果沒有頁數參數，則默認為 1
+    // 限制不可為 0 以下
+    if (currentPage <= 0) {
+        currentPage = 1;
+    }
 
     axios.get(`http://localhost:8080/member/planList/${currentPage}`,
         {
@@ -26,20 +30,24 @@ $(document).ready(function () {
                 <a href="buildPlan.html" class="btn btn-primary editbtn text-white">
                     新增 <b>＋</b>
                 </a>
-                <button id="deletebtn" type="button" class="btn btn-primary editbtn text-white">
-                    刪除 <b>－</b>
-                </button>
-            </div>
-            <form>
-                <div class="mb-3">
             `;
             if (response.data.data[0] == undefined) {
                 cardList += `
+                    </div>
                     <div class="alert alert-info" role="alert">
                         目前沒有任何的行程。
                     </div>
-                </div>`;
+                `;
             } else {
+                cardList += `
+                    <button id="deletebtn" type="button" class="btn btn-primary editbtn text-white">
+                                刪除 <b>－</b>
+                    </button>
+                </div>
+                <form>
+                    <div class="mb-3">
+                `;
+
                 schedules.forEach((schedule) => {
                     let startDate = new Date(schedule.edit_date);
                     let stDate = startDate.toLocaleDateString('zh-TW', {
@@ -61,39 +69,37 @@ $(document).ready(function () {
                                 <input type="checkbox" name="checkplan" id="checkplan">
                                 <span></span>
                             </label>
-                            <a href="editPlan.html">
-                                <div class="card">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <img src="../assets/images/searchSite/${schedule.photo_one}" class="img-fluid">
-                                        </div>
-                                        <div class="col-md-8 text-center">
-                                            <div class="card-body">
-                                                <p class="card-text title ms-2">
-                                                    ${schedule.sch_name}
-                                                </p>
-                                                <p class="card-text">
-                                                    <small class="text-body-secondary">行程期間：${stDate} - ${edDate}</small>
-                                                </p>
-                                                <p class="card-text text-end">
-                                                    <small class="text-body-secondary">參與編輯者:${schedule.uname}</small>
-                                                </p>
-                                            </div>
+                            <div class="card" id="scheduleCard" data-scheduleId="${schedule.sch_id}">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <img src="../assets/images/searchSite/${schedule.photo_one}" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 text-center">
+                                        <div class="card-body">
+                                            <p class="card-text title ms-2">
+                                                ${schedule.sch_name}
+                                            </p>
+                                            <p class="card-text">
+                                                <small class="text-body-secondary">行程期間：${stDate} - ${edDate}</small>
+                                            </p>
+                                            <!-- <p class="card-text text-end">
+                                                <small class="text-body-secondary">參與編輯者:${schedule.uname}</small>
+                                            </p> -->
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
-                `;
+                    `;
                 });
 
                 // 生成分頁按鈕
                 let pageButtons = '';
                 for (let i = 1; i <= lastPage; i++) {
                     if (i == currentPage) {
-                        pageButtons += `<li class="active"><a href="?page=${i}">${i}</a></li>`;
+                        pageButtons += `<li class="active"><a href="?page=${i}">${i}</a></li> `;
                     } else {
-                        pageButtons += `<li><a href="?page=${i}">${i}</a></li>`;
+                        pageButtons += `<li><a href="?page=${i}">${i}</a></li> `;
                     }
                 }
 
@@ -132,7 +138,7 @@ $(document).ready(function () {
                             </ul>
                         </div>
                         <div id="choose" class="text-end">
-                            <button id="delbtn" type="button" class="btn footerbtn text-white">
+                            <button id="delbtn" type="submit" class="btn footerbtn text-white">
                                 確定刪除
                             </button>
                             <button id="cancelbtn" type="button" class="btn footerbtn text-white">
@@ -143,14 +149,22 @@ $(document).ready(function () {
                 </div>
                 `;
             }
-
             $('.mytrip').html(cardList);
 
             $('.checkbox').hide();
             $('#choose').hide();
+
+            $('.card').click(function () {
+                const scheduleId = this.closest("#scheduleCard").dataset.scheduleid;
+                // 傳送行程計畫 id
+                localStorage.setItem("scheduleId", scheduleId);
+                window.location.href = "editPlan.html";
+            });
+
             $('#deletebtn').click(function () {
                 $('.checkbox').show();
                 $('#choose').show();
+                $('.card').off('click');
             });
 
             $('#cancelbtn').click(function () {
@@ -159,15 +173,19 @@ $(document).ready(function () {
             });
         })
         .catch(function (error) {
-            // handle error
-            console.log(error);
-            alert("資料接收失敗");
+            if (error.response && error.response.status === 401) {
+                alert('登入已過期，請重新登入');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            } else {
+                alert('無法讀取會員資料:' + error);
+            }
         });
 
     $('#logoutbtn').click(function () {
         if (confirm('您確定要登出嗎？')) {
             localStorage.removeItem('token');
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }
     });
 })

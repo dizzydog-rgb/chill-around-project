@@ -4,7 +4,8 @@ import axios from 'axios';
 document.addEventListener('DOMContentLoaded', function () {
 
     //獲取行程資料 without like
-    axios.get('http://localhost:8080/buildPlan/planList')
+    //http://localhost:8080/buildPlan/planList
+    axios.get('http://localhost:8080/schInfo/getsch')
         .then(response => {
             const dataSite = response.data; // 獲取資料
             console.log("獲取到的資料:", dataSite);
@@ -183,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
     async function loadAndRenderCards() {
         try {
             const likedItems = await loadLikedItems(); // 拿到已加 Like 的 sch_id 列表
-            const response = await axios.get('http://localhost:8080/buildPlan/planList');
+            const response = await axios.get('http://localhost:8080/schInfo/getsch');
             const dataSite = response.data;
             const maxCards = 8;
             let cardCount = 0;

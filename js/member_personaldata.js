@@ -356,10 +356,10 @@ $(document).ready(function () {
     });
 
     // 將表單數據轉換為 JSON 對象的函數
-    function serializeToJSON(data) {
-        return data.reduce((acc, { name, value }) => {
-            acc[name] = value;
-            return acc;
-        }, {});
-    }
+    // function serializeToJSON(data) {
+    //     return data.reduce((acc, { name, value }) => {
+    //         acc[name] = value;
+    //         return acc;
+    //     }, {});
+    // }
 });

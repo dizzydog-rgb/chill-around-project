@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const emailid = localStorage.getItem("emailid");
+
 axios
-  .get("http://localhost:8080/buildPlan/planList")
+  .get(`http://localhost:8080/buildPlan/planList/${emailid}`)
   .then(function (response) {
     const schedules = response.data;
     // console.log(schedules);
@@ -25,8 +27,24 @@ function renderPlanList(schedules) {
   // 為每個計畫建立卡片
   schedules.forEach((schedule) => {
     const cardItem = document.createElement("li");
-    let startDate = schedule.edit_date.slice(0, 10);
-    let endDate = schedule.end_date.slice(0, 10);
+    // let startDate = schedule.edit_date.slice(0, 10);
+    // let endDate = schedule.end_date.slice(0, 10);
+
+    let startDate = new Date(schedule.edit_date)
+      .toLocaleDateString("zh-TW", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replace(/\//g, "-");
+
+    let endDate = new Date(schedule.end_date)
+      .toLocaleDateString("zh-TW", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replace(/\//g, "-");
 
     // 建立卡片的 HTML 結構
     cardItem.innerHTML = `
@@ -116,3 +134,14 @@ function renderPlanList(schedules) {
     }
   });
 }
+
+// 驗證是否已登入
+document.addEventListener("DOMContentLoaded", function () {
+  const token = localStorage.getItem("token");
+  // console.log("TOKEN:", token);
+
+  if (!token) {
+    alert("請先登入會員");
+    window.location.href = "login.html";
+  }
+});
