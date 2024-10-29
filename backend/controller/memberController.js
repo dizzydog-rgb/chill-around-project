@@ -91,7 +91,7 @@ exports.getuserSchedule = async (req, res) => {
             return res.status(401).json({ message: "Unauthorized" });
         }
         const emailid = req.currentUser.id; // 獲取當前用戶的 emailid
-        var page = req.params.page;
+        let page = parseInt(req.params.page) || 1;
         //把<=0的page強制改成1
         if (page <= 0) {
             page = 1;
@@ -101,7 +101,7 @@ exports.getuserSchedule = async (req, res) => {
         //定義資料偏移量
         var offset = (page - 1) * nums_per_page;
 
-        const data ={
+        const data = {
             emailid,
             page,
             nums_per_page,
@@ -115,7 +115,12 @@ exports.getuserSchedule = async (req, res) => {
             return res.status(404).json({ message: "schedule not found" });
         }
         // 成功取得資料後回傳 JSON 給前端
-        res.json(allschedule);
+        res.json({
+            data: allschedule.data, // 行程資料
+            page: allschedule.page, //頁碼數
+            totalCount: allschedule.totalCount, // 總筆數
+            lastPage: allschedule.lastPage // 最後一頁
+        });
     } catch (error) {
         // 錯誤處理
         console.error("Error fetching site:", error);

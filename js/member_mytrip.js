@@ -11,10 +11,16 @@ $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     let currentPage = parseInt(urlParams.get('page')) || 1; // 如果沒有頁數參數，則默認為 1
 
-    axios.get(`http://localhost:8080/member/planList/${currentPage}`)
+    axios.get(`http://localhost:8080/member/planList/${currentPage}`,
+        {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         .then(function (response) {
-            const schedules = response.data;
-            console.log(schedules);
+            const schedules = response.data.data; // 獲取行程資料
+            const lastPage = response.data.lastPage; // 獲取最後一頁
+
             var cardList = `
             <div class="text-end mb-3">
                 <a href="buildPlan.html" class="btn btn-primary editbtn text-white">
@@ -75,29 +81,47 @@ $(document).ready(function () {
             `;
             });
 
+            // 生成分頁按鈕
+            let pageButtons = '';
+            for (let i = 1; i <= lastPage; i++) {
+                if (i == currentPage) {
+                    pageButtons += `<li class="active"><a href="?page=${i}">${i}</a></li>`;
+                }else{
+                    pageButtons += `<li><a href="?page=${i}">${i}</a></li>`;
+                }
+            }
+
+            let previousPage = currentPage - 1;
+            let innerpreviousPage = `<a href="?page=${previousPage}" title="上一頁"><i class="icon-chevron-left"></i></a>`;
+            if (previousPage <= 0) {
+                innerpreviousPage = '<a href="#" title="上一頁"><i class="icon-chevron-left"></i></a>';
+            }
+
+            let nextPage = currentPage + 1;
+            let innernextPage = `<a href="?page=${nextPage}" title="下一頁"><i class="icon-chevron-right"></i></a>`;
+            if (nextPage > lastPage) {
+                innernextPage = '<a href="#" title="下一頁"><i class="icon-chevron-right"></i></a>';
+            }
+
             cardList += `
                     <div class="jumpbox mb-3">
                         <ul class="jump_bef">
                             <li>
-                                <a href="?page=${currentPage - 1}" title="最前一頁"><i class="icon-chevrons-left"></i></a>
+                                <a href="?page=1" title="最前一頁"><i class="icon-chevrons-left"></i></a>
                             </li>
                             <li>
-                                <a href="?page=${currentPage - 1}" title="上一頁"><i class="icon-chevron-left"></i></a>
+                                ${innerpreviousPage}
                             </li>
                         </ul>
                         <ul class="jump_btn">
-                            <li class="active"><a href="?page=${currentPage}">${currentPage}</a></li>
-                            <li><a href="?page=${currentPage + 1}">${currentPage + 1}</a></li>
-                            <li><a href="?page=${currentPage + 2}">${currentPage + 2}</a></li>
-                            <li><a href="?page=${currentPage + 3}">${currentPage + 3}</a></li>
-                            <li><a href="?page=${currentPage + 4}">${currentPage + 4}</a></li>
+                            ${pageButtons}
                         </ul>
                         <ul class="jump_aft">
                             <li>
-                                <a href="?page=${currentPage + 1}" title="下一頁"><i class="icon-chevron-right"></i></a>
+                                ${innernextPage}
                             </li>
                             <li>
-                                <a href="?page=${currentPage + 1}" title="最後一頁"><i class="icon-chevrons-right"></i></a>
+                                <a href="?page=${lastPage}" title="最後一頁"><i class="icon-chevrons-right"></i></a>
                             </li>
                         </ul>
                     </div>
