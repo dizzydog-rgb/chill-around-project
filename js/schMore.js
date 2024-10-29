@@ -1,12 +1,10 @@
 import axios from 'axios';
-
-
 // 取得 localStorage 中的選項
-const selectedCity = localStorage.getItem('selectedCity');
-const selectedTag = localStorage.getItem('selectedTag');
+// const selectedCity = localStorage.getItem('selectedCity');
+// const selectedTag = localStorage.getItem('selectedTag');
 
-console.log("從 localStorage 取得:", selectedCity);
-console.log("從 localStorage 取得:", selectedTag);
+// console.log("從 localStorage 取得:", selectedCity);
+// console.log("從 localStorage 取得:", selectedTag);
 
 // 隨機選取資料
 function getRandomData(dataArray, count) {
@@ -16,8 +14,12 @@ function getRandomData(dataArray, count) {
 
 // 主函式，在 DOM 加載完成後執行
 document.addEventListener("DOMContentLoaded", () => {
-    const selectSiteCity = localStorage.getItem('selectedCity');
-    const selectTagId = localStorage.getItem('selectedTag');
+    // const selectSiteCity = localStorage.getItem('selectedCity');
+    // const selectTagId = localStorage.getItem('selectedTag');
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const selectSiteCity = urlParams.get('site_city');
+    const selectTagId = urlParams.get('tag_id');
 
     const cityCheckboxes = document.querySelectorAll('.cityCheckbox');
     const tagCheckboxes = document.querySelectorAll('.tagCheckbox');
@@ -66,30 +68,38 @@ function updateCards() {
     } else {
         axios.get('http://localhost:8080/schInfo/getsch', {
             params: {
-                regions: selectedRegions, // 轉換為用逗號分隔的字串
-                tags: selectedTags
+                site_city: selectedRegions, // 轉換為用逗號分隔的字串
+                tag_id: selectedTags
             }
 
 
         })
 
             .then(response => {
+                console.log(response);
+
                 const attractions = response.data;
                 console.log("API 返回的景點:", attractions);
-
+                console.log("API 返回的景點:", attractions.length);
                 const sitecardBox = document.getElementById('sitecardBox');
+
                 sitecardBox.innerHTML = ''; // 清空目前顯示的卡片
 
                 if (attractions.length === 0) {
-                    sitecardBox.innerHTML = '<p>沒有符合條件的景點。</p>';
+                    sitecardBox.innerHTML = '<h4 class ="mt-5">沒有符合條件的行程</h4>';
+                } else {
+                    // attractions.forEach(attraction => {
+                    renderCards(attractions);
+                    // });
                 }
-                // attractions.forEach(attraction => {
-                //     renderCards(attraction);
-                // });
+
+
+
+
             })
             .catch(error => {
                 console.error('Error fetching attractions:', error);
-                alert('無法獲取資料，請稍後再試。');
+                // alert('無法獲取資料，請稍後再試。');
             });
     }
 }
@@ -99,26 +109,30 @@ function updateCards() {
 function renderRandomCards() {
     axios.get('http://localhost:8080/schInfo/getsch')
         .then(response => {
-            console.log("取得資料", response.data);
             const attraction = response.data;
-            const randomSchData = getRandomData(attraction, 12);
-            renderCards(randomSchData);
+            console.log("API 返回的景點資料:", attraction); // 檢查 API 是否正確返回資料
 
+            // 確認 `attraction` 是否為陣列且有資料
+            if (Array.isArray(attraction) && attraction.length > 0) {
+                const randomSchData = getRandomData(attraction, 12);
+                renderCards(randomSchData); // 直接傳入陣列而不是單筆資料
+            } else {
+                console.error("資料格式不正確或沒有資料。", attraction);
+            }
         })
         .catch(error => {
             console.error('Error fetching random attractions:', error);
         });
 }
 
+
 // 渲染卡片
-function renderCards(attraction) {
-    console.log(attraction); //確認有叫出點擊的卡片資訊
-
-
+function renderCards(attractions) {
+    console.log(attractions); //確認有叫出點擊的卡片資訊
     const sitecardBox = document.getElementById("sitecardBox");
     sitecardBox.innerHTML = '';
 
-    attraction.forEach(data => {
+    attractions.forEach(data => {
         const siteCard = document.createElement("div");
         let startDate = data.edit_date.slice(0, 10);
         siteCard.className = "col-md-4 p-0 m-0";

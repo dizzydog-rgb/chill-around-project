@@ -178,12 +178,13 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(selectedTag);
         console.log("---------------");
     
-        // 將選項儲存到 localStorage
-        localStorage.setItem('selectedCity', selectedCity);
-        localStorage.setItem('selectedTag', selectedTag);
+        // // 將選項儲存到 localStorage
+        // localStorage.setItem('selectedCity', selectedCity);
+        // localStorage.setItem('selectedTag', selectedTag);
     
-        // 跳轉到 schMore.html
-        window.location.href = "/chill-around-project/pages/schMore.html";
+        // // 跳轉到 schMore.html
+        // window.location.href = "/chill-around-project/pages/schMore.html";
+        window.location.href = `/chill-around-project/pages/schMore.html?site_city=${encodeURIComponent(selectedCity)}&tag_id=${encodeURIComponent(selectedTag)}`;
     });
     
 

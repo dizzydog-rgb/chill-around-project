@@ -28,6 +28,8 @@ exports.findScheduleById = (id) => {
 
 //取得卡片行程資料、標籤、景點
 exports.getScheduleCardData = (regions, tags) => {
+  console.log("地區:", regions);
+  console.log("標籤:", tags);
   return new Promise((resolve, reject) => {
     let query = `
       SELECT 
@@ -62,18 +64,20 @@ exports.getScheduleCardData = (regions, tags) => {
 
     // 地區篩選
    // 地區篩選
-if (regions && regions.trim()) {
+if (regions) {
   const regionArray = regions.split(',');
   whereClauses.push(`si.site_city IN (?)`);
   parameters.push(regionArray);
 }
 
 // 標籤篩選
-if (tags && tags.trim()) {
+if (tags) {
   const tagArray = tags.split(',');
-  const tagConditions = tagArray.map(() => 't.tag_id = ?').join(' OR ');
-  whereClauses.push(`(${tagConditions})`);
-  parameters.push(...tagArray);
+  tagArray.forEach(tagId => {
+      // query += ' AND a.tag_id = ?';
+      whereClauses.push('t.tag_id = ?') // 每個標籤條件
+      parameters.push(tagId); // 將每個標籤 ID 加入參數中
+  });
 }
 
 
@@ -87,10 +91,9 @@ if (tags && tags.trim()) {
       s.sch_id, s.sch_name, s.edit_date, si.photo_one, si.photo_two, si.site_add;
     `;
 
-    console.log("地區:", regions);
-    console.log("標籤:", tags);
-    console.log("參數:", parameters);
-    console.log("WHERE 條件:", whereClauses);
+   
+    // console.log("參數:", parameters);
+    // console.log("WHERE 條件:", whereClauses);
 
     db.exec(query, parameters, (err, results) => {
       if (err) {
