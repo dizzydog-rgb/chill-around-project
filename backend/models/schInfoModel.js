@@ -27,44 +27,86 @@ exports.findScheduleById = (id) => {
 };
 
 //取得卡片行程資料、標籤、景點
-exports.getScheduleCardData = () => {
+exports.getScheduleCardData = (regions, tags) => {
+  console.log("地區:", regions);
+  console.log("標籤:", tags);
   return new Promise((resolve, reject) => {
-    const query =
-    `SELECT 
-      s.sch_id,
-      s.sch_name,
-      s.edit_date,
-      t.tag_id,
-      t.tag_name,
-      sd.*,            -- 包含 schedule_details 表的所有字段
-      si.photo_one,     -- 從 sites 表選出 photo_one
-      si.photo_two,     
-      si.photo_three ,    
-      si.photo_four     
-    FROM 
-      schedule s
-    JOIN 
-      schedule_details sd ON s.sch_id = sd.sch_id
-    JOIN 
-      schedule_tag st ON s.sch_id = st.sch_id
-    JOIN 
-      all_tag t ON st.tag_id = t.tag_id
-    LEFT JOIN 
-      sites si ON si.site_name = sd.sch_spot
-    ORDER BY 
-      s.sch_id;      -- 根據 sch_id 進行排序`;
+    let query = `
+      SELECT 
+          s.sch_id,
+          s.sch_name,
+          s.edit_date,
+          si.photo_one,
+          si.photo_two,
+          si.site_add,
+          si.site_city,
+          GROUP_CONCAT(DISTINCT t.tag_name SEPARATOR ', ') AS tags
+      FROM 
+          schedule s
+      JOIN 
+          schedule_tag st ON s.sch_id = st.sch_id
+      JOIN 
+          all_tag t ON st.tag_id = t.tag_id
+      LEFT JOIN (
+          SELECT 
+              sd.sch_id,
+              sd.sch_spot,
+              ROW_NUMBER() OVER(PARTITION BY sd.sch_id ORDER BY sd.sch_order ASC) AS rn  
+          FROM 
+              schedule_details sd
+      ) first_spot ON first_spot.sch_id = s.sch_id AND first_spot.rn = 1
+      LEFT JOIN 
+          sites si ON si.site_name = first_spot.sch_spot
+    `;
 
-    console.log("觀看這行" + db); // 在此行查看 db 的內容
-    db.exec(query, [], (err, results) => {
+    const parameters = [];
+    let whereClauses = []; // 儲存 WHERE 條件
+
+    // 地區篩選
+   // 地區篩選
+if (regions) {
+  const regionArray = regions.split(',');
+  whereClauses.push(`si.site_city IN (?)`);
+  parameters.push(regionArray);
+}
+
+// 標籤篩選
+if (tags) {
+  const tagArray = tags.split(',');
+  tagArray.forEach(tagId => {
+      // query += ' AND a.tag_id = ?';
+      whereClauses.push('t.tag_id = ?') // 每個標籤條件
+      parameters.push(tagId); // 將每個標籤 ID 加入參數中
+  });
+}
+
+
+    // 如果有 WHERE 條件
+    if (whereClauses.length > 0) {
+      query += ' WHERE ' + whereClauses.join(' AND ');
+    }
+
+    query += `
+      GROUP BY 
+      s.sch_id, s.sch_name, s.edit_date, si.photo_one, si.photo_two, si.site_add;
+    `;
+
+   
+    // console.log("參數:", parameters);
+    // console.log("WHERE 條件:", whereClauses);
+
+    db.exec(query, parameters, (err, results) => {
       if (err) {
+        console.log("-----標籤地區名取得異常-----");
         return reject(err);
       }
-      // 如果查詢結果有資料，返回第一筆
-      //   resolve(results[0]);
       resolve(results);
     });
   });
 };
+
+
+
 
 //取得景點資料
 exports.findSite = () => {

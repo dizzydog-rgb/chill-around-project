@@ -1,5 +1,5 @@
 import axios from "axios";
-
+localStorage.setItem("scheduleId", "2");
 const currentScheduleId = localStorage.getItem("scheduleId");
 console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);
 
@@ -137,9 +137,11 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
                 const userItems = response.data.UseritemList.filter(i => i.ItemName === clickedItemName);
 
-                // 渲染上面種類文字
+                // 渲染中間區，使用者所選的大種類
                 const CategoryTextElement = document.querySelector('.categoryText');
-                CategoryTextElement.textContent = clickedItemName;
+                if (Category) {
+                    CategoryTextElement.textContent = Category[0];
+                }
 
                 const categoryContainer = document.querySelector('.categoryContainer');
                 categoryContainer.innerHTML = ''; // 清空內容
@@ -321,4 +323,37 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
     })
     .catch(error => {
         console.error("Error fetching data:", error);
-    });
+    })
+
+
+
+// ------------------ 輸入框彈出並增加物品細項 ------------------
+export function addItem() {
+    // 彈出輸入框
+    const userInput = prompt("請輸入物品內容:");
+
+    // 確保用戶有輸入內容
+    if (userInput) {
+        const categoryContainer = document.querySelector('.categoryContainer');
+
+        // 創建一個新元素顯示用戶輸入選擇的種類
+        const newItemDiv = document.createElement('div');
+        newItemDiv.classList.add('categoryContent');
+
+        // 組合新的內容
+        newItemDiv.innerHTML = `
+            <input type="checkbox" class="checkBOX left">
+            <span class="itemContent left">${userInput}</span>
+            <input type="number" class="itemQuantity right" min="1" value="1">
+            <button class="leftDelete right">–</button>
+        `;
+
+        // 將新項目添加到畫面上
+        categoryContainer.appendChild(newItemDiv);
+    } else {
+        alert("您沒有輸入任何文字。");
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('leftBtn').addEventListener('click', addItem);
+});

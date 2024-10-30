@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資訊搜尋頁</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
     </style>
@@ -198,15 +200,6 @@
     <script type="module" src="../js/searchSite.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script type="module" src="../js/login.js">
-            const token = localStorage.getItem('token');
-            if (!token) {
-                alert("請先登入");
-                window.location.href = 'index.html';
-                return;
-            }
-        </script>
-
 
 
 </body>

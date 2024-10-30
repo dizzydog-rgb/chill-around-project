@@ -80,7 +80,11 @@ exports.userAdditemCategory = (schId, data) => {
 
             // 確保 ItemDetails 是數組
             const itemDetailsArray = Array.isArray(data.ItemDetails) ? data.ItemDetails : [];
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 13bfedf3bca9f0efe5d80235a00ec3736c820712
             // 檢查 ItemDetails 是否為空
             if (itemDetailsArray.length === 0) {
                 return reject(new Error('ItemDetails must be an array and cannot be empty'));
@@ -161,6 +165,7 @@ exports.updateUserItemDetails = (id, data) => {
                 sch_id = ? AND 
                 ItemList_id = ?`;
 
+<<<<<<< HEAD
         db.exec(query, [data.ItemName, data.ItemDetails, data.Quantity, data.PrepareStatus, data.Total, data.sch_id, data.ItemList_id], (err, result) => {
             if (err) {
                 return reject(err);
@@ -224,3 +229,20 @@ exports.deleteUserItemAllCategory = (sch_id, Icategory_id) => {
         });
     });
 };
+=======
+
+
+// // 編輯頁面 - 刪除功能
+// exports.userDeleteBudget = (schId, budgetId) => {
+//     return new Promise((resolve, reject) => {
+//         const query = "DELETE FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
+//         db.exec(query, [schId, budgetId], (err, result) => {
+//             console.log('崩潰卡比---------------------------------------------------', new Date().toLocaleTimeString());
+//             if (err) {
+//                 return reject(err);
+//             }
+//             resolve('Budget deleted!', result);
+//         });
+//     });
+// };
+>>>>>>> 13bfedf3bca9f0efe5d80235a00ec3736c820712
