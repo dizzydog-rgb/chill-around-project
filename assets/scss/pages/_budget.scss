@@ -14,66 +14,76 @@
             flex-direction: column;
             height: 100vh;
             margin-left: 0;
+            padding-left: 0;
 
             .leftbarDiv {
+                width: 80%;
                 background-color: white;
                 display: flex;
+                align-self: start;
                 flex: 1;
-                justify-content: center;
                 position: relative;
                 z-index: 1;
                 border-right: 1px solid $primary;
+                justify-content: center;
+                align-items: center;
+                padding-left: 5%;
+                a {
+                    text-decoration: none;
+                }
 
                 //////////// Aside ////////////
-                .planAside {
-                    // min-width:10%;
-                    // max-width:10%;
-                    text-align: 
-                    enter;
-                    width: 100px;
-                    height: 100vh;
-                    // border: 1px solid $primary;
-                    display: flex;
-                    flex-direction: column;
-                    padding: 0;
-                    margin: 0;
+                // .planAside {
+                //     // min-width:10%;
+                //     // max-width:10%;
+                //     border-right: 1px solid $primary;
+                //     background-color: white;
+                //     text-align: center;
+                //     align-items: center;
+                //     width: 100px;
+                //     height: 100vh;
+                //     // border: 1px solid $primary;
+                //     display: flex;
+                //     flex-direction: column;
+                //     padding: 0;
+                //     margin: 0;
 
-                    .logo {
-                        // border-bottom: 1px solid $primary;
-                        display: block;
-                        display: flex;
-                        justify-content: center;
+                //     .logo {
+                //         // border-bottom: 1px solid $primary;
+                //         display: block;
+                //         display: flex;
+                //         justify-content: center;
 
-                        img {
-                            height: 65px;
-                            
-                            @media (max-width: 375px) {
-                                background-color: #FFDC81;
-                            }
-                        }
-                    }
+                //         img {
+                //             height: 65px;
 
-                    .navbar {
-                        padding: 0;
-                        margin-top: 25px;
-                        // padding: 12px;
-                        gap: 25px;
-                        text-align: center;
-                        color: $primary;
-                        display: flex;
-                        justify-content: center;
+                //             @media (max-width: 375px) {
+                //                 background-color: #FFDC81;
+                //             }
+                //         }
+                //     }
 
-                        .bi {
-                            font-size: 30px;
-                        }
+                //     .navbar {
+                //         padding: 0;
+                //         margin-top: 25px;
+                //         // padding: 12px;
+                //         gap: 25px;
+                //         text-align: center;
+                //         color: $primary;
+                //         display: flex;
+                //         justify-content: center;
 
-                        h4 {
-                            font-size: 15px;
-                            font-weight: bold;
-                            text-align: center;
-                        }
-                    }
-                }
+                //         .bi {
+                //             font-size: 30px;
+                //         }
+
+                //         h4 {
+                //             font-size: 15px;
+                //             font-weight: bold;
+                //             text-align: center;
+                //         }
+                //     }
+                // }
             }
 
             /************** 中上方欄位 **************/
@@ -125,7 +135,7 @@
                 .historyDate {
                     background-color: #578BA3;
                     position: absolute;
-                    top: -7%;
+                    top: -3%;
                     left: 18%;
                     color: white;
                     padding: 1%;

@@ -142,7 +142,7 @@ exports.deleteUserItemAllCategoryController = (req, res) => {
     const id = req.params.id; // 从 URL 中获取用户 ID
     const Icategory_id = req.params.Icategory_id;
 
-    // 先删除细项
+    // 先刪除細項
     itemModel.deleteUserItemAllCategory(id, Icategory_id)
         .then(() => {
             res.json({ message: '刪除成功' });
