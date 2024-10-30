@@ -86,22 +86,22 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
 
             // ------------------------------------------------------------- 10/30下午還在做這裡
-            card.addEventListener('click', () => {
-                sessionStorage.setItem('selectedCardIndex', item.Icategory_id);
-                location.reload(); 
-                console.log(item.Icategory_id)
-            });
-            window.addEventListener('load', () => {
-                const selectedIndex = sessionStorage.getItem('selectedCardIndex');
-                if (selectedIndex !== null) {
-                    const cardToHighlight = document.getElementById(`card-${selectedIndex}`); // 根据索引找到卡片
-                    if (cardToHighlight) {
-                        cardToHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        cardToHighlight.classList.add('highlight'); // 添加高亮样式
-                    }
-                    sessionStorage.removeItem('selectedCardIndex'); // 清除索引
-                }
-            });
+            // card.addEventListener('click', () => {
+            //     sessionStorage.setItem('selectedCardIndex', item.Icategory_id);
+            //     location.reload(); 
+            //     console.log(item.Icategory_id)
+            // });
+            // window.addEventListener('load', () => {
+            //     const selectedIndex = sessionStorage.getItem('selectedCardIndex');
+            //     if (selectedIndex !== null) {
+            //         const cardToHighlight = document.getElementById(`card-${selectedIndex}`); // 根据索引找到卡片
+            //         if (cardToHighlight) {
+            //             cardToHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            //             cardToHighlight.classList.add('highlight'); // 添加高亮样式
+            //         }
+            //         sessionStorage.removeItem('selectedCardIndex'); // 清除索引
+            //     }
+            // });
 
             // ------------------ 刪除：整個大種類 ------------------
             function deleteAllcategory(itemName, Icategory_id) {
@@ -133,14 +133,15 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
                 const clickedItemName = item.ItemName;
                 const Icategory_id = item.Icategory_id;
-                console.log(Icategory_id)
+                console.log(clickedItemName)
 
                 const userItems = response.data.UseritemList.filter(i => i.ItemName === clickedItemName);
 
                 // 渲染中間區，使用者所選的大種類
                 const CategoryTextElement = document.querySelector('.categoryText');
-                if (Category) {
-                    CategoryTextElement.textContent = Category[0];
+                console.log(clickedItemName)
+                if (clickedItemName) {
+                    CategoryTextElement.textContent = clickedItemName;
                 }
 
                 const categoryContainer = document.querySelector('.categoryContainer');
@@ -261,7 +262,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                     return () => addItem(currentIcategory_id, clickedItemName); // 使用捕獲的值
                 })());
 
-                function addItem() {
+                function addItem(Icategory_id, clickedItemName) {
                     console.log('取到的', Icategory_id)
                     const userInput = prompt("請輸入物品內容:");
                     if (userInput) {
@@ -276,6 +277,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                             Total: '',
                             Icategory_id: Icategory_id
                         }
+                        console.log('要發的數據:', dataToSend);
                         axios.post(`http://localhost:8080/item/Useritem/${currentScheduleId}/details`, dataToSend)
                             .then(response => {
                                 console.log('新增成功', response.data);
