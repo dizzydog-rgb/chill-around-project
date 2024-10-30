@@ -224,23 +224,55 @@ exports.addScheduleDetail = (sch_id, sch_day, sch_order, sch_spot) => {
 
 
 //加入行程至我的最愛
-exports.addScheduleId = (emailid,sch_id) => {
+exports.addScheduleId = (emailid, sch_id) => {
   console.log("email:", emailid);
   console.log("sch:", sch_id);
-  return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO member_like (emailid,sch_id) VALUES (?,?)'; // 修正 SQL 語句
-    const insert = [emailid,sch_id];
 
-    db.exec(sql, insert, (err, result) => {
-      if (err) {
-        console.error('插入失敗:', err);
-        reject(err); // 拒絕 Promise
+  return new Promise((resolve, reject) => {
+    const checkSql = 'SELECT * FROM member_like WHERE emailid = ? AND sch_id = ?';
+    const checkParams = [emailid, sch_id];
+
+    db.exec(checkSql, checkParams, (checkErr, checkResult) => {
+      if (checkErr) {
+        console.error('查詢失敗:', checkErr);
+        reject(checkErr);
+      } else if (checkResult.length > 0) {
+        console.log('記錄已存在，跳過插入');
+        resolve({ message: '記錄已存在' });
       } else {
-        resolve(result); // 成功時解析 Promise
+        // 若記錄不存在，則插入
+        const insertSql = 'INSERT INTO member_like (emailid, sch_id) VALUES (?, ?)';
+        db.exec(insertSql, checkParams, (insertErr, insertResult) => {
+          if (insertErr) {
+            console.error('插入失敗:', insertErr);
+            reject(insertErr);
+          } else {
+            resolve(insertResult);
+          }
+        });
       }
     });
   });
 };
+
+
+// exports.addScheduleId = (emailid,sch_id) => {
+//   console.log("email:", emailid);
+//   console.log("sch:", sch_id);
+//   return new Promise((resolve, reject) => {
+//     const sql = 'INSERT INTO member_like (emailid,sch_id) VALUES (?,?)'; // 修正 SQL 語句 WHERE emailid = ?
+//     const insert = [emailid,sch_id];
+
+//     db.exec(sql, insert, (err, result) => {
+//       if (err) {
+//         console.error('插入失敗:', err);
+//         reject(err); // 拒絕 Promise
+//       } else {
+//         resolve(result); // 成功時解析 Promise
+//       }
+//     });
+//   });
+// };
 
 //移除
 exports.deleteScheduleId = (emailid, sch_id) => {
@@ -263,7 +295,7 @@ exports.deleteScheduleId = (emailid, sch_id) => {
 // 獲取用戶已加 Like 的行程 ID
 exports.getLikedItems = (emailid) => {
   return new Promise((resolve, reject) => {
-      const sql = 'SELECT sch_id FROM member_like WHERE emailid = 1';
+      const sql = 'SELECT sch_id FROM member_like WHERE emailid = ?';
       console.log('執行的 SQL 查詢:', sql, '參數:', emailid);
       db.exec(sql, [emailid], (err, result) => {
           if (err) {

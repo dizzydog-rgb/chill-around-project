@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 初始化加載喜好項目
 function loadLikedItems() {
-    return axios.get(`http://localhost:8080/schInfo/getLikedItems`)
+    return axios.get(`http://localhost:8080/schInfo/getLikedItems/:emailid`)
         .then(response => response.data); // 返回已加 Like 的 sch_id 列表
 }
 
