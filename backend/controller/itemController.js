@@ -139,7 +139,7 @@ exports.deleteUserItemDetailsController = (req, res) => {
 
 // 刪除物品大種類
 exports.deleteUserItemAllCategoryController = (req, res) => {
-    const id = req.params.id; // 从 URL 中获取用户 ID
+    const id = req.params.id;
     const Icategory_id = req.params.Icategory_id;
 
     // 先刪除細項
