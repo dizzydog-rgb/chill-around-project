@@ -73,11 +73,25 @@ axios.get('http://localhost:8080/item/popupItem')
 
                 // 添加新的選擇
                 const itemName = category.textContent;
+<<<<<<< HEAD:js/popupItemList.js
                 selectedItemsId.push(itemName);
                 selectedDetails.push(details);
                 category.classList.add('selected'); // 添加選擇樣式
                 selectedItemName = itemName;
                 alert('選取' + itemName);
+=======
+                if (selectedItemsId.includes(itemName)) {
+                    selectedItemsId.splice(selectedItemsId.indexOf(itemName), 1);
+                    selectedDetails.splice(selectedItemsId.indexOf(itemName), 1);
+                    category.classList.remove('selected'); // 移除選擇樣式
+                } else {
+                    selectedItemsId.push(itemName);
+                    selectedDetails.push(details);
+                    category.classList.add('selected'); // 添加選擇樣式
+                    selectedItemName = itemName;
+                    alert('選取' + itemName);
+                }
+>>>>>>> 13bfedf3bca9f0efe5d80235a00ec3736c820712:js/Popup_itemList.js
             });
         });
 

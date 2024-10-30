@@ -88,8 +88,8 @@ exports.userAdditemDetailsController = async (req, res) => {
     console.log('Received request body:', req.body);
 
     // 確保 ItemDetails 是必填的
-    if (!ItemDetails) {
-        return res.status(400).json({ message: 'ItemDetails 是必填項目' });
+    if (!ItemDetails || !sch_id || !Icategory_id) {
+        return res.status(400).json({ message: 'ItemDetails, sch_id 和 Icategory_id 是必填項目' });
     }
 
     const newItem = {
@@ -127,7 +127,7 @@ exports.deleteUserItemDetailsController = (req, res) => {
             if (result.affectedRows > 0) {
                 res.json({ message: '刪除成功', result });
             } else {
-                res.status(404).json({ message: '未找到相应项目' });
+                res.status(404).json({ message: '未找到相應项目' });
             }
         })
         .catch(err => {

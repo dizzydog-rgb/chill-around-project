@@ -8,22 +8,21 @@ import axios from 'axios';
 // console.log('cityName:'+ cityName); //cityName:Taipei
 
 // 生成隨機的景點卡片
-function showRandomAttractions() {
-    return axios.get(`http://localhost:8080/site/allsite/all/randomCity`) // 注意確保後端可接受的 URL 和查詢參數
-        .then(response => {
-            console.log("取得資料"+response.data);
-            console.log(response.data);
-            const randomCity = response.data;
-            randomCity.forEach(attraction => {
-                createCard(attraction);
-            });
-            siteCardClickEvents()
-            bindLoadScheduleEvents()
-            // siteData[cityName] = response.data; // 將資料儲存到 siteData 中
-        })
-        .catch(error => {
-            console.error('Error fetching random attractions:', error);
+async function showRandomAttractions() {
+    try {
+        const response = await axios.get(`http://localhost:8080/site/allsite/all/randomCity`) // 注意確保後端可接受的 URL 和查詢參數
+            ;
+        console.log("取得資料" + response.data);
+        console.log(response.data);
+        const randomCity = response.data;
+        randomCity.forEach(attraction => {
+            createCard(attraction);
         });
+        siteCardClickEvents();
+        bindLoadScheduleEvents();
+    } catch (error) {
+        console.error('Error fetching random attractions:', error);
+    }
    
 }
 // 在DOM加載完成後讀網址
@@ -38,10 +37,6 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     const cityCheckboxes = document.querySelectorAll('.cityCheckbox');
     const tagCheckboxes = document.querySelectorAll('.tagCheckbox');
-    
-    bindLoadScheduleEvents()
-
-
     // 寫判斷式 如果有參數執行生成相對應的內容 根據 URL 中的參數設置核取方塊的狀態 並生成卡片
     if(selectSiteCity && selectTagId) {
         // 根據 URL 中的參數設置核取方塊的狀態
@@ -72,7 +67,6 @@ function updateCards() {
             showRandomAttractions(); // 顯示隨機的景點
         });
         siteCardClickEvents()
-        bindLoadScheduleEvents()
     }else{
         axios.get('http://localhost:8080/site/allsite/select', {
             params: {
@@ -84,17 +78,17 @@ function updateCards() {
             const attractions = response.data;
             const sitecardBox = document.getElementById('sitecardBox');
             sitecardBox.innerHTML = ''; // 清空目前顯示的卡片
+            console.log("updateCard裡的attraction",attractions);
             
             if (attractions.length === 0) {
                 sitecardBox.innerHTML = '<p>沒有符合條件的景點。</p>';
             }
-    
+            
             attractions.forEach(attraction => {
                 createCard(attraction);
             });
             siteCardClickEvents()
             bindLoadScheduleEvents()
-
         })
         .catch(error => {
             console.error('Error fetching attractions:', error);
@@ -106,7 +100,7 @@ function updateCards() {
 
  // 創建卡片
 function createCard(attraction) {
-    console.log(attraction); //確認有叫出點擊的卡片資訊
+    console.log("createCard裡面attraction",attraction); //確認有叫出點擊的卡片資訊
     
     
     const sitecardBox = document.getElementById('sitecardBox');
@@ -167,40 +161,51 @@ function siteCardClickEvents() {
     let selectedSiteData;
     const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
     loadScheduleButtons.forEach(button => {
+      
         button.addEventListener('click', async (event) => {
-            event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
-
-            const siteId = button.getAttribute('data-site-id');
-            const siteName = button.getAttribute('data-site-name');
-            const siteAdd = button.getAttribute('data-site-add');
-            const siteInfo = button.getAttribute('data-site-info');
-            const siteImg = button.getAttribute('data-site-img');
-
-            selectedSiteData = {
-                site_id: siteId,
-                site_name: siteName,
-                site_add: siteAdd,
-                site_info: siteInfo,
-                site_img: siteImg
-            };
-
-            console.log(selectedSiteData);
-
-            try {
-                const { data } = await axios.get('http://localhost:8080/schInfo/getspot');
-                console.log('獲取的行程資料:', data);
-
-                const selectElement = document.getElementById('itinerarySelect');
-                selectElement.innerHTML = '<option value="" selected>請選擇行程</option>';
-                const optionsHTML = data.schedules.map(schedule => {
-                    return `<option value="${schedule.sch_name}" data-schedule-id="${schedule.sch_id}" data-days="${schedule.days}">${schedule.sch_name}</option>`;
-                }).join('');
-                selectElement.innerHTML += optionsHTML;
-
-                showModal();
-            } catch (error) {
-                console.error('獲取行程資料失敗', error);
+            const token = localStorage.getItem('token');
+            if (!token) {
+                event.preventDefault(); 
+                event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
+                alert("請先登入");
+                window.location.href = 'index.html';
+                return;
             }
+                event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
+                const siteId = button.getAttribute('data-site-id');
+                const siteName = button.getAttribute('data-site-name');
+                const siteAdd = button.getAttribute('data-site-add');
+                const siteInfo = button.getAttribute('data-site-info');
+                const siteImg = button.getAttribute('data-site-img');
+
+                selectedSiteData = {
+                    site_id: siteId,
+                    site_name: siteName,
+                    site_add: siteAdd,
+                    site_info: siteInfo,
+                    site_img: siteImg
+                };
+                console.log(selectedSiteData);
+
+                try {
+                    
+                    const { data } = await axios.get('http://localhost:8080/schInfo/getspot');
+                    console.log('獲取的行程資料:', data);
+
+                    const selectElement = document.getElementById('itinerarySelect');
+                    selectElement.innerHTML = '<option value="" selected>請選擇行程</option>';
+                    const optionsHTML = data.schedules.map(schedule => {
+                        return `<option value="${schedule.sch_name}" data-schedule-id="${schedule.sch_id}" data-days="${schedule.days}">${schedule.sch_name}</option>`;
+                    }).join('');
+                    selectElement.innerHTML += optionsHTML;
+
+                    showModal();
+                } catch (error) {
+                    console.error('獲取行程資料失敗', error);
+                }
+
+            
+            
         });
     });
 
@@ -268,18 +273,3 @@ document.querySelectorAll('.cityCheckbox').forEach(checkbox => {
 document.querySelectorAll('.tagCheckbox').forEach(checkbox => {
     checkbox.addEventListener('change', updateCards);
 });
-
-
-// 目前點加入行程按鈕沒反應
- // document.addEventListener('DOMContentLoaded', () => {
-    //     // 獲取按鈕並綁定事件
-    //     const addButton = document.querySelector('.addBtn');
-    //     addButton.onclick = (event) => {
-    //         event.stopPropagation(); // 阻止事件向上冒泡，這樣不會觸發卡片的點擊事件 
-            
-    
-    // };
-    // });
-
-
-
