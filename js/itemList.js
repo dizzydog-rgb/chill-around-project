@@ -86,7 +86,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                     axios.delete(`http://localhost:8080/item/Useritem/${currentScheduleId}/category/${Icategory_id}`)
                         .then(response => {
                             console.log('刪除成功', response.data);
-                            // 从 DOM 中移除该种类卡片
+                            // 從 DOM 中移除該種類卡片
                             const cardToRemove = document.querySelector(`.card-body[data-item-name="${itemName}"]`).closest('.cardOut');
                             if (cardToRemove) {
                                 cardToRemove.remove();
