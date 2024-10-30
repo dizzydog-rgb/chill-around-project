@@ -14,7 +14,9 @@
             <div class="testHomePage py-5">
                 <div class="d-flex my-5" style="justify-content: center;">
                     <h1 class="text-success">一起來</h1>
-                    <img src="../assets/images/logo/chillAround_logo_01.png" class="logo animate__animated animate__rubberBand">
+                    <a href="index.html" id="logo" class="animate__animated animate__tada">
+                        <img src="../assets/images/logo/chillAround_logo_01.png">
+                    </a>
                     <!-- logo-animate.css特效 -->
                 </div>
                 <br>
@@ -135,8 +137,8 @@
                         <label for="que3AnsD" class="answer">
                             <input type="radio" name="radio_3" class="btn btn3" id="que3AnsD" data-value="S">
                             <div>
-                                <img src="../assets/images/test/grass.jpg">
-                                <p>D.奔馳稻浪及林木間</p>
+                                <img src="../assets/images/test/town.jpg">
+                                <p>D.走訪小鎮街道</p>
                             </div>
                         </label>
                     </div>
@@ -156,13 +158,13 @@
                             </div>
                         </label>
                         <label for="que4AnsB" class="textAnswer answer">
-                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsB" data-value="F">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsB" data-value="T">
                             <div>
                                 <p>B.充滿當地特色的小吃</p>
                             </div>
                         </label>
                         <label for="que4AnsC" class="textAnswer answer">
-                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsC" data-value="T">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsC" data-value="F">
                             <div>
                                 <p>C.感受海水鹹鮮的海鮮料理</p>
                             </div>
@@ -240,7 +242,7 @@
                 <!-- 分享 -->
                 <div class="col-lg-8 col-sm-10 otherOption d-flex justify-content-between mx-auto my-3">
                     <button class="btn btn-secondary testAgain m-2">再測一次!</button>
-                    <button class="btn btn-secondary m-2">分享測驗結果<i class="bi bi-box-arrow-up ms-1"></i></button>
+                    <button type="button" class="btn btn-secondary m-2" id="share">分享測驗結果<i class="bi bi-box-arrow-up ms-1"></i></button>
                 </div>
                 <!-- 分隔線 -->
                 <div class="logoBar bg-primary p-2">
@@ -249,7 +251,7 @@
                 <!-- 推薦行程 -->
                 <div class="col-lg-8 col-md-8 col-sm-8 mx-auto py-3">
                     <div class="d-flex justify-content-between">
-                        <a href="">看看別人怎麼玩<i class="bi bi-caret-down-fill ms-1"></i></a>
+                        <a href="schInfo.html">看看別人怎麼玩<i class="bi bi-caret-down-fill ms-1"></i></a>
                         <a href="">點我安排行程<i class="bi bi-plus-circle ms-1"></i></a>
                     </div>
                     <div id="schCard"></div>
@@ -258,7 +260,24 @@
         </div>
 
     </div>
-            
+           
     <script type="module" src="../js/test.js"></script>
+    <script>
+        // var shareBtn = document.getElementById("share");  //你的按鈕ID
+        // shareBtn.onclick = function() {
+        //     if (navigator.share) {
+        //     navigator.share({
+        //         // 輸入你要分享的內容設定
+        //         title: '前往Google',
+        //         text: '走吧?走吧!',
+        //         url: 'https://www.google.com.tw/?hl=zh_TW',
+        //     })
+        //         .then(() => console.log('成功！'))
+        //         .catch((error) => console.log('發生錯誤', error));
+        //     }
+        // }
+
+        // }
+      </script>
 </body>
 </html>

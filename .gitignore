@@ -23,3 +23,4 @@ backend/config/database.js
 *.njsproj
 *.sln
 *.sw?
+.env
