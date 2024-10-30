@@ -145,12 +145,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const likeBtn = event.target;
         const schId = likeBtn.getAttribute('data-sch-id');
+        // const userId = likeBtn.getAttribute('data-email-id');
         const userId = likeBtn.getAttribute('data-email-id');
         console.log("User ID:", userId, "Sch ID:", schId);
 
         // 傳回資料庫的資料
         const postData = {
-            emailid: userId, // 會員編號
+            emailid: emailid, // 會員編號
             sch_id: schId    // 景點 ID
         };
 
@@ -221,12 +222,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="btnOverlay">
                              <a id="likeBtn" class="bi ${heartClass}" 
                                 data-sch-id="${data.sch_id}"
-                                data-email-id="${data.emailid}">
+                                >
                              </a>
                         </div>
                     </div>
                 </div>`;
-
+// data-email-id="${data.emailid}"
                 document.querySelector("#SchcardBox").insertAdjacentHTML('beforeend', SchCard);
                 cardCount++;
             });

@@ -87,7 +87,7 @@ function renderTopPlan(schDetails) {
             let cardImgUrl = item.photo_one ? `../assets/images/searchSite/${item.photo_one}` : "https://dummyimage.com/600x400/dcab25/dcab25";
             cardList.innerHTML += `
                 <a href="#" class="SiteCard" data-site-id="${item.site_id}">
-                    <li>
+                    <li class="siteItem" data-site-name="${item.sch_spot}">
                         <div class="card">
                             <div class="row g-0">
                                 <div class="col-12 col-md-8">
