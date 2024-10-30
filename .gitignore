@@ -23,6 +23,10 @@ backend/config/database.js
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
+.env
+=======
 
 # 環境變量文件
 .env
+>>>>>>> 84fe48e5297e5ca716ecd843c103f110b7fc6a9f
