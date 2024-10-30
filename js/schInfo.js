@@ -1,9 +1,12 @@
 import axios from 'axios';
 
+const emailid = localStorage.getItem("emailid");
+console.log("emailid:", emailid);
+
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    //獲取行程資料 without like
+    //頁首的行程卡片
     //http://localhost:8080/buildPlan/planList
     axios.get('http://localhost:8080/schInfo/getsch')
         .then(response => {
@@ -22,11 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 let startDate = data.edit_date.slice(0, 10);
                 // let endDate = data.end_date.slice(5, 10);
 
-                // // 格式化 edit_date
-                // const editDate = new Date(data.edit_date);
-                // const formattedEditDate = `${editDate.getFullYear()}-${String(editDate.getMonth() + 1).padStart(2, '0')}-${String(editDate.getDate()).padStart(2, '0')}`;
-
-                // 創建卡片 HTML
                 let topPage = `
                     <div class="swiper-slide">
                         <div id="siteCard" class="TopCard card bg-primary" data-sch-id="${data.sch_id}
@@ -41,13 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                     </div>`;
 
-                // 將卡片插入到 DOM
                 document.querySelector(".mySwiper_1 .swiper-wrapper").insertAdjacentHTML('beforeend', topPage);
                 cardCount++; // 增加計數
 
             });
 
-            // 為每個卡片添加點擊事件
+            // 添加點擊事件
             let cardItems = document.querySelectorAll(".TopCard");
             cardItems.forEach((card) => {
                 card.addEventListener("click", (event) => {
@@ -70,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
 
-
+    //卡片輪播
     var swiper = new Swiper(".mySwiper_1", {
         spaceBetween: 0,
         slidesPerView: 4,
@@ -104,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    //搜尋標籤
+    //搜尋篩選
     document.getElementById("searchButton").addEventListener("click", function () {
         // 取城市和標籤選項
         const selectedCity = document.getElementById('citySelect').value;
@@ -127,23 +124,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 初始化加載喜好項目
     function loadLikedItems() {
-        return axios.get('http://localhost:8080/schInfo/getLikedItems')
+        return axios.get(`http://localhost:8080/schInfo/getLikedItems/${emailid}`)
             .then(response => response.data); // 返回已加 Like 的 sch_id 列表
     }
 
 
-
+    //喜歡增減按鈕
     function handleLikeButtonClick(event) {
-        event.stopPropagation(); // 防止冒泡影響到其他點擊事件
+        event.stopPropagation(); // 防止事件冒泡到父元素
+
+        //登入判斷式
+        if (!token) {
+            event.preventDefault();
+            event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
+            alert("請先登入");
+            window.location.href = 'index.html';
+            return;
+        }
+
 
         const likeBtn = event.target;
         const schId = likeBtn.getAttribute('data-sch-id');
+        // const userId = likeBtn.getAttribute('data-email-id');
         const userId = likeBtn.getAttribute('data-email-id');
         console.log("User ID:", userId, "Sch ID:", schId);
 
-        // 準備資料
+        // 傳回資料庫的資料
         const postData = {
-            emailid: userId, // 會員編號
+            emailid: emailid, // 會員編號
             sch_id: schId    // 景點 ID
         };
 
@@ -179,11 +187,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    //渲染卡片
     // 加載卡片列表並設置已加到我的最愛的項目
     async function loadAndRenderCards() {
         try {
-            const likedItems = await loadLikedItems(); // 拿到已加 Like 的 sch_id 列表
+
+            const likedItems = await loadLikedItems();
+            console.log('已加入最愛:', likedItems); // 檢查已加 Like 的項目
+
             const response = await axios.get('http://localhost:8080/schInfo/getsch');
             const dataSite = response.data;
             const maxCards = 8;
@@ -212,12 +222,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="btnOverlay">
                              <a id="likeBtn" class="bi ${heartClass}" 
                                 data-sch-id="${data.sch_id}"
-                                data-email-id="${data.emailid}">
+                                >
                              </a>
                         </div>
                     </div>
                 </div>`;
-
+// data-email-id="${data.emailid}"
                 document.querySelector("#SchcardBox").insertAdjacentHTML('beforeend', SchCard);
                 cardCount++;
             });
@@ -245,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    //獲取景點資料--------------------------------------
+    //-------------------------------獲取景點資料--------------------------------------
     axios.get('http://localhost:8080/schInfo/siteinfo')
         .then(response => {
             const dataSite = response.data;
@@ -318,6 +328,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
         loadScheduleButtons.forEach(button => {
             button.addEventListener('click', async (event) => {
+
+                //登入判斷式
+                if (!token) {
+                    event.preventDefault();
+                    event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
+                    alert("請先登入");
+                    window.location.href = 'index.html';
+                    return;
+                }
                 event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
                 const siteId = button.getAttribute('data-site-id');
@@ -337,7 +356,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(selectedSiteData);
 
                 try {
-                    const { data } = await axios.get('http://localhost:8080/schInfo/getspot');
+                    const { data } = await axios.get(`http://localhost:8080/schInfo/getspot/${emailid}`);
+
+                    console.log('Email ID:', emailid); // 確認 emailid 是否正確
+
+
                     console.log('獲取的行程資料:', data);
 
                     const selectElement = document.getElementById('itinerarySelect');

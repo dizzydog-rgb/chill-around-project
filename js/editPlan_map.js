@@ -25,7 +25,7 @@ async function init() {
   // 儲存多個標記的陣列
   let markers = [];
   let places = [];
-  let lines = [];
+  // let lines = [];
 
   function handlePlaceChange() {
     const place = placePicker.value;
@@ -42,14 +42,14 @@ async function init() {
     markers.forEach((marker) => {
       marker.setMap(null);
     });
-    lines.forEach((arc) => {
-      arc.setMap(null);
-    });
+    // lines.forEach((arc) => {
+    //   arc.setMap(null);
+    // });
 
     updateMap([place]);
   }
 
-  async function handleSiteChangeByDay() {
+  function handleSiteChangeByDay() {
     // 取得當天的景點名稱
     let currentSites = document.querySelectorAll(".siteItem");
     let currentSitesNameArr = [];
@@ -60,15 +60,16 @@ async function init() {
 
     // 清除舊的標記
     markers.forEach((marker) => marker.setMap(null));
-    lines.forEach((arc) => arc.setMap(null));
+    // lines.forEach((arc) => arc.setMap(null));
     markers = []; // 清空標記陣列
     places = []; // 清空地點陣列
 
     const service = new google.maps.places.PlacesService(map.innerMap);
     const bounds = new google.maps.LatLngBounds();
+    let pendingSearches = currentSitesNameArr.length;
 
     // 使用 Places Service 進行搜索
-    await currentSitesNameArr.forEach((siteName) => {
+    currentSitesNameArr.forEach((siteName) => {
       service.textSearch({ query: siteName }, (results, status) => {
         if (
           status === google.maps.places.PlacesServiceStatus.OK &&
@@ -84,10 +85,12 @@ async function init() {
           }
         }
 
-        updateMap(places);
-
-        // 調整地圖範圍以顯示所有標記
-        map.innerMap.fitBounds(bounds);
+        // 減少計數器，當所有搜索完成後調用 updateMap
+        pendingSearches--;
+        if (pendingSearches === 0) {
+          updateMap(places); //　產生標記
+          map.innerMap.fitBounds(bounds); // 調整地圖範圍以顯示所有標記
+        }
       });
     });
   }
@@ -119,7 +122,7 @@ async function init() {
         );
         infoWindow.open(newMarker.map, newMarker);
 
-        // 更新當前的InfoWindow
+        // 更新當前的 infoWindow
         currentInfoWindow = infoWindow;
       });
 

@@ -1,6 +1,7 @@
 // 請求資料庫資料
 // const axios = require('axios');
 import axios from 'axios';
+import domtoimage from 'dom-to-image';
 let urlMap = {
     'ESTJ': "http://localhost:8080/test/1",
     'ESFJ': "http://localhost:8080/test/2",
@@ -20,7 +21,7 @@ let urlMap = {
     'INTP': "http://localhost:8080/test/16"
 };
 
-// 切換頁面
+// 隱藏所有頁面
 // $(".content").hide();
 $(".testQuestion1").hide();
 $(".testQuestion2").hide();
@@ -30,6 +31,8 @@ $(".testQuestion5").hide();
 $(".testResult").hide();
 // $(".loadingAnimation").hide();
 // $(".result").show();
+
+    
 $(".enter").on("click",()=>{
     $(".testHomePage").hide();
     $(".testQuestion1").fadeIn();
@@ -112,6 +115,7 @@ $(".btn5").on("click", () => {
 
         // 結果
         console.log(mbti);
+
         // 引入資料庫結果
         const fetchTestStyle = (mbtiType) => {
             axios.get(urlMap[mbtiType])
@@ -182,9 +186,9 @@ $(".btn5").on("click", () => {
 
         // 推薦行程卡片
         let schData=[
-            {title:'卡片標題',img:'https://via.placeholder.com/400x200',des:'這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。'},
-            {title:'卡片標題',img:'https://via.placeholder.com/400x200',des:'這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。'},
-            {title:'卡片標題',img:'https://via.placeholder.com/400x200',des:'這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。'},
+            {title:'卡片標題',img:'https://via.placeholder.com/400x200',tag:'#相關標籤'},
+            {title:'卡片標題',img:'https://via.placeholder.com/400x200',tag:'#相關標籤'},
+            {title:'卡片標題',img:'https://via.placeholder.com/400x200',tag:'#相關標籤'},
         ]
         $.each(schData,function(){
             let schCard = `
@@ -198,7 +202,7 @@ $(".btn5").on("click", () => {
                 <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
                     <h4>${this.title}</h4>
                     <hr>
-                    <p>${this.des}</p>
+                    <p>${this.tag}</p>
                     </div>
                 </div>`;
             $("#schCard").append(schCard);
@@ -206,8 +210,23 @@ $(".btn5").on("click", () => {
 });
 
     
+// 分享測驗結果
+document.getElementById("share").addEventListener('click',downloadImg)
+function downloadImg(){
+    console.log("download success");
+
+    domtoimage.toJpeg(document.getElementById('mbtiType'), { quality: 0.95,bgcolor:'white' })
+    .then(function (dataUrl) {
+    var link = document.createElement('a');
+    link.download = 'mytrip.jpeg';
+    link.href = dataUrl;
+    link.click();
+});
+}
+
 // 再測一次
 $(".testAgain").on("click",()=>{
+    console.clear();
     $(".testResult").hide();
     $(".content").show();
     $(".testHomePage").show();
