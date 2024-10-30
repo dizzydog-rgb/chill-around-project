@@ -200,8 +200,8 @@ exports.updateData = (userData) => {
     });
 }
 
-// 獲取所有行程的模組函數
-exports.findAllSchedule = (pagedata) => {
+// 獲取會員所有行程的模組函數
+exports.findUesrSchedule = (pagedata) => {
     return new Promise((resolve, reject) => {
         const sql = `
         SELECT
@@ -232,7 +232,7 @@ exports.findAllSchedule = (pagedata) => {
                 reject(error);
                 return;
             }
-            sql = `
+            const countSql = `
             SELECT
                 COUNT(*) AS COUNT
             FROM
@@ -247,22 +247,83 @@ exports.findAllSchedule = (pagedata) => {
                 WHERE sch_id = s.sch_id
             ) AND s.emailid = ?
             `;
-            db.exec(sql, [pagedata.emailid], (error, nums, fields) => {
+            db.exec(countSql, [pagedata.emailid], (error, nums, fields) => {
                 if (error) {
                     console.error("錯誤訊息:", error);
                     reject(error);
                     return;
                 }
-                if (nums) {
-                    var last_page = Math.ceil(nums[0].COUNT / pagedata.nums_per_page);
+                if (nums && nums.length > 0) {
+                    const lastPage = Math.ceil(nums[0].COUNT / pagedata.nums_per_page);
 
-                    //避免請求超過最大頁數
-                    if (pagedata.page > last_page) {
-                        resolve({ message: "No more pages" });
-                        return;
-                    }
+                    resolve({
+                        data: data,
+                        page: pagedata.page,
+                        lastPage: lastPage
+                    });
+                } else {
+                    resolve({ data, totalCount: 0, lastPage: 0 }); // 如果沒有資料
                 }
-                resolve(data); // 返回查詢結果
+            });
+        });
+    });
+};
+
+exports.findLikeSch = (pagedata) => {
+    return new Promise((resolve, reject) => {
+        const sql = `
+        SELECT
+            s.*,
+            sd.sch_spot,
+            si.photo_one
+        FROM
+            schedule s
+            INNER JOIN schedule_details sd ON s.sch_id = sd.sch_id
+            INNER JOIN sites si ON sd.sch_spot = si.site_name
+            INNER JOIN member_like mlk ON s.sch_id = mlk.sch_id
+        WHERE
+        sd.detail_id = (
+            SELECT MIN(detail_id)
+            FROM schedule_details
+            WHERE sch_id = s.sch_id
+        ) AND mlk.emailid = ?
+        ORDER BY s.sch_id
+        LIMIT ?, ?
+        `;
+
+        const pageData = [pagedata.emailid, pagedata.offset, pagedata.nums_per_page];
+
+        db.exec(sql, pageData, (error, data, fields) => {
+            if (error) {
+                console.error("SQL Error:", error); // 輸出 SQL 錯誤
+                reject(error);
+                return;
+            }
+            const countSql = `
+            SELECT
+                COUNT(*) AS COUNT
+            FROM
+                member_like
+            WHERE
+                emailid = ?
+            `;
+            db.exec(countSql, [pagedata.emailid], (error, nums, fields) => {
+                if (error) {
+                    console.error("錯誤訊息:", error);
+                    reject(error);
+                    return;
+                }
+                if (nums && nums.length > 0) {
+                    const lastPage = Math.ceil(nums[0].COUNT / pagedata.nums_per_page);
+
+                    resolve({
+                        data: data,
+                        page: pagedata.page,
+                        lastPage: lastPage
+                    });
+                } else {
+                    resolve({ data, totalCount: 0, lastPage: 0 }); // 如果沒有資料
+                }
             });
         });
     });

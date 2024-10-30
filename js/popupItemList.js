@@ -120,9 +120,6 @@ axios.get('http://localhost:8080/item/popupItem')
     });
 
 
-
-
-
 //              讓modal保持開啟
 function openModal() {
     document.getElementById('overlay').classList.add('active');

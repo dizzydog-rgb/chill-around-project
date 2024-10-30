@@ -1,11 +1,13 @@
 // 10/29 有返回版本
 
 import axios from "axios";
-
+localStorage.setItem("scheduleId", "2");
 const currentScheduleId = localStorage.getItem("scheduleId");
 console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);
 
 const progresscheckboxes = []; // 全局進度框數組
+const progressStates = {}; // 儲存每個物品的勾選狀態
+
 window.addEventListener('load', () => {
     const savedProgress = localStorage.getItem('progressPercentage');
     if (savedProgress) {
@@ -14,9 +16,9 @@ window.addEventListener('load', () => {
     }
 });
 
-
 axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
     .then(response => {
+
         const userItemList = response.data.UseritemList;
 
         const cardContainer = document.querySelector('.cardRow');
@@ -63,14 +65,15 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
         const uniqueItems = Object.values(groupedItems);
 
-        uniqueItems.forEach(item => {
+        // ------------------ 渲染右方種類卡片D ------------------
+        uniqueItems.forEach((item, index) => {
             const cardOut = document.createElement('div');
             cardOut.classList.add('col-md-4', 'col-4', 'mb-3', 'cardOut');
             const card = document.createElement('div');
             card.classList.add('card');
+            card.id = `card-${item.Icategory_id}`;
 
             const logoPath = logoMapping[item.ItemName];
-            console.log(logoPath)
             card.innerHTML = `
                 <button class="rightDelete">–</button>
                 <img src="${logoPath}" class="cardImg" alt="卡片圖片">
@@ -79,8 +82,28 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                     <span>${item.Quantity} / ${item.Total}</span>
                 </div>
             `;
+
             cardOut.appendChild(card);
             cardContainer.appendChild(cardOut);
+
+
+            // ------------------------------------------------------------- 10/30下午還在做這裡
+            // card.addEventListener('click', () => {
+            //     sessionStorage.setItem('selectedCardIndex', item.Icategory_id);
+            //     location.reload(); 
+            //     console.log(item.Icategory_id)
+            // });
+            // window.addEventListener('load', () => {
+            //     const selectedIndex = sessionStorage.getItem('selectedCardIndex');
+            //     if (selectedIndex !== null) {
+            //         const cardToHighlight = document.getElementById(`card-${selectedIndex}`); // 根据索引找到卡片
+            //         if (cardToHighlight) {
+            //             cardToHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            //             cardToHighlight.classList.add('highlight'); // 添加高亮样式
+            //         }
+            //         sessionStorage.removeItem('selectedCardIndex'); // 清除索引
+            //     }
+            // });
 
             // ------------------ 刪除：整個大種類 ------------------
             function deleteAllcategory(itemName, Icategory_id) {
@@ -88,7 +111,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                     axios.delete(`http://localhost:8080/item/Useritem/${currentScheduleId}/category/${Icategory_id}`)
                         .then(response => {
                             console.log('刪除成功', response.data);
-                            // 从 DOM 中移除该种类卡片
+                            // 從 DOM 中移除該種類卡片
                             const cardToRemove = document.querySelector(`.card-body[data-item-name="${itemName}"]`).closest('.cardOut');
                             if (cardToRemove) {
                                 cardToRemove.remove();
@@ -109,15 +132,19 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
             // ------------------ 物品細項渲染 ------------------
             card.addEventListener('click', () => {
+
                 const clickedItemName = item.ItemName;
                 const Icategory_id = item.Icategory_id;
-                console.log(Icategory_id)
+                console.log(clickedItemName)
 
                 const userItems = response.data.UseritemList.filter(i => i.ItemName === clickedItemName);
 
-                // 渲染上面種類文字
+                // 渲染中間區，使用者所選的大種類
                 const CategoryTextElement = document.querySelector('.categoryText');
-                CategoryTextElement.textContent = clickedItemName;
+                console.log(clickedItemName)
+                if (clickedItemName) {
+                    CategoryTextElement.textContent = clickedItemName;
+                }
 
                 const categoryContainer = document.querySelector('.categoryContainer');
                 categoryContainer.innerHTML = ''; // 清空內容
@@ -132,14 +159,17 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                     const PrepareStatus = selectedItem.PrepareStatus;
                     const itemListId = selectedItem.ItemList_id;
 
+                    // 進度條更新狀態
+                    const isChecked = progressStates[itemListId] !== undefined ? progressStates[itemListId] : (PrepareStatus === 1);
+
                     detailElement.innerHTML = `
-                        <input type="checkbox" class="checkBOX left" ${PrepareStatus === 1 ? "checked" : ""}>
+                        <input type="checkbox" class="checkBOX left" ${PrepareStatus === 1 ? "checked" : ""}></input>
                         <span class="itemContent left">${detail}</span>
                         <input type="number" class="itemQuantity right" min="1" value="${Quantity}">
                         <button class="leftDelete right">–</button>
                     `;
 
-                    // 刪除功能
+                    // ------------------ 刪除：物品細項 ------------------
                     const deleteButton = detailElement.querySelector('.leftDelete');
                     deleteButton.addEventListener('click', () => {
                         deleteItem(itemListId);
@@ -163,6 +193,41 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                         updateCardQuantity(item);
                     });
                 });
+
+                // 勾選後進度條更新
+                function updateProgress() {
+                    // 確保計算的是所有勾選框的狀態
+                    const totalCheckboxes = progresscheckboxes.length;
+                    const checkedCount = progresscheckboxes.filter(checkbox => checkbox.checked).length;
+
+                    const progressPercentage = totalCheckboxes > 0 ? (checkedCount / totalCheckboxes) * 100 : 0;
+                    const progress = document.getElementById('progress-bar');
+                    progress.style.width = progressPercentage + '%';
+
+                    // 保存進度到 localStorage
+                    localStorage.setItem('progressPercentage', progressPercentage);
+                }
+
+                // 勾選後畫面更新數字跳動
+                function updateCardQuantity(item) {
+                    const cardBody = card.querySelector('.card-body');
+                    const totalQuantityElement = cardBody.querySelector('span:nth-child(2)'); // 找到顯示數量的 span
+                    // 計算新的數量
+                    // const checkedCount = progresscheckboxes.filter(checkbox => checkbox.checked).length;
+
+                    // 根據勾選狀態計算新的顯示數量
+                    const newQuantity = userItems.reduce((acc, curr) => {
+                        // 如果勾選，則加上該項目的 Quantity，否則不加
+                        if (progresscheckboxes[userItems.indexOf(curr)].checked) {
+                            return acc + curr.Quantity;
+                        }
+                        return acc;
+                    }, 0);
+
+                    // 更新顯示
+                    const totalCount = userItems.reduce((acc, curr) => acc + curr.Quantity, 0);
+                    totalQuantityElement.textContent = `${newQuantity} / ${totalCount}`;
+                }
 
                 // ------------------ 編輯：物品細項 ------------------
                 function updateData(detailElement) {
@@ -190,39 +255,6 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                         });
                 };
 
-                // 勾選後畫面更新數字跳動
-                function updateCardQuantity(item) {
-                    const cardBody = card.querySelector('.card-body');
-                    const totalQuantityElement = cardBody.querySelector('span:nth-child(2)'); // 找到顯示數量的 span
-                    // 計算新的數量
-                    const checkedCount = progresscheckboxes.filter(checkbox => checkbox.checked).length;
-                    // 總數量
-                    const totalCount = userItems.reduce((acc, curr) => acc + curr.Quantity, 0);
-                    // 根據勾選狀態計算新的顯示數量
-                    const newQuantity = userItems.reduce((acc, curr) => {
-                        // 如果勾選，則加上該項目的 Quantity，否則不加
-                        if (progresscheckboxes[userItems.indexOf(curr)].checked) {
-                            return acc + curr.Quantity;
-                        }
-                        return acc;
-                    }, 0);
-
-                    totalQuantityElement.textContent = `${newQuantity} / ${totalCount}`; // 更新顯示
-                }
-
-                // 勾選後進度條更新
-                function updateProgress() {
-                    // 確保計算的是所有勾選框的狀態
-                    const totalCheckboxes = progresscheckboxes.length;
-                    const checkedCount = progresscheckboxes.filter(checkbox => checkbox.checked).length;
-
-                    const progressPercentage = totalCheckboxes > 0 ? (checkedCount / totalCheckboxes) * 100 : 0;
-                    const progress = document.getElementById('progress-bar');
-                    progress.style.width = progressPercentage + '%';
-
-                    // 保存進度到 localStorage
-                    localStorage.setItem('progressPercentage', progressPercentage);
-                }
 
                 // ------------------ 增加 +：輸入框彈出並增加物品細項 ------------------
                 const leftBtn = document.getElementById('leftBtn');
@@ -232,7 +264,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                     return () => addItem(currentIcategory_id, clickedItemName); // 使用捕獲的值
                 })());
 
-                function addItem() {
+                function addItem(Icategory_id, clickedItemName) {
                     console.log('取到的', Icategory_id)
                     const userInput = prompt("請輸入物品內容:");
                     if (userInput) {
@@ -247,6 +279,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                             Total: '',
                             Icategory_id: Icategory_id
                         }
+                        console.log('要發的數據:', dataToSend);
                         axios.post(`http://localhost:8080/item/Useritem/${currentScheduleId}/details`, dataToSend)
                             .then(response => {
                                 console.log('新增成功', response.data);
@@ -258,7 +291,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                     } else { alert("您沒有輸入任何文字。"); }
                 }
 
-                // ------------------ 刪除：物品細項 ------------------
+                // ------------------ 刪除 func：物品細項 ------------------
                 function deleteItem(itemListId) {
                     if (confirm("您確定要刪除這個項目嗎？")) {
                         console.log('有抓到嗎?????', itemListId)
@@ -279,19 +312,52 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             })
         })
 
-        let updateInterval;
-        function startAutoUpdate(detailElement) {
-            // 如果已有定時器，先清除
-            if (updateInterval) {
-                clearInterval(updateInterval);
-            }
+        // let updateInterval;
+        // function startAutoUpdate(detailElement) {
+        //     // 如果已有定時器，先清除
+        //     if (updateInterval) {
+        //         clearInterval(updateInterval);
+        //     }
 
-            // 每5秒自動更新一次
-            updateInterval = setInterval(() => {
-                updateData(cardContainer);
-            }, 5000);
-        }
+        //     // 每5秒自動更新一次
+        //     updateInterval = setInterval(() => {
+        //         updateData(cardContainer);
+        //     }, 5000);
+        // }
     })
     .catch(error => {
         console.error("Error fetching data:", error);
-    });
+    })
+
+
+
+// ------------------ 輸入框彈出並增加物品細項 ------------------
+export function addItem() {
+    // 彈出輸入框
+    const userInput = prompt("請輸入物品內容:");
+
+    // 確保用戶有輸入內容
+    if (userInput) {
+        const categoryContainer = document.querySelector('.categoryContainer');
+
+        // 創建一個新元素顯示用戶輸入選擇的種類
+        const newItemDiv = document.createElement('div');
+        newItemDiv.classList.add('categoryContent');
+
+        // 組合新的內容
+        newItemDiv.innerHTML = `
+            <input type="checkbox" class="checkBOX left">
+            <span class="itemContent left">${userInput}</span>
+            <input type="number" class="itemQuantity right" min="1" value="1">
+            <button class="leftDelete right">–</button>
+        `;
+
+        // 將新項目添加到畫面上
+        categoryContainer.appendChild(newItemDiv);
+    } else {
+        alert("您沒有輸入任何文字。");
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('leftBtn').addEventListener('click', addItem);
+});

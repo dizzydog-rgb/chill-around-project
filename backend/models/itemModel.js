@@ -80,7 +80,6 @@ exports.userAdditemCategory = (schId, data) => {
 
             // 確保 ItemDetails 是數組
             const itemDetailsArray = Array.isArray(data.ItemDetails) ? data.ItemDetails : [];
-
             // 檢查 ItemDetails 是否為空
             if (itemDetailsArray.length === 0) {
                 return reject(new Error('ItemDetails must be an array and cannot be empty'));

@@ -199,6 +199,14 @@ function bindLoadScheduleEvents() {
     const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
     loadScheduleButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
+            if (!token) {
+                event.preventDefault(); 
+                event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
+                alert("請先登入");
+                window.location.href = 'index.html';
+                return;
+            }
+
             event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
             const siteId = button.getAttribute('data-site-id');

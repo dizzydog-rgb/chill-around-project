@@ -1,5 +1,4 @@
 // <---------------------- Get userbudget ---------------------->
-
 import axios from 'axios';
 
 // localStorage.setItem("scheduleId", "3");
@@ -64,6 +63,7 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
             }
 
             const logoPath = logoMapping[item.BudgetName];
+            console.log('在這!!!!!!!!',logoPath)
             const historyContentDiv = document.createElement('div');
             historyContentDiv.className = 'historyContent';
             historyContentDiv.setAttribute('data-budget-id', item.Budget_id);
@@ -89,6 +89,9 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
         });
 
         // ---------------------------------------------------- 渲染總額、已付和未付區
+        // 獲得行程頁面的 行程名稱
+
+
         const TotalAndifPaid = budgetItems[0].TotalAndifPaid;
         console.log("總額、已付和未付資料", TotalAndifPaid);
         // console.log("這是總額", TotalAndifPaid[0].TotalCost)
@@ -99,25 +102,25 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
         const ringProtectDiv = document.createElement('div');
         ringProtectDiv.className = 'ringProtect';
         ringProtectDiv.innerHTML = `
-                    <div class="ringProtect">
-                        <div class="circle-ring">
-                            <span>NT $${TotalAndifPaid[0].TotalCost}</span>
-                            <span>Total cost</span>
-                        </div>
-                        <div class="paid">
-                            <div>
-                                <span>未付金額</span>
-                                <br>
-                                <span>NT$${TotalAndifPaid[0].TotalUnpaid}</span>
+                        <div class="ringProtect">
+                            <div class="circle-ring">
+                                <span>NT $${TotalAndifPaid[0].TotalCost}</span>
+                                <span>Total Cost</span>
                             </div>
-                            <div>
-                                <span>已付金額</span>
-                                <br>
-                                <span>NT$${TotalAndifPaid[0].TotalPaid}</span>
+                            <div class="paid">
+                                <div>
+                                    <span>未付金額</span>
+                                    <br>
+                                    <span>NT$${TotalAndifPaid[0].TotalUnpaid}</span>
+                                </div>
+                                <div>
+                                    <span>已付金額</span>
+                                    <br>
+                                    <span>NT$${TotalAndifPaid[0].TotalPaid}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-        `
+            `
         rightbarDivContainer.appendChild(ringProtectDiv);
 
 
@@ -147,7 +150,6 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
                 `
                 categoryDiv.appendChild(categoryHistoryDiv);
                 // console.log("目前的coding位置 ---", categoryDiv)
-
             }
         });
     }).catch(function (error) {
