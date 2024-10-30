@@ -57,6 +57,49 @@ exports.loginEmail = (member) => {
     });
 }
 
+// Line登入的模組函數
+exports.LineData = ({ inputAccount, displayName }) => {
+    return new Promise((resolve, reject) => {
+        const sql = "SELECT * FROM `member` WHERE email = ?;";
+        const data = [inputAccount]; // 使用 userId 作為 email
+        // 在 LineData 中增加 log
+        console.log("Received inputAccount:", inputAccount, "Received displayName:", displayName);
+
+        db.exec(sql, data, function (error, results) {
+            if (error) {
+                console.error("資料庫查詢錯誤:", error);
+                reject(error);
+                return;
+            }
+
+            if (results && results.length > 0) {
+                // 更新 updated_at 時間戳
+                const updateSql = "UPDATE `member` SET updated_at = NOW() WHERE emailid = ?";
+                db.exec(updateSql, [results[0].emailid], function (updateError) {
+                    if (updateError) {
+                        console.error("更新 updated_at 時間錯誤:", updateError);
+                        reject({ error: "更新時間失敗" });
+                        return;
+                    }
+
+                    const token = jwt.sign(
+                        { id: results[0].emailid, email: results[0].email },
+                        SECRET_KEY,
+                        { expiresIn: '1h' }
+                    );
+                    resolve({
+                        account: results[0].email,
+                        token,
+                        emailid: results[0].emailid
+                    });
+                });
+            } else {
+                resolve({ error: "帳號不存在，請先註冊。" });
+            }
+        });
+    });
+};
+
 // 獲取會員資料的模組函數
 exports.findEmail = (emailid) => {
     return new Promise((resolve, reject) => {

@@ -80,7 +80,7 @@ $(document).ready(function () {
                                                 ${schedule.sch_name}
                                             </p>
                                             <p class="card-text">
-                                                <small class="text-body-secondary">行程期間：${stDate} - ${edDate}</small>
+                                                <span class="text-body-secondary">行程期間：${stDate} - ${edDate}</span>
                                             </p>
                                             <!-- <p class="card-text text-end">
                                                 <small class="text-body-secondary">參與編輯者:${schedule.uname}</small>

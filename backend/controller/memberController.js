@@ -19,6 +19,56 @@ exports.login = async (req, res) => {
     }
 };
 
+// Line登入控制器
+exports.Linelogin = async (req, res) => {
+    try {
+        const { code } = req.body;
+
+        // Step 1: 取得 access token
+        const tokenResponse = await axios.post("https://api.line.me/oauth2/v2.1/token", null, {
+            params: {
+                grant_type: "authorization_code",
+                code,
+                redirect_uri: "http://localhost:5173/chill-around-project/pages/index.html",
+                client_id: process.env.LINE_CLIENT_ID,
+                client_secret: process.env.LINE_CLIENT_SECRET
+            },
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).catch(error => {
+            console.error("Token request error:", error.response ? error.response.data : error.message);
+            throw new Error("無法從 Line 取得 access token");
+        });
+
+        const accessToken = tokenResponse.data.access_token;
+
+        // Step 2: 使用 access token 取得用戶資料
+        const profileResponse = await axios.get("https://api.line.me/v2/profile", {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        });
+
+        const { userId, displayName } = profileResponse.data;
+
+        // Step 3: 查詢用戶資料庫以確認是否存在
+        const result = await memberModel.LineData({ inputAccount: userId, displayName });
+
+        // Step 4: 傳回 JWT
+        if (result.token) {
+            res.json({
+                token: result.token,
+                account: result.account,
+                emailid: result.emailid
+            });
+        } else {
+            res.status(401).json({ message: result.error });
+        }
+    } catch (error) {
+        console.error("登入錯誤:", error);
+        res.status(500).json({ message: "登入錯誤" });
+    }
+};
+
 // 傳送註冊資料控制器
 exports.registermember = async (req, res) => {
     try {
@@ -183,33 +233,33 @@ exports.getLikeSch = async (req, res) => {
 // 刪除使用者旅行計畫資料的控制器
 exports.deluserSchByIds = async (req, res) => {
     try {
-      // 將 `ids` 字串轉為陣列
-      const scheduleIds = req.params.ids.split(',').map(id => parseInt(id, 10));
-      // 從資料庫刪除特定ID的行程資料
-      const result = await memberModel.dropScheduleByIds(scheduleIds);
+        // 將 `ids` 字串轉為陣列
+        const scheduleIds = req.params.ids.split(',').map(id => parseInt(id, 10));
+        // 從資料庫刪除特定ID的行程資料
+        const result = await memberModel.dropScheduleByIds(scheduleIds);
 
-      // 成功刪除後回傳 JSON 給前端
-      res.json({ message: "刪除成功", affectedRows: result.affectedRows });
+        // 成功刪除後回傳 JSON 給前端
+        res.json({ message: "刪除成功", affectedRows: result.affectedRows });
     } catch (error) {
-      // 錯誤處理
-      console.error("Error fetching site:", error);
-      res.status(500).json({ message: "刪除失敗" });
+        // 錯誤處理
+        console.error("Error fetching site:", error);
+        res.status(500).json({ message: "刪除失敗" });
     }
-  };
+};
 
-  // 刪除使用者收藏行程的控制器
+// 刪除使用者收藏行程的控制器
 exports.delmyLikeSchByIds = async (req, res) => {
     try {
-      // 將 `ids` 字串轉為陣列
-      const scheduleIds = req.params.ids.split(',').map(id => parseInt(id, 10));
-      // 從資料庫刪除特定ID的行程資料
-      const result = await memberModel.dropmyLikeSchByIds(scheduleIds);
+        // 將 `ids` 字串轉為陣列
+        const scheduleIds = req.params.ids.split(',').map(id => parseInt(id, 10));
+        // 從資料庫刪除特定ID的行程資料
+        const result = await memberModel.dropmyLikeSchByIds(scheduleIds);
 
-      // 成功刪除後回傳 JSON 給前端
-      res.json({ message: "刪除成功", affectedRows: result.affectedRows });
+        // 成功刪除後回傳 JSON 給前端
+        res.json({ message: "刪除成功", affectedRows: result.affectedRows });
     } catch (error) {
-      // 錯誤處理
-      console.error("Error fetching site:", error);
-      res.status(500).json({ message: "刪除失敗" });
+        // 錯誤處理
+        console.error("Error fetching site:", error);
+        res.status(500).json({ message: "刪除失敗" });
     }
-  };
+};
