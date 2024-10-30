@@ -194,6 +194,8 @@
         /* 最大寬度限制 */
         // height: 120px;
         // height: 150px;
+        display: flex;
+        flex-direction: row;
         .countryImg {
             border-radius: 10px 0px 0px 10px;
             min-height: 100%;
@@ -205,7 +207,9 @@
         }
     }.relativeInfo{
         margin: 32px auto 32px;
-        // justify-content: space-between;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
     }
     a{
         text-decoration: none;

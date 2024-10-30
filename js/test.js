@@ -130,7 +130,7 @@ $(".btn5").on("click", () => {
             const bestImage = testStyle.best_style_img.replace(/['"]/g, ''); // 去除引號(資料表圖片存字串)
             const countryImage = testStyle.country_img.replace(/['"]/g, ''); // 去除引號(資料表圖片存字串)
             let resultHtml = `
-                <h2 class="text-primary m-3">你的旅行風格是...</h2>
+                <h2 class="text-primary">你的旅行風格是...</h2>
                 <!-- 角色 -->
                 <div class="col-10 d-flex m-auto" id="resultStyle">
                 <div class="characterDes me-3">
@@ -214,11 +214,12 @@ $(".btn5").on("click", () => {
 document.getElementById("share").addEventListener('click',downloadImg)
 function downloadImg(){
     console.log("download success");
+    console.log(document.getElementById('mbtiType').innerHTML)
 
-    domtoimage.toJpeg(document.getElementById('mbtiType'), { quality: 0.95,bgcolor:'white' })
+    domtoimage.toSvg(document.getElementById('mbtiType'), { quality: 0.95,bgcolor:'white' })
     .then(function (dataUrl) {
     var link = document.createElement('a');
-    link.download = 'mytrip.jpeg';
+    link.download = 'mytrip.svg';
     link.href = dataUrl;
     link.click();
 });
