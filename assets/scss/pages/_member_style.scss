@@ -218,6 +218,13 @@
                             background-color: #6799AE;
                         }
                     }
+
+                    .active {
+                        a {
+                            background-color: #4A859F;
+                            color: #fff;
+                        }
+                    }
                 }
 
                 #logoutbtn {
@@ -468,6 +475,19 @@
                         }
                     }
 
+                    span {
+                        width: 35px;
+                        height: 35px;
+                        display: inline-block;
+                        margin-right: 2px;
+                        border: 1px #282828 solid;
+                        line-height: 35px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        color: #282828;
+                        padding-top: 1px;
+                    }
+
                     li:hover {
                         a {
                             color: #fff;
@@ -477,6 +497,11 @@
 
                     li.active {
                         a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+
+                        span {
                             color: #fff;
                             background-color: #282828;
                         }
@@ -595,6 +620,19 @@
                             color: #282828;
                             padding-top: 1px;
                         }
+
+                        span {
+                            width: 35px;
+                            height: 35px;
+                            display: inline-block;
+                            margin-right: 2px;
+                            border: 1px #282828 solid;
+                            line-height: 35px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            color: #282828;
+                            padding-top: 1px;
+                        }
                     }
 
                     li:hover {
@@ -606,6 +644,11 @@
 
                     li.active {
                         a {
+                            color: #fff;
+                            background-color: #282828;
+                        }
+
+                        span {
                             color: #fff;
                             background-color: #282828;
                         }

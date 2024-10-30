@@ -115,7 +115,7 @@ $(document).ready(function () {
                         <input type="text" name="telephonenum" id="telephonenum" class="inpwrite" value="${member.telephone}"
                             placeholder="請輸入市內電話" pattern="0[2-8]{1}[0-9]{8}" readonly>
                     </div>
-                    <div class="bindaccount">
+                    <!-- <div class="bindaccount">
                         <div class="title">綁定帳戶：</div>
                         <div class="googleline">
                             <div class="item">
@@ -127,7 +127,7 @@ $(document).ready(function () {
                                 <div id="line"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </form>
             `;

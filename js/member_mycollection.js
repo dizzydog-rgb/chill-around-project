@@ -28,7 +28,7 @@ $(document).ready(function () {
             var cardList = `
                 <div class="text-end mb-3">
                     <a href="schInfo.html" class="btn btn-primary editbtn text-white">
-                        新增 <b>＋</b>
+                        新增收藏 <b>＋</b>
                     </a>
             `;
             if (response.data.data[0] == undefined) {
@@ -41,7 +41,7 @@ $(document).ready(function () {
             } else {
                 cardList += `
                     <button id="deletebtn" type="button" class="btn btn-primary editbtn text-white">
-                                刪除 <b>－</b>
+                        刪除收藏 <b>－</b>
                     </button>
                 </div>
                 <form>
@@ -92,29 +92,33 @@ $(document).ready(function () {
                 let pageButtons = '';
                 for (let i = 1; i <= lastPage; i++) {
                     if (i == currentPage) {
-                        pageButtons += `<li class="active"><a href="?page=${i}">${i}</a></li> `;
+                        pageButtons += `<li class="active"><span>${i}</span></li> `;
                     } else {
                         pageButtons += `<li><a href="?page=${i}">${i}</a></li> `;
                     }
                 }
 
                 let previousPage = currentPage - 1;
+                let innerFirstpage = '<a href="?page=1" title="第一頁"><i class="icon-chevrons-left"></i></a>';
                 let innerpreviousPage = `<a href="?page=${previousPage}" title="上一頁"><i class="icon-chevron-left"></i></a>`;
                 if (previousPage <= 0) {
-                    innerpreviousPage = '<a href="#" title="上一頁"><i class="icon-chevron-left"></i></a>';
+                    innerFirstpage = '<span title="第一頁"><i class="icon-chevrons-left"></i></span>';
+                    innerpreviousPage = '<span title="上一頁"><i class="icon-chevron-left"></i></span>';
                 }
 
                 let nextPage = currentPage + 1;
                 let innernextPage = `<a href="?page=${nextPage}" title="下一頁"><i class="icon-chevron-right"></i></a>`;
+                let innerlastPage = `<a href="?page=${lastPage}" title="最後一頁"><i class="icon-chevrons-right"></i></a>`;
                 if (nextPage > lastPage) {
-                    innernextPage = '<a href="#" title="下一頁"><i class="icon-chevron-right"></i></a>';
+                    innernextPage = '<span title="下一頁"><i class="icon-chevron-right"></i></span>';
+                    innerlastPage = '<span title="最後一頁"><i class="icon-chevrons-right"></i></span>';
                 }
 
                 cardList += `
                         <div class="jumpbox mb-3">
                             <ul class="jump_bef">
                                 <li>
-                                    <a href="?page=1" title="最前一頁"><i class="icon-chevrons-left"></i></a>
+                                    ${innerFirstpage}
                                 </li>
                                 <li>
                                     ${innerpreviousPage}
@@ -128,7 +132,7 @@ $(document).ready(function () {
                                     ${innernextPage}
                                 </li>
                                 <li>
-                                    <a href="?page=${lastPage}" title="最後一頁"><i class="icon-chevrons-right"></i></a>
+                                    ${innerlastPage}
                                 </li>
                             </ul>
                         </div>
