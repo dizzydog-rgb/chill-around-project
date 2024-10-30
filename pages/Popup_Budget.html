@@ -16,10 +16,10 @@
         <div class="modal" id="modal">
             <div class="topDiv">
                 <a class="category" href="#modal2" id="open-modal2">種類</a>
-                <input class="date" type="date"></input>
+                <input id="userChooseDate" class="date" type="date"></input>
                 <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
             </div>
-            <form>
+            <form class="middleForm">
                 <div>
                     <span>金額</span>
                     <input id="userMoney" type="text" placeholder="輸入金額" required><br><br>
@@ -38,10 +38,10 @@
                 </div>
             </form>
             <div class="buttons">
-                <a href="./Budget.html">
-                    <button type="submit">確認</button>
-                </a>
-                <button type="button" onclick="alert('已刪除')">刪除</button>
+                <!-- <a href="./Budget.html"> -->
+                    <button class="submitBtn" type="submit">確認</button>
+                <!-- </a> -->
+                <button id="deleteBtn" type="button" onclick="alert('已刪除')">刪除</button>
             </div>
         </div>
     </div>

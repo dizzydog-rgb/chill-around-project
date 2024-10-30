@@ -7,6 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="module" src="/main.js"></script>
 </head>
 <body>
@@ -200,50 +201,51 @@
             </div>   
         </main>
      </div>
-      <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 w-100">
-                    <label for="itinerarySelect" class="form-label">選擇行程</label>
-                    <select class="form-select" id="itinerarySelect">
-                        <option value="" selected>請選擇行程</option>
-                        <option value="itinerary1">行程 1</option>
-                        <option value="itinerary2">行程 2</option>
-                        <option value="itinerary3">行程 3</option>
-                    </select>
-                </div>
+     <!-- Modal -->
+     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal"
+                     aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <div class="mb-3 w-100">
+                     <label for="itinerarySelect" class="form-label">選擇行程</label>
+                     <select class="form-select" id="itinerarySelect">
+                         <option value="" selected>請選擇行程</option>
+                         <option value="itinerary1">行程 1</option>
+                         <option value="itinerary2">行程 2</option>
+                         <option value="itinerary3">行程 3</option>
+                     </select>
+                 </div>
+             </div>
+             <div class="modal-body">
+                 <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                     <label for="daySelect" class="form-label">選擇天數</label>
+                     <select class="form-select" id="daySelect">
+                         <option value="" selected>請選擇天數</option>
+                         <option value="day1">第 1 天</option>
+                         <option value="day2">第 2 天</option>
+                         <option value="day3">第 3 天</option>
+                     </select>
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary Close"
+                     data-bs-dismiss="modal">關閉</button>
+                 <button type="button" class="btn btn-primary Save">保存選擇</button>
+             </div>
+         </div>
+     </div>
+ </div>
+  <!-- footer -->
+  <%- include('./layout/footer') -%>
 
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
-                    <label for="daySelect" class="form-label">選擇天數</label>
-                    <select class="form-select" id="daySelect">
-                        <option value="" selected>請選擇天數</option>
-                        <option value="day1">第 1 天</option>
-                        <option value="day2">第 2 天</option>
-                        <option value="day3">第 3 天</option>
-                    </select>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary">保存選擇</button>
-            </div>
-    </div>
-   </div>
-
-    </div>
     
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> 
     <script type="module" src="../js/allSite.js"></script>
     <script>

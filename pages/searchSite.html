@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資訊搜尋頁</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
     </style>
@@ -148,11 +150,11 @@
             <!-- 迴圈生成卡片 -->
         </div>
         <div class="p-5 d-flex justify-content-center  ">
-            <a href="#" id="moreBtn" class="btn btn-secondary">更多美食推薦</a>
+            <a href="/chill-around-project/pages/foodMap.html" id="moreBtn" class="btn btn-secondary">更多美食推薦</a>
         </div>
     </div>
      <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
      <div class="modal-dialog">
          <div class="modal-content">
@@ -171,7 +173,6 @@
                          <option value="itinerary3">行程 3</option>
                      </select>
                  </div>
-
              </div>
              <div class="modal-body">
                  <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
@@ -182,19 +183,16 @@
                          <option value="day2">第 2 天</option>
                          <option value="day3">第 3 天</option>
                      </select>
-
                  </div>
              </div>
              <div class="modal-footer">
-                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                 <button type="button" class="btn btn-primary">保存選擇</button>
+                 <button type="button" class="btn btn-secondary Close"
+                     data-bs-dismiss="modal">關閉</button>
+                 <button type="button" class="btn btn-primary Save">保存選擇</button>
              </div>
+         </div>
      </div>
-    </div>
-
-
-</div>
-
+ </div>
     <!-- footer -->
     <%- include('./layout/footer') -%>
 

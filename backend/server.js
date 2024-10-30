@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+const cors = require('cors');
+require('dotenv').config();
 
 // 在你的 Express 應用中
 app.use(cors());
@@ -8,10 +9,11 @@ app.use(cors());
 // 載入路由區
 const indexRoutes = require("./routes/indexRoutes"); // 引入首頁相關路由
 const buildPlanRoutes = require("./routes/buildPlanRoutes"); // 引入建立計畫相關路由
-const schInfoRoutes = require("./routes/schInfoRoutes");
+const schInfoRoutes = require("./routes/schInfoRoutes");//引入行程資訊相關路由
 
 const siteRoutes = require("./routes/siteRoutes"); // 引入景點資訊相關路由
-const BudgetRoutes = require("./routes/BudgetRoutes"); // 引入預算彈跳視窗相關路由
+const BudgetRoutes = require("./routes/BudgetRoutes"); // 引入預算相關路由
+const itemRoutes = require("./routes/itemRoutes"); // 引入預算相關路由
 const memberRoutes = require("./routes/memberRoutes"); // 引入註冊、會員中心路由
 const testRoutes = require("./routes/testRoutes"); // 引入小測驗路由
 
@@ -29,7 +31,7 @@ app.use("/schInfo", schInfoRoutes);
 app.use("/member", memberRoutes);
 app.use("/site", siteRoutes);
 app.use("/budget", BudgetRoutes);
-// app.use("/budget", popupBudgetRoutes);
+app.use("/budget", popupBudgetRoutes);
 app.use("/test", testRoutes);
 
 // 注意，埠號是 8080

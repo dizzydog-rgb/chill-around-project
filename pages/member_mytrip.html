@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -41,130 +42,11 @@
                 </div>
             </div>
             <div class="col-md-10 mytrip">
-                <div class="text-end mb-3">
-                    <button type="button" class="btn btn-primary editbtn text-white">
-                        新增 <b>＋</b>
-                    </button>
-                    <button type="button" class="btn btn-primary editbtn text-white">
-                        刪除 <b>－</b>
-                    </button>
-                </div>
-                <form>
-                    <div class="mb-3">
-                        <a href="#">
-                            <div class="card mb-5">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4">
-                                        <img src="../assets/images/memberimg/註冊背景圖.jpg" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-8 text-center">
-                                        <div class="card-body">
-                                            <p class="card-text title ms-2">
-                                                旅遊計畫名稱
-                                            </p>
-                                            <p class="card-text">
-                                                <small class="text-body-secondary">行程期間：XXXX - XX - XX ~ XXXX - XX -
-                                                    XX</small>
-                                            </p>
-                                            <p class="card-text text-end">
-                                                <small class="text-body-secondary">參與編輯者:XXX,XXX</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="card mb-5">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4">
-                                        <img src="../assets/images/memberimg/註冊背景圖.jpg" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-8 text-center">
-                                        <div class="card-body">
-                                            <p class="card-text title ms-2">
-                                                旅遊計畫名稱
-                                            </p>
-                                            <p class="card-text">
-                                                <small class="text-body-secondary">行程期間：XXXX - XX - XX ~ XXXX - XX -
-                                                    XX</small>
-                                            </p>
-                                            <p class="card-text text-end">
-                                                <small class="text-body-secondary">參與編輯者:XXX,XXX</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="checkcard mb-5">
-                            <label>
-                                <input type="checkbox" name="" id="">
-                                <span></span>
-                            </label>
-                            <a href="#">
-                                <div class="card">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <img src="../assets/images/memberimg/註冊背景圖.jpg" class="img-fluid">
-                                        </div>
-                                        <div class="col-md-8 text-center">
-                                            <div class="card-body">
-                                                <p class="card-text title ms-2">
-                                                    旅遊計畫名稱
-                                                </p>
-                                                <p class="card-text">
-                                                    <small class="text-body-secondary">行程期間：XXXX - XX - XX ~ XXXX - XX -
-                                                        XX</small>
-                                                </p>
-                                                <p class="card-text text-end">
-                                                    <small class="text-body-secondary">參與編輯者:XXX,XXX</small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="jumpbox mb-3">
-                        <ul class="jump_bef">
-                            <li>
-                                <a href="#" title="最前一頁"><i class="icon-chevrons-left"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" title="上一頁"><i class="icon-chevron-left"></i></a>
-                            </li>
-                        </ul>
-                        <ul class="jump_btn">
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                        </ul>
-                        <ul class="jump_aft">
-                            <li>
-                                <a href="#" title="下一頁"><i class="icon-chevron-right"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" title="最後一頁"><i class="icon-chevrons-right"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="text-end">
-                        <button type="button" class="btn footerbtn text-white">
-                            確定刪除
-                        </button>
-                        <button type="button" class="btn footerbtn text-white">
-                            取消
-                        </button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
     <script type="module" src="/main.js"></script>
+    <script type="module" src="../js/member_mytrip.js"></script>
 </body>
 
 </html>

@@ -146,8 +146,89 @@ html {
 #SchRecommendCards {
 
 
-    //景點卡片
+    //行程卡片
     .SchCard {
+        cursor: pointer;
+        position: relative;
+        overflow: visible;
+        width: 100%;
+        height: 80vh;
+        border: 0px; // 消除預設白框
+        border-radius: 0px;
+        // background-color: #f8f9fa;
+
+        .SchcardImage {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+        }
+
+        &:hover img {
+            transform: scale(1.1);
+
+        }
+
+        .cardOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); //半透明背景
+            color: white;
+            padding: 30px;
+        }
+
+        .btnOverlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .bi-heart {
+                color: $light;
+                margin: 0;
+                padding: 0 1rem;
+                font-size: 1.5rem;
+            }
+
+            .bi-heart-fill {
+                color: $danger;
+                margin: 0;
+                padding: 0 1rem;
+                font-size: 1.5rem;
+            }
+
+            &:hover .bi-heart {
+                color: $danger;
+
+            }
+
+
+
+            button {
+                color: white;
+                border-radius: 25px;
+            }
+        }
+    }
+}
+
+#SchRecommendCards2 {
+
+
+    //行程卡片
+    .SiteCard {
         cursor: pointer;
         position: relative;
         overflow: visible;
@@ -299,6 +380,7 @@ html {
     border-radius: 10px;
     border-color: $danger ;
     color: $danger;
+    width: auto;
     max-width: 1200px;
     /* 最大寬度限制 */
     // height: 200px;
@@ -310,22 +392,20 @@ html {
         object-fit: cover;
     }
 
-    .custom-body {
+    .custom-card {
         display: flex;
         flex-direction: column;
         justify-content: top;
         padding: 1.5rem;
+        width: auto;
         
-
-        
-
         .card-title {
             white-space: nowrap;             /* 不換行 */
             overflow: hidden;                /* 隱藏超出部分 */
             text-overflow: ellipsis;         /* 顯示省略號 */
             margin: 0;                       /* 清除外邊距 */
             padding: 0;                      /* 清除內邊距 */
-            width: 100%                     /* 確保寬度為 100% */
+            width: auto                    /* 確保寬度為 100% */
 
             h6 {
                 white-space: nowrap;
@@ -343,27 +423,24 @@ html {
         .card-text {
             color: black;
             font-size: 16px;
-            display: -webkit-box;
-            /* 使文本成為彈性盒子 */
-            -webkit-box-orient: vertical;
-            /* 垂直排列盒子 */
-            -webkit-line-clamp: 3;
-            /* 限制顯示兩行 */
-            overflow: hidden;
-            /* 隱藏超出部分 */
-            text-overflow: ellipsis;
-            /* 顯示省略號 */
+            
+     
         }
 
 
     }
 
-    // 這裡讓卡片 hover 時緩慢放大
-    transition: transform 0.6s ease;
 
-    &:hover {
-        transform: scale(1.05); // 放大
-    }
+
+}
+.Blog.card{
+        
+        // 這裡讓卡片 hover 時緩慢放大
+        transition: transform 0.6s ease;
+
+        &:hover {
+            transform: scale(1.05); // 放大
+        }
 
 }
 

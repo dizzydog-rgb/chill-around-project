@@ -77,6 +77,7 @@ h1 {
     // background-color: $secondary;
     padding: 0px;
 }
+
 .allCard{
     // cursor: pointer;
     position: relative;
@@ -111,17 +112,22 @@ h1 {
         color: white;
         padding: 30px;
     }
-    .btnOverlay{
+    .btnOverlay {
         position: absolute;
         bottom: 0;
         right: 0;
         margin: 30px;
-        button{
-            color: white;
-            border-radius: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        button {
+          color: white;
+          border-radius: 25px;
         }
-    }
+      }
 }
+
 
 @media (max-width: 768px) {
     /* 在手機版樣式下添加更多的調整 */

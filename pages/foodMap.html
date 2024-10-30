@@ -13,6 +13,10 @@
             width: 100%; /* 圖片寬度設定為100% */
         }
     </style>
+    <!-- 用這個方法引入axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="module" src="/main.js"></script>
     
     
@@ -62,17 +66,16 @@
                         <option value="寵物餐廳">寵物餐廳</option>
                     </select>
                 </div>
-
             </div>
            
             <div class="input-group-append">
-                <button class="btn btn-outline-light" type="button" onclick="searchNearby()">搜尋</button>
+                <button id="searchBtn" class="btn btn-outline-light" type="button" >搜尋</button>
             </div>
         </div>
     </div>
-        <div class="mapBox">
-            <div id="map"></div>
-        </div>
+    <div class="mapBox">
+        <div id="map"></div>
+    </div>
        
         <!-- 美食卡片 -->
 
@@ -188,7 +191,7 @@
                             </div>
                         </div>
                         <!-- 資訊 -->
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="storeInfo">
                             <div class="info">
                                 <div class="infoTitle" id="infoTitle">
                                     <h2>北門肉圓</h2>
@@ -205,13 +208,9 @@
                                     </div>
                                     <div class="ps-3">
                                         <p id="storeOpentime"></p>
-                                        <!-- <p>星期一 休息</p>
-                                        <p>星期一 休息</p>
-                                        <p>星期一 休息</p>
-                                        <p>星期一 休息</p> -->
                                     </div>
                                 </div> 
-                                <div class="btnOverlay">
+                                <div class="btnOverlay" id="addBtn">
                                     <button type="button" class="addBtn btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         加入行程
                                     </button>
@@ -224,55 +223,54 @@
             </div>
         </div>
         <!-- 加入行程的Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 w-100">
-                    <label for="itinerarySelect" class="form-label">選擇行程</label>
-                    <select class="form-select" id="itinerarySelect">
-                        <option value="" selected>請選擇行程</option>
-                        <option value="itinerary1">行程 1</option>
-                        <option value="itinerary2">行程 2</option>
-                        <option value="itinerary3">行程 3</option>
-                    </select>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
-
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
-                    <label for="daySelect" class="form-label">選擇天數</label>
-                    <select class="form-select" id="daySelect">
-                        <option value="" selected>請選擇天數</option>
-                        <option value="day1">第 1 天</option>
-                        <option value="day2">第 2 天</option>
-                        <option value="day3">第 3 天</option>
-                    </select>
-
+                <div class="modal-body">
+                    <div class="mb-3 w-100">
+                        <label for="itinerarySelect" class="form-label">選擇行程</label>
+                        <select class="form-select" id="itinerarySelect">
+                            <option value="" selected>請選擇行程</option>
+                            <option value="itinerary1">行程 1</option>
+                            <option value="itinerary2">行程 2</option>
+                            <option value="itinerary3">行程 3</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary">保存選擇</button>
+                <div class="modal-body">
+                    <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                        <label for="daySelect" class="form-label">選擇天數</label>
+                        <select class="form-select" id="daySelect">
+                            <option value="" selected>請選擇天數</option>
+                            <option value="day1">第 1 天</option>
+                            <option value="day2">第 2 天</option>
+                            <option value="day3">第 3 天</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary Close"
+                        data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary Save">保存選擇</button>
+                </div>
             </div>
         </div>
     </div>
-   </div>
-   
     
-        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> --> -->
         <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMP0WUTPIwj9oi3SbbROwXL0STHfmKQuQ&libraries=places"></script> -->
 
 <script src="../js/foodMap.js"></script>
 <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMP0WUTPIwj9oi3SbbROwXL0STHfmKQuQ&loading=async&libraries=places&callback=initMap">
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 </html>
