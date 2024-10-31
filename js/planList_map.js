@@ -4,7 +4,8 @@ async function init() {
   const map = document.querySelector("gmp-map");
   const marker = document.querySelector("gmp-advanced-marker");
   const placePicker = document.querySelector("gmpx-place-picker");
-  const infowindow = new google.maps.InfoWindow();
+  // const infowindow = new google.maps.InfoWindow();
+
 
   map.innerMap.setOptions({
     mapTypeControl: false,
@@ -13,7 +14,7 @@ async function init() {
   placePicker.addEventListener("gmpx-placechange", handlePlaceChange);
 
   function handlePlaceChange() {
-    const place = placePicker.value;
+    const place = placePicker.value.formattedAddress;
 
     // 使用 Places Service 進行搜索
     const service = new google.maps.places.PlacesService(map.innerMap);
@@ -24,18 +25,17 @@ async function init() {
       ) {
         const place = results[0];
 
+
         if (placePicker.setInputValue) {
           placePicker.setInputValue(place.name);
         }
+
+        updateMap(place);
       }
     });
-
-    updateMap(place);
   }
 
   function updateMap(place) {
-    console.log(place);
-
     if (place.geometry.viewport) {
       map.innerMap.fitBounds(place.geometry.viewport);
     } else {
@@ -44,10 +44,10 @@ async function init() {
     }
 
     marker.position = place.geometry.location;
-    infowindow.setContent(
-      `<strong style="font-size: 26px; color: #4A859F">${place.name}</strong>`
-    );
-    infowindow.open(map.innerMap, marker);
+    // infowindow.setContent(
+    //   `<strong style="font-size: 26px; color: #4A859F">${place.name}</strong>`
+    // );
+    // infowindow.open(map.innerMap, marker);
   }
 }
 

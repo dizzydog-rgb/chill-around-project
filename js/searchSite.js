@@ -1,4 +1,7 @@
 import axios from "axios";
+
+const emailid = localStorage.getItem("emailid");
+console.log("emailid:", emailid);
 // 在 DOM 內容加載完成時調用隨機函數
 document.addEventListener('DOMContentLoaded', () => {
     showRandomAttractions(); // 顯示隨機的景點
@@ -35,7 +38,7 @@ document.getElementById("searchButton").addEventListener("click", function(){
 axios.get('http://localhost:8080/site/allsite')
 .then(response =>{
     const data =  response.data;
-    const siteData = data.filter(data => data.photo_three != '').slice(15,18)
+    const siteData = data.filter(data => data.photo_three != '').slice(10,18)
     console.log(siteData);
     // 使用 map 提取每個點的 photo_three 屬性
     const siteImages = siteData.map(site => site.photo_three);
@@ -48,24 +51,45 @@ axios.get('http://localhost:8080/site/allsite')
     const allImage = document.createElement("div");
     allImage.classList.add("row", "no-gutters" ,"ms-0", "me-0");
     allImage.innerHTML = `
-    <div id="image1" class="col-md-4 ps-0 pe-0">
-        <a href="/chill-around-project/pages/siteInfo.html?id=${siteData[0].site_id}">
-            <img src="../assets/images/searchSite/${siteImages[0]}" alt="Image 1">
-        </a>    
+   
+
+    <div id="image1" class="col-md-12 ps-0 pe-0">
+        <div class="overlay"></div>
+            <img src="../assets/images/searchSite/Keelung/ZhengbinFishingHarbor.jpg" alt="Image 1">
     </div>
-    <div id="image2" class="col-md-4 ps-0 pe-0">
-        <a href="/chill-around-project/pages/siteInfo.html?id=${siteData[1].site_id}">
-            <img src="../assets/images/searchSite/${siteImages[1]}" alt="Image 2">
-        </a> 
-    </div>
-    <div id="image3" class="col-md-4 ps-0 pe-0">
-        <a href="/chill-around-project/pages/siteInfo.html?id=${siteData[2].site_id}">
-            <img src="../assets/images/searchSite/${siteImages[2]}" alt="Image 3">
-        </a> 
-    </div>
-    
     `;
     heroImage.appendChild(allImage);
+
+    const carouselExample = document.getElementById('carouselExample');
+    carouselExample.innerHTML='';
+
+    // const carouselImage = carouselExample.innerHTML;
+    carouselExample.innerHTML = `
+    <div id="carouselExample" class="carousel slide d-md-none col-md-6 order-md-1" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="siteCarouselItem carousel-item active">
+              <img src="../assets/images/searchSite/${siteImages[0]}" class="d-block w-100" alt="圖片 1"/>
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="../assets/images/searchSite/${siteImages[1]} class="d-block w-100" alt="圖片 2" />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img src="../assets/images/searchSite/${siteImages[2]}" class="d-block w-100" alt="圖片 3"/>
+            </div>
+            
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+    `;
+    // carouselExample.appendChild(carouselImage);
 
 })
  // 創建景點卡片
@@ -220,21 +244,23 @@ function siteCardClickEvents() {
     });
 }
 
- // 綁定 "加入行程" 按鈕點擊事件
+ // 綁定 "加入行程" 按鈕點擊事件 =>景點
  function bindLoadScheduleEvents() {
     let selectedSchID;
     let selectedSiteData;
+
     const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
     loadScheduleButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
+
+            //登入判斷式
             if (!token) {
-                event.preventDefault(); 
+                event.preventDefault();
                 event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
                 alert("請先登入");
                 window.location.href = 'index.html';
                 return;
             }
-
             event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
             const siteId = button.getAttribute('data-site-id');
@@ -254,7 +280,11 @@ function siteCardClickEvents() {
             console.log(selectedSiteData);
 
             try {
-                const { data } = await axios.get('http://localhost:8080/schInfo/getspot');
+                const { data } = await axios.get(`http://localhost:8080/schInfo/getspot/${emailid}`);
+
+                console.log('Email ID:', emailid); // 確認 emailid 是否正確
+
+
                 console.log('獲取的行程資料:', data);
 
                 const selectElement = document.getElementById('itinerarySelect');
@@ -320,21 +350,23 @@ function siteCardClickEvents() {
         }
     });
 }
- // 綁定 "加入行程" 按鈕點擊事件
+ // 綁定 "加入行程" 按鈕點擊事件 =>美食
  function bindLoadScheduleEventsFood() {
     let selectedSchID;
     let selectedSiteData;
+
     const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
     loadScheduleButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
+
+            //登入判斷式
             if (!token) {
-                event.preventDefault(); 
+                event.preventDefault();
                 event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
                 alert("請先登入");
                 window.location.href = 'index.html';
                 return;
             }
-
             event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
             const siteId = button.getAttribute('data-site-id');
@@ -354,7 +386,11 @@ function siteCardClickEvents() {
             console.log(selectedSiteData);
 
             try {
-                const { data } = await axios.get('http://localhost:8080/schInfo/getspot');
+                const { data } = await axios.get(`http://localhost:8080/schInfo/getspot/${emailid}`);
+
+                console.log('Email ID:', emailid); // 確認 emailid 是否正確
+
+
                 console.log('獲取的行程資料:', data);
 
                 const selectElement = document.getElementById('itinerarySelect');
