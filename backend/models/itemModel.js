@@ -160,10 +160,15 @@ exports.updateUserItemDetails = (id, data) => {
                 sch_id = ? AND 
                 ItemList_id = ?`;
 
+        const values = [data.ItemName, data.ItemDetails, data.Quantity, data.PrepareStatus, data.Total, data.sch_id, data.ItemList_id];
+        console.log('Executing query:', query, 'with values:', values);
+
         db.exec(query, [data.ItemName, data.ItemDetails, data.Quantity, data.PrepareStatus, data.Total, data.sch_id, data.ItemList_id], (err, result) => {
             if (err) {
+                console.error('Error executing query:', err);
                 return reject(err);
             }
+            console.log('Query result:', result);
             resolve(result);
         });
     });

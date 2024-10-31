@@ -8,7 +8,7 @@ console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentSc
 // 新增功能所需的 localstorage
 document.querySelector('.increaseBtn').addEventListener('click', () => {
     localStorage.setItem('Adding', true);
-    window.location.href = 'Popup_Budget.html';
+    window.location.href = 'popupBudget.html';
 });
 
 // Logo 圖片
@@ -79,12 +79,12 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
             historyContentDiv.addEventListener('click', () => {
                 const UserChooseDiv = item;
                 localStorage.setItem("UserChooseDiv", JSON.stringify(UserChooseDiv));
-                window.location.href = '../pages/Popup_Budget.html';
+                window.location.href = '../pages/popupBudget.html';
             });
 
             document.querySelector('.increaseBtn').addEventListener('click', () => {
                 localStorage.removeItem("UserChooseDiv");
-                window.location.href = '../pages/Popup_Budget.html';
+                window.location.href = '../pages/popupBudget.html';
             });
         });
 

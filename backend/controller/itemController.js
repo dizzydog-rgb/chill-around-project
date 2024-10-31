@@ -15,12 +15,12 @@ exports.getUseritemListId = async (req, res) => {
             return res.status(404).json({ message: "UseritemList not found" });
         }
         // 成功取得資料後回傳 JSON 給前端
-        console.log("PopupBudget data to send:", UseritemList);
+        console.log("Useritemlist data to send:", UseritemList);
         // res.json({ data: UseritemList });
         res.json(UseritemList);
     } catch (error) {
         // 錯誤處理
-        // console.error("Error fetching PopupBudget:", error);
+        // console.error("Error fetching Useritemlist:", error);
         // res.status(500).json({ message: "Server Error" });
         res.status(500).json({ message: "Server Error", error: error.message });
     }
@@ -88,8 +88,8 @@ exports.userAdditemDetailsController = async (req, res) => {
     console.log('Received request body:', req.body);
 
     // 確保 ItemDetails 是必填的
-    if (!ItemDetails || !sch_id || !Icategory_id) {
-        return res.status(400).json({ message: 'ItemDetails, sch_id 和 Icategory_id 是必填項目' });
+    if (!Array.isArray(ItemDetails) || !ItemDetails.length || !sch_id || !Icategory_id) {
+        return res.status(400).json({ message: 'ItemDetails 必须是一个非空数组，sch_id 和 Icategory_id 是必填項目' });
     }
 
     const newItem = {
@@ -106,7 +106,6 @@ exports.userAdditemDetailsController = async (req, res) => {
 
     try {
         console.log('Trying to add item to the database...');
-
         const result = await itemModel.userAdditemDetails(newItem); // 呼叫模型的新增方法
         console.log('Item added successfully:', result);
 
