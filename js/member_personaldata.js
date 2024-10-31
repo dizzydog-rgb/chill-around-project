@@ -43,8 +43,8 @@ $(document).ready(function () {
                 <div class="mb-5">
                     <div class="card" style="max-width: 600px;">
                         <div class="row align-items-center g-0">
-                            <div class="col-md-4">
-                                <div id="photo" class="d-flex justify-content-center align-items-center">
+                            <div class="col-md-4 col-sm-12 d-flex justify-content-center">
+                                <div id="photo" class=" justify-content-center align-items-center">
                                     <p>請上傳圖片</p>
                                     <label class="btn btn-info upload">
                                         <input type="file" name="uphoto" id="uphoto" value="${member.uphoto}">
@@ -53,7 +53,7 @@ $(document).ready(function () {
                                     <img id="img" src="../assets/images/memberimg/${member.uphoto}">
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 col-sm-12">
                                 <div class="card-body">
                                     <p class="card-text ms-2">
                                         歡迎! <span id="uname">${member.uname}</span>
@@ -68,24 +68,24 @@ $(document).ready(function () {
                         <label class="col-form-label">姓名：</label>
                         <input type="text" name="uname" id="uname1" class="inpwrite" value="${member.uname}" placeholder="請輸入姓名" readonly>
                     </div>
-                    <div class="item">
-                        <div>
+                    <div class="item row">
+                        <div class="col-md-6 col-sm-12">
                             <label class="col-form-label">電子信箱：</label>
                             <input type="email" name="email" id="email" class="inpwrite" value="${member.email}" placeholder="請輸入電子信箱"
                                 readonly>
                         </div>
-                        <div>
+                        <div class="col-md-6 col-sm-12">
                             <label class="col-form-label">密碼：</label>
-                            <input type="text" name="pwd" id="pwd" class="inpwrite" value="${member.password}" minlength="6" placeholder="請輸入密碼" readonly>
+                            <input type="password" name="pwd" id="pwd" class="inpwrite" value="${member.password}" minlength="6" placeholder="請輸入密碼" readonly><i class="fa-solid fa-eye"></i><i class="fa-solid fa-eye-slash"></i>
                         </div>
                     </div>
-                    <div class="item">
-                        <div>
+                    <div class="item row">
+                        <div class="col-md-6 col-sm-12">
                             <label class="col-form-label">出生日期：</label>
                             <input type="text" name="birthday" id="birthday" class="inpwrite" value="${myBirthday}" placeholder="請輸入出生日期"
                                 readonly>
                         </div>
-                        <div>
+                        <div class="col-md-6 col-sm-12">
                             <label class="col-form-label">性別：</label>
                             <input type="text" name="sex" id="sex" class="inpwrite" value="${member.sex}" readonly>
                             <div id="selectsex">
@@ -143,6 +143,8 @@ $(document).ready(function () {
 
             if (member.password == null) {
                 $('#pwd').val('未填寫');
+                $('.fa-eye-slash').hide();
+                $('#pwd').prop("type", "text");
             }
             if (member.birthday == null) {
                 $('#birthday').val('未填寫');
@@ -160,6 +162,19 @@ $(document).ready(function () {
                 $('#telephonenum').val('未填寫');
             }
 
+            // 眼睛被點擊時
+            $('.fa-eye').hide();
+            $('.fa-eye-slash').click(function () {
+                $('#pwd').prop("type", "text"); // 顯示密碼
+                $('.fa-eye').show();
+                $('.fa-eye-slash').hide();
+            });
+            $('.fa-eye').click(function () {
+                $('#pwd').prop("type", "password"); // 隱藏密碼
+                $('.fa-eye').hide();
+                $('.fa-eye-slash').show();
+            });
+
             let googleid = member.googleid;
             let lineid = member.lineid;
             if (googleid == undefined) {
@@ -175,8 +190,21 @@ $(document).ready(function () {
             }
 
             function inputSize(input) {
-                var minSize = 10;
-                input.attr('size', input.val().length + 1)
+                const value = input.val();
+                let size = 0;
+
+                // 遍歷每個字元，判斷是否為中文字符
+                for (let i = 0; i < value.length; i++) {
+                    const charCode = value.charCodeAt(i);
+                    // 中文字符範圍
+                    if (charCode >= 0x4e00 && charCode <= 0x9fff) {
+                        size += 2; // 中文字符加2
+                    } else {
+                        size += 1; // 非中文字符加1
+                    }
+                }
+
+                input.attr('size', size);
             }
 
             $('.inpwrite').each(function () {
