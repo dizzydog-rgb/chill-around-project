@@ -28,7 +28,7 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
     // 更新 UI，顯示資料
     document.getElementById('topImage').innerHTML = `
     <img
-          src="../assets/images/searchSite/${photo_four}"
+          src="../assets/images/searchSite/${photo_one}"
           class="img-fluid"
           alt="大圖"
         />
