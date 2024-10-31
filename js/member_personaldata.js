@@ -44,7 +44,7 @@ $(document).ready(function () {
                     <div class="card" style="max-width: 600px;">
                         <div class="row align-items-center g-0">
                             <div class="col-md-4 col-sm-12 d-flex justify-content-center">
-                                <div id="photo" class=" justify-content-center align-items-center">
+                                <div id="photo" class="d-flex justify-content-center align-items-center">
                                     <p>請上傳圖片</p>
                                     <label class="btn btn-info upload">
                                         <input type="file" name="uphoto" id="uphoto" value="${member.uphoto}">
