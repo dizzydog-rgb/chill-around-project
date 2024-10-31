@@ -183,6 +183,58 @@ exports.findSiteTag = (regions, tags) => {
         });
     });
 };
+exports.findSiteTag = (regions, tags) => {
+    return new Promise((resolve, reject) => {
+        let query = `
+        SELECT 
+            s.site_id,
+            s.site_name,
+            s.site_city,
+            LEFT(s.site_add, 6) AS short_add,
+            s.photo_one,
+            s.photo_two,
+            GROUP_CONCAT(a.tag_name SEPARATOR ', ') AS tags
+        FROM 
+            site_tag st
+        JOIN 
+            sites s ON st.site_id = s.site_id
+        JOIN 
+            all_tag a ON st.tag_id = a.tag_id
+        `;
+        
+        const parameters = [];
+        let whereClauses = []; // 用于存储 WHERE 条件
+
+        if (regions) {
+            const regionArray = regions.split(',');
+            whereClauses.push(`s.site_city IN (?)`); // 增加地区条件
+            parameters.push(regionArray);
+        }
+
+        if (tags) {
+            const tagArray = tags.split(',');
+            const tagConditions = tagArray.map(() => 'st.tag_id = ?').join(' OR '); // 动态生成 OR 条件
+            whereClauses.push(`(${tagConditions})`);
+            parameters.push(...tagArray); // 将标签 ID 添加到参数数组
+        }
+        // 组合 WHERE 子句
+        if (whereClauses.length > 0) {
+            query += ' WHERE ' + whereClauses.join(' AND '); // 连接条件
+        }
+
+        query += ` GROUP BY s.site_id;`; // 按 site_id 分组
+        
+
+        db.exec(query, parameters, (err, results) => {
+            if (err) {
+                console.log("-----標籤地區名取得異常-----");
+                return reject(err);
+            }
+            resolve(results);
+        });
+    });
+};
+
 
 exports.findSearchSite = (region,tag) =>{
     return new Promise((resolve, reject) =>{
