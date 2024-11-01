@@ -20,11 +20,11 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "cors": "^2.8.5",
-<<<<<<< HEAD
+
     "dom-to-image": "^2.6.0",
-=======
+
     "dotenv": "^16.4.5",
->>>>>>> 84fe48e5297e5ca716ecd843c103f110b7fc6a9f
+
     "express": "^4.21.1",
     "express-session": "^1.18.1",
     "gh-pages": "^5.0.0",

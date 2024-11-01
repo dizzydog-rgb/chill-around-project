@@ -89,7 +89,7 @@ if (tags) {
 
     query += `
       GROUP BY 
-      s.sch_id, s.sch_name, s.edit_date, si.photo_one, si.photo_two, si.site_add;
+      s.sch_id, s.sch_name, s.edit_date, si.photo_one, si.photo_two, si.site_add ;
     `;
 
    

@@ -25,6 +25,7 @@
     color: white;
     width: auto;
     border-radius: 25px;
+    font-size: 18px;
 
     &:hover {
       background-color: $secondary;
@@ -45,6 +46,7 @@
 
   .nav-link {
     color: $light;
+    font-size: 18px;
 
     &:hover {
       color: $warning;
