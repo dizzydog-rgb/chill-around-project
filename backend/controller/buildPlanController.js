@@ -128,6 +128,7 @@ exports.putSiteDetailById = async (req, res) => {
     // 從 URL 參數中提取 ID、景點名稱、及景點說明
     const detail_id = req.params.id;
     const { sch_spot, sch_paragh, tags } = req.body;
+    console.log(sch_spot, sch_paragh, tags);
 
     // 調用 model 中的方法更新 景點資料
     await buildPlanModel.updateSiteDetailById(detail_id, sch_spot, sch_paragh);

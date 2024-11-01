@@ -1,3 +1,9 @@
+// 檢查是否已經刷新過
+if (!sessionStorage.getItem("pageRefreshed")) {
+  sessionStorage.setItem("pageRefreshed", "true");
+  location.reload(); // 執行重新整理
+}
+
 async function init() {
   const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
     "marker"
