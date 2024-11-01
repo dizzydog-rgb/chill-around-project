@@ -52,6 +52,7 @@
     }
   }
   .planDate {
+    flex-direction: column;
     input {
       width: 85%;
       max-width: 100%;
@@ -65,6 +66,7 @@
     }
   }
   .selectBox {
+    padding-right: 48px;
     label {
       font-size: 35px;
       font-weight: bold;
@@ -105,7 +107,6 @@
     .buildArea {
       padding-bottom: 80px;
     }
-
     .planDate {
       flex-direction: column;
       .inputBox {
@@ -121,7 +122,6 @@
         }
       }
     }
-
     .selectBox {
       label {
         font-size: 28px;

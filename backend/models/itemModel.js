@@ -59,116 +59,8 @@ exports.findItemCategory = () => {
     });
 };
 
-// // 使用者選取的資料區塊
-// exports.findUserBudgetOneDetails = (schId, DetailId) => {
-//     return new Promise((resolve, reject) => {
-//         const query = "SELECT * FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
-//         db.exec(query, [schId, DetailId], (err, result) => {
-//             if (err) {
-//                 return reject(err);
-//             }
-//             resolve(result);
-//         });
-//     });
-// };
 
-
-// // 使用者編輯預算方塊
-// exports.userEditBudget = (schId, budgetId, budgetData) => {
-//     return new Promise((resolve, reject) => {
-//         const query = "SELECT * FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
-
-//         db.exec(query, [schId, budgetId], (err, currentBudget) => {
-
-//             console.log('Error:', err);
-//             console.log('崩潰卡比---------------------------------------------------', new Date().toLocaleTimeString())
-//             console.log('Current Budget:', currentBudget);
-//             // console.log('schId', schId);
-//             // console.log('budgetId', budgetId);
-
-//             if (err) {
-//                 return reject(err);
-//             }
-//             if (!currentBudget || currentBudget.length === 0) {
-//                 return reject(new Error('Budget not found.'));
-//             }
-
-//             const fieldsToUpdate = [];
-//             const values = [];
-
-//             // 更新 BudgetName 如果提供
-//             if (budgetData.BudgetName) {
-//                 fieldsToUpdate.push("BudgetName = ?");
-//                 values.push(budgetData.BudgetName);
-//             }
-//             // 更新 BudgetDetails 如果提供
-//             if (budgetData.BudgetDetails) {
-//                 fieldsToUpdate.push("BudgetDetails = ?");
-//                 values.push(budgetData.BudgetDetails);
-//             }
-//             // 更新 BudgetDate 如果提供
-//             if (budgetData.BudgetDate) {
-//                 fieldsToUpdate.push("BudgetDate = ?");
-//                 values.push(budgetData.BudgetDate);
-//             }
-//             // 更新 Cost 如果提供
-//             if (budgetData.Cost) {
-//                 fieldsToUpdate.push("Cost = ?");
-//                 values.push(budgetData.Cost);
-//             }
-//             // 更新 PaidStatus 如果提供
-//             if (budgetData.PaidStatus !== undefined) {
-//                 fieldsToUpdate.push("PaidStatus = ?");
-//                 values.push(budgetData.PaidStatus);
-//             }
-//             // 更新 WhoPay 如果提供
-//             if (budgetData.WhoPay) {
-//                 fieldsToUpdate.push("WhoPay = ?");
-//                 values.push(budgetData.WhoPay);
-//             }
-//             // 更新 BudgetContent 如果提供
-//             if (budgetData.BudgetContent) {
-//                 fieldsToUpdate.push("BudgetContent = ?");
-//                 values.push(budgetData.BudgetContent);
-//             }
-
-//             if (fieldsToUpdate.length === 0) {
-//                 return reject(new Error('No fields to update.'));
-//             }
-
-//             console.log('我在這 -------------------------------------------------------------')
-//             console.log("Values:", values);
-
-//             // 添加 sch_id、Budget_id 到查詢參數
-//             values.push(schId, budgetId);
-
-//             // 建構更新查询
-//             const updateQuery = `UPDATE userbudget SET ${fieldsToUpdate.join(", ")} WHERE sch_id = ? AND Budget_id = ?`;
-//             console.log("Updating query:", values);
-//             console.log("Updating query:", updateQuery);
-
-//             db.exec(updateQuery, [...values, schId, budgetId], (err, result) => { // 傳遞 sch_id、budgetId
-//                 console.log("Updating values 和 schId, budgetId:", [...values, schId, budgetId]);
-//                 if (err) {
-//                     return reject(err);
-//                 }
-//                 if (result.affectedRows === 0) {
-//                     console.log("Updating query:", updateQuery);
-//                     console.log("Updating values 和 schId, budgetId:", [...values, schId, budgetId]);
-//                     console.log("Updating values:", values);
-//                     console.log("這裡是result.affectedRows", result.affectedRows);
-//                     // return reject(new Error('Budget not found.'));
-//                     console.error("No rows updated. Check if the budget exists and the data is different.");
-//                     return reject(new Error('No rows updated. Please check your data.'));
-//                 }
-//                 resolve('Budget updated!');
-//             });
-//         });
-//     });
-// };
-
-
-// 編輯頁面 - 新增功能
+// 新增物品大種類
 exports.userAdditemCategory = (schId, data) => {
     return new Promise((resolve, reject) => {
         console.log("Data received in userAdditemCategory:", data);
@@ -188,7 +80,6 @@ exports.userAdditemCategory = (schId, data) => {
 
             // 確保 ItemDetails 是數組
             const itemDetailsArray = Array.isArray(data.ItemDetails) ? data.ItemDetails : [];
-            
             // 檢查 ItemDetails 是否為空
             if (itemDetailsArray.length === 0) {
                 return reject(new Error('ItemDetails must be an array and cannot be empty'));
@@ -254,19 +145,86 @@ exports.userAdditemCategory = (schId, data) => {
 };
 
 
+// 編輯物品細項
+exports.updateUserItemDetails = (id, data) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            UPDATE useritemlist 
+            SET 
+                ItemName = ?, 
+                ItemDetails = ?, 
+                Quantity = ?, 
+                PrepareStatus = ?, 
+                Total = ? 
+            WHERE 
+                sch_id = ? AND 
+                ItemList_id = ?`;
+
+        const values = [data.ItemName, data.ItemDetails, data.Quantity, data.PrepareStatus, data.Total, data.sch_id, data.ItemList_id];
+        console.log('Executing query:', query, 'with values:', values);
+
+        db.exec(query, [data.ItemName, data.ItemDetails, data.Quantity, data.PrepareStatus, data.Total, data.sch_id, data.ItemList_id], (err, result) => {
+            if (err) {
+                console.error('Error executing query:', err);
+                return reject(err);
+            }
+            console.log('Query result:', result);
+            resolve(result);
+        });
+    });
+};
 
 
+// 新增物品細項
+exports.userAdditemDetails = (data) => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            INSERT INTO useritemlist (PrepareStatus, Quantity, sch_id, ItemName, ItemDetails, Total, Icategory_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        `;
+        const values = [
+            data.PrepareStatus,
+            data.Quantity,
+            data.sch_id,
+            data.ItemName,
+            data.ItemDetails,
+            data.Total,
+            data.Icategory_id
+        ];
 
-// // 編輯頁面 - 刪除功能
-// exports.userDeleteBudget = (schId, budgetId) => {
-//     return new Promise((resolve, reject) => {
-//         const query = "DELETE FROM userbudget WHERE sch_id = ? AND Budget_id = ?";
-//         db.exec(query, [schId, budgetId], (err, result) => {
-//             console.log('崩潰卡比---------------------------------------------------', new Date().toLocaleTimeString());
-//             if (err) {
-//                 return reject(err);
-//             }
-//             resolve('Budget deleted!', result);
-//         });
-//     });
-// };
+        db.exec(query, values, (error, results) => {
+            if (error) {
+                console.error('新增失敗', error);
+                return reject(error);
+            }
+            resolve({ insertId: results.insertId });
+        });
+    });
+};
+
+// 刪除物品細項
+exports.deleteUserItemDetails = (sch_id, itemListId) => {
+    return new Promise((resolve, reject) => {
+        const query = `DELETE FROM useritemlist WHERE sch_id = ? AND ItemList_id = ?`;
+        db.exec(query, [sch_id, itemListId], (err, result) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(result);
+        });
+    });
+};
+
+
+// 刪除物品大種類
+exports.deleteUserItemAllCategory = (sch_id, Icategory_id) => {
+    return new Promise((resolve, reject) => {
+        const deleteDetailsQuery = `DELETE FROM useritemlist WHERE sch_id = ? AND Icategory_id = ?`;
+        db.exec(deleteDetailsQuery, [sch_id, Icategory_id], (err, result) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(result);
+        });
+    });
+};

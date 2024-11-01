@@ -18,11 +18,11 @@ body {
 
 .tag {
     position: fixed;
-    top: 70px;
+    top: 90px;
     /* 根據header的高度來設定 */
     left: 0;
     width: 100%;
-    z-index: 999;
+    z-index: 800;
     /* 確保在圖片上方 */
     background-color: transparent;
     /* 背景色 */
@@ -33,7 +33,7 @@ body {
         height:auto;
         width: auto;
         border-color: #fff;
-        font-size: 0.7rem;
+        font-size: 1rem;
     }
 
 }

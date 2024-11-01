@@ -312,6 +312,7 @@ exports.findUesrSchedule = (pagedata) => {
     });
 };
 
+// 獲取會員收藏行程的模組函數
 exports.findLikeSch = (pagedata) => {
     return new Promise((resolve, reject) => {
         const sql = `
@@ -330,7 +331,7 @@ exports.findLikeSch = (pagedata) => {
             FROM schedule_details
             WHERE sch_id = s.sch_id
         ) AND mlk.emailid = ?
-        ORDER BY s.sch_id
+        ORDER BY mlk.like_id
         LIMIT ?, ?
         `;
 

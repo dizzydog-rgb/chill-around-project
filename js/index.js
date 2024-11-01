@@ -74,7 +74,7 @@ axios.get('http://localhost:8080/herotag')
         // 生成按鈕 HTML
         data.forEach(tag => {
             buttonsHTML += `
-              <button type="button" class="IndexBtn btn btn-outline-primary btn-sm mx-2" 
+              <button type="button" class="IndexBtn btn btn-outline-primary btn-sm mx-2 mb-2" 
               data-tag-id="${tag.tag_id}" >
                 ${tag.tag_name}
               </button>`;
