@@ -50,6 +50,7 @@
     }
   }
   .planDate {
+    flex-direction: column;
     input {
       width: 85%;
       max-width: 100%;
@@ -63,6 +64,7 @@
     }
   }
   .selectBox {
+    padding-right: 48px;
     label {
       font-size: 35px;
       font-weight: bold;
@@ -114,12 +116,6 @@
         margin-bottom: 48px;
         width: 80%;
         max-width: 100%;
-      }
-    }
-    .arrow-right {
-      margin: 48px 36px 48px 0;
-      .bi {
-        font-size: 50px;
       }
     }
     .selectBox {

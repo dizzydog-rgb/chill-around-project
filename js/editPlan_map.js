@@ -15,8 +15,6 @@ async function init() {
     mapTypeControl: false,
   });
 
-  placePicker.addEventListener("gmpx-placechange", handlePlaceChange);
-
   // 添加 dayList 的 click 事件監聽器
   dayList.forEach((day) => {
     day.addEventListener("click", handleSiteChangeByDay);
@@ -27,32 +25,11 @@ async function init() {
   let places = [];
   // let lines = [];
 
-  function handlePlaceChange() {
-    const place = placePicker.value;
-    places.push(place);
-
-    if (!place.location) {
-      window.alert("No details available for input: '" + place.name + "'");
-      infowindow.close();
-      markers.position = null;
-      return;
-    }
-
-    // 先清空標記以及線條
-    markers.forEach((marker) => {
-      marker.setMap(null);
-    });
-    // lines.forEach((arc) => {
-    //   arc.setMap(null);
-    // });
-
-    updateMap([place]);
-  }
-
   function handleSiteChangeByDay() {
     // 取得當天的景點名稱
     let currentSites = document.querySelectorAll(".siteItem");
     let currentSitesNameArr = [];
+
     currentSites.forEach((site) => {
       currentSitesNameArr.push(site.dataset.siteName);
     });
