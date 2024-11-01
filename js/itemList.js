@@ -1,4 +1,12 @@
 import axios from "axios";
+
+// const token = localStorage.getItem('token');
+//     if (!token) {
+//         alert("請先登入");
+//         window.location.href = 'index.html';
+//         // return;
+//     }
+
 localStorage.setItem("scheduleId", "2");
 const currentScheduleId = localStorage.getItem("scheduleId");
 console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);

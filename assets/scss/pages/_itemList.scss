@@ -15,7 +15,7 @@
          }
 
          .leftbarDiv {
-             width: 80%;
+             width: 100px;
              background-color: white;
              display: flex;
              align-self: start;
@@ -25,56 +25,56 @@
              border-right: 1px solid $primary;
              justify-content: center;
              align-items: center;
-             padding-left: 5%;
+             padding-left: 7%;
 
              //////////// Aside ////////////
              .planAside {
-                 // min-width:10%;
-                 // max-width:10%;
-                 text-align: center;
-                 width: 100px;
-                 height: 100vh;
-                 // border: 1px solid $primary;
-                 display: flex;
-                 flex-direction: column;
-                 padding: 0;
-                 margin: 0;
+                 //      // min-width:10%;
+                 //      // max-width:10%;
+                 //      text-align: center;
+                 //      width: 100px;
+                 //      height: 100vh;
+                 //      // border: 1px solid $primary;
+                 //      display: flex;
+                 //      flex-direction: column;
+                 //      padding: 0;
+                 //      margin: 0;
 
-                 .logo {
-                     // border-bottom: 1px solid $primary;
-                     display: block;
-                     display: flex;
-                     justify-content: center;
+                 //      .logo {
+                 //          // border-bottom: 1px solid $primary;
+                 //          display: block;
+                 //          display: flex;
+                 //          justify-content: center;
 
-                     img {
-                         height: 65px;
-                     }
+                 //          img {
+                 //              height: 55px;
+                 //          }
+                 //      }
+
+                 //      .navbar {
+                 //          padding: 0;
+                 //          margin-top: 25px;
+                 //          // padding: 12px;
+                 //          gap: 25px;
+                 //          text-align: center;
+                 //          color: $primary;
+                 //          display: flex;
+                 //          justify-content: center;
+
+                 a {
+                     text-decoration: none;
                  }
 
-                 .navbar {
-                     padding: 0;
-                     margin-top: 25px;
-                     // padding: 12px;
-                     gap: 25px;
-                     text-align: center;
-                     color: $primary;
-                     display: flex;
-                     justify-content: center;
+                 //          .bi {
+                 //              font-size: 30px;
+                 //          }
 
-                     a {
-                         text-decoration: none;
-                     }
-
-                     .bi {
-                         font-size: 30px;
-                     }
-
-                     h4 {
-                         font-size: 15px;
-                         font-weight: bold;
-                         text-align: center;
-                     }
-                 }
+                 //          h4 {
+                 //              font-size: 14px;
+                 //              font-weight: bold;
+                 //              text-align: center;
+                 //          }
+                 //      }
              }
          }
 
@@ -86,7 +86,7 @@
                  background-color: rgba(93, 98, 59, 0.9);
                  z-index: 0;
                  position: absolute;
-                 top: -77%;
+                 top: -85%;
                  left: -25%;
                  width: 40vw;
                  height: 40vw;
@@ -98,13 +98,21 @@
                  writing-mode: vertical-lr;
                  letter-spacing: 0.8em;
                  font-size: 1.8vw;
-                 padding: 5% 0 0 10%;
+                 padding: 5% 0 0 12%;
                  position: relative;
+             }
+
+             a {
+                 position: absolute;
+                 right: 5%;
+                 top: 10%;
+                 color: grey;
+                 font-size: 1vw;
              }
 
              #leftBtn {
                  height: 2.5vw;
-                 width: 6.5vw;
+                 width: 7vw;
                  background-color: #E7BA48;
                  border-radius: 50px;
                  border: none;
@@ -143,6 +151,7 @@
                      text-align: end;
                      font-weight: 800;
                      margin-bottom: 0.5vw;
+                     font-size: 1.5vw;
                  }
 
                  .progressDiv {
@@ -152,6 +161,7 @@
                      justify-content: start;
                      margin-bottom: 2%;
                      color: white;
+                     font-size: 1.1vw;
 
                      #progress-container {
                          height: 1vw;
@@ -246,7 +256,7 @@
              .rightBtn {
                  margin: 3vw 0 2vw;
                  height: 2.5vw;
-                 width: 6.5vw;
+                 width: 7vw;
                  background-color: #E7BA48;
                  border-radius: 50px;
                  border: none;
@@ -280,15 +290,17 @@
                                  background: none;
                                  border: none;
                                  font-weight: 800;
-                                 width: 2vw;
-                                 height: 2vw;
+                                 font-size: 1.5vw;
+                                 //  width: 2vw;
+                                 //  height: 2vw;
                                  position: absolute;
                                  top: 0.1vw;
                                  right: 0.1vw;
                              }
 
                              .card-body {
-                                 /* background-color: pink; */
+                                 //  background-color: pink;
+                                 padding: 0;
                                  font-size: 1vw;
                                  display: flex;
                                  flex-direction: column;
@@ -299,16 +311,186 @@
                          }
 
                          .card>img {
-                             background-color: rgb(191, 190, 206);
+                             background-color: rgb(217, 216, 224);
                              border-radius: 50%;
                              margin-top: 0.5vw;
-                             height: 4.5vw;
-                             width: 4.5vw;
+                             height: 4vw;
+                             width: 4vw;
                              align-self: center;
                          }
                      }
                  }
              }
+
          }
 
+         @media (max-width: 376px) {
+             .leftbarDiv {
+                 width: 80px;
+
+                 .planAside {
+                     width: 80px;
+                     //  align-items: center;
+                     // align-self: center;
+                     padding-left: 6px;
+
+                     .logo {
+                         // border-bottom: 1px solid $primary;
+                         display: block;
+                         display: flex;
+                         justify-content: center;
+
+                         img {
+                             height: 50px;
+                         }
+                     }
+
+                     .navbar {
+                         padding: 0;
+                         margin-top: 25px;
+                         // padding: 12px;
+                         gap: 25px;
+                         text-align: center;
+                         color: $primary;
+                         display: flex;
+                         justify-content: center;
+
+                         a {
+                             text-decoration: none;
+                         }
+
+                         .bi {
+                             font-size: 30px;
+                         }
+
+                         h4 {
+                             font-size: 12px;
+                             font-weight: bold;
+                             text-align: center;
+                         }
+                     }
+                 }
+             }
+
+             //  .leftbarDiv 結尾
+             .mtopDiv {
+                 .circle-background {
+                     top: -65%;
+                 }
+
+                 #itemTitle {
+                     margin-left: 5px;
+                     font-size: 9px;
+                 }
+
+                 a {
+                     font-size: 8px;
+                 }
+
+                 #leftBtn {
+                     height: 5vw;
+                     width: 11vw;
+                     font-size: 8px;
+                 }
+             }
+
+             //  mtopDiv結尾
+
+             .categoryDiv {
+
+                 .categoryDiv2 {
+
+                     .categoryText {
+                         font-size: 10px;
+                     }
+
+                     .progressDiv {
+                         margin: 10px 0;
+                         height: 20px;
+
+                         .progressNumber {
+                             margin-left: 5px;
+                             width: 17px;
+                             //  background-color: #67C5BB;
+                             color: darkslategray;
+                             font-size: 6px;
+                         }
+
+                         #progress-container {
+                             height: 1vh;
+
+                             #progress-bar {
+                                 height: 1vh;
+                             }
+                         }
+                     }
+                 }
+             }
+
+             //  .categoryDiv結尾
+
+             .categoryContainer {
+                 .categoryContent {
+                     font-size: 8px;
+                     padding: 3%;
+                     margin: 1.8% 0;
+                     margin-left: 10px;
+                     width: 80%;
+
+                     .itemQuantity {
+                         height: 3vw;
+                         font-size: 1.5vw;
+                     }
+                 }
+             }
+
+             //  .categoryContainer結尾
+
+             .rightbarDiv {
+                 .rightBtn {
+                     height: 5vw;
+                     width: 11vw;
+                     font-size: 8px;
+                     margin: 3vw 0 0;
+                 }
+
+                 .container {
+
+                     .cardRow {
+
+                         // background-color: #E7BA48;
+                         .cardOut {
+                             //  background-color: #2A5A70;
+                             width: 100%;
+                             height: 70px;
+
+                             .card {
+                                 width: 50%;
+                                 height: 100%;
+
+                                 .rightDelete {
+                                     right: 0;
+                                     font-size: 2vw;
+                                 }
+
+                                 .card-body {
+                                     font-size: 8px;
+                                 }
+
+                             }
+
+                             .card>img {
+                                 margin-top: 0.6vw;
+                                 height: 5.5vw;
+                                 width: 5.5vw;
+                             }
+                         }
+                     }
+                 }
+             }
+
+             // .rightbarDiv結尾
+         }
+
+         //  RWD結尾
      }

@@ -114,7 +114,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                     topDivContainer.innerHTML = `
                                 <a class="category" href="#modal2" id="open-modal2">${ParseUserChooseDiv.BudgetName}</a>
                                 <input class="date" id="userChooseDate" type="date" value="${formattedDate}"></input>
-                                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
+                                <a href="./budget.html" class="close" onclick="closeModal()">X</a>
                             `;
 
                     document.getElementById('open-modal2').addEventListener('click', () => {
@@ -156,7 +156,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                                 topDivContainer.innerHTML = `
                                 <a class="category" href="#modal2" id="open-modal2">${userChooseCategory.BudgetName}</a>
                                 <input class="date" id="userChooseDate" type="date" value="${itemDate}"></input>
-                                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
+                                <a href="./budget.html" class="close" onclick="closeModal()">X</a>
                             `;
                             }
                             closeModal2(categoryModal);
@@ -186,7 +186,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                         axios.put(`http://localhost:8080/budget/UserBudget/${currentScheduleId}/${CurrentBudget_id}`, updateData)
                             .then(postResponse => {
                                 console.log("更新成功 pika", postResponse.data);
-                                window.location.href = '../pages/Budget.html';
+                                window.location.href = '../pages/budget.html';
 
                             }).catch(error => {
                                 console.error("更新失敗：", error);
@@ -203,7 +203,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                         axios.delete(`http://localhost:8080/budget/UserBudget/${currentScheduleId}/${CurrentBudget_id}`)
                             .then(postResponse => {
                                 console.log("更新成功 pika", postResponse.data);
-                                window.location.href = '../pages/Budget.html';
+                                window.location.href = '../pages/budget.html';
                             }).catch(error => {
                                 console.error("更新失敗：", error);
                             });
@@ -224,7 +224,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                         topDivContainer.innerHTML = `
                                 <a class="category" href="#modal2" id="open-modal2">${userChooseCategory.BudgetName}</a>
                                 <input id="userChooseDate" class="date" type="date"></input>
-                                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
+                                <a href="./budget.html" class="close" onclick="closeModal()">X</a>
                             `;
                     }
                     closeModal2(categoryModal);
@@ -252,7 +252,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                 axios.post(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`, updateData)
                     .then(Response => {
                         console.log('新增成功');
-                        window.location.href = '../pages/Budget.html';
+                        window.location.href = '../pages/budget.html';
                     }).catch(error => {
                         console.error("更新失敗：", error);
                     })

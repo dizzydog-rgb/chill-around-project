@@ -20,46 +20,50 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 500px;
-        height: 420px;
-        padding: 20px;
+        // width: 500px;
+        // height: 420px;
+        width: 50%;
+        height: 45vw;
+        padding: 2%;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         z-index: 1000;
+        font-size: 1.5vw;
 
         .topDiv {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            
+            // margin-bottom: 15px;
 
             .date {
-                padding: 5px;
+                padding: 1%;
                 border-radius: 5px;
-                border: 2px solid #4A859F;
+                border: 1px solid #4A859F;
             }
 
             .close,
             .category {
+                font-size: 1.5vw;
                 background: white;
-                border: 2px solid #4A859F;
+                border: 1px solid #4A859F;
                 border-radius: 15px;
                 text-decoration: none;
                 cursor: pointer;
                 color: #4A859F;
-                font-size: medium;
-                margin-right: 10px;
-                padding: 2px 20px;
+                margin-right: 1%;
+                padding: 1% 5%;
             }
         }
 
         form {
-            margin: 15px 0;
+            // margin: 15px 0;
         }
 
         form>div {
-            height: 55px;
+            height: 7vw;
             padding: 0 20px;
-            margin: 15px 30px;
+            margin: 5% 8%;
             background: white;
             border-radius: 5px;
             font-weight: 600;
@@ -69,11 +73,13 @@
 
             >input {
                 border: none;
+                font-size: 1.5vw;
             }
 
             .checkBox {
-                margin-right: 235px;
+                margin-right: 68%;
                 transform: scale(1.5);
+                height: 1.5vw;
             }
         }
 
@@ -82,35 +88,16 @@
             justify-content: center;
 
             button {
-                margin: 0 15px;
+                margin: 0 5%;
                 background: #4A859F;
                 color: white;
                 border: none;
                 border-radius: 20px;
-                padding: 3px 20px;
+                padding: 1% 6%;
 
             }
         }
     }
-
-    /* .modal:target,
-            .overlay:target {
-                display: block;
-            } */
-
-
-
-    /**************** CATEGORY SCSS ****************/
-    /* .overlay2 {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 500;
-            } */
 
     .modal2 {
         background-color: #BED3DC;
@@ -120,8 +107,10 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 500px;
-        height: 420px;
+        // width: 500px;
+        // height: 420px;
+        width: 50%;
+        height: 45vw;
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         z-index: 1000;
@@ -137,15 +126,16 @@
 
                 .close2,
                 >button {
+                    font-size: 1.5vw;
                     text-decoration: none;
                     cursor: pointer;
                     background: white;
-                    border: 2px solid #4A859F;
+                    border: 1px solid #4A859F;
                     border-radius: 15px;
                     color: #4A859F;
                     font-size: medium;
                     margin-right: 10px;
-                    padding: 2px 20px;
+                    padding: 1% 8%;
                 }
             }
 
