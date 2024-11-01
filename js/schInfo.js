@@ -123,9 +123,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // 初始化加載喜好項目
-    function loadLikedItems() {
-        return axios.get(`http://localhost:8080/schInfo/getLikedItems/${emailid}`)
-            .then(response => response.data); // 返回已加 Like 的 sch_id 列表
+
+    // function loadLikedItems() {
+    //     return axios.get(`http://localhost:8080/schInfo/getLikedItems/${emailid}`)
+    //         .then(response => response.data); // 返回已加 Like 的 sch_id 列表
+    // }
+
+    async function loadLikedItems() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            // 未登入，直接返回空陣列
+            return [];
+        }
+        // 已登入，發送請求獲取已加 Like 的 sch_id 列表
+        const emailid = localStorage.getItem('emailid'); // 假設 emailid 儲存在 localStorage
+        const response = await axios.get(`http://localhost:8080/schInfo/getLikedItems/${emailid}`);
+        return response.data;
     }
 
 
