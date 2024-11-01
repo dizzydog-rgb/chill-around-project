@@ -38,7 +38,7 @@ $(".enter").on("click",()=>{
     $(".testQuestion1").fadeIn();
     })
 
-    // e.target.name
+
 let mbti ="";
 let selectedValues = [];
 
@@ -117,8 +117,8 @@ $(".btn5").on("click", () => {
         console.log(mbti);
 
         // 引入資料庫結果
-        const fetchTestStyle = (mbtiType) => {
-            axios.get(urlMap[mbtiType])
+        if (urlMap[mbti]) { // 判斷 mbti 是否在 urlMap 中
+            axios.get(urlMap[mbti])
             .then(function (response) {
             // handle success
             const testStyle = response.data;
@@ -185,13 +185,13 @@ $(".btn5").on("click", () => {
                     tag:item.tags.replace(/,/g, '#')
                 }));
                 console.log(schData);
-                
+                $("#schCard").html(''); // 清空行程卡片
                 $.each(schData,function(){
                     let schCard = `
                     <div class="card custom-card flex-row flex-wrap h-75 m-3" data-sch-id="${this.id}">
                         <!-- 左邊的圖片 -->
                         <div class="col-lg-4 col-md-4 col-sm-12">
-                            <img src="../assets/images/searchSite/${this.photo}" class="custom-img" alt="Card image">
+                            <img src="${this.photo ? '../assets/images/searchSite/' + this.photo : ''}" class="custom-img" alt="Card image" style="display: ${this.photo ? 'block' : 'none'};">
                         </div>
                             
                         <!-- 右邊的文字內容 -->
@@ -230,11 +230,6 @@ $(".btn5").on("click", () => {
             console.log(error);
             console.log("請求失敗");
             })
-        };
-
-        // 判斷式
-        if (urlMap[mbti]) {
-            fetchTestStyle(mbti);
         };
 
 
