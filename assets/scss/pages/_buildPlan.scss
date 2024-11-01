@@ -1,6 +1,8 @@
 .buildPlan {
-  height: 100vh;
   .buildArea {
+    overflow-y: scroll;
+    height: 100vh;
+
     border: 1px solid $primary;
     box-shadow: 1px 1px 1px 1px #909090;
     padding-bottom: 120px;
@@ -104,24 +106,22 @@
       padding-bottom: 80px;
     }
 
-    .inputBox {
-      h3 {
-        font-size: 28px;
-        margin-bottom: 24px;
-      }
-      input {
-        font-size: 24px;
-        margin-bottom: 48px;
-        width: 80%;
-        max-width: 100%;
-      }
-    }
-    .arrow-right {
-      margin: 48px 36px 48px 0;
-      .bi {
-        font-size: 50px;
+    .planDate {
+      flex-direction: column;
+      .inputBox {
+        h3 {
+          font-size: 28px;
+          margin-bottom: 24px;
+        }
+        input {
+          font-size: 24px;
+          margin-bottom: 48px;
+          width: 80%;
+          max-width: 100%;
+        }
       }
     }
+
     .selectBox {
       label {
         font-size: 28px;
