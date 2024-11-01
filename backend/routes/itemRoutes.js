@@ -10,11 +10,13 @@ const itemController = require("../controller/itemController");
 router.get("/popupItem", itemController.getItemCategory); // 渲染物品種類框
 
 // 之後新增.post、刪除.delete功能也要接這個路由
-router.get("/Useritem/:id", itemController.getUseritemListId); // 特定使用者預算資料
-router.post("/Useritem/:id", itemController.userAdditemController); // 新增使用者預算資料
+router.get("/Useritem/:id", itemController.getUseritemListId); // 獲取特定使用者物品資料
+router.post("/Useritem/:id", itemController.userAdditemController); // 使用者新增 - 物品種類
 
-// router.get("/UserBudget/:id/:detailId", itemController.getUserBudgetOneDetails); // 渲染使用者選取的預算資料方塊
-// router.put("/UserBudget/:id/:detailId", itemController.userEditBudgetController); // 編輯使用者選取的預算資料方塊
-// router.delete("/UserBudget/:id/:detailId", itemController.userDeleteBudgetController); // 特定使用者預算資料
+router.put("/Useritem/:id", itemController.updateUseritemDetailsController); // 使用者編輯 - 物品細項
+router.post("/Useritem/:id/details", itemController.userAdditemDetailsController); // 使用者新增 - 物品細項
+router.delete('/Useritem/:id/:itemListId', itemController.deleteUserItemDetailsController); // 使用者刪除 - 物品細項
+
+router.delete('/Useritem/:id/category/:Icategory_id', itemController.deleteUserItemAllCategoryController);
 
 module.exports = router;

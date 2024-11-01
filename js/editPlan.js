@@ -135,7 +135,7 @@ function renderEditPlan(schedules) {
   // 切換不同的天數
   const dayListItems = dayList.getElementsByTagName("li");
   for (let i = 0; i < dayListItems.length - 1; i++) {
-    dayListItems[i].addEventListener("click", () =>
+    dayListItems[i].addEventListener("click", () => 
       switchCurrentDay(i, schedules)
     );
   }
@@ -406,6 +406,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!token) {
     alert("請先登入會員");
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   }
 });

@@ -12,6 +12,9 @@ router.use('/images', express.static(__dirname + '/assets/images'));
 // POST 傳送登入帳密
 router.post("/login", memberController.login);
 
+// POST 傳送 Line登入資料
+router.post("/Linelogin", memberController.Linelogin);
+
 // POST 傳送註冊資料
 router.post("/register", memberController.registermember);
 

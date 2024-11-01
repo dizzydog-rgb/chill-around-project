@@ -1,4 +1,6 @@
 import axios from 'axios';
+const emailid = localStorage.getItem("emailid");
+console.log("emailid:", emailid);
 
 // // 寫這段是為了要讓我在5173的網址輸入對應的id可以撈到對應的資料
 // const params = new URLSearchParams(window.location.search);
@@ -159,53 +161,56 @@ function siteCardClickEvents() {
  function bindLoadScheduleEvents() {
     let selectedSchID;
     let selectedSiteData;
+
     const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
     loadScheduleButtons.forEach(button => {
-      
         button.addEventListener('click', async (event) => {
-            const token = localStorage.getItem('token');
+
+            //登入判斷式
             if (!token) {
-                event.preventDefault(); 
+                event.preventDefault();
                 event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
                 alert("請先登入");
                 window.location.href = 'index.html';
                 return;
             }
-                event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
-                const siteId = button.getAttribute('data-site-id');
-                const siteName = button.getAttribute('data-site-name');
-                const siteAdd = button.getAttribute('data-site-add');
-                const siteInfo = button.getAttribute('data-site-info');
-                const siteImg = button.getAttribute('data-site-img');
+            event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
-                selectedSiteData = {
-                    site_id: siteId,
-                    site_name: siteName,
-                    site_add: siteAdd,
-                    site_info: siteInfo,
-                    site_img: siteImg
-                };
-                console.log(selectedSiteData);
+            const siteId = button.getAttribute('data-site-id');
+            const siteName = button.getAttribute('data-site-name');
+            const siteAdd = button.getAttribute('data-site-add');
+            const siteInfo = button.getAttribute('data-site-info');
+            const siteImg = button.getAttribute('data-site-img');
 
-                try {
-                    
-                    const { data } = await axios.get('http://localhost:8080/schInfo/getspot');
-                    console.log('獲取的行程資料:', data);
+            selectedSiteData = {
+                site_id: siteId,
+                site_name: siteName,
+                site_add: siteAdd,
+                site_info: siteInfo,
+                site_img: siteImg
+            };
 
-                    const selectElement = document.getElementById('itinerarySelect');
-                    selectElement.innerHTML = '<option value="" selected>請選擇行程</option>';
-                    const optionsHTML = data.schedules.map(schedule => {
-                        return `<option value="${schedule.sch_name}" data-schedule-id="${schedule.sch_id}" data-days="${schedule.days}">${schedule.sch_name}</option>`;
-                    }).join('');
-                    selectElement.innerHTML += optionsHTML;
+            console.log(selectedSiteData);
 
-                    showModal();
-                } catch (error) {
-                    console.error('獲取行程資料失敗', error);
-                }
+            try {
+                const { data } = await axios.get(`http://localhost:8080/schInfo/getspot/${emailid}`);
 
-            
-            
+                console.log('Email ID:', emailid); // 確認 emailid 是否正確
+
+
+                console.log('獲取的行程資料:', data);
+
+                const selectElement = document.getElementById('itinerarySelect');
+                selectElement.innerHTML = '<option value="" selected>請選擇行程</option>';
+                const optionsHTML = data.schedules.map(schedule => {
+                    return `<option value="${schedule.sch_name}" data-schedule-id="${schedule.sch_id}" data-days="${schedule.days}">${schedule.sch_name}</option>`;
+                }).join('');
+                selectElement.innerHTML += optionsHTML;
+
+                showModal();
+            } catch (error) {
+                console.error('獲取行程資料失敗', error);
+            }
         });
     });
 

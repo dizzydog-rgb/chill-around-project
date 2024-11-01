@@ -122,15 +122,15 @@ $(".btn5").on("click", () => {
             .then(function (response) {
             // handle success
             const testStyle = response.data;
-            // console.log(testStyle);
-            // console.log(testStyle.result_style);
+            console.log(testStyle);
+            console.log(testStyle.result_style);
             // console.log(testStyle.style_des);
             // 更改資料
             const imageSrc = testStyle.style_img.replace(/['"]/g, ''); // 去除引號(資料表圖片存字串)
             const bestImage = testStyle.best_style_img.replace(/['"]/g, ''); // 去除引號(資料表圖片存字串)
             const countryImage = testStyle.country_img.replace(/['"]/g, ''); // 去除引號(資料表圖片存字串)
             let resultHtml = `
-                <h2 class="text-primary m-3">你的旅行風格是...</h2>
+                <h2 class="text-primary">你的旅行風格是...</h2>
                 <!-- 角色 -->
                 <div class="col-10 d-flex m-auto" id="resultStyle">
                 <div class="characterDes me-3">
@@ -170,6 +170,60 @@ $(".btn5").on("click", () => {
                     </div>
                 </div>`;
             $("#mbtiType").html(resultHtml);
+
+            // 取得行程資料
+            axios.get('http://localhost:8080/schInfo/getsch').then(response => {
+                const dataSite = response.data; // 獲取資料
+                console.log("獲取到的資料:", dataSite);
+                console.log(dataSite[0].sch_id);
+                // 取得符合標籤的資料
+                const schData = response.data.filter(item => item.tags.includes(testStyle.style_tag_1 || testStyle.style_tag_2))
+                .map(item => ({
+                    id:item.sch_id,
+                    sch:item.sch_name,
+                    photo:item.photo_one,
+                    tag:item.tags.replace(/,/g, '#')
+                }));
+                console.log(schData);
+                
+                $.each(schData,function(){
+                    let schCard = `
+                    <div class="card custom-card flex-row flex-wrap h-75 m-3" data-sch-id="${this.id}">
+                        <!-- 左邊的圖片 -->
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <img src="../assets/images/searchSite/${this.photo}" class="custom-img" alt="Card image">
+                        </div>
+                            
+                        <!-- 右邊的文字內容 -->
+                        <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+                            <h4 class="p-3">${this.sch}</h4>
+                            <hr>
+                            <p class="p-3">#${this.tag}</p>
+                            </div>
+                        </div>`;
+                    $("#schCard").append(schCard);
+                })
+                // 添加點擊事件
+                let cardItems = document.querySelectorAll(".card");
+                cardItems.forEach((card) => {
+                    card.addEventListener("click", (event) => {
+                        const schId = event.currentTarget.getAttribute('data-sch-id');
+
+                        // 存儲 sch_id 到 localStorage
+                        localStorage.setItem('selectedSchId', schId);
+                        console.log(schId);
+
+                        // 跳轉到新頁面
+                        window.location.href = "schCom.html";
+                });
+            });
+
+            })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                    console.log("請求失敗");
+                    })
             })
             .catch(function (error) {
             // handle error
@@ -182,43 +236,45 @@ $(".btn5").on("click", () => {
         if (urlMap[mbti]) {
             fetchTestStyle(mbti);
         };
-        
+
 
         // 推薦行程卡片
-        let schData=[
-            {title:'卡片標題',img:'https://via.placeholder.com/400x200',tag:'#相關標籤'},
-            {title:'卡片標題',img:'https://via.placeholder.com/400x200',tag:'#相關標籤'},
-            {title:'卡片標題',img:'https://via.placeholder.com/400x200',tag:'#相關標籤'},
-        ]
-        $.each(schData,function(){
-            let schCard = `
-            <div class="card custom-card flex-row flex-wrap h-75 m-3">
-                <!-- 左邊的圖片 -->
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <img src="${this.img}" class="custom-img" alt="Card image">
-                </div>
+        // let schData=[
+        //     {title:'卡片標題',img:'https://via.placeholder.com/400x200',tag:'#相關標籤'},
+        //     {title:'卡片標題',img:'https://via.placeholder.com/400x200',tag:'#相關標籤'},
+        //     {title:'卡片標題',img:'https://via.placeholder.com/400x200',tag:'#相關標籤'},
+        // ]
+        // $.each(schData,function(){
+        //     let schCard = `
+        //     <div class="card custom-card flex-row flex-wrap h-75 m-3">
+        //         <!-- 左邊的圖片 -->
+        //         <div class="col-lg-4 col-md-4 col-sm-12">
+        //             <img src="${this.img}" class="custom-img" alt="Card image">
+        //         </div>
                     
-                <!-- 右邊的文字內容 -->
-                <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
-                    <h4>${this.title}</h4>
-                    <hr>
-                    <p>${this.tag}</p>
-                    </div>
-                </div>`;
-            $("#schCard").append(schCard);
-        })
-});
+        //         <!-- 右邊的文字內容 -->
+        //         <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
+        //             <h4>${this.title}</h4>
+        //             <hr>
+        //             <p>${this.tag}</p>
+        //             </div>
+        //         </div>`;
+        //     $("#schCard").append(schCard);
+        // })
+    });
+    
 
     
 // 分享測驗結果
 document.getElementById("share").addEventListener('click',downloadImg)
 function downloadImg(){
     console.log("download success");
+    console.log(document.getElementById('mbtiType').innerHTML)
 
-    domtoimage.toJpeg(document.getElementById('mbtiType'), { quality: 0.95,bgcolor:'white' })
+    domtoimage.toSvg(document.getElementById('mbtiType'), { quality: 0.95,bgcolor:'white' })
     .then(function (dataUrl) {
     var link = document.createElement('a');
-    link.download = 'mytrip.jpeg';
+    link.download = 'mytrip.svg';
     link.href = dataUrl;
     link.click();
 });

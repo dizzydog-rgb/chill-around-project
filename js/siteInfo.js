@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const emailid = localStorage.getItem("emailid");
+console.log("emailid:", emailid);
+
 // 寫這段是為了要讓我在5173的網址輸入對應的id可以撈到對應的資料
 const params = new URLSearchParams(window.location.search);
 // http://localhost:5173/chill-around-project/pages/siteInfo.html?id=1
@@ -25,7 +28,7 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
     // 更新 UI，顯示資料
     document.getElementById('topImage').innerHTML = `
     <img
-          src="../assets/images/searchSite/${photo_four}"
+          src="../assets/images/searchSite/${photo_one}"
           class="img-fluid"
           alt="大圖"
         />
@@ -196,17 +199,19 @@ axios.get(`http://localhost:8080/site/siteinfo/${siteId}`)
 function bindLoadScheduleEvents() {
     let selectedSchID;
     let selectedSiteData;
+
     const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
     loadScheduleButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
+
+            //登入判斷式
             if (!token) {
-                event.preventDefault(); 
+                event.preventDefault();
                 event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
                 alert("請先登入");
                 window.location.href = 'index.html';
                 return;
             }
-
             event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
             const siteId = button.getAttribute('data-site-id');
@@ -226,7 +231,11 @@ function bindLoadScheduleEvents() {
             console.log(selectedSiteData);
 
             try {
-                const { data } = await axios.get('http://localhost:8080/schInfo/getspot');
+                const { data } = await axios.get(`http://localhost:8080/schInfo/getspot/${emailid}`);
+
+                console.log('Email ID:', emailid); // 確認 emailid 是否正確
+
+
                 console.log('獲取的行程資料:', data);
 
                 const selectElement = document.getElementById('itinerarySelect');

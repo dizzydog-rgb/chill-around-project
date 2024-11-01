@@ -5,6 +5,8 @@ import axios from 'axios';
 
 // console.log("從 localStorage 取得:", selectedCity);
 // console.log("從 localStorage 取得:", selectedTag);
+const emailid = localStorage.getItem("emailid");
+console.log("emailid:", emailid);
 
 // 隨機選取資料
 function getRandomData(dataArray, count) {
@@ -52,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 初始化加載喜好項目
 function loadLikedItems() {
-    return axios.get(`http://localhost:8080/schInfo/getLikedItems/:emailid`)
+    return axios.get(`http://localhost:8080/schInfo/getLikedItems/${emailid}`)
         .then(response => response.data); // 返回已加 Like 的 sch_id 列表
 }
 
@@ -78,13 +80,13 @@ function updateCards() {
                 const attractions = response.data;
                 const sitecardBox = document.getElementById('sitecardBox');
                 sitecardBox.innerHTML = ''; // 清空目前顯示的卡片
-                console.log("更新的卡片資料",attractions);
+                console.log("更新的卡片資料", attractions);
 
 
                 if (attractions.length === 0) {
                     sitecardBox.innerHTML = '<h4 class ="mt-5">沒有符合條件的行程</h4>';
                 } else {
-                    // 獲取喜好項目並在渲染卡片時考慮
+                    // 獲取喜好項目並在渲染卡片
                     loadLikedItems().then(likedSchIds => {
                         renderCards(attractions, likedSchIds); // 將喜好項目傳入 renderCards
                     });
@@ -99,8 +101,8 @@ function updateCards() {
 // 渲染卡片
 function renderCards(attractions, likedSchIds) {
 
-    console.log("取得的渲染資料",attractions);
-    
+    console.log("取得的渲染資料", attractions);
+
     const sitecardBox = document.getElementById("sitecardBox");
     sitecardBox.innerHTML = ''; // 清空卡片區域
 
@@ -140,7 +142,7 @@ function renderCards(attractions, likedSchIds) {
 function bindEventHandlers() {
     attachLikeButtonHandler();
     attachCardClickHandler();
-    
+
 }
 
 // 渲染隨機卡片
@@ -173,7 +175,7 @@ function attachCardClickHandler() {
             event.stopPropagation();
             const schId = event.currentTarget.getAttribute('data-sch-id');
             localStorage.setItem('selectedSchId', schId);
-            console.log("點擊的卡片id",schId);
+            console.log("點擊的卡片id", schId);
             window.location.href = "schCom.html";
         });
     });
@@ -185,6 +187,15 @@ function attachLikeButtonHandler() {
         likeBtn.addEventListener('click', function (e) {
             e.stopPropagation(); // 阻止冒泡，避免觸發卡片點擊事件
 
+            //登入判斷式
+            if (!token) {
+                e.preventDefault();
+                e.stopPropagation(); // 防止事件冒泡，確保不顯示模態
+                alert("請先登入");
+                window.location.href = 'index.html';
+                return;
+            }
+
             // 獲取目前的按鈕樣式狀態
             const isLiked = e.target.classList.contains('bi-heart-fill');
 
@@ -192,7 +203,7 @@ function attachLikeButtonHandler() {
             const schId = e.target.getAttribute('data-sch-id');
             const userId = e.target.getAttribute('data-email-id');
             const postData = {
-                emailid: userId,
+                emailid: emailid,
                 sch_id: schId
             };
 

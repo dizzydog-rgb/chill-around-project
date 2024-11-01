@@ -142,6 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!token) {
     alert("請先登入會員");
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   }
 });

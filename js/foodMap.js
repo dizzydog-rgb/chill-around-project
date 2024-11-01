@@ -1,6 +1,9 @@
 let map ,marker,lat,lng;
 let service;
 let markers = []; // 儲存標記的陣列
+
+const emailid = localStorage.getItem("emailid");
+console.log("emailid:", emailid);
 window.addEventListener('beforeunload',()=>{
     localStorage.removeItem('selectedPlaceId')
 })
@@ -382,9 +385,19 @@ function setModalContent(placeDetails){
 function bindLoadScheduleEvents() {
     let selectedSchID;
     let selectedSiteData;
+
     const loadScheduleButtons = document.querySelectorAll('.loadSchedule');
     loadScheduleButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
+
+            //登入判斷式
+            if (!token) {
+                event.preventDefault();
+                event.stopPropagation(); // 防止事件冒泡，確保不顯示模態
+                alert("請先登入");
+                window.location.href = 'index.html';
+                return;
+            }
             event.stopPropagation(); // 阻止事件冒泡，避免卡片點擊事件觸發
 
             const siteId = button.getAttribute('data-site-id');
@@ -404,7 +417,11 @@ function bindLoadScheduleEvents() {
             console.log(selectedSiteData);
 
             try {
-                const { data } = await axios.get('http://localhost:8080/schInfo/getspot');
+                const { data } = await axios.get(`http://localhost:8080/schInfo/getspot/${emailid}`);
+
+                console.log('Email ID:', emailid); // 確認 emailid 是否正確
+
+
                 console.log('獲取的行程資料:', data);
 
                 const selectElement = document.getElementById('itinerarySelect');
@@ -470,7 +487,6 @@ function bindLoadScheduleEvents() {
         }
     });
 }
-
 // 顯示 modal
 function showModal() {
     const modal = document.getElementById('exampleModal');

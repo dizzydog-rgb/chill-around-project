@@ -293,35 +293,35 @@ exports.deleteScheduleId = (emailid, sch_id) => {
 
 
 // 獲取用戶已加 Like 的行程 ID
-exports.getLikedItems = (emailid) => {
-  return new Promise((resolve, reject) => {
-      const sql = 'SELECT sch_id FROM member_like WHERE emailid = ?';
-      console.log('執行的 SQL 查詢:', sql, '參數:', emailid);
-      db.exec(sql, [emailid], (err, result) => {
-          if (err) {
-              console.error('查詢失敗:', err);
-              return reject(err);
-          }
-          console.log('查詢結果:', result);
-          resolve(result.map(row => row.sch_id));
-      });
-  });
-};
-
-
 // exports.getLikedItems = (emailid) => {
 //   return new Promise((resolve, reject) => {
-//       const sql = 'SELECT sch_id FROM member_like ';
+//       const sql = 'SELECT sch_id FROM member_like WHERE emailid = ?';
+//       console.log('執行的 SQL 查詢:', sql, '參數:', emailid);
 //       db.exec(sql, [emailid], (err, result) => {
 //           if (err) {
 //               console.error('查詢失敗:', err);
 //               return reject(err);
 //           }
-//           // 返回 sch_id 陣列
+//           console.log('查詢結果:', result);
 //           resolve(result.map(row => row.sch_id));
 //       });
 //   });
 // };
+
+
+exports.getLikedItems = (emailid) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT sch_id FROM member_like ';
+      db.exec(sql, [emailid], (err, result) => {
+          if (err) {
+              console.error('查詢失敗:', err);
+              return reject(err);
+          }
+          // 返回 sch_id 陣列
+          resolve(result.map(row => row.sch_id));
+      });
+  });
+};
 
 
 //影片連結
