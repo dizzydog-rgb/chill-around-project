@@ -9,6 +9,7 @@ $('#form').submit(function (e) {
         .then(response => {
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem("emailid", response.data.emailid);
                 alert("註冊成功!請更新會員資料。");
                 window.location.href = 'member_personaldata.html';
             }
@@ -21,4 +22,42 @@ $('#form').submit(function (e) {
                 alert('註冊失敗，請稍後再試。');
             }
         });
+});
+
+// Line 登入會員
+$('.lineloginbtn').click(function () {
+    let client_id = '2006514534';
+    let redirect_uri = 'http://localhost:5173/chill-around-project/pages/register.html';
+    let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+    link += 'response_type=code';
+    link += '&client_id=' + client_id;
+    link += '&redirect_uri=' + redirect_uri;
+    link += '&state=login';
+    link += '&scope=profile%20openid%20email';
+    window.location.href = link;
+});
+
+// 接收 Line 登入資料傳入後台
+$(document).ready(async function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+
+    if (code) {
+        try {
+            const response = await axios.post("http://localhost:8080/member/Lineregister", { code });
+            if (response.data.token) {
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("emailid", response.data.emailid);
+                localStorage.setItem("Lineid", response.data.Lineid);
+                alert("Line 註冊成功！請更新會員資料。");
+                window.location.href = "member_personaldata.html";
+            } else {
+                alert(response.data.message || "註冊失敗");
+            }
+        } catch (error) {
+            console.error("註冊失敗:", error);
+            alert(error.response.data.message);
+            window.location.href = "register.html";
+        }
+    }
 });

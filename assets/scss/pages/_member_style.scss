@@ -91,6 +91,10 @@
         -webkit-border-radius: 30px;
         border-radius: 30px;
 
+        img {
+            height: 65px;
+        }
+
         .title {
             font-size: 36px;
             font-weight: bold;
@@ -406,6 +410,11 @@
 
                                 #googleimg {
                                     height: 40px;
+                                    cursor: pointer;
+                                }
+
+                                #lineimg {
+                                    cursor: pointer;
                                 }
                             }
                         }
@@ -643,6 +652,7 @@
 
                     .title {
                         font-size: 26px;
+
                         @media screen and (max-width: 1100px) {
                             font-size: 20px;
                         }

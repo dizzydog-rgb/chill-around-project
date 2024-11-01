@@ -115,7 +115,7 @@ $(document).ready(function () {
                         <input type="text" name="telephonenum" id="telephonenum" class="inpwrite" value="${member.telephone}"
                             placeholder="請輸入市內電話" pattern="0[2-8]{1}[0-9]{8}" readonly>
                     </div>
-                    <!-- <div class="bindaccount">
+                    <div class="bindaccount">
                         <div class="title">綁定帳戶：</div>
                         <div class="googleline">
                             <div class="item">
@@ -127,7 +127,7 @@ $(document).ready(function () {
                                 <div id="line"></div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </form>
             `;
@@ -187,6 +187,37 @@ $(document).ready(function () {
                 $('#line').text('未綁定');
             } else {
                 $('#line').text('已綁定');
+            }
+
+            $('#lineimg').click(function () {
+                let client_id = '2006514534';
+                let redirect_uri = 'http://localhost:5173/chill-around-project/pages/member_personaldata.html';
+                let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+                link += 'response_type=code';
+                link += '&client_id=' + client_id;
+                link += '&redirect_uri=' + redirect_uri;
+                link += '&state=login';
+                link += '&scope=profile%20openid%20email';
+                window.location.href = link;
+            });
+
+            // 接收 Line 登入資料傳入後台
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get("code");
+
+            if (code) {
+                axios.post("http://localhost:8080/member/updateLine", { code }, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }).then(response => {
+                    if (response.data) {
+                        alert(response.data.message);
+                    }
+                }).catch(error => {
+                    console.error("註冊失敗:", error);
+                    alert(error.response.data.message);
+                });
             }
 
             function inputSize(input) {
