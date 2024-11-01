@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const emailid = localStorage.getItem("emailid");
 console.log("emailid:", emailid);
 // 在 DOM 內容加載完成時調用隨機函數
@@ -59,37 +60,6 @@ axios.get('http://localhost:8080/site/allsite')
     </div>
     `;
     heroImage.appendChild(allImage);
-
-    const carouselExample = document.getElementById('carouselExample');
-    carouselExample.innerHTML='';
-
-    // const carouselImage = carouselExample.innerHTML;
-    carouselExample.innerHTML = `
-    <div id="carouselExample" class="carousel slide d-md-none col-md-6 order-md-1" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="siteCarouselItem carousel-item active">
-              <img src="../assets/images/searchSite/${siteImages[0]}" class="d-block w-100" alt="圖片 1"/>
-            </div>
-            <div class="siteCarouselItem carousel-item">
-              <img
-                src="../assets/images/searchSite/${siteImages[1]} class="d-block w-100" alt="圖片 2" />
-            </div>
-            <div class="siteCarouselItem carousel-item">
-              <img src="../assets/images/searchSite/${siteImages[2]}" class="d-block w-100" alt="圖片 3"/>
-            </div>
-            
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-    `;
-    // carouselExample.appendChild(carouselImage);
 
 })
  // 創建景點卡片
