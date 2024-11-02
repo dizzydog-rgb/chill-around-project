@@ -410,14 +410,43 @@
 
                                 #googleimg {
                                     height: 40px;
-                                    cursor: pointer;
                                 }
 
-                                #lineimg {
-                                    cursor: pointer;
+                                #google {
+                                    border: 1px solid #417eec;
+                                    color: #417eec;
+                                    transition: .5s;
+                                }
+
+                                #google:hover {
+                                    border: 1px solid #0059ff;
+                                    background-color: #417eec;
+                                    color: #fff;
+                                }
+
+                                #line {
+                                    border: 1px solid #4cc764;
+                                    color: #4cc764;
+                                    transition: .5s;
+                                }
+
+                                #line:hover {
+                                    border: 1px solid #00ac22;
+                                    background-color: #4cc764;
+                                    color: #fff;
                                 }
                             }
                         }
+                    }
+                }
+
+                #lineModal {
+                    .modal-header {
+                        border: none;
+                    }
+
+                    .modal-footer {
+                        border: none;
                     }
                 }
             }

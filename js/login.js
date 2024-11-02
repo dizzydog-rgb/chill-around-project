@@ -48,19 +48,12 @@ $(document).ready(async function () {
             if (response.data.token) {
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("emailid", response.data.emailid);
-                alert("登入成功！");
-                window.location.href = "index.html";
-            } else {
                 alert(response.data.message);
+                window.location.href = "index.html";
             }
         } catch (error) {
             console.error("登入失敗:", error);
             alert(error.response.data.message);
-            // if (!confirm(error.response.data.message)){
-            //     return false
-            // } else {
-
-            // }
             window.location.href = "register.html";
         }
     }

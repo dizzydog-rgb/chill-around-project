@@ -92,15 +92,16 @@ exports.Linelogin = async (req, res) => {
         const email = verifyResponse.data.email;
 
         // Step 3: 查詢用戶資料庫以確認是否存在
-        const result = await memberModel.LineData(userId);
+        const result = await memberModel.LineData({ userId, displayName, email });
 
         // Step 4: 傳回 JWT
         if (result.token) {
             res.json({
                 token: result.token,
-                emailid: result.emailid
+                emailid: result.emailid,
+                message: result.message
             });
-        } else if (result.error == "帳號不存在，請先註冊。") {
+        } else if (result.error == "註冊失敗") {
             res.status(400).json({ message: result.error });
         } else {
             res.status(401).json({ message: result.error });
@@ -218,13 +219,34 @@ exports.updateLine = async (req, res) => {
 
         const updateLine = await memberModel.LineExists(userId);
         if (updateLine) {
-            return res.json({ message: "Line綁定成功!"});
+            return res.json({ message: "Line綁定成功!" });
         } else {
             return res.status(404).json({ message: "未找到該會員。" });
         }
     } catch (error) {
         console.error("綁定錯誤:", error);
         res.status(500).json({ message: "綁定錯誤" });
+    }
+};
+
+// Line解除綁定的控制器
+exports.delLineid = async (req, res) => {
+    try {
+        if (!req.currentUser || !req.currentUser.id) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const emailid = req.currentUser.id;
+        const result = await memberModel.updateLineid(emailid);
+        if (result.error) {
+            return res.status(400).json({ message: result.error }); // 返回錯誤消息
+        }
+        if (result.success) {
+            res.json({ message: "解除綁定成功" });
+        }
+    } catch (error) {
+        // 錯誤處理
+        console.error("Error fetching site:", error);
+        res.status(500).json({ message: "解除綁定失敗" });
     }
 };
 
@@ -271,7 +293,7 @@ exports.updatemember = async (req, res) => {
         // 使用 emailid 查詢最新的用戶資料
         const updatedUser = await memberModel.findEmail(emailid);
         if (!updatedUser) {
-            return res.status(404).json({ message: "未找到該會員。" });
+            return res.status(404).json({ message: "更新失敗。" });
         }
         res.json({ message: "會員資料更新成功!" }); // 返回更新後的用戶資料
     } catch (error) {

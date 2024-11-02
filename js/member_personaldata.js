@@ -5,7 +5,7 @@ $(document).ready(function () {
     const emailid = localStorage.getItem('emailid');
     if (!token) {
         alert("請先登入");
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
 
@@ -120,11 +120,28 @@ $(document).ready(function () {
                         <div class="googleline">
                             <div class="item">
                                 <img src="../assets/images/memberimg/logo_google_g_icon.png" id="googleimg">
-                                <div id="google"></div>
+                                <button id="google" class="btn"></button>
                             </div>
                             <div class="item">
                                 <img src="../assets/images/memberimg/btn_base.png" id="lineimg">
-                                <div id="line"></div>
+                                <button type="button" id="line" class="btn" data-bs-toggle="modal" data-bs-target=""></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="lineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">解除綁定</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                確定要解除綁定?
+                            </div>
+                            <div class="modal-footer">
+                                <button id="delLine" type="button" class="btn btn-primary text-white">確定</button>
+                                <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">取消</button>
                             </div>
                         </div>
                     </div>
@@ -181,42 +198,68 @@ $(document).ready(function () {
                 $('#google').text('未綁定');
             } else {
                 $('#google').text('已綁定');
+                $('#google').attr("data-bs-target", "#googleModal");
+                $('#google').click(function (e) {
+                    e.preventDefault(); // 防止畫面重新整理
+                });
             }
 
             if (lineid == undefined) {
                 $('#line').text('未綁定');
+                $('#line').click(function (e) {
+                    e.preventDefault(); // 防止畫面重新整理
+                    let client_id = '2006514534';
+                    let redirect_uri = 'http://localhost:5173/chill-around-project/pages/member_personaldata.html';
+                    let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+                    link += 'response_type=code';
+                    link += '&client_id=' + client_id;
+                    link += '&redirect_uri=' + redirect_uri;
+                    link += '&state=login';
+                    link += '&scope=profile%20openid%20email';
+                    window.location.href = link;
+                });
+
+                // 接收 Line 登入資料傳入後台
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get("code");
+
+                if (code) {
+                    axios.post("http://localhost:8080/member/updateLine", { code }, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).then(response => {
+                        if (response.data) {
+                            alert(response.data.message);
+                            location.reload();
+                        }
+                    }).catch(error => {
+                        console.error("註冊失敗:", error);
+                        alert(error.response.data.message);
+                    });
+                }
             } else {
                 $('#line').text('已綁定');
-            }
+                $('#line').attr("data-bs-target", "#lineModal");
+                $('#line').click(function (e) {
+                    e.preventDefault(); // 防止畫面重新整理
+                });
 
-            $('#lineimg').click(function () {
-                let client_id = '2006514534';
-                let redirect_uri = 'http://localhost:5173/chill-around-project/pages/member_personaldata.html';
-                let link = 'https://access.line.me/oauth2/v2.1/authorize?';
-                link += 'response_type=code';
-                link += '&client_id=' + client_id;
-                link += '&redirect_uri=' + redirect_uri;
-                link += '&state=login';
-                link += '&scope=profile%20openid%20email';
-                window.location.href = link;
-            });
-
-            // 接收 Line 登入資料傳入後台
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get("code");
-
-            if (code) {
-                axios.post("http://localhost:8080/member/updateLine", { code }, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                }).then(response => {
-                    if (response.data) {
-                        alert(response.data.message);
-                    }
-                }).catch(error => {
-                    console.error("註冊失敗:", error);
-                    alert(error.response.data.message);
+                // 解除綁定
+                $('#delLine').click(function () {
+                    axios.post("http://localhost:8080/member/delLineid", {}, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).then(response => {
+                        if (response.data) {
+                            alert(response.data.message);
+                            window.location.href = "member_personaldata.html";
+                        }
+                    }).catch(error => {
+                        console.error("解除失敗:", error);
+                        alert(error.response.data.message);
+                    });
                 });
             }
 
