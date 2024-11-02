@@ -3,11 +3,26 @@
   top: 0;
   left: 0;
   width: 100vw;
-  z-index: 999;
+  z-index: 899;
   background-color: transparent;
 }
-.offcanvas{
+.offcanvas-body{
   z-index: 999;
+  .nav-item {
+    display: flex;
+    align-items: center;
+  
+    .nav-link {
+      z-index: 999;
+      color: $light;
+      font-size: 18px;
+  
+      &:hover {
+        color: $warning;
+        opacity: 0.8;
+      }
+    }
+  }
 }
 
 .searchNav {
@@ -25,6 +40,7 @@
     color: white;
     width: auto;
     border-radius: 25px;
+    font-size: 18px;
 
     &:hover {
       background-color: $secondary;
@@ -39,16 +55,3 @@
   }
 }
 
-.nav-item {
-  display: flex;
-  align-items: center;
-
-  .nav-link {
-    color: $light;
-
-    &:hover {
-      color: $warning;
-      opacity: 0.8;
-    }
-  }
-}

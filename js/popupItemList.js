@@ -66,19 +66,18 @@ axios.get('http://localhost:8080/item/popupItem')
                 console.log('Category Value:', categoryValue);
                 console.log('Item Details:', details);
 
-                // 添加或移除選擇
+                // 清空之前的選擇
+                selectedItemsId = [];
+                selectedDetails = [];
+                categories.forEach(cat => cat.classList.remove('selected')); // 移除所有類別的選擇樣式
+
+                // 添加新的選擇
                 const itemName = category.textContent;
-                if (selectedItemsId.includes(itemName)) {
-                    selectedItemsId.splice(selectedItemsId.indexOf(itemName), 1);
-                    selectedDetails.splice(selectedItemsId.indexOf(itemName), 1);
-                    category.classList.remove('selected'); // 移除選擇樣式
-                } else {
-                    selectedItemsId.push(itemName);
-                    selectedDetails.push(details);
-                    category.classList.add('selected'); // 添加選擇樣式
-                    selectedItemName = itemName;
-                    alert('選取' + itemName);
-                }
+                selectedItemsId.push(itemName);
+                selectedDetails.push(details);
+                category.classList.add('selected'); // 添加選擇樣式
+                selectedItemName = itemName;
+                alert('選取' + itemName);
             });
         });
 

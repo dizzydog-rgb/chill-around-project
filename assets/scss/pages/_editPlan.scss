@@ -386,8 +386,7 @@
             margin-right: 12px;
           }
           p {
-            font-size: 20px;
-            padding-top: 0px;
+            display: none;
           }
         }
       }
@@ -429,8 +428,11 @@
           }
         }
       }
+      .editBtn .btn {
+        width: 60px;
+      }
       .todayInfo {
-        margin-right: 12px;
+        display: none;
       }
       .cardList {
         gap: 48px;

@@ -21,7 +21,7 @@ exports.findHero = (hero) => {
 // tag sql
 exports.findTag = (name) => {
     return new Promise((resolve, reject) => {
-        const query = "SELECT * FROM all_tag ORDER BY RAND() LIMIT 5"; 
+        const query = "SELECT * FROM all_tag ORDER BY RAND() LIMIT 6"; 
 
         console.log("觀看這行"+ db); // 在此行查看 db 的內容
         db.exec(query, [name], (err, results) => {

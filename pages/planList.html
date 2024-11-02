@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>我的旅行計畫</title>
-    <link rel="icon" type="image/x-icon" href="../assets/images/logo/favicon.png">
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../assets/images/logo/favicon.png"
+    />
     <script
       type="module"
       src="https://unpkg.com/@googlemaps/extended-component-library@0.6"
@@ -72,11 +76,14 @@
                 </div>
               </li> -->
             </ul>
-            <div class="addPlanBtn d-flex justify-content-center">
+            <a
+              href="buildPlan.html"
+              class="addPlanBtn d-flex justify-content-center"
+            >
               <button type="button" class="btn btn-outline-secondary">
                 新增計畫<i class="bi bi-plus"></i>
               </button>
-            </div>
+            </a>
           </div>
         </div>
 
@@ -95,9 +102,7 @@
               slot="control-block-start-inline-start"
               class="place-picker-container"
             >
-              <gmpx-place-picker
-                placeholder="你想去哪玩?"
-              ></gmpx-place-picker>
+              <gmpx-place-picker placeholder="你想去哪玩?"></gmpx-place-picker>
             </div>
             <gmp-advanced-marker></gmp-advanced-marker>
           </gmp-map>
