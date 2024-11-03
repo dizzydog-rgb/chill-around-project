@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>會員註冊</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="icon" type="image/x-icon" href="../assets/images/logo/favicon.png">
 </head>
 
@@ -37,7 +38,7 @@
                 </div>
                 <div class="fastregisterbtn mt-3">
                     <div id="g_id_onload"
-                        data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com"
+                        data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com" data-callback="handleCallback"
                         data-auto_prompt="false">
                     </div>
                     <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_blue"
@@ -48,7 +49,6 @@
             </form>
         </div>
     </div>
-    <script src="https://accounts.google.com/gsi/client" async></script>
     <script type="module" src="/main.js"></script>
     <script type="module" src="../js/register.js"></script>
 </body>

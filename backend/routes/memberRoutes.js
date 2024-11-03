@@ -21,6 +21,18 @@ router.get("/members", auth, memberController.getByemail);
 // POST 傳送更新的會員資料
 router.post("/update", auth, upload.single('uphoto'), memberController.updatemember);
 
+// POST 傳送 Google登入資料
+router.post("/Googlelogin", memberController.Googlelogin);
+
+// POST 傳送 Google註冊資料
+router.post("/Googleregister", memberController.Googleregister);
+
+// POST Google更新綁定資料
+router.post("/GoogleBind", auth, memberController.GoogleBind);
+
+// POST Google解除綁定
+router.post("/delGoogleid", auth, memberController.delGoogleid);
+
 // POST 傳送 Line登入資料
 router.post("/Linelogin", memberController.Linelogin);
 
@@ -28,7 +40,7 @@ router.post("/Linelogin", memberController.Linelogin);
 router.post("/Lineregister", memberController.Lineregister);
 
 // POST Line更新綁定資料
-router.post("/updateLine", auth, memberController.updateLine);
+router.post("/LineBind", auth, memberController.LineBind);
 
 // POST Line解除綁定
 router.post("/delLineid", auth, memberController.delLineid);

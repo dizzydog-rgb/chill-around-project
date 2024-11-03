@@ -57,6 +57,87 @@ exports.loginEmail = (member) => {
     });
 }
 
+// Google登入的模組函數
+exports.GoogleloginData = (googledata) => {
+    return new Promise((resolve, reject) => {
+        const sql = "SELECT * FROM `member` WHERE googleid = ?;";
+        db.exec(sql, [googledata.data.sub], function (error, results) {
+            if (error) {
+                console.error("資料庫查詢錯誤:", error);
+                reject(error);
+                return;
+            }
+
+            if (results && results.length > 0) {
+                // 更新 updated_at 時間戳
+                const updateSql = "UPDATE `member` SET updated_at = NOW() WHERE emailid = ?";
+                db.exec(updateSql, [results[0].emailid], function (updateError) {
+                    if (updateError) {
+                        console.error("更新 updated_at 時間錯誤:", updateError);
+                        reject({ error: "登入失敗" });
+                        return;
+                    }
+
+                    const token = jwt.sign(
+                        { id: results[0].emailid, email: results[0].email },
+                        SECRET_KEY,
+                        { expiresIn: '1h' }
+                    );
+                    resolve({
+                        token,
+                        emailid: results[0].emailid,
+                        message: "登入成功!"
+                    });
+                });
+            } else {
+                var sql = "INSERT INTO `member`(uname,email,googleid) VALUES (?,?,?)";
+                var data = [googledata.data.name, googledata.data.email, googledata.data.sub];
+
+                db.exec(sql, data, function (error, results) {
+                    if (error) {
+                        console.error("錯誤訊息:", error);
+                        reject(error);
+                        return;
+                    }
+
+                    // 確保插入成功
+                    if (results.insertId) {
+                        // 根據 insertId 查詢新插入的用戶資料
+                        var sql = "SELECT * FROM `member` WHERE emailid = ?";
+                        db.exec(sql, [results.insertId], function (error, results) {
+                            if (error) {
+                                console.error("查詢用戶資料錯誤:", error);
+                                reject(error);
+                                return;
+                            }
+                            if (results && results.length > 0) {
+                                const token = jwt.sign(
+                                    {
+                                        id: results[0].emailid,
+                                        email: results[0].email
+                                    },
+                                    SECRET_KEY,
+                                    { expiresIn: '1h' }
+                                );
+                                resolve({
+                                    token,
+                                    emailid: results[0].emailid,
+                                    message: "註冊成功!"
+                                });
+                            } else {
+                                resolve(null); // 如果查詢不到用戶資料
+                            }
+                        });
+                    } else {
+                        resolve({ error: "註冊失敗" });
+                    }
+                });
+                // resolve({ error: "此帳號不存在，請前往註冊。" });
+            }
+        });
+    });
+};
+
 // Line登入的模組函數
 exports.LineData = ({ userId, displayName, email }) => {
     return new Promise((resolve, reject) => {
@@ -74,7 +155,7 @@ exports.LineData = ({ userId, displayName, email }) => {
                 db.exec(updateSql, [results[0].emailid], function (updateError) {
                     if (updateError) {
                         console.error("更新 updated_at 時間錯誤:", updateError);
-                        reject({ error: "更新時間失敗" });
+                        reject({ error: "登入失敗" });
                         return;
                     }
 
@@ -86,7 +167,7 @@ exports.LineData = ({ userId, displayName, email }) => {
                     resolve({
                         token,
                         emailid: results[0].emailid,
-                        message:"登入成功!"
+                        message: "登入成功!"
                     });
                 });
             } else {
@@ -122,7 +203,7 @@ exports.LineData = ({ userId, displayName, email }) => {
                                 resolve({
                                     token,
                                     emailid: results[0].emailid,
-                                    message:"註冊成功!"
+                                    message: "註冊成功!"
                                 });
                             } else {
                                 resolve(null); // 如果查詢不到用戶資料
@@ -132,6 +213,7 @@ exports.LineData = ({ userId, displayName, email }) => {
                         resolve({ error: "註冊失敗" });
                     }
                 });
+                // resolve({ error: "此帳號不存在，請前往註冊。" });
             }
         });
     });
@@ -169,22 +251,6 @@ exports.emailExists = (email) => {
                 return;
             }
             resolve(results.length > 0); // 如果找到結果，返回 true
-        });
-    });
-};
-
-// 查詢是否有該會員的Lineid模組函數
-exports.LineExists = (userId) => {
-    return new Promise((resolve, reject) => {
-        var sql = "SELECT * FROM `member` WHERE lineid = ?";
-
-        db.exec(sql, [userId], function (error, results) {
-            if (error) {
-                console.error("查詢Lineid錯誤:", error);
-                reject(error);
-                return;
-            }
-            resolve(results.length > 0);
         });
     });
 };
@@ -245,12 +311,89 @@ exports.registerData = async (user) => {
     });
 }
 
+// Google註冊的模組函數
+exports.GoogleregData = (googledata) => {
+    return new Promise((resolve, reject) => {
+        var sql = "SELECT * FROM `member` WHERE googleid = ?";
+
+        db.exec(sql, googledata.data.sub, function (error, results, fields) {
+            if (error) {
+                console.error("錯誤訊息:", error);
+                reject(error);
+                return;
+            }
+
+            if (results.length > 0) {
+                resolve({ error: "此Google帳號已註冊過了" });
+            } else {
+                var sql = "INSERT INTO `member`(uname,email,googleid) VALUES (?,?,?)";
+                var data = [googledata.data.name, googledata.data.email, googledata.data.sub];
+
+                db.exec(sql, data, function (error, results, fields) {
+                    if (error) {
+                        console.error("錯誤訊息:", error);
+                        reject(error);
+                        return;
+                    }
+                    if (results.insertId) { // 確保插入成功
+                        // 根據 insertId 查詢新插入的用戶資料
+                        var sql = "SELECT * FROM `member` WHERE emailid = ?";
+
+                        db.exec(sql, [results.insertId], function (selectError, userResults) {
+                            if (selectError) {
+                                console.error("查詢用戶資料錯誤:", selectError);
+                                reject(selectError);
+                                return;
+                            }
+                            if (userResults && userResults.length > 0) {
+                                const token = jwt.sign(
+                                    {
+                                        id: userResults[0].emailid,
+                                        email: userResults[0].email
+                                    },
+                                    SECRET_KEY,
+                                    { expiresIn: '1h' }
+                                );
+                                resolve({
+                                    token,
+                                    emailid: userResults[0].emailid,
+                                    message: "註冊成功!"
+                                });
+                            } else {
+                                resolve(null); // 如果查詢不到用戶資料
+                            }
+                        });
+                    } else {
+                        resolve(null); // 如果沒有插入 ID
+                    }
+                });
+            }
+        });
+    });
+}
+
+// 查詢是否有該會員的Lineid模組函數
+exports.LineExists = (userId) => {
+    return new Promise((resolve, reject) => {
+        var sql = "SELECT * FROM `member` WHERE lineid = ?";
+
+        db.exec(sql, [userId], function (error, results) {
+            if (error) {
+                console.error("查詢Lineid錯誤:", error);
+                reject(error);
+                return;
+            }
+            resolve(results.length > 0);
+        });
+    });
+};
+
 // Line註冊的模組函數
 exports.LineregData = async ({ userId, displayName, email }) => {
     const exists = await exports.LineExists(userId);
 
     if (exists) {
-        return { error: "該Line帳號已經註冊過了。" }; // 返回錯誤消息
+        return { error: "此Line帳號已經註冊過了。" }; // 返回錯誤消息
     } else {
         return new Promise((resolve, reject) => {
             var sql = "INSERT INTO `member`(uname,email,lineid) VALUES (?,?,?)";
@@ -350,15 +493,48 @@ exports.updateData = (userData) => {
     });
 }
 
+// Google綁定的模組函數
+exports.GoogleBindData = ({ emailid, Googledata }) => {
+    return new Promise((resolve, reject) => {
+        var sql = "SELECT * FROM `member` WHERE googleid = ?";
+
+        db.exec(sql, Googledata.data.sub, function (error, results, fields) {
+            if (error) {
+                console.error("查詢Googleid錯誤:", error);
+                reject(error);
+                return;
+            }
+            if (results.length > 0) {
+                resolve({ error: "此Google帳號已被綁定過了" });
+            } else {
+                var sql = "UPDATE `member` SET googleid = ? WHERE emailid = ?";
+
+                db.exec(sql, [Googledata.data.sub, emailid], function (error, results) {
+                    if (error) {
+                        console.error("錯誤訊息:", error);
+                        reject(error);
+                        return;
+                    }
+
+                    if (results.affectedRows > 0) { // 確保有行被更新
+                        resolve({ success: true }); // 返回成功的結果
+                    } else {
+                        resolve({ error: '資料更新失敗' });
+                    }
+                });
+            }
+        });
+    });
+};
+
 // Line綁定的模組函數
 exports.Lineupdate = async ({ userId, emailid }) => {
     const exists = await exports.LineExists(userId);
 
     if (exists) {
-        return { error: "該Line帳號已經被綁定過了。" }; // 返回錯誤消息
+        return { error: "該Line帳號已被綁定過了。" }; // 返回錯誤消息
     } else {
         return new Promise((resolve, reject) => {
-
             var sql = "UPDATE `member` SET lineid = ? WHERE emailid = ?";
 
             db.exec(sql, [userId, emailid], function (error, results) {
@@ -378,10 +554,30 @@ exports.Lineupdate = async ({ userId, emailid }) => {
     }
 };
 
+// Google解除綁定的模組函數
+exports.updateGoogleid = (emailid) => {
+    return new Promise((resolve, reject) => {
+        var sql = "UPDATE `member` SET googleid = ? WHERE emailid = ?";
+        var delgoogle = null;
+        db.exec(sql, [delgoogle, emailid], function (error, results, fields) {
+            if (error) {
+                console.error("錯誤訊息:", error);
+                reject(error);
+                return;
+            }
+            if (results.affectedRows > 0) { // 確保有行被更新
+                resolve({ success: true }); // 返回成功的結果
+            } else {
+                resolve({ error: '資料更新失敗' });
+            }
+        });
+    });
+}
+
 // Line解除綁定的模組函數
 exports.updateLineid = (emailid) => {
     return new Promise((resolve, reject) => {
-        sql = "UPDATE `member` SET lineid = ? WHERE emailid = ?";
+        var sql = "UPDATE `member` SET lineid = ? WHERE emailid = ?";
         var delline = null;
         db.exec(sql, [delline, emailid], function (error, results, fields) {
             if (error) {

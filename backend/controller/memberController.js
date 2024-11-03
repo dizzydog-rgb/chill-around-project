@@ -44,6 +44,91 @@ exports.registermember = async (req, res) => {
     }
 };
 
+// Google登入控制器
+exports.Googlelogin = async (req, res) => {
+    try {
+        const result = await memberModel.GoogleloginData(req.body);
+        if (result.token) {
+            res.json({
+                token: result.token,
+                emailid: result.emailid,
+                message: result.message
+            });
+        } else if (result.error == "註冊失敗") {
+            res.status(400).json({ message: result.error });
+        } else {
+            res.status(401).json({ message: result.error });
+        }
+
+    } catch (error) {
+        console.error("登入錯誤:", error);
+        res.status(500).json({ message: "登入錯誤" });
+    }
+};
+
+// Google註冊控制器
+exports.Googleregister = async (req, res) => {
+    try {
+        const result = await memberModel.GoogleregData(req.body);
+        if (result.token) {
+            res.json({
+                token: result.token,
+                emailid: result.emailid,
+                message: result.message
+            });
+        } else if (result.error) {
+            res.status(400).json({ message: result.error });
+        }
+
+    } catch (error) {
+        console.error("註冊錯誤:", error);
+        res.status(500).json({ message: "註冊錯誤" });
+    }
+};
+
+// Google綁定控制器
+exports.GoogleBind = async (req, res) => {
+    try {
+        if (!req.currentUser || !req.currentUser.id) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const emailid = req.currentUser.id;
+        const Googledata = req.body;
+
+        const result = await memberModel.GoogleBindData({ emailid, Googledata });
+        if (result.error) {
+            return res.status(400).json({ message: result.error }); // 返回錯誤消息
+        }
+        if (result.success) {
+            res.json({ message: "Google綁定成功!" });
+        }
+    } catch (error) {
+        console.error("綁定錯誤:", error);
+        res.status(500).json({ message: "綁定錯誤" });
+    }
+};
+
+// Google解除綁定的控制器
+exports.delGoogleid = async (req, res) => {
+    try {
+        if (!req.currentUser || !req.currentUser.id) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const emailid = req.currentUser.id;
+        const result = await memberModel.updateGoogleid(emailid);
+        if (result.error) {
+            return res.status(400).json({ message: result.error }); // 返回錯誤消息
+        }
+        if (result.success) {
+            res.json({ message: "解除綁定成功!" });
+        }
+    } catch (error) {
+        // 錯誤處理
+        console.error("Error fetching site:", error);
+        res.status(500).json({ message: "解除綁定失敗" });
+    }
+};
+
 // Line登入控制器
 exports.Linelogin = async (req, res) => {
     try {
@@ -177,8 +262,8 @@ exports.Lineregister = async (req, res) => {
     }
 };
 
-// Line綁定資料控制器
-exports.updateLine = async (req, res) => {
+// Line綁定控制器
+exports.LineBind = async (req, res) => {
     try {
         if (!req.currentUser || !req.currentUser.id) {
             return res.status(401).json({ message: "Unauthorized" });
@@ -214,14 +299,10 @@ exports.updateLine = async (req, res) => {
 
         const result = await memberModel.Lineupdate({ userId, emailid });
         if (result.error) {
-            return res.status(400).json({ message: result.error });
+            return res.status(400).json({ message: result.error }); // 返回錯誤消息
         }
-
-        const updateLine = await memberModel.LineExists(userId);
-        if (updateLine) {
-            return res.json({ message: "Line綁定成功!" });
-        } else {
-            return res.status(404).json({ message: "未找到該會員。" });
+        if (result.success) {
+            res.json({ message: "Line綁定成功!" });
         }
     } catch (error) {
         console.error("綁定錯誤:", error);
@@ -241,7 +322,7 @@ exports.delLineid = async (req, res) => {
             return res.status(400).json({ message: result.error }); // 返回錯誤消息
         }
         if (result.success) {
-            res.json({ message: "解除綁定成功" });
+            res.json({ message: "解除綁定成功!" });
         }
     } catch (error) {
         // 錯誤處理

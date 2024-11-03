@@ -24,6 +24,36 @@ $('#form').submit(function (e) {
         });
 });
 
+// 以解碼的方式拿到使用者資料
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+};
+
+// google 註冊會員
+window.handleCallback = function (response) {
+    const data = parseJwt(response.credential);
+
+    axios.post("http://localhost:8080/member/Googleregister", { data })
+        .then(response => {
+            if (response.data.token) {
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("emailid", response.data.emailid);
+                alert(response.data.message);
+                window.location.href = "member_personaldata.html";
+            }
+        })
+        .catch(error => {
+            console.error("註冊失敗:", error);
+            alert(error.response.data.message);
+        });
+}
+
 // Line 登入會員
 $('.lineloginbtn').click(function () {
     let client_id = '2006514534';
