@@ -310,6 +310,13 @@ $(document).ready(function () {
         }
     });
 
+    $('#logoutbtn1').click(function () {
+        if (confirm('您確定要登出嗎？')) {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        }
+    });
+
     (function () {
         // object assign polyfill
         polyfill();
