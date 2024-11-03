@@ -133,12 +133,12 @@ $(".btn5").on("click", () => {
                 <h2 class="text-primary">你的旅行風格是...</h2>
                 <!-- 角色 -->
                 <div class="col-10 d-flex m-auto" id="resultStyle">
-                <div class="characterDes me-3">
-                <h2 class="text-secondary">${testStyle.result_style}</h2>
-                <hr>
-                <p>${testStyle.style_des}</p>
+                    <div class="characterDes me-3">
+                        <h2 class="text-secondary">${testStyle.result_style}</h2>
+                        <hr>
+                        <p>${testStyle.style_des}</p>
                     </div>
-                        <img src="../assets/images/test/mbti/${imageSrc}" style="width: 200px; height: 200px;">
+                        <img src="../assets/images/test/mbti/${imageSrc}">
                 </div>
                 <!-- 旅遊地 -->
                 <div class="resultCountry card flex-row flex-wrap col-10 my-3 mx-auto">
