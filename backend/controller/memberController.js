@@ -1,59 +1,12 @@
+const axios = require('axios');
 const memberModel = require("../models/memberModel");
+require('dotenv').config();
+const qs = require('qs');
 
 // 會員登入控制器
 exports.login = async (req, res) => {
     try {
         const result = await memberModel.loginEmail(req.body);
-        if (result.token) {
-            res.json({
-                token: result.token,
-                account: result.account,
-                emailid: result.emailid
-            });
-        } else {
-            res.status(401).json({ message: result.error });
-        }
-    } catch (error) {
-        console.error("登入錯誤:", error);
-        res.status(500).json({ message: "登入錯誤" });
-    }
-};
-
-// Line登入控制器
-exports.Linelogin = async (req, res) => {
-    try {
-        const { code } = req.body;
-
-        // Step 1: 取得 access token
-        const tokenResponse = await axios.post("https://api.line.me/oauth2/v2.1/token", null, {
-            params: {
-                grant_type: "authorization_code",
-                code,
-                redirect_uri: "http://localhost:5173/chill-around-project/pages/index.html",
-                client_id: process.env.LINE_CLIENT_ID,
-                client_secret: process.env.LINE_CLIENT_SECRET
-            },
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
-        }).catch(error => {
-            console.error("Token request error:", error.response ? error.response.data : error.message);
-            throw new Error("無法從 Line 取得 access token");
-        });
-
-        const accessToken = tokenResponse.data.access_token;
-
-        // Step 2: 使用 access token 取得用戶資料
-        const profileResponse = await axios.get("https://api.line.me/v2/profile", {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
-
-        const { userId, displayName } = profileResponse.data;
-
-        // Step 3: 查詢用戶資料庫以確認是否存在
-        const result = await memberModel.LineData({ inputAccount: userId, displayName });
-
-        // Step 4: 傳回 JWT
         if (result.token) {
             res.json({
                 token: result.token,
@@ -79,7 +32,8 @@ exports.registermember = async (req, res) => {
         if (result.token) {
             res.json({
                 token: result.token,
-                account: result.account
+                account: result.account,
+                emailid: result.emailid
             });
         } else {
             res.status(401).json({ message: result.error });
@@ -87,6 +41,293 @@ exports.registermember = async (req, res) => {
     } catch (error) {
         console.error("註冊錯誤:", error);
         res.status(500).json({ message: "註冊錯誤" });
+    }
+};
+
+// Google登入控制器
+exports.Googlelogin = async (req, res) => {
+    try {
+        const result = await memberModel.GoogleloginData(req.body);
+        if (result.token) {
+            res.json({
+                token: result.token,
+                emailid: result.emailid,
+                message: result.message
+            });
+        } else if (result.error == "註冊失敗") {
+            res.status(400).json({ message: result.error });
+        } else {
+            res.status(401).json({ message: result.error });
+        }
+
+    } catch (error) {
+        console.error("登入錯誤:", error);
+        res.status(500).json({ message: "登入錯誤" });
+    }
+};
+
+// Google註冊控制器
+exports.Googleregister = async (req, res) => {
+    try {
+        const result = await memberModel.GoogleregData(req.body);
+        if (result.token) {
+            res.json({
+                token: result.token,
+                emailid: result.emailid,
+                message: result.message
+            });
+        } else if (result.error) {
+            res.status(400).json({ message: result.error });
+        }
+
+    } catch (error) {
+        console.error("註冊錯誤:", error);
+        res.status(500).json({ message: "註冊錯誤" });
+    }
+};
+
+// Google綁定控制器
+exports.GoogleBind = async (req, res) => {
+    try {
+        if (!req.currentUser || !req.currentUser.id) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const emailid = req.currentUser.id;
+        const Googledata = req.body;
+
+        const result = await memberModel.GoogleBindData({ emailid, Googledata });
+        if (result.error) {
+            return res.status(400).json({ message: result.error }); // 返回錯誤消息
+        }
+        if (result.success) {
+            res.json({ message: "Google綁定成功!" });
+        }
+    } catch (error) {
+        console.error("綁定錯誤:", error);
+        res.status(500).json({ message: "綁定錯誤" });
+    }
+};
+
+// Google解除綁定的控制器
+exports.delGoogleid = async (req, res) => {
+    try {
+        if (!req.currentUser || !req.currentUser.id) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const emailid = req.currentUser.id;
+        const result = await memberModel.updateGoogleid(emailid);
+        if (result.error) {
+            return res.status(400).json({ message: result.error }); // 返回錯誤消息
+        }
+        if (result.success) {
+            res.json({ message: "解除綁定成功!" });
+        }
+    } catch (error) {
+        // 錯誤處理
+        console.error("Error fetching site:", error);
+        res.status(500).json({ message: "解除綁定失敗" });
+    }
+};
+
+// Line登入控制器
+exports.Linelogin = async (req, res) => {
+    try {
+        const { code } = req.body;
+
+        // Step 1: 取得 access token
+        const tokenResponse = await axios.post("https://api.line.me/oauth2/v2.1/token",
+            qs.stringify({
+                grant_type: "authorization_code",
+                code,
+                redirect_uri: "http://localhost:5173/chill-around-project/pages/index.html",
+                client_id: process.env.LINE_CLIENT_ID,
+                client_secret: process.env.LINE_CLIENT_SECRET
+            }), {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).catch(error => {
+            console.error("Token request error:", error.response ? error.response.data : error.message);
+            throw new Error("無法從 Line 取得 access token");
+        });
+
+        const accessToken = tokenResponse.data.access_token;
+        const idToken = tokenResponse.data.id_token;
+
+        // Step 2: 使用 access token 取得用戶資料
+        const profileResponse = await axios.get("https://api.line.me/v2/profile", {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        }).catch(error => {
+            console.error("無法取得用戶id和名稱:", error);
+        });
+
+        const userId = profileResponse.data.userId;
+        const displayName = profileResponse.data.displayName;
+
+        // 使用 id token 取得用戶email資料
+        const verifyResponse = await axios.post("https://api.line.me/oauth2/v2.1/verify",
+            qs.stringify({
+                client_id: process.env.LINE_CLIENT_ID,
+                id_token: idToken
+            })
+        ).catch(error => {
+            console.error("無法取得用戶email:", error);
+        });
+
+        const email = verifyResponse.data.email;
+
+        // Step 3: 查詢用戶資料庫以確認是否存在
+        const result = await memberModel.LineData({ userId, displayName, email });
+
+        // Step 4: 傳回 JWT
+        if (result.token) {
+            res.json({
+                token: result.token,
+                emailid: result.emailid,
+                message: result.message
+            });
+        } else if (result.error == "註冊失敗") {
+            res.status(400).json({ message: result.error });
+        } else {
+            res.status(401).json({ message: result.error });
+        }
+    } catch (error) {
+        console.error("登入錯誤:", error);
+        res.status(500).json({ message: "登入錯誤" });
+    }
+};
+
+// Line註冊控制器
+exports.Lineregister = async (req, res) => {
+    try {
+        const { code } = req.body;
+
+        // Step 1: 取得 access token
+        const tokenResponse = await axios.post("https://api.line.me/oauth2/v2.1/token",
+            qs.stringify({
+                grant_type: "authorization_code",
+                code,
+                redirect_uri: "http://localhost:5173/chill-around-project/pages/register.html",
+                client_id: process.env.LINE_CLIENT_ID,
+                client_secret: process.env.LINE_CLIENT_SECRET
+            }), {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).catch(error => {
+            console.error("Token request error:", error.response ? error.response.data : error.message);
+            throw new Error("無法從 Line 取得 access token");
+        });
+
+        const accessToken = tokenResponse.data.access_token;
+        const idToken = tokenResponse.data.id_token;
+
+        // Step 2: 使用 access token 取得用戶資料
+        const profileResponse = await axios.get("https://api.line.me/v2/profile", {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        }).catch(error => {
+            console.error("無法取得用戶id和名稱:", error);
+        });
+
+        const userId = profileResponse.data.userId;
+        const displayName = profileResponse.data.displayName;
+
+        // 使用 id token 取得用戶email資料
+        const verifyResponse = await axios.post("https://api.line.me/oauth2/v2.1/verify",
+            qs.stringify({
+                client_id: process.env.LINE_CLIENT_ID,
+                id_token: idToken
+            })
+        ).catch(error => {
+            console.error("無法取得用戶email:", error);
+        });
+
+        const email = verifyResponse.data.email;
+
+        // Step 3: 查詢用戶資料庫以確認是否存在
+        const result = await memberModel.LineregData({ userId, displayName, email });
+
+        // Step 4: 傳回 JWT
+        if (result.token) {
+            res.json({
+                token: result.token,
+                emailid: result.emailid
+            });
+        } else if (result.error) {
+            res.status(400).json({ message: result.error });
+        }
+    } catch (error) {
+        console.error("註冊錯誤:", error);
+        res.status(500).json({ message: "註冊錯誤" });
+    }
+};
+
+// Line綁定控制器
+exports.LineBind = async (req, res) => {
+    try {
+        if (!req.currentUser || !req.currentUser.id) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const emailid = req.currentUser.id;
+        const { code } = req.body;
+
+        const tokenResponse = await axios.post("https://api.line.me/oauth2/v2.1/token",
+            qs.stringify({
+                grant_type: "authorization_code",
+                code,
+                redirect_uri: "http://localhost:5173/chill-around-project/pages/member_personaldata.html",
+                client_id: process.env.LINE_CLIENT_ID,
+                client_secret: process.env.LINE_CLIENT_SECRET
+            }), {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).catch(error => {
+            console.error("Token request error:", error.response ? error.response.data : error.message);
+            throw new Error("無法從 Line 取得 access token");
+        });
+
+        const accessToken = tokenResponse.data.access_token;
+
+        const profileResponse = await axios.get("https://api.line.me/v2/profile", {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        }).catch(error => {
+            console.error("無法取得用戶id和名稱:", error);
+        });
+
+        const userId = profileResponse.data.userId;
+
+        const result = await memberModel.Lineupdate({ userId, emailid });
+        if (result.error) {
+            return res.status(400).json({ message: result.error }); // 返回錯誤消息
+        }
+        if (result.success) {
+            res.json({ message: "Line綁定成功!" });
+        }
+    } catch (error) {
+        console.error("綁定錯誤:", error);
+        res.status(500).json({ message: "綁定錯誤" });
+    }
+};
+
+// Line解除綁定的控制器
+exports.delLineid = async (req, res) => {
+    try {
+        if (!req.currentUser || !req.currentUser.id) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const emailid = req.currentUser.id;
+        const result = await memberModel.updateLineid(emailid);
+        if (result.error) {
+            return res.status(400).json({ message: result.error }); // 返回錯誤消息
+        }
+        if (result.success) {
+            res.json({ message: "解除綁定成功!" });
+        }
+    } catch (error) {
+        // 錯誤處理
+        console.error("Error fetching site:", error);
+        res.status(500).json({ message: "解除綁定失敗" });
     }
 };
 
@@ -133,7 +374,7 @@ exports.updatemember = async (req, res) => {
         // 使用 emailid 查詢最新的用戶資料
         const updatedUser = await memberModel.findEmail(emailid);
         if (!updatedUser) {
-            return res.status(404).json({ message: "未找到該會員。" });
+            return res.status(404).json({ message: "更新失敗。" });
         }
         res.json({ message: "會員資料更新成功!" }); // 返回更新後的用戶資料
     } catch (error) {

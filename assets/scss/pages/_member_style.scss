@@ -91,6 +91,10 @@
         -webkit-border-radius: 30px;
         border-radius: 30px;
 
+        img {
+            height: 65px;
+        }
+
         .title {
             font-size: 36px;
             font-weight: bold;
@@ -404,11 +408,45 @@
                                 margin-bottom: 10px;
                                 padding: 7px 0;
 
-                                #googleimg {
+                                .googleimg {
                                     height: 40px;
+                                }
+
+                                .google {
+                                    border: 1px solid #417eec;
+                                    color: #417eec;
+                                    transition: .5s;
+                                }
+
+                                .google:hover {
+                                    border: 1px solid #0059ff;
+                                    background-color: #417eec;
+                                    color: #fff;
+                                }
+
+                                #line {
+                                    border: 1px solid #4cc764;
+                                    color: #4cc764;
+                                    transition: .5s;
+                                }
+
+                                #line:hover {
+                                    border: 1px solid #00ac22;
+                                    background-color: #4cc764;
+                                    color: #fff;
                                 }
                             }
                         }
+                    }
+                }
+
+                #lineModal {
+                    .modal-header {
+                        border: none;
+                    }
+
+                    .modal-footer {
+                        border: none;
                     }
                 }
             }
@@ -480,10 +518,18 @@
 
                     img {
                         border-radius: 20px 0 0 20px;
+
+                        @media screen and (max-width: 768px) {
+                            border-radius: 20px 20px 0 0;
+                        }
                     }
 
                     .title {
                         font-size: 26px;
+
+                        @media screen and (max-width: 1100px) {
+                            font-size: 20px;
+                        }
                     }
                 }
 
@@ -627,10 +673,18 @@
 
                     img {
                         border-radius: 20px 0 0 20px;
+
+                        @media screen and (max-width: 768px) {
+                            border-radius: 20px 20px 0 0;
+                        }
                     }
 
                     .title {
                         font-size: 26px;
+
+                        @media screen and (max-width: 1100px) {
+                            font-size: 20px;
+                        }
                     }
                 }
 

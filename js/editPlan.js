@@ -59,10 +59,12 @@ function renderEditPlan(schedules) {
           <h2>${schedules[0].sch_name}</h2>
           <p>${startDate} to <br> ${endDate}</p>
       </div>
+      <a href="Budget.html">
       <div class="budget">
           <h2>預算: 0</h2>
           <p>NTD</p>
       </div>
+      </a>
   </div>
   <div class="d-flex planedDay">
       <div class="circle">${alreadyEditedDays}/${diffInDays}</div>
@@ -135,7 +137,7 @@ function renderEditPlan(schedules) {
   // 切換不同的天數
   const dayListItems = dayList.getElementsByTagName("li");
   for (let i = 0; i < dayListItems.length - 1; i++) {
-    dayListItems[i].addEventListener("click", () => 
+    dayListItems[i].addEventListener("click", () =>
       switchCurrentDay(i, schedules)
     );
   }

@@ -31,7 +31,32 @@
 <body class="member">
     <div class="container-fluid">
         <div class="row">
-            <%- include('./layout/TaiwanExsidebar'); -%>
+            <div class="col-md-2 d-flex flex-column justify-content-between text-center">
+                <div>
+                    <a href="index.html">
+                        <img src="../assets/images/logo/chillAround_logo_01.png">
+                    </a>
+                    <div class="sidebar text-start">
+                        <div id="personaldata" class="item">
+                            <a href="../pages/member_personaldata.html"><i class="fa-solid fa-user"></i>個人資訊</a>
+                        </div>
+                        <div id="mytrip" class="item">
+                            <a href="../pages/member_mytrip.html"><i class="fa-solid fa-calendar-days"></i>我的行程</a>
+                        </div>
+                        <div id="mycollection" class="item">
+                            <a href="../pages/member_mycollection.html"><i class="fa-solid fa-heart"></i>我的收藏行程</a>
+                        </div>
+                        <div id="../pages/TaiwanEx.html" class="item active">
+                            <a href="#"><i class="fa-solid fa-map-location-dot"></i>台灣制縣地圖</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button id="logoutbtn" type="button" class="btn btn-secondary text-white">
+                        會員登出
+                    </button>
+                </div>
+            </div>
             <div class="col-md-10 TaiwanEx">
             </div>
         </div>

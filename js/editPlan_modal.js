@@ -61,8 +61,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const siteDescription = currentModal.querySelector(
       'textarea[name="siteParagh"]'
     ).value;
+
     // 從 localStorage 中取得 selectedTags
     let selectedTags = JSON.parse(localStorage.getItem("selectedTags")) || [];
+
+    // 如果 selectedTags 為空陣列，則從頁面中取得具有 class="btnSelected" 的 tag
+    if (selectedTags.length === 0) {
+      selectedTags = Array.from(document.querySelectorAll(".btnSelected")).map(
+        (tag) => tag.dataset.tagId // 假設每個 tag 的 tag ID 存在於 data-tag-id 屬性中
+      );
+    }
+
+    console.log("最終的 selectedTags:", selectedTags);
 
     if (isEditMode) {
       // PUT 請求 (更新景點)
