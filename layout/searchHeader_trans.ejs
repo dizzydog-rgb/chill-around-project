@@ -26,12 +26,12 @@
                 </ul>
                 <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
                     <li class="nav-item d-flex p-2">
-                        <button id="logoutBtn" class="btn" type="button" class="btn text-white loginbtn" 
-                                style="display: none;">會員登出</button>
+                        <button id="logoutBtn" class="btn" type="button" class="btn text-white loginbtn"
+                            style="display: none;">會員登出</button>
                     </li>
                     <li class="nav-item d-flex p-2">
-                        <button id="loginBtn" class="btn" type="button" class="btn text-white loginbtn" data-bs-toggle="modal"
-                        data-bs-target="#loginModal">登入</button>
+                        <button id="loginBtn" class="btn" type="button" class="btn text-white loginbtn"
+                            data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
                     </li>
                     <li class="nav-item d-flex p-2">
                         <a href="buildPlan.html"><i class="bi bi-plus-circle"></i></a>
@@ -59,8 +59,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="inputPassword" class="col-form-label">密碼:</label>
-                        <input type="password" class="form-control" id="inputPassword" name="inputPassword"
-                            required>
+                        <input type="password" class="form-control" id="inputPassword" name="inputPassword" required>
                     </div>
                     <div class="mb-3 text-center">
                         <button id="loginbtn" type="submit" class="btn signinbtn text-white me-3">登入</button>
@@ -70,35 +69,34 @@
             </div>
             <div class="mx-2 text-center fastlogin">
                 <div class="line"></div>
-                <div class="mx-1">快速登入</div>
+                <div class="mx-1">快速登入或註冊</div>
                 <div class="line"></div>
             </div>
             <div class="modal-footer">
-                <button class="btn lineloginbtn"></button>
                 <div id="g_id_onload"
-                    data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com"
+                    data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com" data-callback="handleCallback"
                     data-auto_prompt="false">
                 </div>
                 <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_blue"
                     data-text="signin" data-shape="rectangular" data-logo_alignment="left" data-width=110>
                 </div>
+                <button class="btn lineloginbtn"></button>
             </div>
         </div>
     </div>
 </div>
 
 
-<script src="https://accounts.google.com/gsi/client" async></script>
 <script type="module" src="../js/login.js"></script>
 <script>
-// 假設用戶已登入的狀態
-const token = localStorage.getItem('token'); // 獲取 token
-console.log(token);
-let isLoggedIn = false;
+    // 假設用戶已登入的狀態
+    const token = localStorage.getItem('token'); // 獲取 token
+    console.log(token);
+    let isLoggedIn = false;
 
-// 取得按鈕
-const loginButton = document.getElementById('loginBtn');
-const logoutButton = document.getElementById('logoutBtn');
+    // 取得按鈕
+    const loginButton = document.getElementById('loginBtn');
+    const logoutButton = document.getElementById('logoutBtn');
 
 if (token) {
     isLoggedIn = true; // 登錄狀態更新
@@ -131,13 +129,13 @@ logoutButton.addEventListener('click', function () {
             if (confirm('您確定要登出嗎？')) {
                 localStorage.removeItem('token');
                 alert("登出成功!");
-               
+
                 isLoggedIn = false; // 更新登入狀態
                 logoutButton.style.display = 'none'; // 隱藏登出按鈕
                 loginButton.style.display = 'block'; // 顯示登入按鈕
 
                 window.location.href = 'index.html'; // 跳轉到首頁
             }
-        } 
+        }
     });
 </script>

@@ -5,7 +5,7 @@ $(document).ready(function () {
     const emailid = localStorage.getItem('emailid');
     if (!token) {
         alert("請先登入");
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
 
@@ -115,19 +115,53 @@ $(document).ready(function () {
                         <input type="text" name="telephonenum" id="telephonenum" class="inpwrite" value="${member.telephone}"
                             placeholder="請輸入市內電話" pattern="0[2-8]{1}[0-9]{8}" readonly>
                     </div>
-                    <!-- <div class="bindaccount">
+                    <div class="bindaccount">
                         <div class="title">綁定帳戶：</div>
                         <div class="googleline">
                             <div class="item">
-                                <img src="../assets/images/memberimg/logo_google_g_icon.png" id="googleimg">
-                                <div id="google"></div>
+                                <img src="../assets/images/memberimg/logo_google_g_icon.png" class="googleimg">
+                                <button type="button" id="google" class="btn google" data-bs-toggle="modal" data-bs-target=""></button>
                             </div>
                             <div class="item">
-                                <img src="../assets/images/memberimg/btn_base.png" id="lineimg">
-                                <div id="line"></div>
+                                <img src="../assets/images/memberimg/btn_base.png" class="lineimg">
+                                <button type="button" id="line" class="btn" data-bs-toggle="modal" data-bs-target=""></button>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
+                </div>
+                <div class="modal fade" id="googleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">解除綁定</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                確定要解除綁定?
+                            </div>
+                            <div class="modal-footer">
+                                <button id="delGoogle" type="button" class="btn btn-primary text-white">確定</button>
+                                <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="lineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">解除綁定</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                確定要解除綁定?
+                            </div>
+                            <div class="modal-footer">
+                                <button id="delLine" type="button" class="btn btn-primary text-white">確定</button>
+                                <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
             `;
@@ -177,16 +211,132 @@ $(document).ready(function () {
 
             let googleid = member.googleid;
             let lineid = member.lineid;
+
+            google.accounts.id.initialize({
+                client_id: '745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com',
+                callback: handleGoogleBind, // 設定回調函數
+            });
+
+            // 判定是否有綁定google
             if (googleid == undefined) {
-                $('#google').text('未綁定');
+                $("#google").removeClass("google");
+                google.accounts.id.renderButton(
+                    document.getElementById('google'), // 使用原生 DOM 選擇器
+                    { type: "icon" } // 可以自定義樣式
+                );
+                google.accounts.id.prompt(); // 顯示登入框
             } else {
                 $('#google').text('已綁定');
+                $('#google').attr("data-bs-target", "#googleModal");
+                $('#google').click(function (e) {
+                    e.preventDefault(); // 防止畫面重新整理
+                });
+                // 解除綁定
+                $('#delGoogle').click(function () {
+                    axios.post("http://localhost:8080/member/delGoogleid", {}, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).then(response => {
+                        if (response.data) {
+                            alert(response.data.message);
+                            window.location.href = "member_personaldata.html";
+                        }
+                    }).catch(error => {
+                        console.error("解除失敗:", error);
+                        alert(error.response.data.message);
+                    });
+                });
             }
 
+            function handleGoogleBind(response) {
+                // 解碼並檢查資料
+                const data = parseJwt(response.credential);
+
+                // 將 ID Token 傳送至後端
+                axios.post("http://localhost:8080/member/GoogleBind", { data }, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then(response => {
+                        alert(response.data.message);
+                        location.reload(); // 成功後重新載入頁面
+                    })
+                    .catch(error => {
+                        console.error("綁定失敗:", error);
+                        alert(error.response.data.message);
+                    });
+            }
+
+            // 將 Google ID Token 解碼成 JSON 資料
+            function parseJwt(token) {
+                var base64Url = token.split('.')[1];
+                var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                return JSON.parse(jsonPayload);
+            }
+
+            // 判定是否有綁定line
             if (lineid == undefined) {
                 $('#line').text('未綁定');
+                $('#line').click(function () {
+                    let client_id = '2006514534';
+                    let redirect_uri = 'http://localhost:5173/chill-around-project/pages/member_personaldata.html';
+                    let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+                    link += 'response_type=code';
+                    link += '&client_id=' + client_id;
+                    link += '&redirect_uri=' + redirect_uri;
+                    link += '&state=login';
+                    link += '&scope=profile%20openid%20email';
+                    window.location.href = link;
+                });
+
+                // 接收 Line 登入資料傳入後台
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get("code");
+
+                if (code) {
+                    axios.post("http://localhost:8080/member/LineBind", { code }, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).then(response => {
+                        if (response.data) {
+                            alert(response.data.message);
+                            location.reload();
+                        }
+                    }).catch(error => {
+                        console.error("綁定失敗:", error);
+                        alert(error.response.data.message);
+                    });
+                }
             } else {
                 $('#line').text('已綁定');
+                $('#line').attr("data-bs-target", "#lineModal");
+                $('#line').click(function (e) {
+                    e.preventDefault(); // 防止畫面重新整理
+                });
+
+                // 解除綁定
+                $('#delLine').click(function () {
+                    axios.post("http://localhost:8080/member/delLineid", {}, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).then(response => {
+                        if (response.data) {
+                            alert(response.data.message);
+                            window.location.href = "member_personaldata.html";
+                        }
+                    }).catch(error => {
+                        console.error("解除失敗:", error);
+                        alert(error.response.data.message);
+                    });
+                });
             }
 
             function inputSize(input) {

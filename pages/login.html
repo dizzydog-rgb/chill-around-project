@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>會員登入</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="icon" type="image/x-icon" href="../assets/images/logo/favicon.png">
 </head>
 
@@ -29,8 +30,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="inputPassword" class="col-form-label">密碼:</label>
-                            <input type="password" class="form-control" id="inputPassword" name="inputPassword" minlength="6"
-                                required>
+                            <input type="password" class="form-control" id="inputPassword" name="inputPassword"
+                                minlength="6" required>
                         </div>
                         <div class="mb-3 text-center">
                             <button id="loginbtn" type="submit" class="btn signinbtn text-white me-3">登入</button>
@@ -38,25 +39,24 @@
                         </div>
                     </form>
                 </div>
-                <!-- <div class="mx-2 text-center fastlogin">
+                <div class="mx-2 text-center fastlogin">
                     <div class="line"></div>
-                    <div class="mx-1">快速登入</div>
+                    <div class="mx-1">快速登入或註冊</div>
                     <div class="line"></div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn lineloginbtn"></button>
                     <div id="g_id_onload"
-                        data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com"
+                        data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com" data-callback="handleCallback"
                         data-auto_prompt="false">
                     </div>
                     <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_blue"
                         data-text="signin" data-shape="rectangular" data-logo_alignment="left" data-width=110>
                     </div>
-                </div> -->
+                    <button class="btn lineloginbtn"></button>
+                </div>
             </div>
         </div>
     </div>
-    <script src="https://accounts.google.com/gsi/client" async></script>
     <script type="module" src="/main.js"></script>
     <script type="module" src="../js/login.js"></script>
 </body>

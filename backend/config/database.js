@@ -4,7 +4,7 @@ exports.exec = (sql, data, callback) => {
   const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "123456",
     database: "chill_around",
     multipleStatements: true,
   });
