@@ -65,12 +65,12 @@ function renderPlanList(schedules) {
                     src="../assets/images/searchSite/${schedule.photo_one}"
                     class="card-img-top"
                   />
-                  <div class="card-body d-flex justify-content-between">
+                  <div class="card-body">
                     <div>
                       <h5 class="card-title">${schedule.sch_name}</h5>
                       <p class="card-text">${startDate} - ${endDate}</p>
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center shareBtn">
                       <button type="button" class="btn btn-outline-primary">
                         分享
                       </button>
