@@ -16,7 +16,9 @@ async function initMap() {
     // );
     map = new google.maps.Map(document.getElementById('map'), {
         center: defaultLocation,
-        zoom: 13
+        zoom: 13,
+        mapTypeControl: false, // 隱藏地圖類型控制
+        streetViewControl: false //街景關掉
     });
 
     //這個方法是如果ＵＲＬ有儲存ＩＤ值
