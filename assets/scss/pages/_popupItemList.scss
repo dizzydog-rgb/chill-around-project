@@ -15,8 +15,10 @@
         background: #BED3DC;
         border-radius: 15px;
         font-size: medium;
-        width: 500px;
-        height: 420px;
+        // width: 500px;
+        // height: 420px;
+        width: 45%;
+        height: 40vw;
         /* display: none; */
         position: fixed;
         top: 50%;
@@ -36,7 +38,9 @@
 
                 .close {
                     cursor: pointer;
+                    margin-right: 5%;
                     text-decoration: none;
+                    font-size: 2vw;
                 }
             }
 
@@ -45,18 +49,19 @@
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
-                padding: 0 20px;
+                padding: 0 5%;
 
                 .category {
                     /* display: inline-block; */
+                    font-size: 1.5vw;
                     font-weight: 600;
                     background-color: white;
                     color: #2A5A70;
                     /* width: calc(33.33% - 10px); */
-                    width: 120px;
-                    margin: 10px 0;
+                    width: 30%;
+                    margin: 3% 0;
                     cursor: pointer;
-                    padding: 8px 0;
+                    padding: 2% 0;
                     text-align: center;
                     border-radius: 10px;
                     /* transition: background 0.3s; */
@@ -69,14 +74,16 @@
             }
 
             .button-container {
-                margin-top: 10px;
+                margin-top: 2%;
                 display: flex;
                 justify-content: center;
 
                 >a>button {
+                    font-size: 1.5vw;
                     background-color: #4A859F;
                     color: white;
-                    padding: 5px 20px;
+                    // padding: 5px 20px;
+                    padding: 0.5vw 3vw;
                     border: none;
                     border-radius: 20px;
                 }
@@ -87,5 +94,33 @@
     .modal.active,
     .overlay.active {
         display: block;
+    }
+
+    @media (max-width: 376px) {
+        .modal {
+            width: 80vw;
+            height: 40%;
+
+            .modalContent {
+                .closeDiv {
+                    .close {
+                        font-size: 12px;
+                        margin-right: 10px;
+                    }
+                }
+
+                .categoryDiv {
+                    .category {
+                        font-size: 12px;
+                    }
+                }
+
+                .button-container{
+                    >a>button {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
     }
 }

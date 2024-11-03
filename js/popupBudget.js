@@ -114,7 +114,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                     topDivContainer.innerHTML = `
                                 <a class="category" href="#modal2" id="open-modal2">${ParseUserChooseDiv.BudgetName}</a>
                                 <input class="date" id="userChooseDate" type="date" value="${formattedDate}"></input>
-                                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
+                                <a href="./budget.html" class="close" onclick="closeModal()">X</a>
                             `;
 
                     document.getElementById('open-modal2').addEventListener('click', () => {
@@ -156,7 +156,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                                 topDivContainer.innerHTML = `
                                 <a class="category" href="#modal2" id="open-modal2">${userChooseCategory.BudgetName}</a>
                                 <input class="date" id="userChooseDate" type="date" value="${itemDate}"></input>
-                                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
+                                <a href="./budget.html" class="close" onclick="closeModal()">X</a>
                             `;
                             }
                             closeModal2(categoryModal);
@@ -186,7 +186,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                         axios.put(`http://localhost:8080/budget/UserBudget/${currentScheduleId}/${CurrentBudget_id}`, updateData)
                             .then(postResponse => {
                                 console.log("更新成功 pika", postResponse.data);
-                                window.location.href = '../pages/Budget.html';
+                                window.location.href = '../pages/budget.html';
 
                             }).catch(error => {
                                 console.error("更新失敗：", error);
@@ -203,7 +203,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                         axios.delete(`http://localhost:8080/budget/UserBudget/${currentScheduleId}/${CurrentBudget_id}`)
                             .then(postResponse => {
                                 console.log("更新成功 pika", postResponse.data);
-                                window.location.href = '../pages/Budget.html';
+                                window.location.href = '../pages/budget.html';
                             }).catch(error => {
                                 console.error("更新失敗：", error);
                             });
@@ -224,7 +224,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                         topDivContainer.innerHTML = `
                                 <a class="category" href="#modal2" id="open-modal2">${userChooseCategory.BudgetName}</a>
                                 <input id="userChooseDate" class="date" type="date"></input>
-                                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
+                                <a href="./budget.html" class="close" onclick="closeModal()">X</a>
                             `;
                     }
                     closeModal2(categoryModal);
@@ -252,7 +252,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                 axios.post(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`, updateData)
                     .then(Response => {
                         console.log('新增成功');
-                        window.location.href = '../pages/Budget.html';
+                        window.location.href = '../pages/budget.html';
                     }).catch(error => {
                         console.error("更新失敗：", error);
                     })
@@ -281,20 +281,30 @@ function closeModal() {
 
 // <---------------------- Modal 2 ---------------------->
 // 綁定 modal 和 連結按鈕
+document.addEventListener('DOMContentLoaded', () => {
+    // Modal 開啟和關閉的初始化
+    bindModalEvents();
+});
+
+function bindModalEvents() {
+    document.getElementById('open-modal2').addEventListener('click', openModal2);
+    document.querySelector('.close2').addEventListener('click', closeModal2);
+    document.querySelector('.okBtn').addEventListener('click', closeModal2);
+}
+
 function openModal2() {
-    document.getElementById('open-modal2').addEventListener('click', () => {
-        document.getElementById('overlay2').classList.add('active');
-        document.getElementById('modal2').classList.add('active');
-    });
-};
+    console.log('HIIIIIIIIIIIII');
+    document.getElementById('overlay2').classList.add('active');
+    document.getElementById('modal2').classList.add('active');
+}
 
 function closeModal2() {
     document.getElementById('overlay2').classList.remove('active');
     document.getElementById('modal2').classList.remove('active');
+    // 重新綁定事件，以確保按鈕能再次使用
+    bindModalEvents();
 }
 
-document.querySelector('.close2').addEventListener('click', closeModal2);
-document.querySelector('.okBtn').addEventListener('click', closeModal2);
 
 
 // 展開種類選項
@@ -302,7 +312,7 @@ function toggleOptions(id) {
     const options = document.getElementById(id);
     if (options) {
         options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
-        alert("展開或收回");
+        // alert("展開或收回");
     } else {
         console.error(`ID '${id}' not found`)
     }
@@ -311,7 +321,7 @@ function toggleOptions(id) {
 //  點擊單個選項綁定
 function selectOption(option, event) {
     event.stopPropagation();
-    alert(`你選擇了: ${option}`);
+    alert(`已選擇：${option}`);
 
     // ------ 製作單選限制 ------ //
     const options = document.querySelectorAll('.option');
