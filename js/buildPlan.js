@@ -7,6 +7,8 @@ document.querySelector(".btn-complete").addEventListener("click", function () {
   const startDate = document.querySelector("#startDate").value;
   // 取得結束日期
   const endDate = document.querySelector("#endDate").value;
+  // 取的 emailid 
+  const emailid = localStorage.getItem("emailid");
 
   // POST 請求 (新增旅行計畫)
   axios
@@ -14,6 +16,7 @@ document.querySelector(".btn-complete").addEventListener("click", function () {
       sch_name: planName,
       start_date: startDate,
       end_date: endDate,
+      email_id: emailid, 
     })
     .then(function (response) {
       console.log("旅行計畫已新增:", response.data);
