@@ -1,11 +1,14 @@
 // <---------------------- Get userbudget ---------------------->
 import axios from 'axios';
 
+const emailid = localStorage.getItem("emailid");
+console.log("emailid:", emailid);
 // const token = localStorage.getItem('token');
-//     if (!token) {
-//         alert("請先登入");
-//         window.location.href = 'index.html';
-//     }
+// if (!token) {
+//     alert("請先登入");
+//     window.location.href = 'index.html';
+// }
+// const emailid = localStorage.getItem('emailid');
 
 // localStorage.setItem("scheduleId", "3");
 const currentScheduleId = localStorage.getItem("scheduleId");
@@ -158,6 +161,16 @@ axios.get(`http://localhost:8080/budget/UserBudget/${currentScheduleId}`)
                 // console.log("目前的coding位置 ---", categoryDiv)
             }
         });
+
+        // 取得現在位於哪個行程
+        axios.get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)
+            .then(function (editPlanResponse) {
+                const sch_name = editPlanResponse.data[0].sch_name;
+                const backLink = document.querySelector('a[href="./editPlan.html"]');
+                if (backLink) {
+                    backLink.textContent = `返回編輯計畫 <${sch_name}>`;
+                }
+            })
     }).catch(function (error) {
         console.error("獲取資料時發生錯誤:", error);
     });

@@ -281,20 +281,30 @@ function closeModal() {
 
 // <---------------------- Modal 2 ---------------------->
 // 綁定 modal 和 連結按鈕
+document.addEventListener('DOMContentLoaded', () => {
+    // Modal 開啟和關閉的初始化
+    bindModalEvents();
+});
+
+function bindModalEvents() {
+    document.getElementById('open-modal2').addEventListener('click', openModal2);
+    document.querySelector('.close2').addEventListener('click', closeModal2);
+    document.querySelector('.okBtn').addEventListener('click', closeModal2);
+}
+
 function openModal2() {
-    document.getElementById('open-modal2').addEventListener('click', () => {
-        document.getElementById('overlay2').classList.add('active');
-        document.getElementById('modal2').classList.add('active');
-    });
-};
+    console.log('HIIIIIIIIIIIII');
+    document.getElementById('overlay2').classList.add('active');
+    document.getElementById('modal2').classList.add('active');
+}
 
 function closeModal2() {
     document.getElementById('overlay2').classList.remove('active');
     document.getElementById('modal2').classList.remove('active');
+    // 重新綁定事件，以確保按鈕能再次使用
+    bindModalEvents();
 }
 
-document.querySelector('.close2').addEventListener('click', closeModal2);
-document.querySelector('.okBtn').addEventListener('click', closeModal2);
 
 
 // 展開種類選項
@@ -302,7 +312,7 @@ function toggleOptions(id) {
     const options = document.getElementById(id);
     if (options) {
         options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
-        alert("展開或收回");
+        // alert("展開或收回");
     } else {
         console.error(`ID '${id}' not found`)
     }
@@ -311,7 +321,7 @@ function toggleOptions(id) {
 //  點擊單個選項綁定
 function selectOption(option, event) {
     event.stopPropagation();
-    alert(`你選擇了: ${option}`);
+    alert(`已選擇：${option}`);
 
     // ------ 製作單選限制 ------ //
     const options = document.querySelectorAll('.option');
