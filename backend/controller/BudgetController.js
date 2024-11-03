@@ -1,4 +1,4 @@
-const BudgetModel = require("../models/BudgetModel");
+const BudgetModel = require("../models/budgetModel");
 // 獲得全部預算種類的控制器
 exports.getBudgetCategory = async (req, res) => {
     try {

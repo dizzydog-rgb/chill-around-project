@@ -13,6 +13,9 @@
     align-content: center;
     #logo{
         width: 150px;
+        @media(max-width: 768px){
+            width: 80px;
+        }
         // rotate: -20deg;
         &:hover{
             cursor: pointer;
@@ -27,7 +30,7 @@
         border-radius: 20px;
         border: none;
         font-weight: bold;
-        font-size: 24px;
+        font-size: 2em;
         padding: 8px 24px;
         // margin: 88px 0px 88px 0px;
         &:hover{
@@ -36,6 +39,7 @@
     }
 }
 .que{
+    padding: 1.5rem;
     h2{
         margin: 32px;
     }
@@ -46,29 +50,34 @@
     label{
         display: block;
     }
-    .answer{
-        background-color: white;
-        border: solid 1px;
-        border-radius: 20px;
-        width: 100%;
+}  
+.answer{
+    background-color: white;
+    border: solid 1px;
+    border-radius: 20px;
+    width: 100%;
+    p{
+        color: $secondary;
+        margin: 1rem;
+        font-size: 1.5em;
+    }
+    &:hover{
+        cursor: pointer;
+        background-color: $secondary;
         p{
-            color: $secondary;
-            margin: 1rem;
-            font-size: 21px;
-        }
-        &:hover{
-            cursor: pointer;
-            background-color: $secondary;
-            p{
-                color: white;
-            }
+            color: white;
         }
     }
-}  
+}
 .ansImg{
     .twoCard{
         margin-bottom: 40px;
         justify-content: space-between;
+    }
+    @media(max-width: 768px){
+        .twoCard{
+            margin-bottom: 20px;
+        }
     }
     .aCard{
         margin: 1rem;
@@ -94,7 +103,7 @@
     }
     .textAnswer{
         width: 100%;
-        margin: 1rem;
+        margin: 1rem 0 1rem 0;
     }
 }
 /*竹蜻蜓旋轉*/
@@ -184,6 +193,16 @@
         display: none;
     }
     #resultStyle{
+        img{
+            width: 200px;
+            height: 200px;
+        }
+        @media(max-width: 768px){
+            img{
+                width:100px;
+                height: 100px;
+            }
+        }
         // margin: auto;
         .characterDes{
             word-break: break-all;
@@ -234,5 +253,48 @@
         // color: white;
         // padding: 30px;
         cursor: pointer;
+    }
+}
+// 響應式
+@media (max-width: 768px){
+    .content{
+        h1{
+            font-size: 28px;
+        }
+        h2{
+            font-size: 22px;
+        }
+        .enter{
+            font-size: 1em;
+        }
+    }
+    .que{
+        padding: 3rem 1rem;
+    }
+    .answer{
+        p{
+            font-size: 10px;
+            margin: 0.5rem;
+        }
+    }
+    .ansText{
+        .textAnswer{
+            margin: 0px 0px 16px 0px;
+        }
+
+    }
+    .ansImg{
+        .aCard{
+            margin: 0.5rem;
+        }
+    }
+    .textResult{
+        img{
+            width: 100px;
+            height: 100px;
+        }
+        p{
+            font-size: 12px;
+        }
     }
 }

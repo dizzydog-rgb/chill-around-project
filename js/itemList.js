@@ -1,4 +1,15 @@
 import axios from "axios";
+
+const emailid = localStorage.getItem("emailid");
+console.log("emailid:", emailid);
+// const token = localStorage.getItem('token');
+//     if (!token) {
+//         alert("請先登入");
+//         window.location.href = 'index.html';
+//         // return;
+//     }
+// const emailid = localStorage.getItem('emailid');
+
 localStorage.setItem("scheduleId", "2");
 const currentScheduleId = localStorage.getItem("scheduleId");
 console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);
@@ -388,6 +399,16 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             });
             sessionStorage.setItem('checkboxStates', JSON.stringify(checkboxStates));
         }
+
+        // 取得現在位於哪個行程
+        axios.get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)
+            .then(function (editPlanResponse) {
+                const sch_name = editPlanResponse.data[0].sch_name;
+                const backLink = document.querySelector('a[href="./editPlan.html"]');
+                if (backLink) {
+                    backLink.textContent = `返回編輯計畫 <${sch_name}>`;
+                }
+            })
     })
     .catch(error => {
         console.error("Error fetching data:", error);
