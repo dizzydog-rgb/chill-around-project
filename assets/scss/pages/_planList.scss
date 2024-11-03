@@ -69,6 +69,8 @@
           object-fit: cover;
         }
         .card-body {
+          display: flex;
+          justify-content: space-between;
           padding: 15px 30px;
           .card-title {
             font-size: 20px;
@@ -133,8 +135,15 @@
           }
           .card-body {
             padding: 12px 24px;
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+            .shareBtn {
+              justify-content: center;
+            }
             .btn {
-              padding: 8px 24px;
+              padding: 6px 18px;
+              font-size: 16px;
             }
           }
         }
