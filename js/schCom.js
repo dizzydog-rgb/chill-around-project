@@ -31,15 +31,16 @@ function renderTopPlan(schDetails) {
             <h2>${schDetails[0].sch_name}</h2>
             <p>${schDetails[0].edit_date.slice(0, 10)} to <br class="d-block d-md-none"> ${schDetails[0].end_date.slice(5, 10)}</p>
         </div>
-        <div class="d-flex justify-content-between DateBox border-top border-primary pt-3 align-items-end">
-            <div class="editBtn">               
+        <div class="d-flex flex-column flex-md-row justify-content-between DateBox border-top border-primary pt-3 align-items-end">
+            <div class="editBtn w-100 w-md-auto mb-2 mb-md-0">               
                 <ul class="d-flex dayList m-0 p-0"></ul>
             </div>
-            <div class="todayInfo">
+            <div class="todayInfo w-100 w-md-auto">
                 <h3>台中市</h3>
                 <h3>Fri 09/13</h3>
-            </div>
+            </div>     
         </div>
+
     `;
     const dayList = document.querySelector(".dayList");
 
