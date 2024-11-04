@@ -220,4 +220,11 @@ $(document).ready(function () {
             window.location.href = 'index.html';
         }
     });
+
+    $('#logoutbtn1').click(function () {
+        if (confirm('您確定要登出嗎？')) {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        }
+    });
 })

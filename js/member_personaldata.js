@@ -532,6 +532,13 @@ $(document).ready(function () {
         }
     });
 
+    $('#logoutbtn1').click(function () {
+        if (confirm('您確定要登出嗎？')) {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        }
+    });
+
     // 將表單數據轉換為 JSON 對象的函數
     // function serializeToJSON(data) {
     //     return data.reduce((acc, { name, value }) => {
