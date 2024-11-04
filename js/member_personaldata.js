@@ -40,7 +40,7 @@ $(document).ready(function () {
                 </button>
             </div>
             <form id="form">
-                <div class="mb-5">
+                <div class="photocard mb-5">
                     <div class="card" style="max-width: 600px;">
                         <div class="row align-items-center g-0">
                             <div class="col-md-4 col-sm-12 d-flex justify-content-center">
@@ -64,9 +64,11 @@ $(document).ready(function () {
                     </div>
                 </div>
                 <div class="formList">
-                    <div class="item">
-                        <label class="col-form-label">姓名：</label>
-                        <input type="text" name="uname" id="uname1" class="inpwrite" value="${member.uname}" placeholder="請輸入姓名" readonly>
+                    <div class="item row">
+                        <div class="col-12">
+                            <label class="col-form-label">姓名：</label>
+                            <input type="text" name="uname" id="uname1" class="inpwrite" value="${member.uname}" placeholder="請輸入姓名" readonly>
+                        </div>
                     </div>
                     <div class="item row">
                         <div class="col-md-6 col-sm-12">
@@ -100,20 +102,27 @@ $(document).ready(function () {
                             </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <label class="col-form-label">住址：</label>
-                        <input type="text" name="address" id="address" class="inpwrite" value="${member.address}" placeholder="請輸入住址"
-                            readonly>
+                    <div class="item row align-items-center">
+                        <div class="col-12">
+                            <label class="col-form-label">住址：</label>
+                            <input type="text" name="address" id="address" class="inpwrite" value="${member.address}" placeholder="請輸入住址"
+                                readonly>
+                            <div class="addr">${member.address}</div>
+                        </div>
                     </div>
-                    <div class="item">
-                        <label class="col-form-label">手機號碼：</label>
-                        <input type="text" name="cellphonenum" id="cellphonenum" class="inpwrite" value="${member.cellphone}"
-                            placeholder="請輸入手機號碼" pattern="09[0-9]{8}" readonly>
+                    <div class="item row">
+                        <div class="col-12">
+                            <label class="col-form-label">手機號碼：</label>
+                            <input type="text" name="cellphonenum" id="cellphonenum" class="inpwrite" value="${member.cellphone}"
+                                placeholder="請輸入手機號碼" pattern="09[0-9]{8}" readonly>
+                        </div>
                     </div>
-                    <div class="item">
-                        <label class="col-form-label">市內電話：</label>
-                        <input type="text" name="telephonenum" id="telephonenum" class="inpwrite" value="${member.telephone}"
-                            placeholder="請輸入市內電話" pattern="0[2-8]{1}[0-9]{8}" readonly>
+                    <div class="item row">
+                        <div class="col-12">
+                            <label class="col-form-label">市內電話：</label>
+                            <input type="text" name="telephonenum" id="telephonenum" class="inpwrite" value="${member.telephone}"
+                                placeholder="請輸入市內電話" pattern="0[2-8]{1}[0-9]{8}" readonly>
+                        </div>
                     </div>
                     <div class="bindaccount">
                         <div class="title">綁定帳戶：</div>
