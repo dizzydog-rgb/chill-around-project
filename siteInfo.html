@@ -4,21 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>景點詳細資訊</title>
+    <link rel="icon" type="image/x-icon" href="/chill-around-project/assets/favicon-BnEbtzd-.png">
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap");
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-      // 更換縮圖
       function changeImage(image) {
-      document.getElementById("mainImage").src = image;
-    }
+        console.log(image);
+        document.getElementById("mainImage").src =image;
+      }
     </script>
     
-    <script type="module" crossorigin src="/chill-around-project/assets/siteInfo-GHOMJ3rJ.js"></script>
-    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-JssQaTV8.js">
+    <script type="module" crossorigin src="/chill-around-project/assets/siteInfo-B0hANbHc.js"></script>
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
     <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
-    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/login-nusU8p98.js">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BX2b4uAz.js">
+    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
   </head>
   <body>
     <!-- header -->
@@ -45,17 +49,17 @@
                     <li class="nav-item my-2"><a href="index.html" class="nav-link">首頁</a></li>
                     <li class="nav-item my-2"><a href="schInfo.html" class="nav-link">行程推薦</a></li>
                     <li class="nav-item my-2"><a href="searchSite.html" class="nav-link">景點推薦</a></li>
-                    <li class="nav-item my-2"><a href="testHomePage.html" class="nav-link">專屬旅程小測驗</a></li>
+                    <li class="nav-item my-2"><a href="test.html" class="nav-link">專屬旅程小測驗</a></li>
                     <li class="nav-item my-2"><a href="foodMap.html" class="nav-link">美食地圖</a></li>
                 </ul>
                 <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
                     <li class="nav-item d-flex p-2">
-                        <span id="welcomeMessage" class="me-3"></span>
+                        <button id="logoutBtn" class="btn" type="button" class="btn text-white loginbtn"
+                            style="display: none;">會員登出</button>
                     </li>
                     <li class="nav-item d-flex p-2">
-                
-                        <button id="loginBtn" class="btn" type="button" class="btn text-white loginbtn" data-bs-toggle="modal"
-                        data-bs-target="#loginModal">登入</button>
+                        <button id="loginBtn" class="btn" type="button" class="btn text-white loginbtn"
+                            data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
                     </li>
                     <li class="nav-item d-flex p-2">
                         <a href="buildPlan.html"><i class="bi bi-plus-circle"></i></a>
@@ -65,6 +69,7 @@
         </div>
     </nav>
 </header>
+
 <!--login modal -->
 <div class="modal fade login" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -73,64 +78,93 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="form">
                     <h3 class="mb-3 text-center">會員登入</h3>
                     <div class="mb-3">
                         <label for="inputAccount" class="col-form-label">帳號:</label>
-                        <input type="text" class="form-control" id="inputAccount" name="inputAccount">
+                        <input type="email" class="form-control" id="inputAccount" name="inputAccount" required
+                            autofocus>
                     </div>
                     <div class="mb-3">
                         <label for="inputPassword" class="col-form-label">密碼:</label>
-                        <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+                        <input type="password" class="form-control" id="inputPassword" name="inputPassword" required>
                     </div>
                     <div class="mb-3 text-center">
-                        <button type="submit" class="btn signinbtn text-white me-3">登入</button>
+                        <button id="loginbtn" type="submit" class="btn signinbtn text-white me-3">登入</button>
                         <a href="register.html" class="btn registerbtn text-white">會員註冊</a>
                     </div>
                 </form>
             </div>
             <div class="mx-2 text-center fastlogin">
                 <div class="line"></div>
-                <div class="mx-1">快速登入</div>
+                <div class="mx-1">快速登入或註冊</div>
                 <div class="line"></div>
             </div>
             <div class="modal-footer">
-                <button class="btn lineloginbtn"></button>
                 <div id="g_id_onload"
-                    data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com"
+                    data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com" data-callback="handleCallback"
                     data-auto_prompt="false">
                 </div>
                 <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_blue"
                     data-text="signin" data-shape="rectangular" data-logo_alignment="left" data-width=110>
                 </div>
+                <button class="btn lineloginbtn"></button>
             </div>
         </div>
     </div>
 </div>
-<script src="https://accounts.google.com/gsi/client" async></script>
+
+
 <script>
-    // // 假設用戶已登入的狀態
-    // let isLoggedIn = false;
+    // 假設用戶已登入的狀態
+    const token = localStorage.getItem('token'); // 獲取 token
+    console.log(token);
+    let isLoggedIn = false;
 
-    // // 取得按鈕和歡迎訊息元素
-    // const loginButton = document.getElementById('loginBtn');
-    // const welcomeMessage = document.getElementById('welcomeMessage');
+    // 取得按鈕
+    const loginButton = document.getElementById('loginBtn');
+    const logoutButton = document.getElementById('logoutBtn');
 
-    // // 點擊按鈕的事件處理
-    // loginButton.addEventListener('click', function () {
-    //     if (isLoggedIn) {
-    //         // 如果已登入，執行登出操作
-    //         isLoggedIn = false;
-    //         loginButton.innerText = '登入';
-    //         welcomeMessage.innerText = '';
-    //     } else {
-    //         // 如果未登入，執行登入操作
-    //         isLoggedIn = true;
-    //         loginButton.innerText = '登出';
-    //         welcomeMessage.innerText = 'Hi，使用者名稱';  // 可以加入用戶名的邏輯
-    //     }
-    // });
+if (token) {
+    isLoggedIn = true; // 登錄狀態更新
+    loginButton.style.display = 'none'; // 隱藏登入按鈕
+    logoutButton.style.display = 'block'; // 顯示登出按鈕
+    
+    // 獲取導航菜單元素
+    const navList = document.querySelector('.offcanvas-body .navbar-nav');
+    
+    // 創建新的 li 元素
+    // const memberCenterItem = document.createElement('li');
+    // memberCenterItem.className = 'nav-item my-2';
+    let memberCenterItem = `
+    <li class="nav-item my-2">
+        <a href="member_personaldata.html" class="nav-link">會員中心</a>
+    </li>
+    <li class="nav-item my-2">
+        <a href="planList.html" class="nav-link">我的計畫</a>
+    </li>
+         `; // 更改 href 到正確的會員中心頁面
+    
+    // 將新的 li 插入到導航菜單的末尾
+    // navList.appendChild(memberCenterItem);
+    navList.insertAdjacentHTML('beforeend', memberCenterItem);
+}
+// 點擊登出按鈕事件處理
+logoutButton.addEventListener('click', function () {
+        if (isLoggedIn) {
+            // 如果已登入，執行登出操作
+            if (confirm('您確定要登出嗎？')) {
+                localStorage.removeItem('token');
+                alert("登出成功!");
 
+                isLoggedIn = false; // 更新登入狀態
+                logoutButton.style.display = 'none'; // 隱藏登出按鈕
+                loginButton.style.display = 'block'; // 顯示登入按鈕
+
+                window.location.href = 'index.html'; // 跳轉到首頁
+            }
+        }
+    });
 </script><div class="siteInfoPage container-fluid p-0" id="siteInfoPage">
       <!-- 上方大圖 -->
       <div class="topImage container-fluid p-0 bg-primary" id="topImage">
@@ -148,7 +182,62 @@
           <div class="divider1">
           </div>
         </div>
-        
+        <!-- 輪播圖 -->
+        <div
+          id="carouselExample"
+          class="carousel slide d-md-none col-md-6 order-md-1"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="siteCarouselItem carousel-item active">
+              <img
+                src="/chill-around-project/assets/ShilinNightMarket01-Bg5LVpUq.jpeg"
+                class="d-block w-100"
+                alt="圖片 1"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8002-b3kvjulo.jpg"
+                class="d-block w-100"
+                alt="圖片 2"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8003-ChrNFbta.jpeg"
+                class="d-block w-100"
+                alt="圖片 3"
+              />
+            </div>
+            <div class="siteCarouselItem carousel-item">
+              <img
+                src="/chill-around-project/assets/%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%8004-B1Dy3kur.jpeg"
+                class="d-block w-100"
+                alt="圖片 4"
+              />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
         <!-- 主圖縮圖 -->
         <div class="leftImage col-md-6 order-md-1 d-none d-md-block">
           <div class="container p-0">
@@ -235,47 +324,46 @@
             <p>隨著時代變遷，及因應台中市都市計劃規劃發展之需，台中酒廠於1998年搬遷到台中工業區新廠，留下大片工業遺址與歷史建築。2002年7月台中市政府將全區主要建物登錄為歷史建築，舊酒廠得以完整保留。現發展成為文化部五大文化創意產業園區之。舊台中酒廠從此由製酒工業遺址活化新生，蛻變成文化創意產業的推展基地。</p>
           </div>
         </section>
-         <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 w-100">
-                    <label for="itinerarySelect" class="form-label">選擇行程</label>
-                    <select class="form-select" id="itinerarySelect">
-                        <option value="" selected>請選擇行程</option>
-                        <option value="itinerary1">行程 1</option>
-                        <option value="itinerary2">行程 2</option>
-                        <option value="itinerary3">行程 3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
-                    <label for="daySelect" class="form-label">選擇天數</label>
-                    <select class="form-select" id="daySelect">
-                        <option value="" selected>請選擇天數</option>
-                        <option value="day1">第 1 天</option>
-                        <option value="day2">第 2 天</option>
-                        <option value="day3">第 3 天</option>
-                    </select>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary">保存選擇</button>
-            </div>
-        </div>
-   </div>
-  </div>
-
+     <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+ aria-hidden="true">
+ <div class="modal-dialog">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal"
+                 aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+             <div class="mb-3 w-100">
+                 <label for="itinerarySelect" class="form-label">選擇行程</label>
+                 <select class="form-select" id="itinerarySelect">
+                     <option value="" selected>請選擇行程</option>
+                     <option value="itinerary1">行程 1</option>
+                     <option value="itinerary2">行程 2</option>
+                     <option value="itinerary3">行程 3</option>
+                 </select>
+             </div>
+         </div>
+         <div class="modal-body">
+             <div class="mb-3 w-100" id="daySelectContainer" style="display: none;">
+                 <label for="daySelect" class="form-label">選擇天數</label>
+                 <select class="form-select" id="daySelect">
+                     <option value="" selected>請選擇天數</option>
+                     <option value="day1">第 1 天</option>
+                     <option value="day2">第 2 天</option>
+                     <option value="day3">第 3 天</option>
+                 </select>
+             </div>
+         </div>
+         <div class="modal-footer">
+             <button type="button" class="btn btn-secondary Close"
+                 data-bs-dismiss="modal">關閉</button>
+             <button type="button" class="btn btn-primary Save">保存選擇</button>
+         </div>
+     </div>
+ </div>
+</div>
     <!-- footer -->
     <div class="container-fluid  text-light bg-primary position-relative">
     <footer class="p-5 ">
@@ -340,7 +428,7 @@
             </div>
         </div>
     </footer>
-</div>  </div>
+</div>  </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </body>
 </html>

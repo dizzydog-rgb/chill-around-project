@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <title>旅行專屬小測驗</title>
+    <link rel="icon" type="image/x-icon" href="/chill-around-project/assets/favicon-BnEbtzd-.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-  <script type="module" crossorigin src="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-  <script type="module" crossorigin src="/chill-around-project/assets/main-JssQaTV8.js"></script>
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
+  <script type="module" crossorigin src="/chill-around-project/assets/all-DcTbhZgf.js"></script>
+  <script type="module" crossorigin src="/chill-around-project/assets/main-BX2b4uAz.js"></script>
+  <script type="module" crossorigin src="/chill-around-project/assets/axios-CCb-kr4I.js"></script>
+  <script type="module" crossorigin src="/chill-around-project/assets/test-DW_VAOo-.js"></script>
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
 </head>
 <body>
     <div class="test">
@@ -16,7 +19,9 @@
             <div class="testHomePage py-5">
                 <div class="d-flex my-5" style="justify-content: center;">
                     <h1 class="text-success">一起來</h1>
-                    <img src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png" class="logo animate__animated animate__rubberBand">
+                    <a href="index.html" id="logo" class="animate__animated animate__tada">
+                        <img src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png">
+                    </a>
                     <!-- logo-animate.css特效 -->
                 </div>
                 <br>
@@ -25,14 +30,14 @@
                 <input class="bg-secondary enter my-5" type="button" value="點擊進入">
             </div>
             <!-- 問題1 -->
-            <div class="que testQuestion1 ansImg p-5">
+            <div class="que testQuestion1 ansImg">
                 <!-- 進度條(for迴圈ejs) -->
                 <img src="data:image/png;base64,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" style="height: 40px;">
                 <h2 class="text-primary">Q1:突然獲得了休假時間，你會偏好?</h2>
                 <div class="d-flex twoCard">
                     <div class="aCard">
                         <label for="que1AnsA">
-                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsA">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsA" data-value="E">
                             <div class="answer">
                                 <img src="/chill-around-project/assets/taipei-CQ91Ntqw.jpg">
                                 <p>A.流行文化的西門町</p>
@@ -41,7 +46,7 @@
                     </div>
                     <div class="aCard">
                         <label for="que1AnsB">
-                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsB">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsB" data-value="I">
                             <div class="answer">
                                 <img src="/chill-around-project/assets/temple-CoQz6Upe.jpg">
                                 <p>B.歷史文化的鹿港</p>
@@ -52,7 +57,7 @@
                 <div class="d-flex twoCard">
                     <div class="aCard">
                         <label for="que1AnsC">
-                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsC">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsC" data-value="E">
                             <div class="answer">
                                 <img src="/chill-around-project/assets/hualain-B6shHoQa.jpg">
                                 <p>C.壯闊的太魯閣</p>
@@ -61,7 +66,7 @@
                     </div>
                     <div class="aCard">
                         <label for="que1AnsD">
-                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsD">
+                            <input type="radio" name="radio_1" class="btn btn1" id="que1AnsD" data-value="I">
                             <div class="answer">
                                 <img src="/chill-around-project/assets/sea-BGbvIV6r.jpg">
                                 <p>D.寧靜的小琉球</p>
@@ -72,25 +77,25 @@
             </div> <!--問題1end-->
             
              <!-- 問題2 -->
-             <div class="que testQuestion2 ansText p-5">
+             <div class="que testQuestion2 ansText">
                 
                 <img src="data:image/png;base64,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" style="height: 40px;">
                 <h2 class="text-primary">Q2:你會如何規劃旅行?</h2>
                     <div class="aCard">
                         <label for="que2AnsA" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn2" id="que2AnsA">
+                            <input type="radio" name="radio_2" class="btn btn2" id="que2AnsA" data-value="J">
                             <div>
                                 <p>A.有明確的安排，充分的利用旅行時間</p>
                             </div>
                         </label>
                         <label for="que2AnsB" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn2" id="que2AnsB">
+                            <input type="radio" name="radio_2" class="btn btn2" id="que2AnsB" data-value="P">
                             <div>
                                 <p>B.有大概的計畫，中間保有彈性調整</p>
                             </div>
                         </label>
                         <label for="que2AnsC" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn2" id="que2AnsC">
+                            <input type="radio" name="radio_2" class="btn btn2" id="que2AnsC" data-value="P">
                             <div>
                                 <p>C.沒有規劃，自在地遊玩，不受時間限制</p>
                             </div>
@@ -99,14 +104,14 @@
             </div>
 
             <!-- 問題3 -->
-            <div class="que testQuestion3 ansImg p-5">
+            <div class="que testQuestion3 ansImg">
                 <!-- 進度條 -->
                 <img src="data:image/png;base64,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" style="height: 40px;">
                 <h2 class="text-primary">Q3:一早醒來準備出門，你會偏好哪種路線抵達目的?</h2>
                 <div class="d-flex twoCard">
                     <div class="aCard">
                         <label for="que3AnsA" class="answer">
-                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsA">
+                            <input type="radio" name="radio_3" class="btn btn3" id="que3AnsA" data-value="N">
                             <div>
                                 <img src="/chill-around-project/assets/mountain-eN6vCWKl.jpg">
                                 <p>A.穿梭在山谷之間</p>
@@ -115,7 +120,7 @@
                     </div>
                     <div class="aCard">
                         <label for="que3AnsB" class="answer">
-                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsB">
+                            <input type="radio" name="radio_3" class="btn btn3" id="que3AnsB" data-value="S">
                             <div>
                                 <img src="/chill-around-project/assets/beach-Dj5-yyIM.jpg">
                                 <p>B.徜徉在海景間</p>
@@ -126,7 +131,7 @@
                 <div class="d-flex twoCard">
                     <div class="aCard">
                         <label for="que3AnsC" class="answer">
-                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsC">
+                            <input type="radio" name="radio_3" class="btn btn3" id="que3AnsC" data-value="N">
                             <div>
                                 <img src="/chill-around-project/assets/pound-T1ZI201w.jpg">
                                 <p>C.沿著溪流與埤塘</p>
@@ -135,10 +140,10 @@
                     </div>
                     <div class="aCard">
                         <label for="que3AnsD" class="answer">
-                            <input type="radio" name="radio_1" class="btn btn3" id="que3AnsD">
+                            <input type="radio" name="radio_3" class="btn btn3" id="que3AnsD" data-value="S">
                             <div>
-                                <img src="/chill-around-project/assets/grass-BTII-Fnj.jpg">
-                                <p>D.奔馳稻浪及林木間</p>
+                                <img src="/chill-around-project/assets/town-YsG6v0uw.jpg">
+                                <p>D.走訪小鎮街道</p>
                             </div>
                         </label>
                     </div>
@@ -146,31 +151,31 @@
             </div> <!--問題3end-->
 
             <!-- 問題4 -->
-            <div class="que testQuestion4 ansText p-5">
+            <div class="que testQuestion4 ansText">
                 
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAABCCAYAAACINdvRAAAACXBIWXMAAAsSAAALEgHS3X78AAAK+klEQVR4nO3dQWwcVx3H8e9zt67VJPVaSmgr2nqCBFUE0m4IBxBqs5U4gIQa916R7QWJXuIbEkgkCFVwQQ5XLt5yggtxcyoHZEdwaIUUu2oBcfIaCYmKitiGtg5x++cwM854s2vP7rzZmd39faSneGc3b97675n/vJk3b5yZISIiMkxTRTdARCaLc67unFsruh1SrErRDRCRyeGcqwNrwKxzLjCzdrEtkqKo5yMiQ5FMPNGixeJaI0VzuuYjInnrkngAdsysWkyLpGjq+YhIrnokHghPvS0Mv0VSBko+IpKbzsTz6MMVzn3mUGenOfxWSRko+YhILrolnh9+48u8fOELyY9dcs4FQ2+cFE7JR0S865V45udOMj93kmfmTiY/rlNvE0jJR0S8OirxxJ4/+2Tyv2jU2wRS8hERb9IkHoDnP3co+cw75xpDaqKUhJKPiHiRNvEAPDpd4bnDCag5hCZKiSj5iEhm/SSe2FeeOp18ueCc0z0/E0TJR0Qy6XYfz8sXPn9k4gG48NQZTp+YiV/OooEHE0XJR0QG1i3xfPer5zqv6fTU8TkNPJggSj4iMpCsiQfovO5T0z0/k0PJR0T65iPxAJw5MdM544F6PxNCyUdE+uIr8cQ06m0yKfmISGq+Ew+E130effjg0WKzzrlmhibKiFDyEZFU8kg8sQtPn0m+1Ki3CaDkIyLHyjPxAHzz2aeTLzXZ6ARQ8hGRI+WdeIBuk402vVUupaTkIyI9DSPxxDomG216X4GUipKPiHQ1zMQDmmx00ij5iMgDuiWe5z73JGdOzPCvD/dyWacmG50szsyKboOIlEi3xHOc0ydmOHN/njYAnpk7xYnpyqFl83Mnk8OqATj3+NzBz399/w6v/X49+facmW2nbYeMDiUfETkwSOLJ2Stm1iq6EeKfko+IHIhu8AwSi+pA56MO6gwhOVUemmL/k0/fN7Mn8l6XDJ+Sj4hk1mNwQOeyKmHi6lxWO6b6583sD4O1TMpKyUdESiW6wfQt4PFo0U/M7EeFNUhyodFuIlIqZtYGfpZY9J2CmiI5Us9HREoneqT2ncSiF8xsraDmSA7U8xGR0omGV7+eWNQsqCmSE/V8RKSUokEMq4lFuudnjKjnIyKlFJ1m20osahbTEsmDko+IlNn1xM96xPYY0Wk3ESktDTwYX+r5iEhpaeDB+FLPR0RKTQMPxpN6PiJSahp4MJ6UfERkFGjgwZhJddotMWlgHdiIft5Q13c4oouuC4QTNQaEkzFWgTawDawAK4pHvhJxCDg8aeYaYSwUg5x0GXjwG2CP+zNwtwn3TWtmtoHkJopFk3Bb6JzhfIdwezh+n2RmXQvhxvUmYYDvApYo8evbQLNXHSrZCmGCuRYF1FKUFlAtut3jVgh3cK0+YhAU3eZxLMAfU8agrf1SLr//KnBtampqN00cnHM7wLWe9fVYwU3gXspA3wPeA+pF/3LGqRAeUfw9ZQySZQdYKLr941Ki5N9vDOyojU6l7xjEZ1z6jcGGDgS8xqAd/25rtZotLy/b5uamJa2vr9vS0pLNz893xuGBg+JuK/hgwI3trnZ63gLdHDAGydIs+nuMeiF9b6dnL6jo7zDqJdonpe359zoY04FxxhhEvRibnZ21GzduWBpLS0s2OztrgFUqlXc7E1ByBVXCU2xZd3qNon9Zo1yijS1rDOKig4HB45A18SgBZY9B1sSjBJQ9BtU48dRqNbtz5471Y3193Wq1WhyHQz2g5Ere87Sx7XVmOJX0gWawU21HbXRB0d9r1ArhhVRfMTBgsejvNGqF+wNqfMVgo+jvNIqFcODAQIkntr6+ftADInE6egrAOfcqcA4/HgF+7amuSbMIPO2xvscIr1lIStFInteP/WB/fhzVK+ktAvMe66s55655rG/sRaOcLwG0Wi2q1cH+hOv1Oq1WK355NXpSbTjU2jn3b2AuY1s7nbXwiYSSUtS9fSyHqhWLlJxzi8BSDlW/wf3bFNLaIBxKn8W2jdjQ4yhRb+F/W/gv8PMe77WjkomN0bxzzrkV4NLly5eTyWNgjUaDW7duAfzCzBYd4XnVPwGVzLUf9gMz+6nnOseWc24BuJFT9b8D3urj8xO50wNwzm0AtRyq/h8wnUO9w7KFh50z4T0gx6kTHXFPqB36P1Dppk22mF0F2NzcJAiCzI1ZWVnhpZdeAtgys8AR3jl8JXPND7pLeApuUO+QfgfYrT8YL3sT+GeGdoCnoyKOuDHXOZdXHEadr51emoQ6A3zfw7p6+Qew38fnZ4//yANmogLh9VcSrwXeJtwndKrTfT/Sjyr5HLgUZnp6mrt373qrzzkX/zjnCG/c+rq32kVEstkjv4R5y8waOdXtRXRNJPBQVZaEWgcunT9/ntu3b3toSihx6u2FCnDSW83lt0XYG3uix/t/Izw6jt+vMtjRpwzXh8DHwOke7+8D79O71xHHedRPjY2L1IlnpvIQe/uf5NmWoYuuz7Y9VLU26H+MBmdcevHFFz00ozvf13nK7rjRM88OpRXi24mo9FIBPpuinlFOPFvHf+RYU8CniddPkO3Uee4GSDwXnXOWcbX9XBI4ypqHOtrkeElgezu/qQrzPO1mhPesxCpRmSb8I3+E6J4gT+v7kMM7oP8AfwG+xNE7JvHvY8JehHH4GkQWd6I6H/dQV1G67bQuFtEQkTROnTrF7u6ut/qCIGBrawvghTIPOBg328BDhDvQ+PTPR9x/rEWep/g+AP7csUw7veE7n8cIwGhoct1DVT4uusPhGb8H8UV6n0LN6nUza2apIDHLfxZli1nX/UGlUuHevXseqod2u83Zs2cBMDNXIZxG5Hv4P+XwS+C3x3zG1wiTOIgzwFPRzx/QX9c4wO9NbZ2KvMnwNTO7fvzH+pPzTm+G+9fe9kg3YrHhoS1fI5/Tb7t5DT2PTpeseajKRx2Z5XivFXj4jh7v5VnxVE8unHPt/f39+VarRbPZzFxf4l6hN0A3mXrnnMuSUG8Cpzw2JzaRsRhEjkPeMx9xT4potNdmTtXrEdwpRYMOrtZqNTY2sh03bW9vEwQBOzs7AK+YWSuev+dV0j9CIU25WfScRKNYGHz6/qNKq+jvNUqFsAfsOwaG5tjrNw4tbQuFx+BgUtGlpSXL4sqVK3EM2gf1J1akiUVLEGz8Tqa4o1gMFIfrnnd614v+TqNWooOAVA8t62NbCIr+XqNWCOfYM8CWl5dtEMvLy8k4NA7qTqykyuDP8kkWTV2eLdh1jxudHqkwWAyqDPbwsm6l64O0VFLFoekx+TSL/j6jWkj0QvtNQFevXk3G4NqhejtWMujTM41wdFuj6F/UOBRPG12z6O8xyiVKQO9mjIGeI5M9Dq2MMdC24DkOFy9etNXVVTvK6upq8jk+RpdTni6q+EA0gulXwLdIdxPqPuHMAN82XdT2Jhq4cJP+H7GwC1w2s1KPpBkF0bawxmDzdb1DeDCmi9sZZRz9Fl7clsziAQjx61qtRqPRIAgC6vU6GxsbtNttVlZW4nt5cM7tmtmVrjE4ItPFO789wpsGk1nso+jft1FvJ8+jjSrhIIS0T3NsoVM8ecRhsY8Y7NBxekHFSwzqhAcCaXs7a+gaTx5xCEjRG40GKhy5P3qg59NNt+HDNkbPrSi76Ah8gfA+lqDj7TbhhrZiOsrOTSIGC4Q7wvnE21uE13ZWUBxyFe2LmoQxuNjx9i3COFw3nYXJVbQ9NAjjEESlHZUNS3HmJVXyERER8en/TVuQHkw+PsQAAAAASUVORK5CYII=" style="height: 40px;">
                 <h2 class="text-primary">Q4:到達目的地時肚子開始餓了，你會選擇?</h2>
                     <div class="aCard">
                         <label for="que4AnsA" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsA">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsA" data-value="F">
                             <div>
                                 <p>A.可以眺望風景的景觀餐廳</p>
                             </div>
                         </label>
                         <label for="que4AnsB" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsB">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsB" data-value="T">
                             <div>
                                 <p>B.充滿當地特色的小吃</p>
                             </div>
                         </label>
                         <label for="que4AnsC" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsC">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsC" data-value="F">
                             <div>
                                 <p>C.感受海水鹹鮮的海鮮料理</p>
                             </div>
                         </label>
                         <label for="que4AnsD" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn4" id="que4AnsD">
+                            <input type="radio" name="radio_4" class="btn btn4" id="que4AnsD" data-value="T">
                             <div>
                                 <p>D.展現原始風味的部落料理</p>
                             </div>
@@ -179,31 +184,31 @@
             </div>
 
             <!-- 問題5 -->
-            <div class="que testQuestion5 ansText p-5">
+            <div class="que testQuestion5 ansText">
                 
                 <img src="data:image/png;base64,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" style="height: 40px;">
                 <h2 class="text-primary">Q5:旅行中甚麼讓你感觸最深?</h2>
                     <div class="aCard">
                         <label for="que5AnsA" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsA">
+                            <input type="radio" name="radio_5" class="btn btn5" id="que5AnsA">
                             <div>
                                 <p>A.壯闊的美景</p>
                             </div>
                         </label>
                         <label for="que5AnsB" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsB">
+                            <input type="radio" name="radio_5" class="btn btn5" id="que5AnsB">
                             <div>
                                 <p>B.小鎮上人們的純樸熱情</p>
                             </div>
                         </label>
                         <label for="que5AnsC" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsC">
+                            <input type="radio" name="radio_5" class="btn btn5" id="que5AnsC">
                             <div>
                                 <p>C.踩在細沙間的觸感</p>
                             </div>
                         </label>
                         <label for="que5AnsD" class="textAnswer answer">
-                            <input type="radio" name="radio_1" class="btn btn5" id="que5AnsD">
+                            <input type="radio" name="radio_5" class="btn btn5" id="que5AnsD">
                             <div>
                                 <p>D.田野中清爽的微風</p>
                             </div>
@@ -217,7 +222,7 @@
         <!-- 轉場動畫 -->
         <div class="container col-lg-6 col-sm-12 testResult" style="background-color: white;">
             <div class="loadingAnimation">
-                <div><img src="/chill-around-project/assets/%E7%B6%B2%E7%AB%99logo_%E7%AB%B9%E8%9C%BB%E8%89%87-BnEbtzd-.png"></div>
+                <div><img src="/chill-around-project/assets/favicon-BnEbtzd-.png"></div>
                 <div class="d-inline-flex p-3">
                     <div class="text">C</div>
                     <div class="text">H</div>
@@ -237,52 +242,12 @@
             </div>
 
 
-            <div class="result">
-                <h2 class="text-primary m-3">你的旅行風格是...</h2>
-                <!-- 角色 -->
-                <div class="resultStyle col-10 d-flex m-auto">
-                    <div class="characterDes me-3">
-                        <h2 class="text-secondary">探險家</h2>
-                        <hr>
-                        <p>describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribede</p>
-                    </div>
-                        <img src="/chill-around-project/assets/character1-J8SBX_So.jpg" style="width: 200px; height: 200px;">
-                    </div>
-                <!-- 旅遊地 -->
-                <div class="resultCountry card flex-row flex-wrap h-100 col-10 my-3 mx-auto">
-                    <!-- 左邊的圖片 -->
-                    <div class="col-4">
-                        <img src="/chill-around-project/assets/temple2-BJxFhvG9.jpg" class="countryImg">
-                    </div>
-                            
-                    <!-- 右邊的文字內容 -->
-                    <div class="col-8 p-3">
-                        <h4>最佳旅遊地</h4>
-                        <hr>
-                        <p>describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribede</p>  
-                    </div>
-                </div>
-    
-                <div class="d-flex justify-content-between col-8 relativeInfo">
-                    <!-- 適合標籤 -->
-                    <div class="suitTag">
-                        <h5>推薦旅遊標籤</h5>
-                        <button class="btn btn-success">#tag</button>
-                        <button class="btn btn-success">#tag</button>
-                        <button class="btn btn-success">#tag</button>
-                        <button class="btn btn-success">#tag</button>
-                    </div>
-                    <!-- 最佳旅伴 -->
-                    <div class="partner">
-                        <h5>最佳旅伴</h5>
-                        <img src="/chill-around-project/assets/character2-C4Xgg63C.jpg" style="width: 150px; height: 150px;object-fit: cover;">
-                    </div>
-                </div>
-    
+            <div class="result" id="result">
+                <div id="mbtiType"></div>
                 <!-- 分享 -->
-                <div class="col-8 otherOption d-flex justify-content-between mx-auto my-3">
+                <div class="col-lg-8 col-sm-10 otherOption d-flex justify-content-between mx-auto my-3">
                     <button class="btn btn-secondary testAgain m-2">再測一次!</button>
-                    <button class="btn btn-secondary m-2">分享測驗結果<i class="bi bi-box-arrow-up ms-1"></i></button>
+                    <button type="button" class="btn btn-secondary m-2" id="share">下載測驗結果<i class="bi bi-download"></i></button>
                 </div>
                 <!-- 分隔線 -->
                 <div class="logoBar bg-primary p-2">
@@ -291,28 +256,33 @@
                 <!-- 推薦行程 -->
                 <div class="col-lg-8 col-md-8 col-sm-8 mx-auto py-3">
                     <div class="d-flex justify-content-between">
-                        <a href="">看看別人怎麼玩<i class="bi bi-caret-down-fill ms-1"></i></a>
-                        <a href="">點我安排行程<i class="bi bi-plus-circle ms-1"></i></a>
+                        <a href="schInfo.html">看看別人怎麼玩<i class="bi bi-caret-down-fill ms-1"></i></a>
+                        <a href="editPlan.html">點我安排行程<i class="bi bi-plus-circle ms-1"></i></a>
                     </div>
-                    <div class="card custom-card flex-row flex-wrap h-75">
-                        <!-- 左邊的圖片 -->
-                        <div class="col-lg-4 col-md-4 col-sm-12">
-                            <img src="https://via.placeholder.com/400x200" class="custom-img" alt="Card image">
-                        </div>
-        
-                        <!-- 右邊的文字內容 -->
-                        <div class="col-lg-8 col-md-8 col-sm-12 custom-body">
-                            <h4>卡片標題</h4>
-                            <hr>
-                            <p>這是一段卡片的內文。你可以在這裡放置一些描述，或是其他相關資訊。</p>
-                        </div>
-                    </div>
+                    <div id="schCard"></div>
                 </div>
             </div>
         </div>
 
     </div>
-            
-    <script src="../js/test.js"></script>
+           
+
+    <script>
+        // var shareBtn = document.getElementById("share");  //你的按鈕ID
+        // shareBtn.onclick = function() {
+        //     if (navigator.share) {
+        //     navigator.share({
+        //         // 輸入你要分享的內容設定
+        //         title: '前往Google',
+        //         text: '走吧?走吧!',
+        //         url: 'https://www.google.com.tw/?hl=zh_TW',
+        //     })
+        //         .then(() => console.log('成功！'))
+        //         .catch((error) => console.log('發生錯誤', error));
+        //     }
+        // }
+
+        // }
+      </script>
 </body>
 </html>

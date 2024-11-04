@@ -5,13 +5,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- The callback parameter is required, so we use console.debug as a noop -->
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=console.debug&libraries=maps,marker&v=beta">
-        </script>
-    <title>行程完成頁</title>
-  <script type="module" crossorigin src="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-  <script type="module" crossorigin src="/chill-around-project/assets/main-JssQaTV8.js"></script>
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
+    <script
+    type="module"
+    src="https://unpkg.com/@googlemaps/extended-component-library@0.6"
+  ></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <title>行程參考</title>
+    <link rel="icon" type="image/x-icon" href="/chill-around-project/assets/favicon-BnEbtzd-.png">
+  <script type="module" crossorigin src="/chill-around-project/assets/schCom-DLQG2xaa.js"></script>
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BX2b4uAz.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/editPlan_map-D3qBeJOR.js">
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
 </head>
 
 <body>
@@ -87,15 +96,9 @@
 
                                 </div>
                                 <ul class="d-flex  dayList  m-0 p-0">
-                                    <a href="">
-                                        <li class="currentDay align-bottom">DAY1</li>
-                                    </a>
-                                    <a href="">
-                                        <li>DAY2</li>
-                                    </a>
-                                    <a href="">
-                                        <li>DAY3</li>
-                                    </a>
+                                    <li class="currentDay align-bottom">DAY1</li>
+                                    <li>DAY2</li>
+                                    <li>DAY3</li>
                                 </ul>
 
                             </div>
@@ -182,17 +185,36 @@
 
             </div>
             <div class="d-none d-md-block col-md-5 mapArea">
-                <gmp-map center="" zoom="16" map-id="DEMO_MAP_ID">
-                    <gmp-advanced-marker position="" title="My location"></gmp-advanced-marker>
+                <gmpx-api-loader
+                  key="AIzaSyCgVtNCe6n8nTdXm-zFidK0uF8kVnzvO2Q"
+                  solution-channel="GMP_GE_mapsandplacesautocomplete_v1"
+                >
+                </gmpx-api-loader>
+                <gmp-map
+                  center="23.75163737835299, 120.95520524708053"
+                  zoom="8"
+                  map-id="DEMO_MAP_ID"
+                >
+                  <div
+                    slot="control-block-start-inline-start"
+                    class="place-picker-container"
+                  >
+                    <gmpx-place-picker
+                      placeholder="Enter an address"
+                      class="d-none"
+                    ></gmpx-place-picker>
+                  </div>
+                  <gmp-advanced-marker></gmp-advanced-marker>
                 </gmp-map>
-            </div>
+              </div>
 
 
 
 
         </div>
     </div>
-
+
+  
 
 </body>
 

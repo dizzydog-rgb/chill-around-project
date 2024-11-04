@@ -4,47 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>會員註冊</title>
-  <script type="module" crossorigin src="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-  <script type="module" crossorigin src="/chill-around-project/assets/main-JssQaTV8.js"></script>
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="icon" type="image/x-icon" href="/chill-around-project/assets/favicon-BnEbtzd-.png">
+  <script type="module" crossorigin src="/chill-around-project/assets/register-BLf9oZ1E.js"></script>
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BX2b4uAz.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
 </head>
 
 <body class="register">
     <div class="container-fluid">
         <div class="mycard">
-            <form>
+            <div class="text-center mb-3">
+                <a href="index.html"><img src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png"></a>
+            </div>
+            <form id="form">
                 <h3 class="title text-center">會員註冊</h3>
                 <label class="col-form-label">姓名:</label>
-                <input type="text" name="uname" id="uname" class="form-control" placeholder="請輸入姓名">
+                <input type="text" name="uname" id="uname" class="form-control" placeholder="請輸入姓名" required autofocus>
                 <label class="col-form-label">帳號:</label>
-                <input type="text" name="email" id="email" class="form-control" placeholder="請輸入電子信箱">
+                <input type="email" name="email" id="email" class="form-control" placeholder="請輸入電子信箱" required>
                 <label class="col-form-label">密碼:</label>
-                <input type="text" name="pw1" id="pw1" class="form-control" placeholder="請輸入密碼">
+                <input type="password" name="pw1" id="pw1" class="form-control" placeholder="請輸入密碼" minlength="6"
+                    required>
                 <label class="col-form-label">確認密碼:</label>
-                <input type="text" name="pw2" id="pw2" class="form-control" placeholder="請再次輸入密碼">
+                <input type="password" name="pw2" id="pw2" class="form-control" placeholder="請再次輸入密碼" minlength="6"
+                    required>
                 <div class="text-center my-3">
                     <button type="submit" class="btn subbtn text-white">確認註冊</button>
                 </div>
                 <div class="mx-2 text-center fastregister">
                     <div class="line"></div>
-                    <div class="mx-1">快速登入</div>
+                    <div class="mx-1">快速註冊</div>
                     <div class="line"></div>
                 </div>
                 <div class="fastregisterbtn mt-3">
-                    <button class="btn lineloginbtn"></button>
                     <div id="g_id_onload"
-                        data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com"
+                        data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com" data-callback="handleCallback"
                         data-auto_prompt="false">
                     </div>
                     <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_blue"
                         data-text="signin" data-shape="rectangular" data-logo_alignment="left" data-width=110>
                     </div>
+                    <button class="btn lineloginbtn"></button>
                 </div>
             </form>
         </div>
-    </div>
-    <script src="https://accounts.google.com/gsi/client" async></script>
+    </div>
 </body>
 
 </html>

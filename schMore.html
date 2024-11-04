@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>更多行程</title>
-  <script type="module" crossorigin src="/chill-around-project/assets/schMore-CYH_P16Z.js"></script>
-  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-JssQaTV8.js">
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
+    <link rel="icon" type="image/x-icon" href="/chill-around-project/assets/favicon-BnEbtzd-.png">
+  <script type="module" crossorigin src="/chill-around-project/assets/schMore-3zbZZDX_.js"></script>
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/login-nusU8p98.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BX2b4uAz.js">
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
 </head>
 
 <body>
@@ -16,59 +19,151 @@
     <div class="_schMore">
 
         <!-- header -->
-        <header class="searchSiteHeader">
-    <nav class="searchNav navbar navbar-expand-md navbar-light bg-white ps-4 pe-4">
-        <a class="navbar-brand" href="#">
+        <header class="Trans container-fluid p-0">
+    <nav class="searchNav navbar navbar-expand-md navbar-light ps-4 pe-4">
+        <!-- 左側 Logo -->
+        <a class="navbar-brand" href="index.html">
             <img src="/chill-around-project/assets/chillAround_logo_01-DR13PjDD.png" alt="Logo">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
-                <li class="nav-item d-flex p-2">
-                    <span id="welcomeMessage" class="me-3"></span>
-                </li>
-                <li class="nav-item d-flex p-2">
-                    <button id="loginBtn" class="btn">登入</button>
-                </li>
-                <li class="nav-item d-flex p-2">
-                   <a href=""><i class="bi bi-plus-circle"></i></a>
-                </li>
-            </ul>
+
+        <!-- Offcanvas 結構 -->
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasNavbarLabel" class="offcanvas-title">選單</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav nav-underline me-auto" style="font-size: 0.8rem;">
+                    <li class="nav-item my-2"><a href="index.html" class="nav-link">首頁</a></li>
+                    <li class="nav-item my-2"><a href="schInfo.html" class="nav-link">行程推薦</a></li>
+                    <li class="nav-item my-2"><a href="searchSite.html" class="nav-link">景點推薦</a></li>
+                    <li class="nav-item my-2"><a href="test.html" class="nav-link">專屬旅程小測驗</a></li>
+                    <li class="nav-item my-2"><a href="foodMap.html" class="nav-link">美食地圖</a></li>
+                </ul>
+                <ul id="searchNavBtn" class="navbar-nav d-flex align-items-center">
+                    <li class="nav-item d-flex p-2">
+                        <button id="logoutBtn" class="btn" type="button" class="btn text-white loginbtn"
+                            style="display: none;">會員登出</button>
+                    </li>
+                    <li class="nav-item d-flex p-2">
+                        <button id="loginBtn" class="btn" type="button" class="btn text-white loginbtn"
+                            data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
+                    </li>
+                    <li class="nav-item d-flex p-2">
+                        <a href="buildPlan.html"><i class="bi bi-plus-circle"></i></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 </header>
+
+<!--login modal -->
+<div class="modal fade login" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <h3 class="mb-3 text-center">會員登入</h3>
+                    <div class="mb-3">
+                        <label for="inputAccount" class="col-form-label">帳號:</label>
+                        <input type="email" class="form-control" id="inputAccount" name="inputAccount" required
+                            autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="col-form-label">密碼:</label>
+                        <input type="password" class="form-control" id="inputPassword" name="inputPassword" required>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <button id="loginbtn" type="submit" class="btn signinbtn text-white me-3">登入</button>
+                        <a href="register.html" class="btn registerbtn text-white">會員註冊</a>
+                    </div>
+                </form>
+            </div>
+            <div class="mx-2 text-center fastlogin">
+                <div class="line"></div>
+                <div class="mx-1">快速登入或註冊</div>
+                <div class="line"></div>
+            </div>
+            <div class="modal-footer">
+                <div id="g_id_onload"
+                    data-client_id="745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com" data-callback="handleCallback"
+                    data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin" data-type="standard" data-size="medium" data-theme="filled_blue"
+                    data-text="signin" data-shape="rectangular" data-logo_alignment="left" data-width=110>
+                </div>
+                <button class="btn lineloginbtn"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     // 假設用戶已登入的狀態
-let isLoggedIn = false;
+    const token = localStorage.getItem('token'); // 獲取 token
+    console.log(token);
+    let isLoggedIn = false;
 
-// 取得按鈕和歡迎訊息元素
-const loginButton = document.getElementById('loginBtn');
-const welcomeMessage = document.getElementById('welcomeMessage');
+    // 取得按鈕
+    const loginButton = document.getElementById('loginBtn');
+    const logoutButton = document.getElementById('logoutBtn');
 
-// 點擊按鈕的事件處理
-loginButton.addEventListener('click', function() {
-    if (isLoggedIn) {
-        // 如果已登入，執行登出操作
-        isLoggedIn = false;
-        loginButton.innerText = '登入';
-        welcomeMessage.innerText = '';
-    } else {
-        // 如果未登入，執行登入操作
-        isLoggedIn = true;
-        loginButton.innerText = '登出';
-        welcomeMessage.innerText = 'Hi，使用者名稱';  // 可以加入用戶名的邏輯
-    }
-});
-</script>
+if (token) {
+    isLoggedIn = true; // 登錄狀態更新
+    loginButton.style.display = 'none'; // 隱藏登入按鈕
+    logoutButton.style.display = 'block'; // 顯示登出按鈕
+    
+    // 獲取導航菜單元素
+    const navList = document.querySelector('.offcanvas-body .navbar-nav');
+    
+    // 創建新的 li 元素
+    // const memberCenterItem = document.createElement('li');
+    // memberCenterItem.className = 'nav-item my-2';
+    let memberCenterItem = `
+    <li class="nav-item my-2">
+        <a href="member_personaldata.html" class="nav-link">會員中心</a>
+    </li>
+    <li class="nav-item my-2">
+        <a href="planList.html" class="nav-link">我的計畫</a>
+    </li>
+         `; // 更改 href 到正確的會員中心頁面
+    
+    // 將新的 li 插入到導航菜單的末尾
+    // navList.appendChild(memberCenterItem);
+    navList.insertAdjacentHTML('beforeend', memberCenterItem);
+}
+// 點擊登出按鈕事件處理
+logoutButton.addEventListener('click', function () {
+        if (isLoggedIn) {
+            // 如果已登入，執行登出操作
+            if (confirm('您確定要登出嗎？')) {
+                localStorage.removeItem('token');
+                alert("登出成功!");
 
+                isLoggedIn = false; // 更新登入狀態
+                logoutButton.style.display = 'none'; // 隱藏登出按鈕
+                loginButton.style.display = 'block'; // 顯示登入按鈕
+
+                window.location.href = 'index.html'; // 跳轉到首頁
+            }
+        }
+    });
 </script>
             <!-- 上方大圖 -->
             <div class="SchtopImage container-fluid p-0 bg-primary">
-                <img src="/chill-around-project/assets/chimeiMuseum-DJm8o5hA.jpeg" class="img-fluid" alt="大圖">
+                <img src="/chill-around-project/assets/5-BwpiJz9G.jpg" class="img-fluid" alt="大圖">
                 <div class="SchTopText">
-                    <h1>更多精彩行程</h1>
+                    <h1>行程總覽</h1>
                 </div>
             </div>
 
@@ -83,82 +178,82 @@ loginButton.addEventListener('click', function() {
                             <div class="m-o accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                        aria-controls="flush-collapseOne">
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
                                         地區
                                     </button>
                                 </h2>
                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionFlushExample">
-                                    <div class="checkBody accordion-body row">
-                                        <!-- 地區核取方塊 -->
+                                data-bs-parent="#accordionFlushExample">
+                                <div class="checkBody accordion-body row" id="checkboxContainer">
+                                    <!-- 地區核取方塊 -->
                                         <div class="form-check col-md-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="taipei">
-                                            <label class="form-check-label" for="taipei">台北</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Taipei" id="Taipei" >
+                                        <label class="form-check-label" for="Taipei">台北市</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="nature" id="nature">
-                                            <label class="form-check-label" for="nature">新北</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="NewTaipei" id="NewTaipei" >
+                                        <label class="form-check-label" for="NewTaipei">新北市</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Keelung" id="Keelung">
+                                        <label class="form-check-label" for="Keelung">基隆市</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Yilan" id="Yilan">
+                                        <label class="form-check-label" for="Yilan">宜蘭縣</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Taoyuan" id="Taoyuan">
+                                        <label class="form-check-label" for="Taoyuan">桃園市</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Hsinchu" id="Hsinchu">
+                                        <label class="form-check-label" for="Hsinchu">新竹縣</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Miaoli" id="Miaoli">
+                                        <label class="form-check-label" for="Miaoli">苗栗縣</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Taichung" id="Taichung">
+                                        <label class="form-check-label" for="Taichung">台中市</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Changhua" id="Changhua">
+                                        <label class="form-check-label" for="Changhua">彰化縣</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Nantou" id="Nantou">
+                                        <label class="form-check-label" for="Nantou">南投縣</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Yunlin" id="Yunlin">
+                                        <label class="form-check-label" for="Yunlin">雲林縣</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Chiayi" id="Chiayi">
+                                        <label class="form-check-label" for="Chiayi">嘉義縣</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Tainan" id="Tainan">
+                                        <label class="form-check-label" for="Tainan">台南市</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Kaohsiung" id="Kaohsiung">
+                                        <label class="form-check-label" for="Kaohsiung">高雄市</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Pingtung" id="Pingtung">
+                                        <label class="form-check-label" for="Pingtung">屏東縣</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Hualien" id="Hualien">
+                                        <label class="form-check-label" for="Hualien">花蓮縣</label>
                                         </div>
                                         <div class="form-check col-6 pb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="nature">
-                                            <label class="form-check-label" for="nature">自然</label>
+                                        <input class="form-check-input cityCheckbox" type="checkbox" value="Taitung" id="Taitung">
+                                        <label class="form-check-label" for="Taitung">台東縣</label>
                                         </div>
                                     </div>
                                 </div>
@@ -168,26 +263,97 @@ loginButton.addEventListener('click', function() {
                         <!-- 類型 -->
                         <div class="siteType">
                             <p>類型</p>
-                            <div class="form-check pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
-                                <label class="form-check-label" for="">歷史建築</label>
+                            <div class="checkBody accordion-body row" id="checkboxContainer">
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="1" id="art">
+                                    <label class="form-check-label" for="art">藝文場域</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="2" id="nightMarket">
+                                    <label class="form-check-label" for="nightMarket">夜市老街</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="3" id="nationPark">
+                                    <label class="form-check-label" for="nationPark">國家公園</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="4" id="temple">
+                                    <label class="form-check-label" for="temple">古蹟寺廟</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="5" id="museum">
+                                    <label class="form-check-label" for="museum">博物館</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="6" id="child">
+                                    <label class="form-check-label" for="child">親子共遊</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="7" id="viewing">
+                                    <label class="form-check-label" for="viewing">觀景平台</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="8" id="climbing">
+                                    <label class="form-check-label" for="climbing">登山步道</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="9" id="date">
+                                    <label class="form-check-label" for="date">浪漫約會</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="10" id="nature">
+                                    <label class="form-check-label" for="nature">生態旅遊</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="11" id="themePark">
+                                    <label class="form-check-label" for="themePark">主題樂園</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="12" id="scenicArea">
+                                    <label class="form-check-label" for="scenicArea">國家風景區</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="13" id="history">
+                                    <label class="form-check-label" for="history">歷史建築</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="14" id="camping">
+                                    <label class="form-check-label" for="camping">露營溫泉</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="15" id="outdoor">
+                                    <label class="form-check-label" for="outdoor">戶外踏青</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="16" id="sea">
+                                    <label class="form-check-label" for="sea">看海景</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="17" id="factory">
+                                    <label class="form-check-label" for="factory">觀光工廠</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="18" id="geological">
+                                    <label class="form-check-label" for="geological">地質奇景</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="19" id="geological">
+                                    <label class="form-check-label" for="geological">一日遊</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="20" id="geological">
+                                    <label class="form-check-label" for="geological">二日遊</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="21" id="geological">
+                                    <label class="form-check-label" for="geological">三日遊</label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input tagCheckbox" type="checkbox" value="22" id="geological">
+                                    <label class="form-check-label" for="geological">一人獨旅</label>
+                                </div>
                             </div>
-                            <div class="form-check pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
-                                <label class="form-check-label" for="">歷史建築</label>
-                            </div>
-                            <div class="form-check pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
-                                <label class="form-check-label" for="">歷史建築</label>
-                            </div>
-                            <div class="form-check pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
-                                <label class="form-check-label" for="">歷史建築</label>
-                            </div>
-                            <div class="form-check pb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="nature">
-                                <label class="form-check-label" for="">歷史建築</label>
-                            </div>
+                          
                         </div>
                     </div>
                 </aside>
@@ -200,7 +366,7 @@ loginButton.addEventListener('click', function() {
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -238,7 +404,7 @@ loginButton.addEventListener('click', function() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
             <!-- footer -->
@@ -307,7 +473,7 @@ loginButton.addEventListener('click', function() {
     </footer>
 </div>    </div>
 
-    <!-- main JS -->
+    <!-- main JS -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 

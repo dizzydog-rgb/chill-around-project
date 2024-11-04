@@ -3,18 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Travel Plan !</title>
+    <title>我的旅行計畫</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/chill-around-project/assets/favicon-BnEbtzd-.png"
+    />
     <script
       type="module"
       src="https://unpkg.com/@googlemaps/extended-component-library@0.6"
     ></script>
-    <script type="module" crossorigin src="/chill-around-project/assets/planList-B2CW4aJg.js"></script>
-    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-JssQaTV8.js">
-    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/planMap-DOHjZShS.js">
+    <script type="module" crossorigin src="/chill-around-project/assets/planList-C3j8mKo6.js"></script>
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BX2b4uAz.js">
     <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
-    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/ejs-D9u4eSHU.js">
-    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
+    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
   </head>
   <body>
     <div class="container-fluid planList">
@@ -58,7 +61,7 @@
 </aside>
           <div class="planListArea">
             <ul class="cardList p-0">
-              <li class="d-flex justify-content-center">
+              <!-- <li class="d-flex justify-content-center">
                 <div class="card" style="width: 90%">
                   <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title">使用者名稱</h5>
@@ -111,13 +114,16 @@
                     </div>
                   </div>
                 </div>
-              </li>
+              </li> -->
             </ul>
-            <div class="addPlanBtn d-flex justify-content-center">
+            <a
+              href="buildPlan.html"
+              class="addPlanBtn d-flex justify-content-center"
+            >
               <button type="button" class="btn btn-outline-secondary">
                 新增計畫<i class="bi bi-plus"></i>
               </button>
-            </div>
+            </a>
           </div>
         </div>
 
@@ -136,16 +142,13 @@
               slot="control-block-start-inline-start"
               class="place-picker-container"
             >
-              <gmpx-place-picker
-                placeholder="Enter an address"
-                class="d-none"
-              ></gmpx-place-picker>
+              <gmpx-place-picker placeholder="你想去哪玩?"></gmpx-place-picker>
             </div>
             <gmp-advanced-marker></gmp-advanced-marker>
           </gmp-map>
         </div>
       </div>
     </div>
-
+
   </body>
 </html>

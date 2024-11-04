@@ -3,29 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Build Your Travel Plan !</title>
+    <title>展開全新旅程</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/chill-around-project/assets/favicon-BnEbtzd-.png"
+    />
     <script
       type="module"
       src="https://unpkg.com/@googlemaps/extended-component-library@0.6"
     ></script>
-    <script type="module" crossorigin src="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-    <script type="module" crossorigin src="/chill-around-project/assets/main-JssQaTV8.js"></script>
-    <script type="module" crossorigin src="/chill-around-project/assets/planMap-DOHjZShS.js"></script>
-    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
+    <script type="module" crossorigin src="/chill-around-project/assets/buildPlan-L5MnxIv5.js"></script>
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BX2b4uAz.js">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
+    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
   </head>
   <body>
     <div class="container-fluid buildPlan">
       <div class="row">
-        <div class="col-12 col-md-7 buildArea">
+        <div class="col-12 col-md-6 buildArea">
           <div class="closeBtn">
-            <button type="button" class="btn btn-outline-danger">
+            <a href="javascript:history.back()" class="btn btn-outline-danger">
               <i class="bi bi-x"></i>
-            </button>
+            </a>
           </div>
           <div class="ps-3 pe-3">
             <div class="inputBox">
               <h3>旅行計畫名稱</h3>
-              <input class="p-2" type="text" placeholder="為你的計畫取個名字" />
+              <input
+                class="p-2"
+                type="text"
+                id="planName"
+                placeholder="為你的計畫取個名字"
+              />
             </div>
             <div class="selectBox mb-selectbox">
               <label for="shareLink-select">想去哪玩?</label>
@@ -34,37 +45,49 @@
                 name="select-city"
                 id="select-city"
               >
-                <option value="Taipei, Taiwan">台北市</option>
-                <option value="Taichung, Taiwan">台中市</option>
-                <option value="Tainan, Taiwan">台南市</option>
-                <option value="Kaohsiung, Taiwan">高雄市</option>
+                <option value="台北市">台北</option>
+                <option value="桃園市">桃園</option>
+                <option value="新竹縣">新竹</option>
+                <option value="苗栗縣">苗栗</option>
+                <option value="臺中市">台中</option>
+                <option value="彰化縣">彰化</option>
+                <option value="雲林縣">雲林</option>
+                <option value="嘉義縣">嘉義</option>
+                <option value="臺南市">台南</option>
+                <option value="高雄市">高雄</option>
+                <option value="屏東市">屏東</option>
+                <option value="宜蘭縣">宜蘭</option>
+                <option value="花蓮縣">花蓮</option>
+                <option value="臺東縣">台東</option>
+                <option value="澎湖縣">澎湖</option>
+                <option value="金門縣">金門</option>
               </select>
             </div>
             <div class="planDate d-flex justify-content-between">
               <div class="inputBox">
                 <h3>開始日期</h3>
-                <input class="p-2" type="date" />
+                <input class="p-2" type="date" id="startDate" />
               </div>
-              <div class="arrow-right">
+              <div class="arrow-right d-none d-md-block">
                 <i class="bi bi-arrow-right"></i>
               </div>
               <div class="inputBox">
                 <h3>結束日期</h3>
-                <input class="p-2" type="date" />
+                <input class="p-2" type="date" id="endDate" />
               </div>
             </div>
             <div class="d-flex justify-content-between mb-selectbox">
               <div class="selectBox">
                 <label for="shareLink-select">和你的旅伴分享此計畫</label>
                 <div class="d-flex justify-content-between">
-                  <select
+                  <!-- <select
                     class="form-select form-select-lg me-3"
                     name="share-link"
                     id="shareLink-select"
                   >
                     <option value="canView">可查看</option>
                     <option value="canEdit">可編輯</option>
-                  </select>
+                  </select> -->
                   <button type="button" class="btn btn-primary btn-share">
                     複製連結
                   </button>
@@ -77,7 +100,7 @@
           </div>
         </div>
 
-        <div class="d-none d-md-block col-md-5 mapArea">
+        <div class="d-none d-md-block col-md-6 mapArea">
           <gmpx-api-loader
             key="AIzaSyCgVtNCe6n8nTdXm-zFidK0uF8kVnzvO2Q"
             solution-channel="GMP_GE_mapsandplacesautocomplete_v1"
@@ -102,6 +125,6 @@
         </div>
       </div>
     </div>
-
+
   </body>
 </html>

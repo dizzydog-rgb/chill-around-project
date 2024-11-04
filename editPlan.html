@@ -3,22 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- The callback parameter is required, so we use console.debug as a noop -->
-    <script async src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=console.debug&libraries=maps,marker&v=beta">
-    </script>
-    <title>Find Some Fun !</title>
-    <script type="module" crossorigin src="/chill-around-project/assets/editPlan-BzWvkxNV.js"></script>
-    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-JssQaTV8.js">
+    <script
+      type="module"
+      src="https://unpkg.com/@googlemaps/extended-component-library@0.6"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>打造完美旅程</title>
+    <link rel="icon" type="image/x-icon" href="/chill-around-project/assets/favicon-BnEbtzd-.png">
+    <script type="module" crossorigin src="/chill-around-project/assets/editPlan-DamWZpzQ.js"></script>
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BX2b4uAz.js">
+    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/editPlan_map-D3qBeJOR.js">
     <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
-    <link rel="modulepreload" crossorigin href="/chill-around-project/assets/ejs-D9u4eSHU.js">
-    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
+    <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
   </head>
   <body>
     <div class="container-fluid editPlan">
       <div class="row">
         <div class="col-12 col-md-7 d-flex p-0">
-        <aside class="planAside">
+          <aside class="planAside">
   <a href="index.html" class="logo">
     <img
       class="p-2"
@@ -54,236 +60,235 @@
     >
   </ul>
 </aside>
-        <div class="editArea">
-            <div class="d-flex justify-content-between align-items-center border-bottom-primary planInfo">
-                <div class="d-flex justify-content-between">
-                    <div class="planName">
-                        <h2>我的第一個旅行計畫</h2>
-                        <p>Fri 09/13 -<br class="d-block d-md-none"> Thu 09/17</p>
-                    </div>
-                    <div class="budget">
-                        <h2>預算: 8,983</h2>
-                        <p>NTD</p>
-                    </div>
+          <div class="editArea">
+            <div
+              class="d-flex justify-content-between align-items-center border-bottom-primary planInfo"
+            >
+              <div class="d-flex justify-content-between">
+                <div class="planName">
+                  <h2>我的第一個旅行計畫</h2>
+                  <p>
+                    Fri 09/13 -<br class="d-block d-md-none" />
+                    Thu 09/17
+                  </p>
                 </div>
-                <div class="d-flex planedDay">
-                    <div class="circle">3/5</div>
-                    <p class="text-center">已規劃<br>天數</p>
-                </div>
-            </div>
-            <div class="editBtn">
-              <div class="d-flex co-editor">
-                <div class="editor">
-                  <img src="https://picsum.photos/100/100" alt="user1">
-                <span class="userName">計畫擁有者</span>
-                </div>
-                <div class="editor">
-                  <img src="https://picsum.photos/100/100" alt="user1">
-                <span class="userName">參與者一號</span>
-                </div>
-                <div class="editor">
-                  <img src="https://picsum.photos/100/100" alt="user1">
-                <span class="userName">參與者二號</span>
+                <div class="budget">
+                  <h2>預算: 8,983</h2>
+                  <p>NTD</p>
                 </div>
               </div>
-                <button type="button" class="btn btn-outline-danger"><i class="bi bi-three-dots"></i></button>
+              <div class="d-flex planedDay">
+                <div class="circle">3/5</div>
+                <p class="text-center">已規劃<br />天數</p>
+              </div>
+            </div>
+            <div class="editBtn">
+              <!-- <div class="d-flex co-editor">
+                <div class="editor">
+                  <img src="https://picsum.photos/100/100" alt="user1" />
+                  <span class="userName">計畫擁有者</span>
+                </div>
+                <div class="editor">
+                  <img src="https://picsum.photos/100/100" alt="user1" />
+                  <span class="userName">參與者一號</span>
+                </div>
+                <div class="editor">
+                  <img src="https://picsum.photos/100/100" alt="user1" />
+                  <span class="userName">參與者二號</span>
+                </div>
+              </div> -->
+              <div class="dropdown">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger dropdown-toggle"
+                  id="dropdownMenuButton"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="bi bi-three-dots"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li>
+                    <button
+                      type="button"
+                      href=""
+                      class="dropdown-item"
+                      id="arrangeSite"
+                    >
+                      調整景點順序
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
 
             <div class="d-flex justify-content-between">
-                <ul class="d-flex dayList">
-                    <a href=""><li class="currentDay align-bottom">DAY1</li></a>
-                    <a href=""><li>DAY2</li></a>
-                    <a href=""><li>DAY3</li></a>
-                    <li>
-                        <div class="addDayBtn">
-                            <button type="button" class="btn btn-outline-success"><i class="bi bi-plus"></i></button>
-                        </div>
-                    </li>
-                </ul>
-                <div class="todayInfo">
-                    <h3>台中市</h3>
-                    <h3>Fri 09/13</h3>
-                </div>
+              <ul class="d-flex dayList">
+                <li class="currentDay align-bottom">DAY1</li>
+                <li>DAY2</li>
+                <li>DAY3</li>
+                <li>
+                  <div class="addDayBtn">
+                    <button type="button" class="btn btn-outline-success">
+                      <i class="bi bi-plus"></i>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+              <div class="todayInfo">
+                <h3>Fri 09/13</h3>
+              </div>
             </div>
 
             <ul class="p-0 cardList">
-                <a href=""><li>
-                    <div class="card">
-                    <div class="row g-0">
-                      
-                      <div class="col-12 col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title">行程名稱</h5>
-                          <p class="card-text">從世界最高樓（2004~2010年）到國際級的中華藝術典藏，我們誠摯的邀請您來到這個充滿著對比的城市。現代與傳統相互包容外，再結合了無比活力與親切笑容，臺北定會成為您在亞洲最美好的回憶。
-
-                            在臺北，您每個所到之處，多樣的文化特質都充沛鼓動著。雕龍畫棟的廟宇與現代的街道完美吻合，還有許多世界級餐廳隨時提供您最正統的各式中華料理。別忘了，美味的夜市小吃不僅僅帶給您口腹的滿足，更是引領您體驗臺灣生活的理想去處。
-                            
-                            臺北的相對性也在都市與自然接壤之間顯現。幾分鐘的車程，您就能在山林環繞下，浸醞於柔潤的溫泉中。還有許多親山步道與公園在城市間穿梭點綴，一日庸碌繁忙後，陪伴著您沉靜心靈。
-                            
-                            無論您是短暫停留或是計畫長期拜訪，臺北所蘊藏的多樣性絕對會讓您回味無窮。
-                            
-                            來臺北，感受亞洲之美。 </p>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-4">
-                        <img src="https://plus.unsplash.com/premium_photo-1661951189203-12decb9d7f8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+              <!-- <li data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <div class="card">
+                  <div class="row g-0">
+                    <div class="col-12 col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">行程名稱</h5>
+                        <p class="card-text">
+                          從世界最高樓（2004~2010年）到國際級的中華藝術典藏，我們誠摯的邀請您來到這個充滿著對比的城市。現代與傳統相互包容外，再結合了無比活力與親切笑容，臺北定會成為您在亞洲最美好的回憶。
+                          在臺北，您每個所到之處，多樣的文化特質都充沛鼓動著。雕龍畫棟的廟宇與現代的街道完美吻合，還有許多世界級餐廳隨時提供您最正統的各式中華料理。別忘了，美味的夜市小吃不僅僅帶給您口腹的滿足，更是引領您體驗臺灣生活的理想去處。
+                          臺北的相對性也在都市與自然接壤之間顯現。幾分鐘的車程，您就能在山林環繞下，浸醞於柔潤的溫泉中。還有許多親山步道與公園在城市間穿梭點綴，一日庸碌繁忙後，陪伴著您沉靜心靈。
+                          無論您是短暫停留或是計畫長期拜訪，臺北所蘊藏的多樣性絕對會讓您回味無窮。
+                          來臺北，感受亞洲之美。
+                        </p>
                       </div>
                     </div>
-                  </div>
-                </li></a>
-                <a href=""><li>
-                    <div class="card">
-                    <div class="row g-0">
-                      
-                      <div class="col-12 col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title">行程名稱</h5>
-                          <p class="card-text">從世界最高樓（2004~2010年）到國際級的中華藝術典藏，我們誠摯的邀請您來到這個充滿著對比的城市。現代與傳統相互包容外，再結合了無比活力與親切笑容，臺北定會成為您在亞洲最美好的回憶。
-
-                            在臺北，您每個所到之處，多樣的文化特質都充沛鼓動著。雕龍畫棟的廟宇與現代的街道完美吻合，還有許多世界級餐廳隨時提供您最正統的各式中華料理。別忘了，美味的夜市小吃不僅僅帶給您口腹的滿足，更是引領您體驗臺灣生活的理想去處。
-                            
-                            臺北的相對性也在都市與自然接壤之間顯現。幾分鐘的車程，您就能在山林環繞下，浸醞於柔潤的溫泉中。還有許多親山步道與公園在城市間穿梭點綴，一日庸碌繁忙後，陪伴著您沉靜心靈。
-                            
-                            無論您是短暫停留或是計畫長期拜訪，臺北所蘊藏的多樣性絕對會讓您回味無窮。
-                            
-                            來臺北，感受亞洲之美。 </p>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-4">
-                        <img src="https://plus.unsplash.com/premium_photo-1661951189203-12decb9d7f8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
-                      </div>
+                    <div class="col-12 col-md-4">
+                      <img
+                        src="https://plus.unsplash.com/premium_photo-1661951189203-12decb9d7f8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      />
                     </div>
                   </div>
-                </li></a>
-                <a href=""><li>
-                    <div class="card">
-                    <div class="row g-0">
-                      
-                      <div class="col-12 col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title">行程名稱</h5>
-                          <p class="card-text">從世界最高樓（2004~2010年）到國際級的中華藝術典藏，我們誠摯的邀請您來到這個充滿著對比的城市。現代與傳統相互包容外，再結合了無比活力與親切笑容，臺北定會成為您在亞洲最美好的回憶。
-
-                            在臺北，您每個所到之處，多樣的文化特質都充沛鼓動著。雕龍畫棟的廟宇與現代的街道完美吻合，還有許多世界級餐廳隨時提供您最正統的各式中華料理。別忘了，美味的夜市小吃不僅僅帶給您口腹的滿足，更是引領您體驗臺灣生活的理想去處。
-                            
-                            臺北的相對性也在都市與自然接壤之間顯現。幾分鐘的車程，您就能在山林環繞下，浸醞於柔潤的溫泉中。還有許多親山步道與公園在城市間穿梭點綴，一日庸碌繁忙後，陪伴著您沉靜心靈。
-                            
-                            無論您是短暫停留或是計畫長期拜訪，臺北所蘊藏的多樣性絕對會讓您回味無窮。
-                            
-                            來臺北，感受亞洲之美。 </p>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-4">
-                        <img src="https://plus.unsplash.com/premium_photo-1661951189203-12decb9d7f8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
-                      </div>
-                    </div>
-                  </div>
-                </li></a>
+                </div>
+              </li> -->
             </ul>
 
             <div>
-                <div class="addJourneyBtn">
-                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <i class="bi bi-plus"></i>
-                  </button>
-                </div>
+              <div class="addJourneyBtn">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
             </div>
-          
-            <!-- 添加行程的modal -->
-            <div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+            <!-- 添加景點的modal -->
+            <div
+              class="modal modal-lg fade"
+              id="staticBackdrop"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              tabindex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="true"
+            >
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header justify-content-end">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x"></i></button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <i class="bi bi-x"></i>
+                    </button>
                   </div>
                   <div class="modal-body">
                     <div class="inputBox">
-                      <h3>行程名稱</h3>
-                      <input class="p-2" type="text" placeholder="請輸入此行程的名稱">
+                      <h3>景點名稱</h3>
+                      <input
+                        class="p-2"
+                        type="text"
+                        placeholder="輸入景點名稱"
+                        name="siteName"
+                      />
                     </div>
                     <div class="inputBox">
-                      <h3>行程地址</h3>
-                      <input class="p-2" type="text" placeholder="為請輸入此行程的地址">
+                      <h3>景點說明</h3>
+                      <textarea
+                        class="p-2 description"
+                        type="text"
+                        placeholder="讓大家知道你計畫的目的地，分享你對這個景點的期待或想像！"
+                        name="siteParagh"
+                      ></textarea>
                     </div>
-                    <div class="inputBox">
-                      <h3>行程說明</h3>
-                      <input class="p-2 description" type="text" placeholder="請輸入此行程的說明">
-                    </div>
-                    <div class="inputBox">
-                      <h3>關於此行程</h3>
-                      <ul class="taglist d-flex flex-wrap">
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG G</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG T</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">T TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn-outline-primary toggle-button">TAG TAG</button>
-                        </li>
-                      </ul>
+                    <div class="inputBox tagBox">
+                      <h3>關於此景點</h3>
+                      <ul class="taglist d-flex flex-wrap"></ul>
                     </div>
                   </div>
                   <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">刪除</button>
-                    <button type="button" class="btn btn-primary">完成</button>
+                    <button
+                      id="delete-site"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      刪除
+                    </button>
+                    <button
+                      id="save-site"
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      完成
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="d-flex justify-content-between p-5 mt-5">
-                <button type="button" class="btn btn-lg  btn-outline-secondary">找靈感<i class="bi bi-stars ms-2"></i></i></button>
-                <button type="button" class="btn btn-lg btn-outline-secondary">完成</button>
+              <a
+                href="schInfo.html"
+                type="button"
+                class="btn btn-lg btn-outline-secondary"
+              >
+                找靈感<i class="bi bi-stars ms-2"></i>
+              </a>
+              <a
+                href="planList.html"
+                type="button"
+                class="btn btn-lg btn-outline-secondary"
+              >
+                完成
+              </a>
             </div>
-            
+          </div>
         </div>
-          
-        </div>
-          
+
         <div class="d-none d-md-block col-md-5 mapArea">
-          <gmp-map center="24.148906997428295, 120.66005767852741" zoom="16" map-id="DEMO_MAP_ID">
-            <gmp-advanced-marker position="24.148906997428295, 120.66005767852741" title="My location"></gmp-advanced-marker>
+          <gmpx-api-loader
+            key="AIzaSyCgVtNCe6n8nTdXm-zFidK0uF8kVnzvO2Q"
+            solution-channel="GMP_GE_mapsandplacesautocomplete_v1"
+          >
+          </gmpx-api-loader>
+          <gmp-map
+            center="23.75163737835299, 120.95520524708053"
+            zoom="8"
+            map-id="DEMO_MAP_ID"
+          >
+            <div
+              slot="control-block-start-inline-start"
+              class="place-picker-container"
+            >
+              <gmpx-place-picker
+                placeholder="Enter an address"
+                class="d-none"
+              ></gmpx-place-picker>
+            </div>
+            <gmp-advanced-marker></gmp-advanced-marker>
           </gmp-map>
         </div>
-        
-        
       </div>
     </div>
-
+
   </body>
 </html>
-

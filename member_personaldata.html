@@ -5,206 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
+    <link rel="icon" type="image/x-icon" href="/chill-around-project/assets/favicon-BnEbtzd-.png">
     <link rel="stylesheet" href="./css/member_style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script type="module" crossorigin src="/chill-around-project/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-  <script type="module" crossorigin src="/chill-around-project/assets/main-JssQaTV8.js"></script>
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-DFkQAijE.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script type="module" crossorigin src="/chill-around-project/assets/member_personaldata-CxiR9_PS.js"></script>
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BX2b4uAz.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
 </head>
 
 <body class="member">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 text-center">
-                <a href="#">
-                    <img src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png">
-                </a>
-                <div class="sidebar text-start">
-                    <div class="item">
-                        <a href="member_personaldata.html"><i class="fa-solid fa-user me-3"></i>個人資訊</a>
+            <div class="col-md-2 d-flex flex-column justify-content-between text-center">
+                <div>
+                    <a href="index.html">
+                        <img src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png">
+                    </a>
+                    <div class="sidebar text-start">
+                        <div id="personaldata" class="item active">
+                            <a href="../pages/member_personaldata.html"><i class="fa-solid fa-user"></i>個人資訊</a>
+                        </div>
+                        <div id="mytrip" class="item">
+                            <a href="../pages/member_mytrip.html"><i class="fa-solid fa-calendar-days"></i>我的行程</a>
+                        </div>
+                        <div id="mycollection" class="item">
+                            <a href="../pages/member_mycollection.html"><i class="fa-solid fa-heart"></i>我的收藏行程</a>
+                        </div>
+                        <!-- <div id="../pages/TaiwanEx.html" class="item">
+                            <a href="#"><i class="fa-solid fa-map-location-dot"></i>台灣制縣地圖</a>
+                        </div> -->
                     </div>
-                    <div class="item">
-                        <a href="member_mytrip.html"><i class="fa-solid fa-calendar-days me-3"></i>我的行程</a>
-                    </div>
-                    <div class="item">
-                        <a href="member_mycollection.html"><i class="fa-solid fa-heart me-3"></i>我的收藏行程</a>
-                    </div>
-                    <div class="item">
-                        <a href="TaiwanEx.html"><i class="fa-solid fa-map-location-dot me-3"></i>台灣制縣地圖</a>
-                    </div>
+                </div>
+                <div class="mb-3">
+                    <button id="logoutbtn" type="button" class="btn btn-secondary text-white">
+                        會員登出
+                    </button>
                 </div>
             </div>
             <div class="col-md-10 personaldata">
-                <div id="edit" class="text-end mb-3">
-                    <button type="button" class="btn editbtn text-white">
-                        <i class="fa-solid fa-pencil me-1"></i>編輯
-                    </button>
-                </div>
-                <div id="write" class="text-end mb-3 hidden">
-                    <button type="button" class="btn storebtn text-white">
-                        儲存
-                    </button>
-                    <button type="button" class="btn cancelbtn text-white">
-                        取消
-                    </button>
-                </div>
-                <div class="mb-5">
-                    <div class="card" style="max-width: 600px;">
-                        <div class="row align-items-center g-0">
-                            <div class="col-md-4">
-                                <img id="img" src="">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <p class="card-text ms-2">
-                                        歡迎! <span id="uname"></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="formList">
-                    <form>
-                        <div class="item">
-                            <label class="col-form-label">姓名：</label>
-                            <input type="text" name="uname" id="uname1" class="inpwrite" placeholder="請輸入姓名" readonly>
-                        </div>
-                        <div class="item">
-                            <div>
-                                <label class="col-form-label">電子信箱：</label>
-                                <input type="text" name="email" id="email" class="inpwrite" placeholder="請輸入電子信箱"
-                                    readonly>
-                            </div>
-                            <div>
-                                <label class="col-form-label">密碼：</label>
-                                <input type="text" name="pwd" id="pwd" class="inpwrite" placeholder="請輸入密碼" readonly>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div>
-                                <label class="col-form-label">出生日期：</label>
-                                <input type="text" name="birthday" id="birthday" class="inpwrite" placeholder="請輸入出生日期"
-                                    onfocus="(this.type='date')" readonly>
-                            </div>
-                            <div>
-                                <label class="col-form-label">性別：</label>
-                                <input type="text" name="sex" id="sex" class="inpwrite" readonly>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <label class="col-form-label">住址：</label>
-                            <input type="text" name="address" id="address" class="inpwrite" placeholder="請輸入住址"
-                                readonly>
-                        </div>
-                        <div class="item">
-                            <label class="col-form-label">手機號碼：</label>
-                            <input type="text" name="cellphonenum" id="cellphonenum" class="inpwrite"
-                                placeholder="請輸入手機號碼" readonly>
-                        </div>
-                        <div class="item">
-                            <label class="col-form-label">市內電話：</label>
-                            <input type="text" name="telephonenum" id="telephonenum" class="inpwrite"
-                                placeholder="請輸入市內電話" readonly>
-                        </div>
-                    </form>
-                    <div class="bindaccount">
-                        <div class="title">綁定帳戶：</div>
-                        <div class="googleline">
-                            <div class="item">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADXklEQVR42u2Yb0gTYRzHH90sA6Msi5ToRfRCsj/a85yKaOfdLVPsj7tjlYUE0ruSCIogqpuRBb2IIgmySHenkCsQIp0S2Iv+QIVQGhEGWnJnzT/bBLWS8noOForOreXuXHAf+DIY4/h8n/2e544DBgYGBgYGBtPos8DNMk0ckRjiGo4g06hRZohqiUa8TGeWDObkLAXRRi+5dTmWPYtlu7GsEiITuOBjmYY7wEKjABCDpY/jDKty4UaiiWdfKCINLAT9hemr1JUMKRq6xKhsIQ4CPflsyUiRaPReFYhQmhWbzQT0QN2EEoPeRUpeopGru3DDYqAXMoOcIUZiDH/elSlY2k9lQbkApsoWmCtR6CT+/uUM+dZekowHeiExxK6gK0ojh0zCpFDXkBj0FadNV3mFB7HuA2lNgcSx1KRMw2PgL/m0Eyb3ZWcvAXoy5jLtGXeZlaFT616oZ/mMEnYQ7WB5J46iZuRm4luJQW7/6nf4T5DoRXEC03iL2afK/8nYg3h3f3F6h/p4AKKd762LUlXpWXkUN6TwpBkEgbJ7Kmi751a4sfCDKZGb/xbT7oAFWswuEALa7m3GUcJOpScvgvMfWxa4gOm2VgXyK72c5gXwyXRHqwIU7y3/r0eIsfv2a76JcYEhm9Nm0maEPGREj9Exl3lkuvxoS5z7RGPOK+jg9oIgkLw7IfeyLzFQCnjfCpr3DAQqkHdxIFmzG9lAc/ybooaifiRyChK4Dv+/EDYU79keeP49PcBPxPfB64dJz7PrSyZU+amw50GY2JyKibJ7nwYsYPfe0ORh7tL99CZVeFYEbhLnaBhXi1El59wDvC8TaAEUrcWq8FyBIldLOEpWgiBkita1Odcdc8rj8WkHWgIF7l6QEjjsKBTYGuTgWCRYN6EGdj0uvg052DIkcA1QZL+pv8uqOd2eXzn4Y4b8T+aCNwNoyUanLQGKXJcqMd8QdYe6yKqP0tTse84BPSBqbWuQwHZGogQUuOHcK22dFO+t53klFugFbChNwgKt8y/B/oLCviqSV8xAdxQQg+e7Aorc0D+tvsj2EIK1ECw00GlbhoXOQIH9EEraf+R24NKHySekGUQbRB2XhkXLkchexXHgUo1QZKuRwPJYunSLYF1tvAI3MDAwMDDw8xvQ0bCXpCG/qQAAAABJRU5ErkJggg==" id="googleimg">
-                                <div id="google"></div>
-                            </div>
-                            <div class="item">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAExklEQVRYhcWZbWxTVRiAn97dtRtd7+a6dgN0A8bYgDExDIMwQD6ChOAfsoj8MDhFRQTDH6ImhhBiIiExajAgHypGYSwhJjiiKAHC5EtUZNkim+yDbYWxbqvdR9e1u2v90W3strel27r1+dV73nPe97m3t/ecc6tZf30Lw9ACrwMbgflAIhNDB3AbKAG+AtyDAWFYp6eBSuAgsHwC5RiotXygduWAi0JwIXAVyJpAqWBk4XNZCD7BOOAUoI+ilD96fE7xAlAEzIiujyozgFcFoDDaJiEoFIEFoxmZqU9nQdI8shOm81T8ZEy6ZESNCIDslWl12WhyNlPdXc9f9gpqHY2jKZOrWX99izfc3lohlrXmZaxLW8HUuNQRVbrf28JPDy9xzlqG29MX9riwBQuM+byRsZFkbdKIxPyxue0cbSjhSvufkREUNSLbZ7zCKtPiMYn5c6H1Gl/UfYfslUP2E0MFdYKW3Tk7yJNyIioHsMq0GJMumb1VB3B53EH7CUEjwM7MonGRGyRPymFnZlHIPkEF15iXUmDMj7iUPwXGfNaYlwaNqwrqBC2b0zeMm5Q/m9M3oBO0qjFVwRUpi5DEhHGVGo4kJrAiZZFqTPVHsij5GcWxy+Nme/keXkhdRuGUtUPtv/9XzpF7xbw1bRONzmZ+tZaxK+tNsvTTANh6+0NWmhajAc5ZyxQ535+1dajfYE3/PhDkCmbq0xXHsrefh65W7H0divZu2YHV1U6X7MDe10Fzbyv7/v2SbrkH8D2cO+UuOuQurK52ZhtmMk/KZp6UjUFUrk38a4YUTIqVVDuHg81t55OaY6qx5SnPstq0hNWmJSSJyhrBaoZ8Do6G1zJe4si9Yk7dPxsQ21t1YOjzx3N2kSvNemw+VUGb2z7qKe3FtJXc6aqh2FIaENuds4N4IQ6ArIRpili72x6+YHV3Pc/5/VAAbtn/4TP5GwAyJk1BEg2qSd/N3My9HgtNzmZF++W2m4iaGACM2iQmx5mHYlXdtaq5VO/BKzblRC5qYkjTmXB5XFR0VlPRWU29w4IkJmDWGZFiE0iOfVQwTtDxway3mRqXSqJoICk2EbPOyJ2umqHxPf29ihplbTdVBVUXC6JG5PD8jzDrjKqDIk2T8wHvlO/BS+C6RfUKyl6Zow0l4y4G4MXLofqTqnIQYi6+Yfub0ocXx01skJOWUio6q4PGQ65mjjWUcKntRsSlBvm55TIllsDH0XBCCnq8Hj6t+ZpiS2nQr2AscofqTzw2b0hB8N0jJy0/sqty32g3PgGcaDrDwfrvwzrpEW2aNGhY+EQe61KfZ37iHGI0jz0/BT39Tj6vPc41262wx4xIcDgGUU+elEOOIZPpk55krpQ1tO1Uo9bRyP67h3nQax1RnVEL+jPbMJP9c98LaPd4PfzQ/Asnms4ge/tHnDdii4UWV1tAW62jkQN1347p3o2Y4PCNfK/HRbGllDPN5+n3esaUV8T38nDM7wINop5ej4vz1quU3D9LR1/XWFMC2DXrr2+5AKyMRLZx4KIAnI62RQhOC8BxoC7KImrUAccFwAm8DDii66PAAWwCnINTwR/AEuBu1JQeUQMUADdBOReXA7nANuA3oGUCpVoGam4D5uL7SwKA/wH6+Y2g9mXuWwAAAABJRU5ErkJggg==" id="lineimg">
-                                <div id="line"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
-    <script>
-        $(document).ready(function () {
-            // 獲取會員資料
-            $.ajax({
-                url: 'http://localhost:8080/member/members/1',
-                type: 'GET',
-                success: function (res) {
-                    if (res.length > 0) {
-                        const member = res[0]; // 假設只有一個會員
-                        $('#img').prop('src', '../assets/images/memberimg/' + member.uphoto);
-                        $('#uname').text(member.uname);
-                        $('#uname1').val(member.uname);
-                        $('#email').val(member.email);
-                        $('#pwd').val(member.password);
-                        let birthday = new Date(member.birthday);
-                        let myBirthday = birthday.toLocaleDateString('zh-TW'); // 以台灣格式顯示
-                        $('#birthday').val(myBirthday.split('/').join('-'));
-                        $('#sex').val(member.sex);
-                        $('#address').val(member.address);
-                        $('#cellphonenum').val(member.cellphone);
-                        $('#telephonenum').val(member.telephone);
-                        let googleid = member.googleid;
-                        let lineid = member.lineid;
-                        if (googleid == undefined) {
-                            $('#google').text('未綁定');
-                        } else {
-                            $('#google').text('已綁定');
-                        }
-
-                        if (lineid == undefined) {
-                            $('#line').text('未綁定');
-                        } else {
-                            $('#line').text('已綁定');
-                        }
-
-                        function inputSize(input) {
-                            input.attr('size', input.val().length + 1)
-                        }
-
-                        $('.inpwrite').each(function () {
-                            inputSize($(this)); // 調整初始大小
-                        });
-
-                        $('.inpwrite').keyup(function () {
-                            inputSize($(this));
-                        });
-
-                        $('.editbtn').click(function () {
-                            // 切換 readonly 屬性
-                            $('#edit').addClass('hidden');
-                            $('#write').removeClass('hidden');
-                            let input = $('.inpwrite');
-                            input.css({ 'border': '1px solid #d2d2d2' }, { 'outline': 'solid thin' });
-                            if (input.prop('readonly')) {
-                                input.prop('readonly', false); // 取消 readonly
-                            }
-                        });
-
-                        $('.cancelbtn').click(function () {
-                            $('#edit').removeClass('hidden');
-                            $('#write').addClass('hidden');
-                            $('#birthday').prop('type', 'text');
-                            $('#birthday').val(myBirthday.split('/').join('-'));
-                            let input = $('.inpwrite');
-                            input.css({ 'border': 'none' }, { 'outline': 'none' });
-                            if (!input.prop('readonly')) {
-                                input.prop('readonly', true);
-                            }
-                        });
-                    }
-                },
-                error: function () {
-                    alert("資料讀取失敗");
-                }
-            });
-        });
-    </script>
+    </div>
 </body>
 
 </html>
