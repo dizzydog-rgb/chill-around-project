@@ -10,41 +10,84 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script type="module" crossorigin src="/chill-around-project/assets/member_mytrip-Xkrl7OTq.js"></script>
-  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
-  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-BX2b4uAz.js">
+  <script type="module" crossorigin src="/chill-around-project/assets/member_mytrip-Du3gVu-P.js"></script>
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-B7fgtTnm.js">
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/main-8UblBU7c.js">
   <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-iSAsdRQ3.css">
   <link rel="stylesheet" crossorigin href="/chill-around-project/assets/style-C58RhSol.css">
 </head>
 
 <body class="member">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 d-flex flex-column justify-content-between text-center">
-                <div>
-                    <a href="index.html">
-                        <img src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png">
-                    </a>
-                    <div class="sidebar text-start">
-                        <div id="personaldata" class="item">
-                            <a href="../pages/member_personaldata.html"><i class="fa-solid fa-user"></i>個人資訊</a>
+            <div class="col-md-2 text-center">
+                <div class="desktop">
+                    <div>
+                        <a href="index.html">
+                            <img src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png">
+                        </a>
+                        <div class="sidebar text-start">
+                            <div id="personaldata" class="item">
+                                <a href="../pages/member_personaldata.html"><i class="fa-solid fa-user"></i>個人資訊</a>
+                            </div>
+                            <div id="mytrip" class="item active">
+                                <a href="../pages/member_mytrip.html"><i class="fa-solid fa-calendar-days"></i>我的行程</a>
+                            </div>
+                            <div id="mycollection" class="item">
+                                <a href="../pages/member_mycollection.html"><i class="fa-solid fa-heart"></i>我的收藏行程</a>
+                            </div>
+                            <!-- <div id="../pages/TaiwanEx.html" class="item">
+                                <a href="#"><i class="fa-solid fa-map-location-dot"></i>台灣制縣地圖</a>
+                            </div> -->
                         </div>
-                        <div id="mytrip" class="item active">
-                            <a href="../pages/member_mytrip.html"><i class="fa-solid fa-calendar-days"></i>我的行程</a>
-                        </div>
-                        <div id="mycollection" class="item">
-                            <a href="../pages/member_mycollection.html"><i class="fa-solid fa-heart"></i>我的收藏行程</a>
-                        </div>
-                        <!-- <div id="../pages/TaiwanEx.html" class="item">
-                            <a href="#"><i class="fa-solid fa-map-location-dot"></i>台灣制縣地圖</a>
-                        </div> -->
+                    </div>
+                    <div class="mb-3">
+                        <button id="logoutbtn" type="button" class="btn btn-secondary text-white">
+                            會員登出
+                        </button>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <button id="logoutbtn" type="button" class="btn btn-secondary text-white">
-                        會員登出
-                    </button>
+                <div class="mobile">
+                    <nav class="navbar navbar-light fixed-top">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="index.html">
+                                <img src="/chill-around-project/assets/chillAround_logo_01-mGeMCrnk.png">
+                            </a>
+                            <button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+                                aria-labelledby="offcanvasNavbarLabel">
+                                <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">選單</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="../pages/member_personaldata.html"><i
+                                                    class="fa-solid fa-user"></i>個人資訊</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="../pages/member_mytrip.html"><i
+                                                    class="fa-solid fa-calendar-days"></i>我的行程</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="../pages/member_mycollection.html"><i
+                                                    class="fa-solid fa-heart"></i>我的收藏行程</a>
+                                        </li>
+                                    </ul>
+                                    <button id="logoutbtn1" type="button" class="btn btn-secondary text-white mt-5">
+                                        會員登出
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
                 </div>
             </div>
             <div class="col-md-10 mytrip">

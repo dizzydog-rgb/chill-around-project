@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>編輯小視窗</title>
-  <script type="module" crossorigin src="/chill-around-project/assets/popupBudget-DnUi_MK5.js"></script>
-  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-DcTbhZgf.js">
+  <script type="module" crossorigin src="/chill-around-project/assets/popupBudget-IRSs7pxU.js"></script>
+  <link rel="modulepreload" crossorigin href="/chill-around-project/assets/all-B7fgtTnm.js">
   <link rel="modulepreload" crossorigin href="/chill-around-project/assets/axios-CCb-kr4I.js">
-  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-BxnYGlZ7.css">
+  <link rel="stylesheet" crossorigin href="/chill-around-project/assets/all-iSAsdRQ3.css">
 </head>
 
 <body class="Popup_Budget_Final">
@@ -17,35 +17,36 @@
     <div class="EDITPOPUP">
         <div class="overlay" id="overlay"></div>
         <div class="modal" id="modal">
-            <div class="topDiv">
-                <a class="category" href="#modal2" id="open-modal2">種類</a>
-                <input id="userChooseDate" class="date" type="date"></input>
-                <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
-            </div>
-            <form class="middleForm">
-                <div>
-                    <span>金額</span>
-                    <input id="userMoney" type="text" placeholder="輸入金額" required><br><br>
+            <div class="modalContent">
+                <div class="topDiv">
+                    <a class="category" href="#modal2" id="open-modal2">種類</a>
+                    <input id="userChooseDate" class="date" type="date"></input>
+                    <a href="./Budget.html" class="close" onclick="closeModal()">X</a>
                 </div>
-                <div>
-                    <span>內容</span>
-                    <input id="userContent" type="text" placeholder="輸入內容"><br><br>
-                </div>
-                <div>
-                    <span>已付</span>
-                    <input id="userCheck" type="checkbox" class="checkBox">
-                </div>
-                <div>
-                    <span>付款人</span>
-                    <input id="userWhoPaid" type="text" placeholder="輸入付款人" required><br><br>
-                </div>
-            </form>
-            <div class="buttons">
-                <!-- <a href="./Budget.html"> -->
+                <form class="middleForm">
+                    <div>
+                        <span>金額</span>
+                        <input id="userMoney" type="text" placeholder="輸入金額" required><br><br>
+                    </div>
+                    <div>
+                        <span>內容</span>
+                        <input id="userContent" type="text" placeholder="輸入內容"><br><br>
+                    </div>
+                    <div>
+                        <span>已付</span>
+                        <input id="userCheck" type="checkbox" class="checkBox">
+                    </div>
+                    <div>
+                        <span>付款人</span>
+                        <input id="userWhoPaid" type="text" placeholder="輸入付款人" required><br><br>
+                    </div>
+                </form>
+                <div class="buttons">
+                    <!-- <a href="./Budget.html"> -->
                     <button class="submitBtn" type="submit">確認</button>
-                <!-- </a> -->
-                <button id="deleteBtn" type="button" onclick="alert('已刪除')">刪除</button>
-            </div>
+                    <!-- </a> -->
+                    <button id="deleteBtn" type="button" onclick="alert('已刪除')">刪除</button>
+                </div>
         </div>
     </div>
 

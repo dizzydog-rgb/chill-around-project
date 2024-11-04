@@ -1,4 +1,4 @@
-import"./all-DcTbhZgf.js";import"./login-nusU8p98.js";import"./main-BX2b4uAz.js";import{a as i}from"./axios-CCb-kr4I.js";console.log("首頁載入成功");function c(){new Swiper(".mySwiperIndex",{spaceBetween:0,pagination:{el:".swiper-pagination",clickable:!0},autoplay:{delay:6e3,disableOnInteraction:!1}})}i.get("http://localhost:8080/heroCarousel").then(t=>{const e=t.data;console.log(t.data);const n=document.getElementById("hero-container");let o="";e.forEach(a=>{o+=`
+import"./all-B7fgtTnm.js";import"./login-nusU8p98.js";import"./main-8UblBU7c.js";import{a as i}from"./axios-CCb-kr4I.js";console.log("首頁載入成功");function c(){new Swiper(".mySwiperIndex",{spaceBetween:0,pagination:{el:".swiper-pagination",clickable:!0},autoplay:{delay:6e3,disableOnInteraction:!1}})}i.get("http://localhost:8080/heroCarousel").then(t=>{const e=t.data;console.log(t.data);const n=document.getElementById("hero-container");let o="";e.forEach(a=>{o+=`
             <div class="swiper-slide">
                 <div
                   class="hero-image"

@@ -1,4 +1,4 @@
-import"./all-DcTbhZgf.js";import"./login-nusU8p98.js";import"./main-BX2b4uAz.js";import{a as r}from"./axios-CCb-kr4I.js";const p=localStorage.getItem("emailid");console.log("emailid:",p);document.addEventListener("DOMContentLoaded",function(){r.get("http://localhost:8080/schInfo/getsch").then(e=>{const o=e.data;console.log("獲取到的資料:",o);const i=10;let t=0;o.sort(()=>.5-Math.random()).forEach(function(s){if(t>=i)return;let n=s.edit_date.slice(0,10),l=`
+import"./all-B7fgtTnm.js";import"./login-nusU8p98.js";import"./main-8UblBU7c.js";import{a as r}from"./axios-CCb-kr4I.js";const p=localStorage.getItem("emailid");console.log("emailid:",p);document.addEventListener("DOMContentLoaded",function(){r.get("http://localhost:8080/schInfo/getsch").then(e=>{const o=e.data;console.log("獲取到的資料:",o);const i=10;let t=0;o.sort(()=>.5-Math.random()).forEach(function(s){if(t>=i)return;let n=s.edit_date.slice(0,10),l=`
                     <div class="swiper-slide">
                         <div id="siteCard" class="TopCard card bg-primary" data-sch-id="${s.sch_id}
                         ">
