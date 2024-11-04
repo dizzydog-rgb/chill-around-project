@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const emailid = localStorage.getItem("emailid");
-console.log("emailid:", emailid);
+// console.log("emailid:", emailid);
 // const token = localStorage.getItem('token');
 //     if (!token) {
 //         alert("請先登入");
@@ -10,7 +10,7 @@ console.log("emailid:", emailid);
 //     }
 // const emailid = localStorage.getItem('emailid');
 
-localStorage.setItem("scheduleId", "2");
+// localStorage.setItem("scheduleId", "2");
 const currentScheduleId = localStorage.getItem("scheduleId");
 console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);
 
@@ -98,11 +98,30 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             if (confirm(`刪除${itemName}及其所有細項嗎？`)) {
                 axios.delete(`http://localhost:8080/item/Useritem/${currentScheduleId}/category/${Icategory_id}`)
                     .then(response => {
-                        console.log('刪除成功', response.data);
+                        // 刪除所有細項
+                        const categoryContainer = document.querySelector('.categoryContainer');
+                        const detailElements = categoryContainer.querySelectorAll('.categoryContent'); // 獲取所有細項
+
+                        detailElements.forEach(detail => {
+                            const itemListId = detail.getAttribute('data-item-list-id');
+
+                            // 如果細項與 Icategory_id 一致，則細項元素刪除
+                            if (Icategory_id === Icategory_id) { // 用等於來比對
+                                detail.remove();
+                                console.log('Removed detail with itemListId:', itemListId);
+                            }
+                        });
+
+                        // 刪除類別卡片
                         const cardToRemove = document.querySelector(`.card-body[data-item-name="${itemName}"]`).closest('.cardOut');
                         if (cardToRemove) {
                             cardToRemove.remove();
                         }
+
+                        // 等待 DOM 更新
+                        setTimeout(() => {
+                            updateProgress(); // 更新進度條
+                        }, 100); // 略微延遲確保 DOM 已經更新
                     })
                     .catch(error => {
                         console.error('刪除失敗', error);
@@ -126,7 +145,6 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             const CategoryTextElement = document.querySelector('.categoryText');
             CategoryTextElement.textContent = clickedItemName;
 
-
             const userItems = response.data.UseritemList.filter(i => i.ItemName === clickedItemName);
             userItems.forEach(selectedItem => renderDetailItem(selectedItem, categoryContainer, clickedItemName));
 
@@ -136,6 +154,10 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
             // 其他功能，例如增加物品细項
             setupAddItemListener(Icategory_id, clickedItemName);
+
+            // 加載編輯後的內容
+            // 加載當前類別的數據
+            loadDetailsData(clickedItemName);
         }
 
         // Function：放在 handleCardClick() 裡的物品細項渲染，包含編輯和刪除的功能
@@ -177,7 +199,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             // 編輯細項勾選的click事件
             const checkbox = detailElement.querySelector('.checkBOX');
             checkbox.addEventListener('change', () => {
-                console.log('嘗試更新項:', clickedItemName);
+                // console.log('嘗試更新項:', clickedItemName);
                 updateData(detailElement, clickedItemName); // 調用更新的數據
                 updateProgress();
                 saveCheckboxState();
@@ -217,15 +239,43 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                 Total: ''
             };
 
-            console.log('Updating item with ID:', itemListId);
-            console.log('Data to send for update:', dataToSend);
+            // console.log('Updating item with ID:', itemListId);
+            // console.log('Data to send for update:', dataToSend);
 
             axios.put(`http://localhost:8080/item/Useritem/${currentScheduleId}`, dataToSend)
                 .then(response => {
                     console.log('更新成功', response.data);
+
+                    // 更新進度條
+                    updateProgress();
+
+                    loadDetailsData(clickedItemName);
                 })
                 .catch(error => {
                     console.error('更新失敗', error);
+                });
+        }
+
+        // Function：用來獲取並渲染指定類別的所有細項
+        function loadDetailsData(itemName) {
+            axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
+                .then(response => {
+                    // console.log(response.data.UseritemList)
+                    // console.log(itemName)
+
+                    const categoryContainer = document.querySelector('.categoryContainer');
+                    categoryContainer.innerHTML = ''; // 清空現有內容
+
+                    // 根據 itemName 過濾用戶項目
+                    const userItems = response.data.UseritemList.filter(item => item.ItemName === itemName);
+                    userItems.forEach(selectedItem => renderDetailItem(selectedItem, categoryContainer, itemName));
+                    // console.log(userItems)
+
+                    // 更新進度條
+                    updateProgress();
+                })
+                .catch(error => {
+                    console.error('載入類別資料失敗', error);
                 });
         }
 
@@ -261,6 +311,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
                         const detailElement = renderDetailItem(newItem, categoryContainer, clickedItemName);
                         updateDataImmediately(detailElement, newItem, clickedItemName);
+                        updateProgress();
                     })
                     .catch(error => {
                         console.error('新增失敗', error);
@@ -345,38 +396,11 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
             // 保存進度到 localStorage
             localStorage.setItem('progressPercentage', progressPercentage);
+
+
+            // ---------------------------
+
         }
-
-        // 在頁面載入時恢復勾選框狀態
-        // window.addEventListener('DOMContentLoaded', () => {
-        //     // 恢復勾選框狀態
-        //     restoreCheckboxState();
-
-        //     // 檢查當前選中的卡片並重新渲染狀態
-        //     const selectedCardId = localStorage.getItem('selectedCardId');
-        //     if (selectedCardId) {
-        //         const selectedCard = document.getElementById(`card-${selectedCardId}`);
-        //         if (selectedCard) {
-        //             selectedCard.click(); // 觸發點擊事件，展開細項
-        //         }
-        //     }
-
-        //     updateProgress(); // 確保在載入時更新進度條
-        // });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            restoreCheckboxState();
-
-            const selectedCardId = sessionStorage.getItem('selectedCardId');
-            if (selectedCardId) {
-                const selectedCard = document.getElementById(`card-${selectedCardId}`);
-                if (selectedCard) {
-                    selectedCard.click(); // 觸發點擊事件，展開細項
-                }
-            }
-
-            updateProgress();
-        });
 
         // 恢復勾選框狀態
         function restoreCheckboxState() {
@@ -399,6 +423,21 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             });
             sessionStorage.setItem('checkboxStates', JSON.stringify(checkboxStates));
         }
+
+        // 在頁面載入時恢復勾選框狀態
+        window.addEventListener('DOMContentLoaded', () => {
+            restoreCheckboxState();
+
+            const selectedCardId = sessionStorage.getItem('selectedCardId');
+            if (selectedCardId) {
+                const selectedCard = document.getElementById(`card-${selectedCardId}`);
+                if (selectedCard) {
+                    selectedCard.click(); // 觸發點擊事件，展開細項
+                }
+            }
+
+            updateProgress();
+        });
 
         // 取得現在位於哪個行程
         axios.get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)
