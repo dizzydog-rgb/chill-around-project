@@ -339,7 +339,7 @@ function setModalContent(placeDetails){
                                     </div>
                                 </div> 
                                 <div class="btnOverlay" id="addBtn">
-                                    <button type="button" class="addBtn btn  loadSchedule" 
+                                    <button type="button" class="addBtn btn btn-primary loadSchedule" 
                                             data-site-id="${placeDetails.place_id}" 
                                             data-site-name="${placeDetails.name}" 
                                             data-site-add="${placeDetails.formatted_address}"
