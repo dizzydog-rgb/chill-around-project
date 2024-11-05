@@ -111,14 +111,19 @@
                     width: 7vw;
                     background-color: white;
                     border-radius: 50px;
-                    border: 1px solid #4A859F;
+                    border: 0.1vw solid $primary;
                     font-size: 1.2vw;
-                    color: #4A859F;
+                    color: $primary;
                     position: absolute;
                     bottom: 20%;
                     left: 75%;
                     padding: 0.7% 2.5%;
                     line-height: 1.5vw;
+
+                    &:hover {
+                        background-color: $primary;
+                        color: white;
+                    }
                 }
 
                 .circle-background {
