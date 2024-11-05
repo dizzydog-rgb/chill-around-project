@@ -166,13 +166,12 @@
       margin-top: 30px;
       text-align: end;
       button {
-        border: 1px solid $secondary;
-        color: $secondary;
+        color: white;
         border-radius: 25px;
-        &:hover {
-          background-color: $secondary;
-          color: white;
-        }
+        // &:hover {
+        //   background-color: $secondary;
+        //   color: white;
+        // }
       }
     }
   }
