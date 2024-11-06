@@ -308,7 +308,8 @@
                                     align-items: center;
                                     color: #4A859F;
                                     font-size: 18px;
-                                    transition: all ease 1s;
+                                    transition: background-color ease 1s;
+                                    transition: color ease 1s;
 
                                     .fa-solid {
                                         font-size: 30px;
