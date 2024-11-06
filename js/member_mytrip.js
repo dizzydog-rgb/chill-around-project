@@ -64,7 +64,7 @@ $(document).ready(function () {
                     }).replace(/\//g, '-');
 
                     cardList += `
-                        <div class="checkcard mb-5">
+                        <div class="checkcard animate__animated animate__zoomIn mb-5">
                             <label for="checkplan${schedule.sch_id}" class="checkbox">
                                 <input type="checkbox" name="checkplan" id="checkplan${schedule.sch_id}" value="${schedule.sch_id}">
                                 <span></span>
