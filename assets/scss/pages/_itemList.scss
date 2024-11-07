@@ -113,11 +113,11 @@
              #leftBtn {
                  height: 2.5vw;
                  width: 7vw;
-                 background-color: #E7BA48;
+                 background-color: white;
+                 border: 0.1vw solid $primary;
                  border-radius: 50px;
-                 border: none;
                  font-size: 1.2vw;
-                 color: white;
+                 color: $primary;
                  position: absolute;
                  bottom: 20%;
                  left: 75%;
@@ -125,6 +125,11 @@
                  display: flex;
                  align-items: center;
                  justify-content: center;
+
+                 &:hover {
+                     background-color: $primary;
+                     color: white;
+                 }
              }
          }
 
@@ -257,13 +262,18 @@
                  margin: 3vw 0 2vw;
                  height: 2.5vw;
                  width: 7vw;
-                 background-color: #E7BA48;
+                 background-color: white;
                  border-radius: 50px;
-                 border: none;
+                 border: 0.1vw solid $primary;
                  font-size: 1.2vw;
-                 color: white;
+                 color: $primary;
                  bottom: 20%;
                  padding: 0.7% 2.5%;
+
+                 &:hover {
+                     background-color: $primary;
+                     color: white;
+                 }
              }
 
              .container {
