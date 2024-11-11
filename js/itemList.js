@@ -45,23 +45,6 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             return acc;
         }, {});
 
-        // const groupedItems = userItemList.reduce((acc, item) => {
-        //     if (acc[item.ItemName]) {
-        //         acc[item.ItemName].Total += item.Quantity;
-        //         if (item.PrepareStatus === 1) {
-        //             acc[item.ItemName].Quantity += item.Quantity;
-        //         }
-        //     } else {
-        //         acc[item.ItemName] = {
-        //             ItemName: item.ItemName,
-        //             Total: item.Quantity,
-        //             Quantity: item.PrepareStatus === 1 ? item.Quantity : 0,
-        //             Icategory_id: item.Icategory_id
-        //         };
-        //     }
-        //     return acc;
-        // }, {});
-
         const logoMapping = {
             服飾類: '../assets/images/Budget_Item/Items/apparel.png',
             個人護理類: '../assets/images/Budget_Item/Items/self_care.png',
@@ -88,8 +71,9 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
         // ------------------ 渲染右方種類卡片 ------------------
         uniqueItems.forEach(item => renderCard(item));
+        console.log('更改後的uniqueItems', uniqueItems)
 
-        function renderCard(item) {
+        function renderCard(item, itemName) {
             const cardOut = document.createElement('div');
             cardOut.classList.add('col-md-4', 'col-4', 'mb-3', 'cardOut');
             const card = document.createElement('div');
@@ -115,6 +99,8 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
             // ------------------ 增加：物品細項 ------------------
             card.addEventListener('click', () => handleCardClick(item));
+
+            updateCardQuantity(itemName);
         }
 
         // Function：刪除種類的axios
@@ -155,11 +141,9 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
         // ------------------ 點擊右方種類卡後，細項部分的操作 ------------------
         // Function：物品細項相關功能，包括編輯更新、新增、刪除
-        function handleCardClick(item) {
+        function handleCardClick(item, itemName) {
             const clickedItemName = item.ItemName;
             const Icategory_id = item.Icategory_id;
-
-            saveCheckboxState();
 
             sessionStorage.setItem('selectedCardId', Icategory_id);
 
@@ -172,15 +156,13 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             const userItems = response.data.UseritemList.filter(i => i.ItemName === clickedItemName);
             userItems.forEach(selectedItem => renderDetailItem(selectedItem, categoryContainer, clickedItemName));
 
-            // 更新勾選框狀態和進度條
+            // 更新進度條
             updateProgress();
-            saveCheckboxState();
 
             // 其他功能，例如增加物品细項
             setupAddItemListener(Icategory_id, clickedItemName);
 
             // 加載編輯後的內容
-            // 加載當前類別的數據
             loadDetailsData(clickedItemName);
         }
 
@@ -218,6 +200,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                 event.stopPropagation(); // 防止事件冒泡
                 console.log('嘗試刪除項 ID:', itemListId);
                 deleteItem(itemListId);
+                updateCardQuantity(clickedItemName);
             });
 
             // 編輯細項勾選的click事件
@@ -226,7 +209,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                 // console.log('嘗試更新項:', clickedItemName);
                 updateData(detailElement, clickedItemName); // 調用更新的數據
                 updateProgress();
-                saveCheckboxState();
+                updateCardQuantity(clickedItemName);
             });
 
             // 編輯細項數量的click事件
@@ -286,7 +269,6 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
         function loadDetailsData(itemName) {
             axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                 .then(response => {
-                    console.log('aaaaaaaaaaa', response)
                     // console.log(response.data.UseritemList)
                     // console.log(itemName)
 
@@ -418,30 +400,56 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                 });
         }
 
+        // 在細項裡面調整數量、勾選及刪除，種類卡片的數量立即更新
         function updateCardQuantity(itemName) {
-            // 根據 ItemName 找到對應的卡片
-            const cardBody = document.querySelector(`.card-body[data-item-name="${itemName}"]`);
-            if (cardBody) {
-                // 查找該卡片內的 `<span>`，並更新數量
-                const quantitySpan = cardBody.querySelector('span:nth-child(2)');
-                if (quantitySpan) {
-                    // 重新計算並更新 Quantity 和 Total 顯示
-                    const item = uniqueItems.find(i => i.ItemName === itemName);
-                    if (item) {
-                        // 更新 Quantity 和 Total 的顯示
-                        quantitySpan.textContent = `${item.Quantity} / ${item.Total}`;
-                        // console.log('updateCardQuantity裡面的item', item);
-                    } else {
-                        console.log(`找不到 ItemName: ${itemName} 對應的項目`);
-                    }
-                }
-            } else {
-                console.log(`找不到 ItemName: ${itemName} 的卡片`);
-            }
+            setTimeout(() => { // 延遲取得更新後的資料，以免取到舊資料
+                axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
+                    .then(response => {
+                        const userItemList = response.data.UseritemList;
+
+                        // 處理數據
+                        const groupedItems = userItemList.reduce((acc, item) => {
+                            if (acc[item.ItemName]) {
+                                acc[item.ItemName].Total += item.Quantity;
+                                if (item.PrepareStatus === 1) {
+                                    acc[item.ItemName].Quantity += item.Quantity;
+                                }
+                                if (!acc[item.ItemName].ItemList_ids.includes(item.ItemList_id)) {
+                                    acc[item.ItemName].ItemList_ids.push(item.ItemList_id);
+                                }
+                            } else {
+                                acc[item.ItemName] = {
+                                    ItemName: item.ItemName,
+                                    Total: item.Quantity,
+                                    Quantity: item.PrepareStatus === 1 ? item.Quantity : 0,
+                                    Icategory_id: item.Icategory_id,
+                                    ItemList_ids: [item.ItemList_id]
+                                };
+                            }
+                            return acc;
+                        }, {});
+
+                        const uniqueItems = Object.values(groupedItems);
+
+                        const cardBody = document.querySelector(`.card-body[data-item-name="${itemName}"]`);
+                        if (cardBody) {
+                            const quantitySpan = cardBody.querySelector('span:nth-child(2)');
+                            if (quantitySpan) {
+                                const item = uniqueItems.find(i => i.ItemName === itemName);
+                                if (item) {
+                                    quantitySpan.textContent = `${item.Quantity} / ${item.Total}`;
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('更新數量失敗:', error);
+                    });
+            }, 100); // 延遲 100 毫秒後執行 axios 請求
         }
 
         // Function：刪除物品細項的axios
-        function deleteItem(itemListId) {
+        function deleteItem(itemListId, itemName, item) {
             if (confirm("您確定要刪除這個項目嗎？")) {
                 axios.delete(`http://localhost:8080/item/Useritem/${currentScheduleId}/${itemListId}`)
                     .then(response => {
@@ -471,7 +479,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             let checkedQuantity = 0;
 
             // 遍歷所有 checkbox，累加已勾選的項目數量
-            checkboxes.forEach((checkbox, index) => {
+            checkboxes.forEach((checkbox, index ) => {
                 const quantity = parseInt(quantities[index].value) || 0; // 確保數量是數字，若沒有則為 0
                 totalQuantity += quantity; // 累加總數量
                 if (checkbox.checked) {
@@ -487,43 +495,6 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             // 保存進度到 localStorage
             localStorage.setItem('progressPercentage', progressPercentage);
         }
-
-        // 恢復勾選框狀態
-        function restoreCheckboxState() {
-            const savedStates = JSON.parse(localStorage.getItem('checkboxStates'));
-            if (savedStates) {
-                Object.keys(savedStates).forEach(index => {
-                    const checkbox = document.querySelectorAll('.checkBOX')[index];
-                    if (checkbox) {
-                        checkbox.checked = savedStates[index];
-                    }
-                });
-            }
-        }
-
-        // 儲存勾選框狀態
-        function saveCheckboxState() {
-            const checkboxStates = {};
-            document.querySelectorAll('.checkBOX').forEach((checkbox, index) => {
-                checkboxStates[index] = checkbox.checked;
-            });
-            sessionStorage.setItem('checkboxStates', JSON.stringify(checkboxStates));
-        }
-
-        // 在頁面載入時恢復勾選框狀態
-        window.addEventListener('DOMContentLoaded', () => {
-            restoreCheckboxState();
-
-            const selectedCardId = sessionStorage.getItem('selectedCardId');
-            if (selectedCardId) {
-                const selectedCard = document.getElementById(`card-${selectedCardId}`);
-                if (selectedCard) {
-                    selectedCard.click(); // 觸發點擊事件，展開細項
-                }
-            }
-
-            updateProgress();
-        });
 
         // 取得現在位於哪個行程
         axios.get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)
