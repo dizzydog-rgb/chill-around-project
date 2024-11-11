@@ -8,11 +8,10 @@ const emailid = localStorage.getItem("emailid");
 //         window.location.href = 'index.html';
 //         // return;
 //     }
-// const emailid = localStorage.getItem('emailid');
 
 // localStorage.setItem("scheduleId", "2");
 const currentScheduleId = localStorage.getItem("scheduleId");
-console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);
+// console.log("皮卡：目前從 localStorage 取得 sch_id: ------- ", currentScheduleId);
 
 
 axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
@@ -24,16 +23,23 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
         // 迴圈生成種類卡片 // 分組 ItemName 並計算總量
         const groupedItems = userItemList.reduce((acc, item) => {
             if (acc[item.ItemName]) {
+                // 累加數量和總量
                 acc[item.ItemName].Total += item.Quantity;
                 if (item.PrepareStatus === 1) {
                     acc[item.ItemName].Quantity += item.Quantity;
                 }
+                // 把新的 ItemList_id 加入數組中
+                if (!acc[item.ItemName].ItemList_ids.includes(item.ItemList_id)) {
+                    acc[item.ItemName].ItemList_ids.push(item.ItemList_id);
+                }
             } else {
+                // 初始化該 ItemName 並把第一個 ItemList_id 放進數組
                 acc[item.ItemName] = {
                     ItemName: item.ItemName,
                     Total: item.Quantity,
                     Quantity: item.PrepareStatus === 1 ? item.Quantity : 0,
-                    Icategory_id: item.Icategory_id
+                    Icategory_id: item.Icategory_id, // 代表種類的 Icategory_id
+                    ItemList_ids: [item.ItemList_id] // 每個細項的 ItemList_id
                 };
             }
             return acc;
@@ -61,11 +67,13 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
         };
 
         const uniqueItems = Object.values(groupedItems);
+        console.log('原本抓的 uniqueItems', uniqueItems)
 
         // ------------------ 渲染右方種類卡片 ------------------
         uniqueItems.forEach(item => renderCard(item));
+        console.log('更改後的uniqueItems', uniqueItems)
 
-        function renderCard(item) {
+        function renderCard(item, itemName) {
             const cardOut = document.createElement('div');
             cardOut.classList.add('col-md-4', 'col-4', 'mb-3', 'cardOut');
             const card = document.createElement('div');
@@ -91,6 +99,8 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
             // ------------------ 增加：物品細項 ------------------
             card.addEventListener('click', () => handleCardClick(item));
+
+            updateCardQuantity(itemName);
         }
 
         // Function：刪除種類的axios
@@ -131,11 +141,9 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
         // ------------------ 點擊右方種類卡後，細項部分的操作 ------------------
         // Function：物品細項相關功能，包括編輯更新、新增、刪除
-        function handleCardClick(item) {
+        function handleCardClick(item, itemName) {
             const clickedItemName = item.ItemName;
             const Icategory_id = item.Icategory_id;
-
-            saveCheckboxState();
 
             sessionStorage.setItem('selectedCardId', Icategory_id);
 
@@ -148,15 +156,13 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             const userItems = response.data.UseritemList.filter(i => i.ItemName === clickedItemName);
             userItems.forEach(selectedItem => renderDetailItem(selectedItem, categoryContainer, clickedItemName));
 
-            // 更新勾選框狀態和進度條
+            // 更新進度條
             updateProgress();
-            saveCheckboxState();
 
             // 其他功能，例如增加物品细項
             setupAddItemListener(Icategory_id, clickedItemName);
 
             // 加載編輯後的內容
-            // 加載當前類別的數據
             loadDetailsData(clickedItemName);
         }
 
@@ -194,6 +200,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                 event.stopPropagation(); // 防止事件冒泡
                 console.log('嘗試刪除項 ID:', itemListId);
                 deleteItem(itemListId);
+                updateCardQuantity(clickedItemName);
             });
 
             // 編輯細項勾選的click事件
@@ -202,7 +209,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                 // console.log('嘗試更新項:', clickedItemName);
                 updateData(detailElement, clickedItemName); // 調用更新的數據
                 updateProgress();
-                saveCheckboxState();
+                updateCardQuantity(clickedItemName);
             });
 
             // 編輯細項數量的click事件
@@ -211,6 +218,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                 console.log('嘗試變更數量項:', quantityInput.value);
                 updateData(detailElement, clickedItemName); // 調用更新的數據
                 updateProgress();
+                updateCardQuantity(clickedItemName); // 同步更新卡片數量顯示
             });
 
             return detailElement;
@@ -219,6 +227,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
         // Function：更新物品細項的axios
         function updateData(detailElement, clickedItemName) {
             const itemListId = detailElement.getAttribute('data-item-list-id');
+
             if (!itemListId) {
                 console.error('無效的項目 ID，無法更新');
                 return;
@@ -226,10 +235,12 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
             const checkbox = detailElement.querySelector('.checkBOX');
             const quantityInput = detailElement.querySelector('.itemQuantity');
+            const newQuantity = parseInt(quantityInput.value, 10) || 0;
 
             const dataToSend = {
                 PrepareStatus: checkbox.checked ? 1 : 0,
-                Quantity: parseInt(quantityInput.value, 10) || 0,
+                // Quantity: parseInt(quantityInput.value, 10) || 0,
+                Quantity: newQuantity,
 
                 // 下面是使用者無法更新的資料
                 sch_id: currentScheduleId,
@@ -244,12 +255,10 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
             axios.put(`http://localhost:8080/item/Useritem/${currentScheduleId}`, dataToSend)
                 .then(response => {
-                    console.log('更新成功', response.data);
+                    // 確保從後端獲取的更新結果
+                    const updatedItem = response.data; // 假設返回的數據就是更新後的 item
+                    console.log('put 更新後的 成功訊息:', updatedItem);
 
-                    // 更新進度條
-                    updateProgress();
-
-                    loadDetailsData(clickedItemName);
                 })
                 .catch(error => {
                     console.error('更新失敗', error);
@@ -310,6 +319,7 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                         console.log('newItem 的完整內容:', JSON.stringify(newItem, null, 2)); // 顯示完整結構
 
                         const detailElement = renderDetailItem(newItem, categoryContainer, clickedItemName);
+
                         updateDataImmediately(detailElement, newItem, clickedItemName);
                         updateProgress();
                     })
@@ -323,11 +333,9 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
         // Function：新增物品細項後，立即更新資料的函數
         function updateDataImmediately(detailElement, newItem, clickedItemName) {
-            // 假設你已經有了 renderDetailItem 函數，並能正確處理新項目的資料
             // 確保正確綁定事件
             console.log('detailElement:', detailElement);
             console.log('Updating item with ID:', newItem.id);
-
 
             if (!detailElement) {
                 console.error('無法獲取細項元素，無法更新');
@@ -341,6 +349,30 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
                 console.error('無法獲取勾選框或數量輸入框，無法更新');
                 return;
             }
+
+            // 更新 uniqueItems 中的對應項目
+            const itemToUpdate = uniqueItems.find(i => i.ItemList_id === newItem.id);
+
+            // if (itemToUpdate) {
+            //     itemToUpdate.Quantity = parseInt(quantityInput.value, 10) || 0;
+            // }
+
+            if (itemToUpdate) {
+                // 更新數量
+                itemToUpdate.Quantity = parseInt(quantityInput.value, 10) || 0;
+
+                // 計算新的 PrepareStatus 和 Total
+                const newTotal = itemToUpdate.Quantity;
+                itemToUpdate.Total = newTotal;
+
+                // 更新 groupedItems 中該 ItemName 的數據
+                const groupedItem = groupedItems[itemToUpdate.ItemName];
+                if (groupedItem) {
+                    groupedItem.Total = groupedItem.Total - groupedItem.Quantity + itemToUpdate.Quantity;  // 更新總數
+                    groupedItem.Quantity = itemToUpdate.PrepareStatus === 1 ? itemToUpdate.Quantity : 0;  // 更新準備狀態下的數量
+                }
+            }
+            console.log('itemToUpdate', itemToUpdate)
 
             const dataToSend = {
                 PrepareStatus: checkbox.checked ? 1 : 0,
@@ -358,14 +390,66 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
             axios.put(`http://localhost:8080/item/Useritem/${currentScheduleId}`, dataToSend)
                 .then(response => {
                     console.log('更新成功', response.data);
+
+                    updateProgress(); // 更新進度條
+                    updateCardQuantity(newItem.ItemName); // 同步更新種類卡片內的數量
+                    loadDetailsData(clickedItemName); // 如果需要，重新加載類別的細項數據
                 })
                 .catch(error => {
                     console.error('更新失敗', error);
                 });
         }
 
+        // 在細項裡面調整數量、勾選及刪除，種類卡片的數量立即更新
+        function updateCardQuantity(itemName) {
+            setTimeout(() => { // 延遲取得更新後的資料，以免取到舊資料
+                axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
+                    .then(response => {
+                        const userItemList = response.data.UseritemList;
+
+                        // 處理數據
+                        const groupedItems = userItemList.reduce((acc, item) => {
+                            if (acc[item.ItemName]) {
+                                acc[item.ItemName].Total += item.Quantity;
+                                if (item.PrepareStatus === 1) {
+                                    acc[item.ItemName].Quantity += item.Quantity;
+                                }
+                                if (!acc[item.ItemName].ItemList_ids.includes(item.ItemList_id)) {
+                                    acc[item.ItemName].ItemList_ids.push(item.ItemList_id);
+                                }
+                            } else {
+                                acc[item.ItemName] = {
+                                    ItemName: item.ItemName,
+                                    Total: item.Quantity,
+                                    Quantity: item.PrepareStatus === 1 ? item.Quantity : 0,
+                                    Icategory_id: item.Icategory_id,
+                                    ItemList_ids: [item.ItemList_id]
+                                };
+                            }
+                            return acc;
+                        }, {});
+
+                        const uniqueItems = Object.values(groupedItems);
+
+                        const cardBody = document.querySelector(`.card-body[data-item-name="${itemName}"]`);
+                        if (cardBody) {
+                            const quantitySpan = cardBody.querySelector('span:nth-child(2)');
+                            if (quantitySpan) {
+                                const item = uniqueItems.find(i => i.ItemName === itemName);
+                                if (item) {
+                                    quantitySpan.textContent = `${item.Quantity} / ${item.Total}`;
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('更新數量失敗:', error);
+                    });
+            }, 100); // 延遲 100 毫秒後執行 axios 請求
+        }
+
         // Function：刪除物品細項的axios
-        function deleteItem(itemListId) {
+        function deleteItem(itemListId, itemName, item) {
             if (confirm("您確定要刪除這個項目嗎？")) {
                 axios.delete(`http://localhost:8080/item/Useritem/${currentScheduleId}/${itemListId}`)
                     .then(response => {
@@ -385,59 +469,32 @@ axios.get(`http://localhost:8080/item/Useritem/${currentScheduleId}`)
 
         // Function：進度條更新
         function updateProgress() {
-            // 更新進度邏輯
-            const progresscheckboxes = Array.from(document.querySelectorAll('.checkBOX'));
-            const totalCheckboxes = progresscheckboxes.length;
-            const checkedCount = progresscheckboxes.filter(checkbox => checkbox.checked).length;
+            // 取得所有 .checkBOX 和 .itemQuantity
+            const checkboxes = Array.from(document.querySelectorAll('.checkBOX'));
+            const quantities = Array.from(document.querySelectorAll('.itemQuantity'));
 
-            const progressPercentage = totalCheckboxes > 0 ? (checkedCount / totalCheckboxes) * 100 : 0;
+            // 總數量，初始值設為 0
+            let totalQuantity = 0;
+            // 已勾選的數量，初始值設為 0
+            let checkedQuantity = 0;
+
+            // 遍歷所有 checkbox，累加已勾選的項目數量
+            checkboxes.forEach((checkbox, index ) => {
+                const quantity = parseInt(quantities[index].value) || 0; // 確保數量是數字，若沒有則為 0
+                totalQuantity += quantity; // 累加總數量
+                if (checkbox.checked) {
+                    checkedQuantity += quantity; // 累加已勾選項目的數量
+                }
+            });
+
+            // 計算進度百分比
+            const progressPercentage = totalQuantity > 0 ? (checkedQuantity / totalQuantity) * 100 : 0;
             const progress = document.getElementById('progress-bar');
             progress.style.width = progressPercentage + '%';
 
             // 保存進度到 localStorage
             localStorage.setItem('progressPercentage', progressPercentage);
-
-
-            // ---------------------------
-
         }
-
-        // 恢復勾選框狀態
-        function restoreCheckboxState() {
-            const savedStates = JSON.parse(localStorage.getItem('checkboxStates'));
-            if (savedStates) {
-                Object.keys(savedStates).forEach(index => {
-                    const checkbox = document.querySelectorAll('.checkBOX')[index];
-                    if (checkbox) {
-                        checkbox.checked = savedStates[index];
-                    }
-                });
-            }
-        }
-
-        // 儲存勾選框狀態
-        function saveCheckboxState() {
-            const checkboxStates = {};
-            document.querySelectorAll('.checkBOX').forEach((checkbox, index) => {
-                checkboxStates[index] = checkbox.checked;
-            });
-            sessionStorage.setItem('checkboxStates', JSON.stringify(checkboxStates));
-        }
-
-        // 在頁面載入時恢復勾選框狀態
-        window.addEventListener('DOMContentLoaded', () => {
-            restoreCheckboxState();
-
-            const selectedCardId = sessionStorage.getItem('selectedCardId');
-            if (selectedCardId) {
-                const selectedCard = document.getElementById(`card-${selectedCardId}`);
-                if (selectedCard) {
-                    selectedCard.click(); // 觸發點擊事件，展開細項
-                }
-            }
-
-            updateProgress();
-        });
 
         // 取得現在位於哪個行程
         axios.get(`http://localhost:8080/buildPlan/editPlan/${currentScheduleId}`)

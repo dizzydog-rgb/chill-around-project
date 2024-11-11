@@ -14,7 +14,7 @@ axios.get('http://localhost:8080/Budget/popupbudget')
         const Categorydata = response.data.Category;
         const Detailsdata = response.data.Details;
 
-        // 若 modalContent2 的 '' 放在迴圈裡會每次都執行清空一次，只剩最後一個結果
+        // ！若 modalContent2 的 '' 放在迴圈裡會每次都執行清空一次，只剩最後一個結果
         const modalContent2 = document.querySelector('.modalContent2');
         modalContent2.innerHTML = '';
 
@@ -143,10 +143,10 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                             </div>
                     `;
 
-                    // ---------------------------------------------------- 綁定 value 並實現編輯 post
-                    console.log('原本的值', ParseUserChooseDiv.BudgetName)
+                    // ---------------------------------------------------- 綁定 value 實現編輯 post
+                    console.log('原本的BudgetName:', ParseUserChooseDiv.BudgetName)
 
-                    // 改變種類後種類框文字改變選染
+                    // Function: 改變種類後，種類框文字的渲染
                     function WhenUserChooseCategory() {
                         document.querySelector('.okBtn').addEventListener('click', () => {
                             const categoryModal = document.getElementById('modal2');
@@ -163,13 +163,13 @@ axios.get('http://localhost:8080/Budget/popupbudget')
                         });
                     };
 
-                    // 進去編輯選擇種類後，種類框文字改變
+                    // Click Event: 進去編輯選擇種類後，種類框文字改變
                     document.getElementById('open-modal2').addEventListener('click', () => {
                         openModal2();
                         WhenUserChooseCategory();
                     });
 
-                    // 綁定確認鍵製作編輯更新功能
+                    // Click Event: 確認鍵的編輯更新功能
                     document.querySelector('.submitBtn').addEventListener('click', () => {
                         const updateData = {
                             sch_id: currentScheduleId,

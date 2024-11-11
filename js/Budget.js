@@ -8,7 +8,6 @@ console.log("emailid:", emailid);
 //     alert("請先登入");
 //     window.location.href = 'index.html';
 // }
-// const emailid = localStorage.getItem('emailid');
 
 // localStorage.setItem("scheduleId", "3");
 const currentScheduleId = localStorage.getItem("scheduleId");
