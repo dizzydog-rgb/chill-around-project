@@ -1,4 +1,4 @@
-import"./all-B7fgtTnm.js";import{a as g}from"./axios-CCb-kr4I.js";const r=localStorage.getItem("scheduleId"),L=localStorage.getItem("Adding");console.log("有取到新增按鈕資料嗎",L);console.log("皮卡：目前從 localStorage 取得: ------- ",r);g.get("http://localhost:8080/Budget/popupbudget").then(a=>{const c=a.data.Category,h=a.data.Details,i=document.querySelector(".modalContent2");i.innerHTML="";const p=`
+import"./all-B4pR2l_1.js";import{a as g}from"./axios-CCb-kr4I.js";const r=localStorage.getItem("scheduleId"),L=localStorage.getItem("Adding");console.log("有取到新增按鈕資料嗎",L);console.log("皮卡：目前從 localStorage 取得: ------- ",r);g.get("http://localhost:8080/Budget/popupbudget").then(a=>{const c=a.data.Category,h=a.data.Details,i=document.querySelector(".modalContent2");i.innerHTML="";const p=`
             <div class="topDiv2">
                 <a class="close2" href="#"><</a>
                 <button class="okBtn">確認</button>
@@ -30,7 +30,7 @@ import"./all-B7fgtTnm.js";import{a as g}from"./axios-CCb-kr4I.js";const r=localS
                                 <span>付款人</span>
                                 <input id="userWhoPaid" type="text" placeholder="輸入付款人" required value="${d.WhoPay}"><br><br>
                             </div>
-                    `,console.log("原本的值",d.BudgetName);function f(){document.querySelector(".okBtn").addEventListener("click",()=>{document.getElementById("modal2"),n&&(u.innerHTML=`
+                    `,console.log("原本的BudgetName:",d.BudgetName);function f(){document.querySelector(".okBtn").addEventListener("click",()=>{document.getElementById("modal2"),n&&(u.innerHTML=`
                                 <a class="category" href="#modal2" id="open-modal2">${n.BudgetName}</a>
                                 <input class="date" id="userChooseDate" type="date" value="${o}"></input>
                                 <a href="./budget.html" class="close" onclick="closeModal()">X</a>

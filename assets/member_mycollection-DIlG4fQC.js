@@ -1,4 +1,4 @@
-import"./all-B7fgtTnm.js";/* empty css              */import"./main-8UblBU7c.js";import{a as f}from"./axios-CCb-kr4I.js";$(document).ready(function(){const r=localStorage.getItem("token");if(!r){alert("請先登入"),window.location.href="index.html";return}const p=new URLSearchParams(window.location.search);let a=parseInt(p.get("page"))||1;a<=0&&(a=1),f.get(`http://localhost:8080/member/myLikeSch/${a}`,{headers:{Authorization:`Bearer ${r}`}}).then(function(e){const b=e.data.data,s=e.data.lastPage;var n=`
+import"./all-B4pR2l_1.js";/* empty css              */import"./main-iims8NmK.js";import{a as f}from"./axios-CCb-kr4I.js";$(document).ready(function(){const r=localStorage.getItem("token");if(!r){alert("請先登入"),window.location.href="index.html";return}const p=new URLSearchParams(window.location.search);let a=parseInt(p.get("page"))||1;a<=0&&(a=1),f.get(`http://localhost:8080/member/myLikeSch/${a}`,{headers:{Authorization:`Bearer ${r}`}}).then(function(e){const b=e.data.data,s=e.data.lastPage;var n=`
                 <div class="text-end mb-3">
                     <a href="schInfo.html" class="btn btn-primary editbtn text-white">
                         新增收藏 <b>＋</b>
@@ -16,7 +16,7 @@ import"./all-B7fgtTnm.js";/* empty css              */import"./main-8UblBU7c.js"
                 <form>
                     <div class="mb-3">
                 `,b.forEach(t=>{let u=new Date(t.edit_date).toLocaleDateString("zh-TW",{year:"numeric",month:"2-digit",day:"2-digit"}).replace(/\//g,"-"),g=new Date(t.end_date).toLocaleDateString("zh-TW",{year:"numeric",month:"2-digit",day:"2-digit"}).replace(/\//g,"-");n+=`
-                        <div class="checkcard mb-5">
+                        <div class="checkcard animate__animated animate__zoomIn mb-5">
                             <label for="checkplan${t.sch_id}" class="checkbox">
                                 <input type="checkbox" name="checkplan" id="checkplan${t.sch_id}" value="${t.sch_id}">
                                 <span></span>

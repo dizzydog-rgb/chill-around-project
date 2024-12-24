@@ -1,4 +1,4 @@
-import"./all-B7fgtTnm.js";import"./main-8UblBU7c.js";$(document).ready(function(){if(!localStorage.getItem("token")){alert("請先登入"),window.location.href="index.html";return}var x=`
+import"./all-B4pR2l_1.js";import"./main-iims8NmK.js";$(document).ready(function(){if(!localStorage.getItem("token")){alert("請先登入"),window.location.href="index.html";return}var x=`
     <div class="Taiwanmap">
         <div id="contextMenu" class="contextMenu">
             <div class="row menuItem menuTitle">
