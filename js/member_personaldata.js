@@ -420,7 +420,7 @@ $(document).ready(function () {
                     $('#girl').prop('checked', true);
                 }
                 let input = $('.inpwrite');
-                input.css({ 'border': '1px solid #d2d2d2' }, { 'outline': 'solid thin' });
+                input.css({ 'border': '1px solid #d2d2d2' }, { 'outline': 'solid thin' }); // input 新增外框
                 input.prop('readonly', false); // 切換 readonly 屬性
                 datePicker = flatpickr("#birthday", {
                     dateFormat: "Y-m-d",
