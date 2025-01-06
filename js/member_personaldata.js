@@ -91,7 +91,7 @@ $(document).ready(function () {
                             <label class="col-form-label">性別：</label>
                             <input type="text" name="sex" id="sex" class="inpwrite" value="${member.sex}" readonly>
                             <div id="selectsex">
-                                <input class="col-form-label" type="radio" name="sex" id="boy" value="男">
+                                <input type="radio" name="sex" id="boy" value="男">
                                 <label class="col-form-label ms-1 me-2" for="boy">
                                     男
                                 </label>
