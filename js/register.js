@@ -24,6 +24,19 @@ $('#form').submit(function (e) {
         });
 });
 
+// Google 按鈕
+window.onload = function () {
+    google.accounts.id.initialize({
+        client_id: "745588392722-ldt3hokig9ll3mk6nekm1qmj9apnipo5.apps.googleusercontent.com",
+        callback: handleCallback
+    });
+    google.accounts.id.renderButton(
+        document.getElementById("googleSignInButton"),
+        { theme: 'filled_blue', size: 'medium', text: 'signin', width: "110" }
+    );
+    google.accounts.id.prompt();
+}
+
 // 以解碼的方式拿到使用者資料
 function parseJwt(token) {
     var base64Url = token.split('.')[1];
@@ -36,7 +49,7 @@ function parseJwt(token) {
 };
 
 // google 註冊會員
-window.handleCallback = function (response) {
+const handleCallback = (response) => {
     const data = parseJwt(response.credential);
 
     axios.post("http://localhost:8080/member/Googleregister", { data })
@@ -78,7 +91,6 @@ $(document).ready(async function () {
             if (response.data.token) {
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("emailid", response.data.emailid);
-                localStorage.setItem("Lineid", response.data.Lineid);
                 alert("Line 註冊成功！請更新會員資料。");
                 window.location.href = "member_personaldata.html";
             } else {

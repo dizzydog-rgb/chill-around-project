@@ -534,19 +534,15 @@ $(document).ready(function () {
             }
         });
 
-    $('#logoutbtn').click(function () {
+    const handleLogout = () => {
         if (confirm('您確定要登出嗎？')) {
             localStorage.removeItem('token');
             window.location.href = 'index.html';
         }
-    });
+    }
 
-    $('#logoutbtn1').click(function () {
-        if (confirm('您確定要登出嗎？')) {
-            localStorage.removeItem('token');
-            window.location.href = 'index.html';
-        }
-    });
+    // 綁定登出按鈕
+    $('#logoutbtn, #logoutbtn1').click(handleLogout);
 
     // 將表單數據轉換為 JSON 對象的函數
     // function serializeToJSON(data) {
