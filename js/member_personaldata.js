@@ -407,11 +407,11 @@ $(document).ready(function () {
                     $('#img').show();
                     var readFile = new FileReader();
                     readFile.readAsDataURL(this.files['0']);
-                    $('#img').val(`${this.files['0'].name}`);
+                    // $('#img').val(`${this.files['0'].name}`);
                     readFile.onload = function () {
                         $('#img').attr('src', readFile.result);
                     }
-                })
+                });
                 $('#sex').hide();
                 $('#selectsex').show();
                 if (member.sex === '男') {
